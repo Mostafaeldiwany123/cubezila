@@ -35,6 +35,8 @@
     --button-hover: rgba(41, 98, 255, 0.6);
     --stats-value: #2962ff;
     --font-family: 'Inconsolata', monospace;
+    --font-family-heading: 'Montserrat', sans-serif; /* New heading font */
+    --font-family-body: 'Poppins', sans-serif; /* New body font */
     --box-shadow: 0 8px 24px var(--shadow-color);
     --border-radius: 12px;
     --transition-duration: 0.3s;
@@ -469,7 +471,7 @@
     --login-border-color: #ff4136; /* Bright red login border */
     --login-gradient-primary: linear-gradient(135deg, #ff4136, #ff6b6b); /* Red login gradient */
     --login-gradient-secondary: linear-gradient(135deg, #39ff14, #ff4081); /* Green login gradient */
-    --login-box-shadow: 0 4px 6px rgba(255, 65, 54, 0.2); /* Red login shadow */
+    --login-box-shadow: 0 4px 6px rgba(255, 65, 54, 0.2);
     --img-select: #ff4136;
     --alg-border: #ff4136;
     --glow-box-shadow: 0 0 35px rgba(255, 65, 54, 0.9), 0 0 70px rgba(255, 65, 54, 0.6);
@@ -690,7 +692,7 @@
     -webkit-touch-callout: none;
     -webkit-user-select: none;
     user-select: none;
-    font-family: var(--font-family);
+    font-family: var(--font-family-body); /* Use new body font */
 }
 
 input, textarea {

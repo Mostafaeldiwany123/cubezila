@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/login.css">
     <link rel="stylesheet" href="../css/roots.css">
+    <!-- Cubing Icons -->
+    <link rel="stylesheet" href="https://cdn.cubing.net/v0/css/@cubing/icons/css">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GD9J5DTDPS"></script>
@@ -38,21 +40,26 @@
         </div>
     </header>
     <div class="main-content">
-        <div class="container">
-            <h2>Create Account</h2>
-            <div class="error-message" id="errorMessage"></div>
-            <form id="registerForm" class="form-container">
-                <input type="text" id="registerUsername" placeholder="Username" required>
-                <input type="email" id="registerEmail" placeholder="Email" required>
-                <input type="password" id="registerPassword" placeholder="Password" required>
-                <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
-                <button type="submit" id="registerButton">
-                    <span>Create Account</span>
-                </button>
-            </form>
-            <p class="register-link">
-                Already have an account? <a href="login.html">Login here</a>
-            </p>
+        <div class="auth-layout">
+            <div class="auth-form-container">
+                <h2>Create Account</h2>
+                <div class="error-message" id="errorMessage"></div>
+                <form id="registerForm" class="form-container">
+                    <input type="text" id="registerUsername" placeholder="Username" required>
+                    <input type="email" id="registerEmail" placeholder="Email" required>
+                    <input type="password" id="registerPassword" placeholder="Password" required>
+                    <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                    <button type="submit" id="registerButton">
+                        <span>Create Account</span>
+                    </button>
+                </form>
+                <p class="register-link">
+                    Already have an account? <a href="login.html">Login here</a>
+                </p>
+            </div>
+            <div class="auth-image-container">
+                <i class="cubing-icon event-333"></i>
+            </div>
         </div>
     </div>
     <!-- Firebase SDKs -->

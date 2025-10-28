@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/login.css">
     <link rel="stylesheet" href="../css/roots.css">
+    <!-- Cubing Icons -->
+    <link rel="stylesheet" href="https://cdn.cubing.net/v0/css/@cubing/icons/css">
 
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GD9J5DTDPS"></script>
@@ -38,23 +40,28 @@
         </div>
     </header>
     <div class="main-content">
-        <div class="container">
-            <h2>Welcome Back!</h2>
-            <div class="error-message" id="errorMessage"></div>
-            <form id="loginForm" class="form-container">
-                <input type="email" id="loginEmail" placeholder="Email" required>
-                <input type="password" id="loginPassword" placeholder="Password" required>
-                <button type="submit" id="loginButton">
-                    <span>Login</span>
+        <div class="auth-layout">
+            <div class="auth-form-container">
+                <h2>Welcome Back!</h2>
+                <div class="error-message" id="errorMessage"></div>
+                <form id="loginForm" class="form-container">
+                    <input type="email" id="loginEmail" placeholder="Email" required>
+                    <input type="password" id="loginPassword" placeholder="Password" required>
+                    <button type="submit" id="loginButton">
+                        <span>Login</span>
+                    </button>
+                </form>
+                <button id="googleSignInButton" class="form-container">
+                    <i class="fab fa-google"></i>
+                    <span>Sign in with Google</span>
                 </button>
-            </form>
-            <button id="googleSignInButton" class="form-container">
-                <i class="fab fa-google"></i>
-                <span>Sign in with Google</span>
-            </button>
-            <p class="register-link">
-                Don't have an account? <a href="register.html">Register here</a>
-            </p>
+                <p class="register-link">
+                    Don't have an account? <a href="register.html">Register here</a>
+                </p>
+            </div>
+            <div class="auth-image-container">
+                <i class="cubing-icon event-333"></i>
+            </div>
         </div>
     </div>
     <!-- Firebase SDKs -->

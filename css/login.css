@@ -5,7 +5,7 @@
 }
 
 body {
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--font-family-body); /* Use new body font */
     color: var(--login-text-color);
     background-color: var(--login-background-color);
     line-height: 1.6;
@@ -44,23 +44,57 @@ header {
     justify-content: center;
     align-items: center;
     padding: 2rem;
-    margin-top: 70px;
+    margin-top: 70px; /* Account for fixed header */
 }
 
-.container {
+.auth-layout {
+    display: flex;
     width: 100%;
-    max-width: 400px;
-    padding: 2.5rem;
+    max-width: 900px; /* Increased max-width for side-by-side */
     background-color: var(--container-bg);
     border-radius: var(--border-radius);
     box-shadow: var(--login-box-shadow);
+    overflow: hidden; /* Ensures rounded corners apply to children */
+}
+
+.auth-form-container {
+    flex: 1;
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.auth-image-container {
+    flex: 1;
+    background: var(--login-gradient-primary); /* Use a gradient for the background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 2.5rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-image-container .cubing-icon {
+    font-size: 15rem; /* Large icon */
+    color: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+    position: absolute;
+    animation: rotateCube 15s linear infinite; /* Add a subtle animation */
+}
+
+@keyframes rotateCube {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 .container h2 {
+    font-family: var(--font-family-heading); /* Use new heading font */
     color: var(--login-text-color);
-    font-size: 2rem;
+    font-size: 2.2rem; /* Slightly larger heading */
     margin-bottom: 2rem;
     text-align: center;
+    font-weight: 700;
 }
 
 .form-container {
@@ -78,12 +112,13 @@ header {
     background-color: var(--input-bg);
     color: var(--login-text-color);
     transition: var(--login-transition-smooth);
+    font-family: var(--font-family-body); /* Use new body font */
 }
 
 .form-container input:focus {
-    border-color: var(--login-accent-color);
+    border-color: var(--login-primary-color); /* Use primary color for focus */
     outline: none;
-    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.2);
+    box-shadow: 0 0 0 3px rgba(var(--login-primary-color-rgb), 0.2); /* Dynamic shadow color */
 }
 
 .form-container button {
@@ -97,6 +132,8 @@ header {
     font-weight: 600;
     cursor: pointer;
     transition: var(--login-transition-smooth);
+    font-family: var(--font-family-heading); /* Use heading font for buttons */
+    letter-spacing: 0.5px;
 }
 
 .form-container button:hover {
@@ -108,6 +145,7 @@ header {
     text-align: center;
     margin-top: 1.5rem;
     color: var(--login-text-light);
+    font-size: 0.95rem;
 }
 
 .register-link a {
@@ -193,10 +231,41 @@ header {
     .breadcrumb {
         font-size: 0.95rem;
     }
+    .auth-layout {
+        flex-direction: column; /* Stack vertically on smaller screens */
+        max-width: 400px;
+    }
+    .auth-image-container {
+        display: none; /* Hide image on small screens to save space */
+    }
+    .auth-form-container {
+        padding: 2rem;
+    }
+    .container h2 {
+        font-size: 1.8rem;
+    }
 }
 @media (max-width: 480px) {
     .breadcrumb {
         font-size: 0.92rem;
         padding-left: 0.2rem;
+    }
+    .main-content {
+        padding: 1rem;
+    }
+    .auth-form-container {
+        padding: 1.5rem;
+    }
+    .container h2 {
+        font-size: 1.6rem;
+        margin-bottom: 1.5rem;
+    }
+    .form-container input {
+        padding: 0.8rem;
+        margin-bottom: 1rem;
+    }
+    .form-container button {
+        padding: 0.9rem;
+        font-size: 1rem;
     }
 }
