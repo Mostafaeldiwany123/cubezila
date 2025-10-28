@@ -43,22 +43,51 @@
         <div class="auth-layout">
             <div class="auth-form-container">
                 <h2>Create Account</h2>
+                <p class="auth-description">Join CubeZila to unlock your full speedcubing potential. Create your account and start mastering the cube!</p>
                 <div class="error-message" id="errorMessage"></div>
                 <form id="registerForm" class="form-container">
-                    <input type="text" id="registerUsername" placeholder="Username" required>
-                    <input type="email" id="registerEmail" placeholder="Email" required>
-                    <input type="password" id="registerPassword" placeholder="Password" required>
-                    <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                    <div class="form-group">
+                        <label for="registerUsername">Full Name</label>
+                        <input type="text" id="registerUsername" placeholder="Enter your full name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerEmail">Email</label>
+                        <input type="email" id="registerEmail" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="registerPassword">Password</label>
+                        <input type="password" id="registerPassword" placeholder="Create a strong password" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                    </div>
                     <button type="submit" id="registerButton">
                         <span>Create Account</span>
                     </button>
                 </form>
+                <div class="or-divider"><span>or</span></div>
+                <button id="googleSignInButton" class="google-btn">
+                    <i class="fab fa-google"></i>
+                    <span>Sign up with Google</span>
+                </button>
                 <p class="register-link">
                     Already have an account? <a href="login.html">Login here</a>
                 </p>
             </div>
             <div class="auth-image-container">
-                <i class="cubing-icon event-333"></i>
+                <div class="right-panel-content">
+                    <h2>Master the Cube</h2>
+                    <p>Join thousands of cubers improving their times and learning new techniques with CubeZila.</p>
+                    <div class="feature-card-right">
+                        <div class="feature-card-dots">
+                            <div class="dot red"></div>
+                            <div class="dot yellow"></div>
+                            <div class="dot green"></div>
+                        </div>
+                        <p>Start tracking your solves and unlock your full potential today!</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

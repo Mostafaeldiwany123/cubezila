@@ -43,15 +43,23 @@
         <div class="auth-layout">
             <div class="auth-form-container">
                 <h2>Welcome Back!</h2>
+                <p class="auth-description">Log in to continue your speedcubing journey. Track your progress, learn new algorithms, and connect with the community.</p>
                 <div class="error-message" id="errorMessage"></div>
                 <form id="loginForm" class="form-container">
-                    <input type="email" id="loginEmail" placeholder="Email" required>
-                    <input type="password" id="loginPassword" placeholder="Password" required>
+                    <div class="form-group">
+                        <label for="loginEmail">Email</label>
+                        <input type="email" id="loginEmail" placeholder="Enter your email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="loginPassword">Password</label>
+                        <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                    </div>
                     <button type="submit" id="loginButton">
                         <span>Login</span>
                     </button>
                 </form>
-                <button id="googleSignInButton" class="form-container">
+                <div class="or-divider"><span>or</span></div>
+                <button id="googleSignInButton" class="google-btn">
                     <i class="fab fa-google"></i>
                     <span>Sign in with Google</span>
                 </button>
@@ -60,7 +68,18 @@
                 </p>
             </div>
             <div class="auth-image-container">
-                <i class="cubing-icon event-333"></i>
+                <div class="right-panel-content">
+                    <h2>Master the Cube</h2>
+                    <p>Join thousands of cubers improving their times and learning new techniques with CubeZila.</p>
+                    <div class="feature-card-right">
+                        <div class="feature-card-dots">
+                            <div class="dot red"></div>
+                            <div class="dot yellow"></div>
+                            <div class="dot green"></div>
+                        </div>
+                        <p>Start tracking your solves and unlock your full potential today!</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

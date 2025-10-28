@@ -65,60 +65,51 @@ header {
     justify-content: center;
 }
 
-.auth-image-container {
-    flex: 1;
-    background: var(--login-gradient-primary); /* Use a gradient for the background */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 2.5rem;
-    position: relative;
-    overflow: hidden;
-}
-
-.auth-image-container .cubing-icon {
-    font-size: 15rem; /* Large icon */
-    color: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
-    position: absolute;
-    animation: rotateCube 15s linear infinite; /* Add a subtle animation */
-}
-
-@keyframes rotateCube {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-.container h2 {
-    font-family: var(--font-family-heading); /* Use new heading font */
+.auth-form-container h2 {
+    font-family: var(--font-family-heading);
     color: var(--login-text-color);
-    font-size: 2.2rem; /* Slightly larger heading */
-    margin-bottom: 2rem;
-    text-align: center;
+    font-size: 2.2rem;
+    margin-bottom: 1rem; /* Reduced margin */
+    text-align: left; /* Align left as in image */
     font-weight: 700;
 }
 
-.form-container {
-    display: flex;
-    flex-direction: column;
+.auth-description {
+    color: var(--login-text-light);
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 2rem;
+    text-align: left; /* Align left as in image */
+}
+
+.form-group {
+    margin-bottom: 1.2rem;
+}
+
+.form-group label {
+    display: block;
+    color: var(--login-text-light);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
 }
 
 .form-container input {
     width: 100%;
     padding: 1rem;
-    margin-bottom: 1.2rem;
-    border: 2px solid var(--login-border-color);
-    border-radius: 10px;
+    border: 1px solid var(--login-border-color); /* Thinner border */
+    border-radius: 8px; /* Slightly smaller radius */
     font-size: 1rem;
     background-color: var(--input-bg);
     color: var(--login-text-color);
     transition: var(--login-transition-smooth);
-    font-family: var(--font-family-body); /* Use new body font */
+    font-family: var(--font-family-body);
 }
 
 .form-container input:focus {
-    border-color: var(--login-primary-color); /* Use primary color for focus */
+    border-color: var(--login-primary-color);
     outline: none;
-    box-shadow: 0 0 0 3px rgba(var(--login-primary-color-rgb), 0.2); /* Dynamic shadow color */
+    box-shadow: 0 0 0 3px rgba(var(--login-primary-color-rgb), 0.2);
 }
 
 .form-container button {
@@ -127,18 +118,72 @@ header {
     background: var(--login-gradient-primary);
     color: #ffffff;
     border: none;
-    border-radius: 10px;
+    border-radius: 8px; /* Slightly smaller radius */
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
     transition: var(--login-transition-smooth);
-    font-family: var(--font-family-heading); /* Use heading font for buttons */
+    font-family: var(--font-family-heading);
     letter-spacing: 0.5px;
+    margin-top: 1rem; /* Added margin top */
 }
 
 .form-container button:hover {
     transform: translateY(-2px);
     box-shadow: var(--login-box-shadow);
+}
+
+.or-divider {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 1.5rem 0;
+    color: var(--login-text-light);
+    font-size: 0.9rem;
+}
+
+.or-divider::before,
+.or-divider::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1px solid var(--login-border-color);
+}
+
+.or-divider:not(:empty)::before {
+    margin-right: .5em;
+}
+
+.or-divider:not(:empty)::after {
+    margin-left: .5em;
+}
+
+.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 1rem;
+    background-color: var(--container-bg); /* White background */
+    color: var(--login-text-color); /* Dark text */
+    border: 1px solid var(--login-border-color); /* Light border */
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--login-transition-smooth);
+    font-family: var(--font-family-body);
+    box-shadow: var(--login-box-shadow); /* Subtle shadow */
+}
+
+.google-btn:hover {
+    background-color: var(--highlight-bg); /* Light hover effect */
+    transform: translateY(-2px);
+    box-shadow: var(--login-box-shadow);
+}
+
+.google-btn i {
+    font-size: 1.2rem;
 }
 
 .register-link {
@@ -184,6 +229,77 @@ header {
     height: 100%;
     width: 0;
     transition: var(--login-transition-smooth);
+}
+
+/* Right side image container */
+.auth-image-container {
+    flex: 1;
+    background-color: #1a1a1a; /* Dark background for the right panel */
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 2.5rem;
+    text-align: center;
+    background-image: radial-gradient(circle at 1px 1px, var(--login-border-color) 1px, transparent 0);
+    background-size: 20px 20px; /* Subtle grid pattern */
+}
+
+.right-panel-content {
+    z-index: 1; /* Ensure content is above background pattern */
+    max-width: 350px;
+}
+
+.right-panel-content h2 {
+    font-family: var(--font-family-heading);
+    color: #ffffff; /* White text for contrast */
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 800;
+}
+
+.right-panel-content p {
+    color: var(--login-text-light);
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.feature-card-right {
+    background-color: var(--container-bg); /* Lighter background for the card */
+    border-radius: 10px;
+    padding: 1.5rem;
+    box-shadow: var(--login-box-shadow);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    color: var(--login-text-color);
+    text-align: left;
+}
+
+.feature-card-dots {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.dot.red { background-color: #e74c3c; }
+.dot.yellow { background-color: #f1c40f; }
+.dot.green { background-color: #2ecc71; }
+
+.feature-card-right p {
+    margin: 0;
+    font-size: 0.95rem;
+    color: var(--login-text-color);
 }
 
 /* Breadcrumb and header styles for auth pages to match alg-dash */
@@ -241,8 +357,12 @@ header {
     .auth-form-container {
         padding: 2rem;
     }
-    .container h2 {
+    .auth-form-container h2 {
         font-size: 1.8rem;
+        text-align: center;
+    }
+    .auth-description {
+        text-align: center;
     }
 }
 @media (max-width: 480px) {
@@ -256,7 +376,7 @@ header {
     .auth-form-container {
         padding: 1.5rem;
     }
-    .container h2 {
+    .auth-form-container h2 {
         font-size: 1.6rem;
         margin-bottom: 1.5rem;
     }
