@@ -47,18 +47,14 @@
                 <div class="card-content" style="position: relative;">
                     <div style="position: absolute; top: 1.5rem; right: 1.5rem; display: flex; gap: 0.5rem;"></div>
                     <div class="profile-header">
-               <div class="avatar" id="userAvatar">?</div>
+               <div class="avatar" id="userAvatar"></div> <!-- Changed to empty, will be filled by JS -->
                         <div class="profile-info">
                             <div class="profile-name">
                                 <span id="userName">Loading...</span>
                             </div>
                             <div class="profile-meta">
                                 <span id="userEmail">Loading...</span>
-                                <span id="userJoined" style="margin-left: 0.5rem;"></span>
-                            </div>
-                            <div class="profile-meta">
-                                <span id="userEmail"></span>
-                                <span id="userJoined" style="margin-left: 0.5rem;"></span>
+                                <span id="memberSince" style="margin-left: 0.5rem;"></span>
                             </div>
                             <div class="stats-grid">
                                 <div class="stat-item">
@@ -381,58 +377,13 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script> <!-- Added Firestore SDK -->
 <!-- Modular Firebase Scripts -->
 <script type="module" src="../js/firebase-config.js"></script>
 <script type="module" src="../js/user-service.js"></script>
 <script type="module" src="../js/auth-service.js"></script>
 <script type="module" src="../auth/auth.js"></script>
 <script type="module" src="profile-auth.js"></script>
-    <script>
-    // This script block is now redundant as profile-auth.js handles the auth state
-    // and updates the UI. Keeping it here for now, but it can be removed if profile-auth.js
-    // fully covers its functionality.
-    /*
-    firebase.auth().onAuthStateChanged(function(user) {
-        const userNameEl = document.getElementById('userName');
-        const userEmailEl = document.getElementById('userEmail');
-        const userAvatarEl = document.getElementById('userAvatar');
-        const userJoinedEl = document.getElementById('userJoined');
-        if (user) {
-            firebase.database().ref('users/' + user.uid).once('value').then(function(snapshot) {
-                const userData = snapshot.val();
-                // Name
-                const name = userData && userData.username ? userData.username : (user.email || 'No Name');
-                userNameEl.textContent = name;
-                // Email
-                userEmailEl.textContent = userData && userData.email ? userData.email : user.email || '';
-                // Avatar initials
-                let initials = '?';
-                if (name && typeof name === 'string') {
-                    const parts = name.trim().split(' ');
-                    if (parts.length >= 2) {
-                        initials = (parts[0][0] + parts[1][0]).toUpperCase();
-                    } else if (parts.length === 1) {
-                        initials = parts[0][0].toUpperCase();
-                    }
-                }
-                userAvatarEl.textContent = initials;
-                // Join date
-                if (userData && userData.createdAt) {
-                    const date = new Date(userData.createdAt);
-                    userJoinedEl.textContent = '• Joined ' + date.toLocaleDateString();
-                } else {
-                    userJoinedEl.textContent = '';
-                }
-            });
-        } else {
-            userNameEl.textContent = 'Guest';
-            userEmailEl.textContent = '';
-            userAvatarEl.textContent = '?';
-            userJoinedEl.textContent = '';
-        }
-    });
-    */
-    </script>
     <script>
 // --- Overview Tab Dynamic Loader ---
 function getSolvesInRange(daysAgo) {

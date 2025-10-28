@@ -19,12 +19,25 @@ onAuthStateChange((user) => {
 async function loadUserData(user) {
     // Update basic info
     document.getElementById('userEmail').textContent = user.email;
-    document.getElementById('memberSince').textContent = new Date(user.metadata.creationTime).toLocaleDateString();
+    document.getElementById('memberSince').textContent = user.metadata.creationTime ? new Date(user.metadata.creationTime).toLocaleDateString() : 'N/A';
 
     // Load user data from database (already attached to user object by onAuthStateChange)
     if (user.profile) {
         document.getElementById('userName').textContent = user.profile.username || user.displayName || 'Anonymous';
         document.getElementById('displayName').value = user.profile.username || '';
+
+        const userAvatarEl = document.getElementById('userAvatar');
+        if (userAvatarEl) {
+            const avatarSrc = user.photoURL || user.profile.photoURL;
+            if (avatarSrc) {
+                userAvatarEl.style.backgroundImage = `url('${avatarSrc}')`;
+                userAvatarEl.textContent = ''; // Clear initials if image is present
+            } else {
+                const initials = (user.profile.username || user.displayName || 'U').charAt(0).toUpperCase();
+                userAvatarEl.style.backgroundImage = 'none';
+                userAvatarEl.textContent = initials;
+            }
+        }
     }
 }
 

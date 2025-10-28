@@ -1,6 +1,15 @@
 import { registerWithEmailPassword, loginWithEmailPassword, signInWithGoogle, logoutUser, onAuthStateChange } from '../js/auth-service.js';
 import { getUserProfile } from '../js/user-service.js';
 
+// Helper to show error messages
+function showErrorMessage(message) {
+  const errorMessageElement = document.getElementById('errorMessage');
+  if (errorMessageElement) {
+    errorMessageElement.textContent = message;
+    errorMessageElement.style.display = 'block';
+  }
+}
+
 // Register form
 const registerForm = document.getElementById('registerForm');
 if (registerForm) {
@@ -12,16 +21,16 @@ if (registerForm) {
     const confirmPassword = document.getElementById('confirmPassword').value;
 
     if (password !== confirmPassword) {
-      alert("Passwords don't match");
+      showErrorMessage("Passwords don't match");
       return;
     }
 
     try {
       await registerWithEmailPassword(email, password, username);
       alert('Registration successful!');
-      window.location.href = '../index.html';
+      window.location.href = '../index.html'; // Redirect after successful registration
     } catch (error) {
-      alert(error.message);
+      showErrorMessage(error.message);
       console.error('Registration error:', error);
     }
   });
@@ -38,9 +47,9 @@ if (loginForm) {
     try {
       await loginWithEmailPassword(email, password);
       alert('Login successful!');
-      window.location.href = '../index.html';
+      window.location.href = '../index.html'; // Redirect after successful login
     } catch (error) {
-      alert(error.message);
+      showErrorMessage(error.message);
       console.error('Login error:', error);
     }
   });
@@ -53,9 +62,9 @@ if (googleSignInButton) {
     try {
       await signInWithGoogle();
       alert('Signed in with Google successfully!');
-      window.location.href = '../index.html';
+      window.location.href = '../index.html'; // Redirect after successful Google sign-in
     } catch (error) {
-      alert(error.message);
+      showErrorMessage(error.message);
       console.error('Google Sign-in error:', error);
     }
   });
@@ -83,36 +92,45 @@ window.logout = async function() {
 
 // Update UI based on auth state
 function updateUIForAuthState(user) {
-  const loginLink = document.getElementById('loginLink');
-  const registerLink = document.getElementById('registerLink');
-  const logoutLink = document.getElementById('logoutLink');
-  const usernameDisplay = document.getElementById('usernameDisplay');
-  const userAvatar = document.getElementById('userAvatar'); // Assuming this exists for the main header
+  const guestContent = document.getElementById('guest-content');
+  const userContent = document.getElementById('user-content');
+  const sidebarGuestContent = document.getElementById('sidebar-guest-content');
+  const sidebarUserContent = document.getElementById('sidebar-user-content');
+  const userNameDisplay = document.getElementById('userName');
+  const userAvatar = document.getElementById('userAvatar');
 
   if (user && user.profile) {
     // User is signed in
-    if (loginLink) loginLink.style.display = 'none';
-    if (registerLink) registerLink.style.display = 'none';
-    if (logoutLink) logoutLink.style.display = 'block';
+    if (guestContent) guestContent.style.display = 'none';
+    if (userContent) userContent.style.display = 'flex'; // Use flex to align items
+    if (sidebarGuestContent) sidebarGuestContent.style.display = 'none';
+    if (sidebarUserContent) sidebarUserContent.style.display = 'block';
 
-    if (usernameDisplay) {
-      usernameDisplay.textContent = 'Welcome, ' + user.profile.username;
-      usernameDisplay.style.display = 'block';
+    if (userNameDisplay) {
+      userNameDisplay.textContent = user.profile.username || user.displayName || 'User';
     }
     if (userAvatar) {
-        // For now, just show initials or a default image
-        const initials = user.profile.username ? user.profile.username.charAt(0).toUpperCase() : '?';
-        userAvatar.src = `https://via.placeholder.com/32/007bff/ffffff?text=${initials}`; // Placeholder with initials
-        userAvatar.alt = user.profile.username;
+        // Prioritize Google photoURL, then Firestore profile photoURL, then initials
+        const avatarSrc = user.photoURL || user.profile.photoURL;
+        if (avatarSrc) {
+            userAvatar.src = avatarSrc;
+            userAvatar.alt = user.profile.username || user.displayName || 'User Profile';
+        } else {
+            const initials = (user.profile.username || user.displayName || 'U').charAt(0).toUpperCase();
+            userAvatar.src = `https://via.placeholder.com/32/007bff/ffffff?text=${initials}`; // Placeholder with initials
+            userAvatar.alt = user.profile.username || user.displayName || 'User Profile';
+        }
     }
   } else {
     // User is signed out
-    if (loginLink) loginLink.style.display = 'block';
-    if (registerLink) registerLink.style.display = 'block';
-    if (logoutLink) logoutLink.style.display = 'none';
-    if (usernameDisplay) usernameDisplay.style.display = 'none';
+    if (guestContent) guestContent.style.display = 'flex'; // Use flex
+    if (userContent) userContent.style.display = 'none';
+    if (sidebarGuestContent) sidebarGuestContent.style.display = 'block';
+    if (sidebarUserContent) sidebarUserContent.style.display = 'none';
+
+    if (userNameDisplay) userNameDisplay.textContent = 'User'; // Reset to default
     if (userAvatar) {
-        userAvatar.src = 'img/noprof.png'; // Default image
+        userAvatar.src = '../img/noprof.png'; // Default image
         userAvatar.alt = 'Profile';
     }
   }
@@ -123,6 +141,3 @@ onAuthStateChange((user) => {
   updateUIForAuthState(user);
   // Additional UI updates for specific pages can be handled here or in page-specific scripts
 });
-
-// No need for cookie utilities anymore, Firebase handles session management.
-// Removed WCA ID related functions as per request.

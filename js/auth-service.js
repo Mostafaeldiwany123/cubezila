@@ -11,7 +11,7 @@ import { createUserProfile, getUserProfile } from './user-service.js';
 export async function registerWithEmailPassword(email, password, username) {
   const userCredential = await auth.createUserWithEmailAndPassword(email, password);
   const user = userCredential.user;
-  const userProfile = await createUserProfile(user.uid, username, email, 'free_user', '0');
+  const userProfile = await createUserProfile(user.uid, username, email, 'free_user', '0', user.photoURL);
   return { user, userProfile };
 }
 
@@ -36,7 +36,7 @@ export async function signInWithGoogle() {
   // Check if user profile exists, if not, create it
   const userProfile = await getUserProfile(user.uid);
   if (!userProfile) {
-    await createUserProfile(user.uid, user.displayName || user.email.split('@')[0], user.email, 'free_user', '0');
+    await createUserProfile(user.uid, user.displayName || user.email.split('@')[0], user.email, 'free_user', '0', user.photoURL);
   }
   return userCredential;
 }
@@ -57,7 +57,8 @@ export function onAuthStateChange(callback) {
   auth.onAuthStateChanged(async (user) => {
     if (user) {
       const userProfile = await getUserProfile(user.uid);
-      callback({ ...user, profile: userProfile }); // Attach profile to user object
+      // Combine Firebase Auth user object with Firestore profile data
+      callback({ ...user, profile: userProfile });
     } else {
       callback(null);
     }

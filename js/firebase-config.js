@@ -1,18 +1,18 @@
 // Firebase configuration (replace with your actual project config)
-  const firebaseConfig = {
-    apiKey: "AIzaSyA2ZiQatq3ItYAAtqKMs8xfLm7D2P3E2NE",
-    authDomain: "cube-house.firebaseapp.com",
-    projectId: "cube-house",
-    storageBucket: "cube-house.firebasestorage.app",
-    messagingSenderId: "762132214545",
-    appId: "1:762132214545:web:1faef4f3c412ef7acc52b0",
-    measurementId: "G-Q5CZ3J3Q6Q"
-  };
+const firebaseConfig = {
+  apiKey: "YOUR_NEW_API_KEY", // IMPORTANT: Replace with your actual Firebase API Key
+  authDomain: "your-project-id.firebaseapp.com",
+  projectId: "your-project-id",
+  storageBucket: "your-project-id.appspot.com",
+  messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+  appId: "YOUR_APP_ID",
+  measurementId: "YOUR_MEASUREMENT_ID"
+};
 
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
 // Export Firebase services
 export const auth = firebase.auth();
-export const database = firebase.database();
+export const firestore = firebase.firestore(); // Initialize and export Firestore
 export const googleProvider = new firebase.auth.GoogleAuthProvider();
