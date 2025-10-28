@@ -14,34 +14,7 @@
             background-color: var(--home-background-color);
         }
 
-        .site-header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 70px;
-            padding: 0 8%;
-            background: var(--container-bg);
-            box-shadow: var(--box-shadow);
-            z-index: 1000;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(10px);
-        }
-
-        .site-header .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--primary-color);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.8rem;
-            transition: transform 0.3s ease;
-        }
-
+        
         .site-header .logo img {
             width: 38px;
             height: 38px;
