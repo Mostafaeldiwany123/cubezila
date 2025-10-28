@@ -1,33 +1,29 @@
+import { auth } from '../js/firebase-config.js';
+import { getUserProfile } from '../js/user-service.js';
+import { onAuthStateChange } from '../js/auth-service.js';
+
 // Pro user effects for timer
 document.addEventListener('DOMContentLoaded', () => {
-    // ONLY check Firebase, never trust localStorage
-    firebase.auth().onAuthStateChanged((user) => {
-        if (user) {
-            // Set up a continuous listener for role changes
-            const roleRef = firebase.database().ref('users/' + user.uid + '/role');
-            roleRef.on('value', (snapshot) => {
-                const userRole = snapshot.val();
-                // Update localStorage (but never trust it for verification)
-                localStorage.setItem('userRole', userRole);
-                
-                if (userRole === 'pro_user' || userRole === 'admin') {
-                    applyProEffects();
-                    enableProFeatures();
-                    // Check if welcome message has been shown before in this session
-                    const hasSeenWelcome = sessionStorage.getItem('hasSeenWelcome');
-                    if (!hasSeenWelcome) {
-                        showWelcomeMessage(userRole);
-                        sessionStorage.setItem('hasSeenWelcome', 'true');
-                    }
-                } else {
-                    // If not pro/admin, disable pro features
-                    disableProFeatures();
+    onAuthStateChange(async (user) => {
+        if (user && user.profile) {
+            const userRole = user.profile.role;
+            
+            if (userRole === 'pro_user' || userRole === 'admin') {
+                applyProEffects();
+                enableProFeatures();
+                // Check if welcome message has been shown before in this session
+                const hasSeenWelcome = sessionStorage.getItem('hasSeenWelcome');
+                if (!hasSeenWelcome) {
+                    showWelcomeMessage(userRole);
+                    sessionStorage.setItem('hasSeenWelcome', 'true');
                 }
-            });
+            } else {
+                // If not pro/admin, disable pro features
+                disableProFeatures();
+            }
         } else {
             // No user logged in, disable pro features
             disableProFeatures();
-            localStorage.removeItem('userRole');
         }
     });
 });
@@ -38,9 +34,12 @@ function applyProEffects() {
         timerDisplay.classList.add('pro-timer');
         
         // Add glow effect
-        const glowDiv = document.createElement('div');
-        glowDiv.className = 'timer-glow';
-        timerDisplay.parentElement.appendChild(glowDiv);
+        let glowDiv = timerDisplay.parentElement.querySelector('.timer-glow');
+        if (!glowDiv) { // Only create if it doesn't exist
+            glowDiv = document.createElement('div');
+            glowDiv.className = 'timer-glow';
+            timerDisplay.parentElement.appendChild(glowDiv);
+        }
     }
 }
 
@@ -138,6 +137,12 @@ function disableProFeatures() {
     if (inspectionTime) {
         inspectionTime.disabled = true;
         inspectionTime.classList.add('pro-feature');
+        // Add lock icon if not present
+        if (!inspectionTime.parentElement.querySelector('.pro-lock')) {
+            const lockIcon = document.createElement('i');
+            lockIcon.className = 'fas fa-lock pro-lock';
+            inspectionTime.parentElement.appendChild(lockIcon);
+        }
     }
 
     // Disable multi-phase timing
@@ -145,6 +150,11 @@ function disableProFeatures() {
     if (multiPhase) {
         multiPhase.disabled = true;
         multiPhase.classList.add('pro-feature');
+        if (!multiPhase.parentElement.querySelector('.pro-lock')) {
+            const lockIcon = document.createElement('i');
+            lockIcon.className = 'fas fa-lock pro-lock';
+            multiPhase.parentElement.appendChild(lockIcon);
+        }
     }
 
     // Disable highlight best time
@@ -152,6 +162,11 @@ function disableProFeatures() {
     if (highlightBest) {
         highlightBest.disabled = true;
         highlightBest.classList.add('pro-feature');
+        if (!highlightBest.parentElement.querySelector('.pro-lock')) {
+            const lockIcon = document.createElement('i');
+            lockIcon.className = 'fas fa-lock pro-lock';
+            highlightBest.parentElement.appendChild(lockIcon);
+        }
     }
 
     // Disable sound effects
@@ -159,6 +174,11 @@ function disableProFeatures() {
     if (soundEffects) {
         soundEffects.disabled = true;
         soundEffects.classList.add('pro-feature');
+        if (!soundEffects.parentElement.querySelector('.pro-lock')) {
+            const lockIcon = document.createElement('i');
+            lockIcon.className = 'fas fa-lock pro-lock';
+            soundEffects.parentElement.appendChild(lockIcon);
+        }
     }
 
     // Disable pro voices
@@ -170,6 +190,28 @@ function disableProFeatures() {
         if (controls) {
             const playIcon = controls.querySelector('.preview-icon');
             if (playIcon) playIcon.onclick = null;
+            // Add lock icon if not present
+            if (!controls.querySelector('.pro-icon')) {
+                const proIcon = document.createElement('i');
+                proIcon.className = 'fas fa-lock pro-icon';
+                controls.appendChild(proIcon);
+            }
+        }
+    });
+
+    // Disable pro themes
+    const proThemes = ['neon', 'blue', 'green', 'red', 'golden', 'kids', 'lightblue'];
+    proThemes.forEach(theme => {
+        const themeLink = document.querySelector(`.premium-theme[data-theme="${theme}"]`);
+        if (themeLink) {
+            themeLink.classList.add('locked');
+            themeLink.removeAttribute('onclick');
+            // Add lock icon if not present
+            if (!themeLink.querySelector('.fa-lock')) {
+                const lockIcon = document.createElement('i');
+                lockIcon.className = 'fas fa-lock';
+                themeLink.appendChild(lockIcon);
+            }
         }
     });
 
@@ -178,6 +220,11 @@ function disableProFeatures() {
     if (crossSolver) {
         crossSolver.disabled = true;
         crossSolver.classList.add('pro-feature');
+        if (!crossSolver.parentElement.querySelector('.pro-lock')) {
+            const lockIcon = document.createElement('i');
+            lockIcon.className = 'fas fa-lock pro-lock';
+            crossSolver.parentElement.appendChild(lockIcon);
+        }
     }
 }
 

@@ -1,5 +1,4 @@
- 
-       // Mobile Sidebar Implementation
+// Mobile Sidebar Implementation
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const mobileSidebar = document.getElementById('mobileSidebar');
         const sidebarClose = document.getElementById('sidebarClose');
@@ -154,35 +153,10 @@
         const savedTheme = localStorage.getItem('theme') || 'light';
         document.documentElement.setAttribute('data-theme', savedTheme);
 
-        // Initialize auth state listener
-        firebase.auth().onAuthStateChanged((user) => {
-            if (user) {
-                document.getElementById('guest-content').style.display = 'none';
-                document.getElementById('user-content').style.display = 'block';
-                document.getElementById('sidebar-guest-content').style.display = 'none';
-                document.getElementById('sidebar-user-content').style.display = 'block';
-                
-                // Fetch user data
-                firebase.database().ref('users/' + user.uid).once('value')
-                    .then((snapshot) => {
-                        const userData = snapshot.val();
-                        if (userData) {
-                            document.getElementById('userName').textContent = userData.username;
-                            
-                            // Check for WCA profile
-                            if (userData.wcaId) {
-                                const wcaImageUrl = `https://www.worldcubeassociation.org/uploads/user/${userData.wcaId}.jpg`;
-                                document.getElementById('userAvatar').src = wcaImageUrl;
-                            }
-                        }
-                    });
-            } else {
-                document.getElementById('guest-content').style.display = 'block';
-                document.getElementById('user-content').style.display = 'none';
-                document.getElementById('sidebar-guest-content').style.display = 'block';
-                document.getElementById('sidebar-user-content').style.display = 'none';
-            }
-        });
+        // The Firebase auth listener is now handled by auth/auth.js
+        // and will update the UI elements with IDs 'guest-content', 'user-content',
+        // 'sidebar-guest-content', 'sidebar-user-content', 'userName', 'userAvatar'.
+        // No need for a separate listener here.
 
         // Add floating animation to some elements
         document.querySelectorAll('.card-icon').forEach(icon => {
