@@ -168,28 +168,29 @@
         let currentCase = cases[0];
        
 
-        function generatePuzzleImage(scramble, container) {
-    const isPracticeImage = container.id === 'caseImage';
-    
-    const options = {
-        width: container.clientWidth * 2,
-        height: container.clientHeight * 2,
-        puzzle: {
-            scheme: colorSchemes[currentColorScheme],
-            size: 3,
-            alg: scramble,
-            mask: puzzleGen.Masks.CUBE_3.OLL
-        }
-    };
 
-    try {
-        container.innerHTML = '';
-        puzzleGen.PNG(container, 'cube-top', options);
+        function generatePuzzleImage(scramble, container) {
+        const isPracticeImage = container.id === 'caseImage';
         
-      } catch (error) {
+        const options = {
+            width: container.clientWidth * 2,
+            height: container.clientHeight * 2,
+            puzzle: {
+                scheme: colorSchemes[currentColorScheme],
+                size: 3,
+                alg: scramble,
+                mask: puzzleGen.Masks.CUBE_3.ZBLL
+            }
+        };
+    
+        try {
+            container.innerHTML = '';
+            puzzleGen.PNG(container, 'cube-top', options);
+            
+        } catch (error) {
         console.error('Error generating case image:', error);
     }
-}
+    }
       </script>
 </body>
 </html>
