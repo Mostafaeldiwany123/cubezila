@@ -133,13 +133,6 @@ function updateUIForAuthState(user) {
     if (sidebarGuestContent) sidebarGuestContent.style.display = 'block';
     if (sidebarUserContent) sidebarUserContent.style.display = 'none';
 
-    if (userNameDisplay) userNameDisplay.textContent = 'User'; // Reset to default
-    if (userAvatar) {
-        userAvatar.src = '/img/noprof.png'; // Default image with root-relative path
-        userAvatar.alt = 'Profile';
-    }
-    // Remove from localStorage
-    localStorage.removeItem('user_profile');
   }
 }
 
