@@ -1,36 +1,28 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Mobile Menu Toggle
     const mobileMenuBtn = document.getElementById('mobileMenuBtn');
     const mobileSidebar = document.getElementById('mobileSidebar');
-    const sidebarClose = document.getElementById('sidebarClose');
     const sidebarOverlay = document.getElementById('sidebarOverlay');
-    const navLinks = document.querySelectorAll('.sidebar-link');
-    const dropdownToggle = document.querySelector('.dropdown-toggle');
-    const dropdown = document.querySelector('.dropdown');
+    const sidebarClose = document.getElementById('sidebarClose');
 
-    // Function to toggle sidebar
     const toggleSidebar = () => {
         mobileSidebar.classList.toggle('active');
         sidebarOverlay.classList.toggle('active');
-        document.body.classList.toggle('no-scroll');
     };
 
-    // Mobile menu open
     if (mobileMenuBtn) {
         mobileMenuBtn.addEventListener('click', toggleSidebar);
     }
-
-    // Mobile menu close
+    if (sidebarOverlay) {
+        sidebarOverlay.addEventListener('click', toggleSidebar);
+    }
     if (sidebarClose) {
         sidebarClose.addEventListener('click', toggleSidebar);
     }
 
-    // Close sidebar when overlay is clicked
-    if (sidebarOverlay) {
-        sidebarOverlay.addEventListener('click', toggleSidebar);
-    }
-
     // Close sidebar when a link is clicked
-    navLinks.forEach(link => {
+    const sidebarLinks = document.querySelectorAll('.sidebar-link');
+    sidebarLinks.forEach(link => {
         link.addEventListener('click', () => {
             if (mobileSidebar.classList.contains('active')) {
                 toggleSidebar();
@@ -38,17 +30,24 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Dropdown toggle for user profile
-    if (dropdownToggle && dropdown) {
-        dropdownToggle.addEventListener('click', () => {
-            dropdown.classList.toggle('active');
-        });
-    }
+    // User Profile Dropdown
+    const userContent = document.getElementById('user-content');
+    if (userContent) {
+        const dropdown = userContent.querySelector('.dropdown');
+        const dropdownToggle = userContent.querySelector('.dropdown-toggle');
 
-    // Close dropdown when clicking outside
-    document.addEventListener('click', (event) => {
-        if (dropdown && !dropdown.contains(event.target) && !dropdownToggle.contains(event.target)) {
-            dropdown.classList.remove('active');
+        if (dropdown && dropdownToggle) {
+            dropdownToggle.addEventListener('click', (e) => {
+                e.stopPropagation(); // Prevent click from bubbling up to document
+                dropdown.classList.toggle('active');
+            });
+
+            // Close dropdown if clicked outside
+            document.addEventListener('click', (e) => {
+                if (dropdown.classList.contains('active') && !dropdown.contains(e.target)) {
+                    dropdown.classList.remove('active');
+                }
+            });
         }
-    });
+    }
 });
