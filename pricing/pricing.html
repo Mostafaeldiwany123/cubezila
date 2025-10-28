@@ -24,7 +24,7 @@
     <link rel="stylesheet" href="../css/pricing.css">
     <link rel="stylesheet" href="../css/roots.css">
     <link rel="icon" type="image/png" href="../img/demo (2).png">
-    <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <title>Cubezilla - Pricing</title>
 </head>
@@ -37,31 +37,34 @@
             <span>Pricing</span>
         </nav>
     </header>
+
     <div class="pricing-container">
         <div class="pricing-header">
             <h1>Choose Your Plan</h1>
-            <p>Unlock advanced features and take your cubing to the next level</p>
+            <p>Unlock advanced features and take your cubing to the next level.</p>
             <div class="tabs">
                 <button class="tab active" onclick="showPricing('monthly')">Monthly</button>
                 <button class="tab" onclick="showPricing('yearly')">Yearly</button>
             </div>
         </div>
 
+        <!-- Monthly Pricing -->
         <div class="pricing-cards" id="monthly">
             <div class="pricing-card free">
                 <div class="card-header">
                     <h3>Free</h3>
                     <div class="price">0 EGP<span>/month</span></div>
+                    <p class="card-description">For casual cubers getting started.</p>
                 </div>
-                <div class="features">
-                    <div class="feature"><i class="fas fa-check"></i> Basic Timer</div>
-                    <div class="feature"><i class="fas fa-check"></i> Standard Scrambles</div>
-                    <div class="feature"><i class="fas fa-check"></i> Basic Statistics</div>
-                    <div class="feature disabled"><i class="fas fa-times"></i> Advanced Analytics</div>
-                    <div class="feature disabled"><i class="fas fa-times"></i> Custom Themes</div>
-                    <div class="feature disabled"><i class="fas fa-times"></i> Things in pro</div>
-                </div>
-                <button class="select-plan" onclick="selectPlan('free')">Current Plan</button>
+                <ul class="features">
+                    <li class="feature"><i class="fas fa-check"></i> Basic Timer & Scrambles</li>
+                    <li class="feature"><i class="fas fa-check"></i> Basic Statistics</li>
+                    <li class="feature"><i class="fas fa-check"></i> Limited Algorithm Sets</li>
+                    <li class="feature disabled"><i class="fas fa-times"></i> Advanced Analytics</li>
+                    <li class="feature disabled"><i class="fas fa-times"></i> Premium Themes & Voices</li>
+                    <li class="feature disabled"><i class="fas fa-times"></i> Cross Solver & Trainers</li>
+                </ul>
+                <button class="select-plan free-btn" disabled>Current Plan</button>
             </div>
 
             <div class="pricing-card pro">
@@ -69,34 +72,37 @@
                 <div class="card-header">
                     <h3>Pro</h3>
                     <div class="price">80 EGP<span>/month</span></div>
+                    <p class="card-description">For dedicated cubers aiming for the top.</p>
                 </div>
-                <div class="features">
-                    <div class="feature"><i class="fas fa-check"></i> Everything not in free</div>
-                    <div class="feature"><i class="fas fa-check"></i> cross solver</div>
-                    <div class="feature"><i class="fas fa-check"></i> Advanced Tools</div>
-                    <div class="feature"><i class="fas fa-check"></i> Advanced statistics</div>
-                    <div class="feature"><i class="fas fa-check"></i> cfop trainer</div>
-                    <div class="feature"><i class="fas fa-check"></i> 10% off online competitions</div>
-                </div>
+                <ul class="features">
+                    <li class="feature"><i class="fas fa-check"></i> Everything in Free, plus:</li>
+                    <li class="feature"><i class="fas fa-check"></i> Advanced Analytics & Insights</li>
+                    <li class="feature"><i class="fas fa-check"></i> All Premium Themes & Voices</li>
+                    <li class="feature"><i class="fas fa-check"></i> Cross Solver & CFOP Trainers</li>
+                    <li class="feature"><i class="fas fa-check"></i> Multi-phase Timing</li>
+                    <li class="feature"><i class="fas fa-check"></i> 10% Off Competition Entry</li>
+                </ul>
                 <button class="select-plan pro-btn" onclick="selectPlan('monthly')">Get Pro</button>
             </div>
         </div>
 
+        <!-- Yearly Pricing -->
         <div class="pricing-cards" id="yearly" style="display: none;">
             <div class="pricing-card free">
                 <div class="card-header">
                     <h3>Free</h3>
                     <div class="price">0 EGP<span>/year</span></div>
+                    <p class="card-description">For casual cubers getting started.</p>
                 </div>
-                <div class="features">
-                    <div class="feature"><i class="fas fa-check"></i> Basic Timer</div>
-                    <div class="feature"><i class="fas fa-check"></i> Standard Scrambles</div>
-                    <div class="feature"><i class="fas fa-check"></i> Basic Statistics</div>
-                    <div class="feature disabled"><i class="fas fa-times"></i> Advanced Analytics</div>
-                    <div class="feature disabled"><i class="fas fa-times"></i> Custom Themes</div>
-                    <div class="feature disabled"><i class="fas fa-times"></i> Things in pro</div>
-                </div>
-                <button class="select-plan" onclick="selectPlan('free')">Current Plan</button>
+                <ul class="features">
+                    <li class="feature"><i class="fas fa-check"></i> Basic Timer & Scrambles</li>
+                    <li class="feature"><i class="fas fa-check"></i> Basic Statistics</li>
+                    <li class="feature"><i class="fas fa-check"></i> Limited Algorithm Sets</li>
+                    <li class="feature disabled"><i class="fas fa-times"></i> Advanced Analytics</li>
+                    <li class="feature disabled"><i class="fas fa-times"></i> Premium Themes & Voices</li>
+                    <li class="feature disabled"><i class="fas fa-times"></i> Cross Solver & Trainers</li>
+                </ul>
+                <button class="select-plan free-btn" disabled>Current Plan</button>
             </div>
 
             <div class="pricing-card pro">
@@ -104,15 +110,16 @@
                 <div class="card-header">
                     <h3>Pro</h3>
                     <div class="price">800 EGP<span>/year</span></div>
+                    <p class="card-description">For dedicated cubers aiming for the top.</p>
                 </div>
-                <div class="features">
-                    <div class="feature"><i class="fas fa-check"></i> Everything in monthly</div>
-                    <div class="feature"><i class="fas fa-check"></i> Advanced algorithms</div>
-                    <div class="feature"><i class="fas fa-check"></i> Advanced Tools</div>
-                    <div class="feature"><i class="fas fa-check"></i> Instant access to updates</div>
-                    <div class="feature"><i class="fas fa-check"></i> Get mentioned in credits page</div>
-                    <div class="feature"><i class="fas fa-check"></i> 20% off online competitions</div>
-                </div>
+                <ul class="features">
+                    <li class="feature"><i class="fas fa-check"></i> Everything in Monthly, plus:</li>
+                    <li class="feature"><i class="fas fa-check"></i> Instant Access to New Features</li>
+                    <li class="feature"><i class="fas fa-check"></i> Get Mentioned in Credits</li>
+                    <li class="feature"><i class="fas fa-check"></i> Priority Support</li>
+                    <li class="feature"><i class="fas fa-check"></i> Exclusive Pro Community Access</li>
+                    <li class="feature"><i class="fas fa-check"></i> 20% Off Competition Entry</li>
+                </ul>
                 <button class="select-plan pro-btn" onclick="selectPlan('yearly')">Get Pro</button>
             </div>
         </div>
@@ -123,36 +130,33 @@
         <div class="modal-content">
             <span class="close">&times;</span>
             <div class="modal-header">
-                <i class="fas fa-cube"></i>
-                <h2>Get Cubezilla Pro</h2>
+                <h2><i class="fas fa-cube"></i> Get Cubezilla Pro</h2>
             </div>
             <div class="payment-details">
                 <div class="notice">
                     <i class="fas fa-info-circle"></i>
-                    <div>
-                        <p>Currently, we're accepting payments through InstaPay only, due to problems with International payments.</p>
-                    </div>
+                    <p>Currently, we're accepting payments through InstaPay only, due to problems with International payments.</p>
                 </div>
                 
                 <div class="steps">
                     <div class="step">
                         <span class="step-number">1</span>
-                        <p>Fill out the forum with your information</p>
+                        <p>Fill out the form with your information.</p>
                     </div>
                     <div class="step">
                         <span class="step-number">2</span>
-                        <p>We'll contact you with InstaPay payment info</p>
+                        <p>We'll contact you with InstaPay payment info.</p>
                     </div>
                     <div class="step">
                         <span class="step-number">3</span>
-                        <p>After payment, you'll get Pro access within 24h</p>
+                        <p>After payment, you'll get Pro access within 24h.</p>
                     </div>
                 </div>
                 
                 <div class="action-buttons">
                     <button class="confirm-btn" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSeSjeu-YaEYRCmRIlL4hVBu2eY7EmTOBEnMb2rSyqDrmOShiw/viewform?usp=dialog', '_blank')">
                         <i class="fas fa-external-link-alt"></i>
-                        Fill Out Forum
+                        Fill Out Form
                     </button>
                     <button class="secondary-btn" onclick="document.getElementById('payment-modal').style.display='none'">
                         Maybe Later
@@ -209,18 +213,14 @@
             document.getElementById(period).style.display = 'flex';
             
             document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-            event.target.classList.add('active');
+            event.currentTarget.classList.add('active');
         }
 
         function selectPlan(plan) {
             if (plan === 'free') return;
             
             const modal = document.getElementById('payment-modal');
-            modal.style.display = 'block';
-        }
-
-        function goBack() {
-            window.history.back();
+            modal.style.display = 'flex';
         }
 
         // Initialize pricing when page loads
