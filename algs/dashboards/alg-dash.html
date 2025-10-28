@@ -24,7 +24,7 @@
                 if (profile) {
                     const userAvatar = document.getElementById('userAvatar');
                     const userName = document.getElementById('userName');
-                  
+                    if (userAvatar) userAvatar.src = profile.avatarUrl || '/img/noprof.png';
                     if (userName) userName.textContent = profile.username || 'User';
                 }
             } catch (e) {}
