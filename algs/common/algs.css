@@ -807,8 +807,6 @@ button:focus {
     align-items: center;
     gap: 0.8rem;
     transition: transform 0.3s ease;
-    /* Ensure logo is on the far left */
-    margin-right: auto; 
 }
 
 .site-header .logo img {
