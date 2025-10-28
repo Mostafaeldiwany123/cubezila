@@ -26,101 +26,108 @@
     <link rel="icon" type="image/png" href="../img/demo (2).png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.cubing.net/v0/css/@cubing/icons/css">
     <title>Cubezilla - Pricing</title>
 </head>
 <body>
-     <!-- Header -->
-    <header class="site-header">
-        <nav class="breadcrumb">
-            <a href="../index.html"><i class="fas fa-home"></i></a>
-            <i class="fas fa-chevron-right"></i>
-            <span>Pricing</span>
-        </nav>
-    </header>
+    <div class="pricing-layout">
+        <div class="pricing-content-container">
+            <div class="pricing-wrapper">
+                <a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+                <div class="pricing-header">
+                    <h1>Choose Your Plan</h1>
+                    <p>Unlock advanced features and take your cubing to the next level.</p>
+                    <div class="tabs">
+                        <button class="tab active" onclick="showPricing('monthly')">Monthly</button>
+                        <button class="tab" onclick="showPricing('yearly')">Yearly</button>
+                    </div>
+                </div>
 
-    <div class="pricing-container">
-        <div class="pricing-header">
-            <h1>Choose Your Plan</h1>
-            <p>Unlock advanced features and take your cubing to the next level.</p>
-            <div class="tabs">
-                <button class="tab active" onclick="showPricing('monthly')">Monthly</button>
-                <button class="tab" onclick="showPricing('yearly')">Yearly</button>
+                <!-- Monthly Pricing -->
+                <div class="pricing-cards" id="monthly">
+                    <div class="pricing-card free">
+                        <div class="card-header">
+                            <h3>Free</h3>
+                            <div class="price">0 EGP<span>/month</span></div>
+                            <p class="card-description">For casual cubers getting started.</p>
+                        </div>
+                        <ul class="features">
+                            <li class="feature"><i class="fas fa-check"></i> Basic Timer & Scrambles</li>
+                            <li class="feature"><i class="fas fa-check"></i> Basic Statistics</li>
+                            <li class="feature"><i class="fas fa-check"></i> Limited Algorithm Sets</li>
+                            <li class="feature disabled"><i class="fas fa-times"></i> Advanced Analytics</li>
+                            <li class="feature disabled"><i class="fas fa-times"></i> Premium Themes & Voices</li>
+                            <li class="feature disabled"><i class="fas fa-times"></i> Cross Solver & Trainers</li>
+                        </ul>
+                        <button class="select-plan free-btn" disabled>Current Plan</button>
+                    </div>
+
+                    <div class="pricing-card pro">
+                        <div class="popular-tag">Most Popular</div>
+                        <div class="card-header">
+                            <h3>Pro</h3>
+                            <div class="price">80 EGP<span>/month</span></div>
+                            <p class="card-description">For dedicated cubers aiming for the top.</p>
+                        </div>
+                        <ul class="features">
+                            <li class="feature"><i class="fas fa-check"></i> Everything in Free, plus:</li>
+                            <li class="feature"><i class="fas fa-check"></i> Advanced Analytics & Insights</li>
+                            <li class="feature"><i class="fas fa-check"></i> All Premium Themes & Voices</li>
+                            <li class="feature"><i class="fas fa-check"></i> Cross Solver & CFOP Trainers</li>
+                            <li class="feature"><i class="fas fa-check"></i> Multi-phase Timing</li>
+                            <li class="feature"><i class="fas fa-check"></i> 10% Off Competition Entry</li>
+                        </ul>
+                        <button class="select-plan pro-btn" onclick="selectPlan('monthly')">Get Pro</button>
+                    </div>
+                </div>
+
+                <!-- Yearly Pricing -->
+                <div class="pricing-cards" id="yearly" style="display: none;">
+                    <div class="pricing-card free">
+                        <div class="card-header">
+                            <h3>Free</h3>
+                            <div class="price">0 EGP<span>/year</span></div>
+                            <p class="card-description">For casual cubers getting started.</p>
+                        </div>
+                        <ul class="features">
+                            <li class="feature"><i class="fas fa-check"></i> Basic Timer & Scrambles</li>
+                            <li class="feature"><i class="fas fa-check"></i> Basic Statistics</li>
+                            <li class="feature"><i class="fas fa-check"></i> Limited Algorithm Sets</li>
+                            <li class="feature disabled"><i class="fas fa-times"></i> Advanced Analytics</li>
+                            <li class="feature disabled"><i class="fas fa-times"></i> Premium Themes & Voices</li>
+                            <li class="feature disabled"><i class="fas fa-times"></i> Cross Solver & Trainers</li>
+                        </ul>
+                        <button class="select-plan free-btn" disabled>Current Plan</button>
+                    </div>
+
+                    <div class="pricing-card pro">
+                        <div class="popular-tag">Save 20%</div>
+                        <div class="card-header">
+                            <h3>Pro</h3>
+                            <div class="price">800 EGP<span>/year</span></div>
+                            <p class="card-description">For dedicated cubers aiming for the top.</p>
+                        </div>
+                        <ul class="features">
+                            <li class="feature"><i class="fas fa-check"></i> Everything in Monthly, plus:</li>
+                            <li class="feature"><i class="fas fa-check"></i> Instant Access to New Features</li>
+                            <li class="feature"><i class="fas fa-check"></i> Get Mentioned in Credits</li>
+                            <li class="feature"><i class="fas fa-check"></i> Priority Support</li>
+                            <li class="feature"><i class="fas fa-check"></i> Exclusive Pro Community Access</li>
+                            <li class="feature"><i class="fas fa-check"></i> 20% Off Competition Entry</li>
+                        </ul>
+                        <button class="select-plan pro-btn" onclick="selectPlan('yearly')">Get Pro</button>
+                    </div>
+                </div>
             </div>
         </div>
-
-        <!-- Monthly Pricing -->
-        <div class="pricing-cards" id="monthly">
-            <div class="pricing-card free">
-                <div class="card-header">
-                    <h3>Free</h3>
-                    <div class="price">0 EGP<span>/month</span></div>
-                    <p class="card-description">For casual cubers getting started.</p>
+        <div class="pricing-image-container">
+            <div class="right-panel-content">
+                <div class="logo">
+                    <i class="cubing-icon event-333"></i>
+                    <span>CubeZila</span>
                 </div>
-                <ul class="features">
-                    <li class="feature"><i class="fas fa-check"></i> Basic Timer & Scrambles</li>
-                    <li class="feature"><i class="fas fa-check"></i> Basic Statistics</li>
-                    <li class="feature"><i class="fas fa-check"></i> Limited Algorithm Sets</li>
-                    <li class="feature disabled"><i class="fas fa-times"></i> Advanced Analytics</li>
-                    <li class="feature disabled"><i class="fas fa-times"></i> Premium Themes & Voices</li>
-                    <li class="feature disabled"><i class="fas fa-times"></i> Cross Solver & Trainers</li>
-                </ul>
-                <button class="select-plan free-btn" disabled>Current Plan</button>
-            </div>
-
-            <div class="pricing-card pro">
-                <div class="popular-tag">Most Popular</div>
-                <div class="card-header">
-                    <h3>Pro</h3>
-                    <div class="price">80 EGP<span>/month</span></div>
-                    <p class="card-description">For dedicated cubers aiming for the top.</p>
-                </div>
-                <ul class="features">
-                    <li class="feature"><i class="fas fa-check"></i> Everything in Free, plus:</li>
-                    <li class="feature"><i class="fas fa-check"></i> Advanced Analytics & Insights</li>
-                    <li class="feature"><i class="fas fa-check"></i> All Premium Themes & Voices</li>
-                    <li class="feature"><i class="fas fa-check"></i> Cross Solver & CFOP Trainers</li>
-                    <li class="feature"><i class="fas fa-check"></i> Multi-phase Timing</li>
-                    <li class="feature"><i class="fas fa-check"></i> 10% Off Competition Entry</li>
-                </ul>
-                <button class="select-plan pro-btn" onclick="selectPlan('monthly')">Get Pro</button>
-            </div>
-        </div>
-
-        <!-- Yearly Pricing -->
-        <div class="pricing-cards" id="yearly" style="display: none;">
-            <div class="pricing-card free">
-                <div class="card-header">
-                    <h3>Free</h3>
-                    <div class="price">0 EGP<span>/year</span></div>
-                    <p class="card-description">For casual cubers getting started.</p>
-                </div>
-                <ul class="features">
-                    <li class="feature"><i class="fas fa-check"></i> Basic Timer & Scrambles</li>
-                    <li class="feature"><i class="fas fa-check"></i> Basic Statistics</li>
-                    <li class="feature"><i class="fas fa-check"></i> Limited Algorithm Sets</li>
-                    <li class="feature disabled"><i class="fas fa-times"></i> Advanced Analytics</li>
-                    <li class="feature disabled"><i class="fas fa-times"></i> Premium Themes & Voices</li>
-                    <li class="feature disabled"><i class="fas fa-times"></i> Cross Solver & Trainers</li>
-                </ul>
-                <button class="select-plan free-btn" disabled>Current Plan</button>
-            </div>
-
-            <div class="pricing-card pro">
-                <div class="popular-tag">Save 20%</div>
-                <div class="card-header">
-                    <h3>Pro</h3>
-                    <div class="price">800 EGP<span>/year</span></div>
-                    <p class="card-description">For dedicated cubers aiming for the top.</p>
-                </div>
-                <ul class="features">
-                    <li class="feature"><i class="fas fa-check"></i> Everything in Monthly, plus:</li>
-                    <li class="feature"><i class="fas fa-check"></i> Instant Access to New Features</li>
-                    <li class="feature"><i class="fas fa-check"></i> Get Mentioned in Credits</li>
-                    <li class="feature"><i class="fas fa-check"></i> Priority Support</li>
-                    <li class="feature"><i class="fas fa-check"></i> Exclusive Pro Community Access</li>
-                    <li class="feature"><i class="fas fa-check"></i> 20% Off Competition Entry</li>
-                </ul>
-                <button class="select-plan pro-btn" onclick="selectPlan('yearly')">Get Pro</button>
+                <h2>Unlock Your Potential</h2>
+                <p>Choose the plan that fits your ambition and gain access to exclusive tools and features to become a speedcubing master.</p>
             </div>
         </div>
     </div>
