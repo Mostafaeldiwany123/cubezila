@@ -142,6 +142,7 @@ function updateUIForAuthState(user) {
             userAvatar.src = avatarSrc;
             finalAvatarUrl = avatarSrc;
         } else {
+            // Use initials placeholder when no photo is available
             const initials = (username).charAt(0).toUpperCase();
             const placeholderUrl = `https://via.placeholder.com/32/007bff/ffffff?text=${initials}`;
             userAvatar.src = placeholderUrl;
