@@ -35,6 +35,8 @@
     --button-hover: rgba(41, 98, 255, 0.6);
     --stats-value: #2962ff;
     --font-family: 'Inconsolata', monospace;
+    --font-family-heading: 'Montserrat', sans-serif; /* New heading font */
+    --font-family-body: 'Poppins', sans-serif; /* New body font */
     --box-shadow: 0 8px 24px var(--shadow-color);
     --border-radius: 12px;
     --transition-duration: 0.3s;
@@ -178,6 +180,7 @@
     --glow-box-shadow: 0 0 35px rgba(78, 115, 223, 0.18), 0 0 70px rgba(78, 115, 223, 0.12);
     --glow-text-shadow: 0 0 10px rgba(0, 64, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.2);
 }
+
 
 :root[data-theme="neon"] {
     --background-color: #0f0f0f;
