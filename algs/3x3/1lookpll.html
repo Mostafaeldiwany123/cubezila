@@ -3,32 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="../img/demo (2).png">
-    <title>L3E - cubezila</title>
-    <script src="../bg/theme.js"></script>
-    <script src="../language/language.js"></script>
-    <script src="reco/reco.js"></script>
+    <link rel="icon" type="image/png" href="../../img/demo (2).png">
+    <title>1-LOOK PLL - cubezila</title>
+    <script src="../../bg/theme.js"></script>
+    <script src="../../language/language.js"></script>
+    <script src="../reco/reco.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@400;700&display=swap&font-display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Zain:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="algs.css">
-    <link rel="stylesheet" href="reco/reco.css">
-    <link rel="stylesheet" href="../timer/css/focus-mode.css">
-    <link rel="stylesheet" href="mobile.css">
-    <link rel="stylesheet" href="../css/roots.css">
-    <script src="utils/puzzle-generator.js"></script>
+    <link rel="stylesheet" href="../common/algs.css">
+    <link rel="stylesheet" href="../reco/reco.css">
+    <link rel="stylesheet" href="../../timer/css/focus-mode.css">
+    <link rel="stylesheet" href="../common/mobile.css">
+    <link rel="stylesheet" href="../../css/roots.css">
+    <script src="../utils/puzzle-generator.js"></script>
 </head>
 <body>
     <header class="site-header">
  
         <div class="breadcrumb">
-            <a href="../index.html"><i class="fas fa-home"></i></a>
+            <a href="../../index.html"><i class="fas fa-home"></i></a>
             <i class="fas fa-chevron-right"></i>
-            <a href="alg-dash.html">Algorithms</a>
+            <a href="../dashboards/alg-dash.html">Algorithms</a>
             <i class="fas fa-chevron-right"></i>
-            <a href="pyraminx.html">pyraminx</a>
+            <a href="../dashboards/3x3.html">3x3</a>
             <i class="fas fa-chevron-right"></i>
-            <span>Last-Layer</span>
+            <span>1-Look PLL</span>
         </div>
         <div class="header-tabs">
             <button class="tab active" onclick="showTab('learn')">Learn</button>
@@ -38,11 +38,11 @@
     </header>
     
     <div id="learn" class="tab-content active">
-        <h1 class="fade-in-down" >Pyraminx Last-Layer</h1>
+        <h1 class="fade-in-down" data-translate="oneLookPLL">1-LOOK-PLL</h1>
         
         <div class="info-container">
             <div class="description-box">
-                <p class="fade-in-down">  Pyraminx Last-Layer is an intermidate method for solving the last layer of the pyraminx after finishing the V shape. It consists of 5 algorithms.</p>
+                <p data-translate="onelookpllDescription">1-look PLL is a method where you can solve the last layer in a single step, using just one algorithm for any PLL case.</p>
                 <div class="tips">
                     <span class="tip"><i class="fas fa-lightbulb"></i> Select case images to practice specific cases</span>
                     <span class="tip"><i class="fas fa-palette"></i> Use the dropdown to change case colors</span>
@@ -67,7 +67,16 @@
                             <th class="case-header">
                                 <div class="case-title">
                                     <span data-translate="case">CASE</span>
-                        
+                                    <div class="dropdown">
+                                        <i class="fa-solid fa-sort dropdown-icon"></i>
+                                        <div class="dropdown-content" id="colorDropdown">
+                                            <div class="color-option" data-color="yellow">Yellow Top</div>
+                                            <div class="color-option" data-color="white">White Top</div>
+                                            <div class="color-option" data-color="red">Red Top</div>
+                                            <div class="color-option" data-color="orange">Orange Top</div>
+                                            <div class="color-option" data-color="blue">Blue Top</div>
+                                            <div class="color-option" data-color="green">Green Top</div>
+                                        </div>
                                     </div>
                                 </div>
                             </th>
@@ -141,13 +150,13 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sr-puzzlegen/dist/bundle/puzzleGen.min.js"></script>
-    <script src="../storage.js"></script>
-    <script src="utils/algUtils.js"></script>
-    <script src="data/casesData.js"></script>
-    <script src="alg.js"></script>
+    <script src="../../storage.js"></script>
+    <script src="../utils/algUtils.js"></script>
+    <script src="../data/casesData.js"></script>
+    <script src="../common/alg.js"></script>
     <script>
-        const storage = new StorageManager('Pyram-ll');
-        const cases = window.pyraminxL3ECases.map(caseData => ({
+        const storage = new StorageManager('1lookpll');
+        const cases = window.oneLookPLLCases.map(caseData => ({
             ...caseData,
             scramble: invertAlgorithm(caseData.algorithms[0]),
             selectedAlgorithm: caseData.algorithms[0]
@@ -155,27 +164,27 @@
         
         let currentCase = cases[0];
        
+
         function generatePuzzleImage(scramble, container) {
-const isPracticeImage = container.id === 'caseImage';
-
-const options = {
-    width: container.clientWidth * 2,
-    height: container.clientHeight * 2,
-    puzzle: {
-
-        size: 3,
-        type: "pyraminx",
-        alg: scramble,
-    }
-};
+    const isPracticeImage = container.id === 'caseImage';
+    
+    const options = {
+        width: container.clientWidth * 2,
+        height: container.clientHeight * 2,
+        puzzle: {
+            scheme: colorSchemes[currentColorScheme],
+            size: 3,
+            alg: scramble,
+            mask: puzzleGen.Masks.CUBE_3.PLL
+        }
+    };
 
     try {
         container.innerHTML = '';
-        puzzleGen.PNG(container, 'pyraminx', options);
+        puzzleGen.PNG(container, 'cube-top', options);
     } catch (error) {
         console.error('Error generating case image:', error);
     }
-}
-      </script>
+}     </script>
 </body>
 </html>

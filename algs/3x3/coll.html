@@ -3,31 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="../img/demo (2).png">
-    <title>1-LOOK OLL - cubezila</title>
-    <script src="../bg/theme.js"></script>
-    <script src="../language/language.js"></script>
-    <script src="reco/reco.js"></script>
+    <link rel="icon" type="image/png" href="../../img/demo (2).png">
+    <title>COLL - cubezila</title>
+    <script src="../../bg/theme.js"></script>
+    <script src="../../language/language.js"></script>
+    <script src="../reco/reco.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@400;700&display=swap&font-display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Zain:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="algs.css">
-    <link rel="stylesheet" href="reco/reco.css">
-    <link rel="stylesheet" href="../timer/css/focus-mode.css">
-    <link rel="stylesheet" href="mobile.css">
-    <link rel="stylesheet" href="../css/roots.css">
+    <link rel="stylesheet" href="../common/algs.css">
+    <link rel="stylesheet" href="../reco/reco.css">
+    <link rel="stylesheet" href="../../timer/css/focus-mode.css">
+    <link rel="stylesheet" href="../common/mobile.css">
+    <link rel="stylesheet" href="../../css/roots.css">
+    <script src="../utils/puzzle-generator.js"></script>
 </head>
 <body>
     <header class="site-header">
  
         <div class="breadcrumb">
-            <a href="../index.html"><i class="fas fa-home"></i></a>
+            <a href="../../index.html"><i class="fas fa-home"></i></a>
             <i class="fas fa-chevron-right"></i>
-            <a href="alg-dash.html">Algorithms</a>
+            <a href="../dashboards/alg-dash.html">Algorithms</a>
             <i class="fas fa-chevron-right"></i>
-            <a href="3x3.html">3x3</a>
+            <a href="../dashboards/3x3.html">3x3</a>
             <i class="fas fa-chevron-right"></i>
-            <span>1-LOOK OLL</span>
+            <span>COLL</span>
         </div>
         <div class="header-tabs">
             <button class="tab active" onclick="showTab('learn')">Learn</button>
@@ -37,11 +38,11 @@
     </header>
     
     <div id="learn" class="tab-content active">
-        <h1 class="fade-in-down" data-translate="oneLookOLL">1-LOOK-OLL</h1>
+        <h1 class="fade-in-down" data-translate="COLL">COLL</h1>
         
         <div class="info-container">
             <div class="description-box">
-                <p class="fade-in-down" data-translate="onelookolldescription">  1-Look OLL (Orientation of Last Layer) is an advanced method that orients all pieces of the last layer in a single step. With 57 algorithms to learn, it's a significant undertaking that can greatly improve solving speed. While more challenging than 2-Look OLL, mastering these algorithms will eliminate the need for multiple steps when orienting the last layer.</p>
+                <p class="fade-in-down" data-translate="colldescription">COLL (short for Corners of Last Layer) is a 3x3x3 last layer substep in the CxLL group that solves (orients and permutes) the last layer corners while preserving the last layer edge orientation, leaving only edge permutation (EPLL). It is principally used as a last layer for ZZ (as it has a higher skip chance and is nicer for OH than OCLL/PLL when used with EPLL) or an add-on to Fridrich, when the last layer edges are already oriented after F2L. COLL has 42 cases including mirrors (24 without). 2 of these are the adjacent and diagonal corner permutation.</p>
                 <div class="tips">
                     <span class="tip"><i class="fas fa-lightbulb"></i> Select case images to practice specific cases</span>
                     <span class="tip"><i class="fas fa-palette"></i> Use the dropdown to change case colors</span>
@@ -149,13 +150,13 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sr-puzzlegen/dist/bundle/puzzleGen.min.js"></script>
-    <script src="../storage.js"></script>
-    <script src="utils/algUtils.js"></script>
-    <script src="data/casesData.js"></script>
-    <script src="alg.js"></script>
+    <script src="../../storage.js"></script>
+    <script src="../utils/algUtils.js"></script>
+    <script src="../data/casesData.js"></script>
+    <script src="../common/alg.js"></script>
     <script>
-        const storage = new StorageManager('1lookoll');
-        const cases = window.oneLookOLLCases.map(caseData => ({
+        const storage = new StorageManager('coll');
+        const cases = window.collCases.map(caseData => ({
             ...caseData,
             scramble: invertAlgorithm(caseData.algorithms[0]),
             selectedAlgorithm: caseData.algorithms[0]
@@ -165,27 +166,27 @@
        
 
         function generatePuzzleImage(scramble, container) {
-        const isPracticeImage = container.id === 'caseImage';
-        
-        const options = {
-            width: container.clientWidth * 2,
-            height: container.clientHeight * 2,
-            puzzle: {
-                scheme: colorSchemes[currentColorScheme],
-                size: 3,
-                alg: scramble,
-                mask: puzzleGen.Masks.CUBE_3.OLL
-            }
-        };
+    const isPracticeImage = container.id === 'caseImage';
     
-        try {
-            container.innerHTML = '';
-            puzzleGen.PNG(container, 'cube-top', options);
-            
-        } catch (error) {
+    const options = {
+        width: container.clientWidth * 2,
+        height: container.clientHeight * 2,
+        puzzle: {
+            scheme: colorSchemes[currentColorScheme],
+            size: 3,
+            alg: scramble,
+            mask: puzzleGen.Masks.CUBE_3.PLL
+        }
+    };
+
+    try {
+        container.innerHTML = '';
+        puzzleGen.PNG(container, 'cube-top', options);
+        
+      } catch (error) {
         console.error('Error generating case image:', error);
     }
-    }
+}
       </script>
 </body>
 </html>

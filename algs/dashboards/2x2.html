@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../../bg/theme.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2x2 - cubezila</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="icon" type="image/png" href="../../img/demo (2).png">
+    <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../../css/roots.css">
+    <link rel="stylesheet" href="../../css/alg-dash.css">
+    <script src="../../storage.js"></script>
+    <style>
+        .progress-label {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: var(--background-color);
+            color: var(--text-color);
+            padding: 4px 8px;
+            border-radius: 0 0 8px 0;
+            font-size: 0.75rem;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .cube-box:hover .progress-label {
+            transform: scale(1.05);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+ 
+        <div class="breadcrumb">
+            <a href="../../index.html"><i class="fas fa-home"></i></a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="alg-dash.html">Algorithms</a>
+            <i class="fas fa-chevron-right"></i>
+            <span>2x2</span>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="cube-box" onclick="window.location.href='../2x2/ortoll.html'">
+                <img src="../../img/2oll.png" alt="Ortega OLL">
+                <h2>Ortega OLL</h2>
+                <div class="progress-label">0/7</div>
+            </div>
+            
+            <div class="cube-box" onclick="window.location.href='../2x2/ortpbl.html'">
+                <img src="../../img/2pbl.png" alt="PBL">
+                <h2>PBL</h2>
+                <div class="progress-label">0/6</div>
+            </div>
+            
+            <div class="cube-box" onclick="window.location.href='../2x2/ortcll.html'">
+                <img src="../../img/2x2.png" alt="CLL">
+                <h2>CLL</h2>
+                <div class="progress-label">0/40</div>
+            </div>
+            
+            <div class="cube-box" onclick="window.location.href='../2x2/eg1.html'">
+                <img src="../../img/eg1.png" alt="EG-1">
+                <h2>EG-1</h2>
+                <div class="progress-label">0/42</div>
+            </div>
+            
+            <div class="cube-box" onclick="window.location.href='../2x2/eg2.html'">
+                <img src="../../img/eg2.png" alt="EG-2">
+                <h2>EG-2</h2>
+                <div class="progress-label">0/42</div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function getLearnedCount(storage) {
+            const statuses = storage.getCaseStatuses();
+            return Object.values(statuses).filter(status => status).length;
+        }
+
+        function updateProgressLabels() {
+            const sections = [
+                { name: 'ortegaoll', total: 7 },
+                { name: 'ortegapbl', total: 6 },
+                { name: 'cll', total: 40 },
+                { name: 'eg1', total: 40 },
+                { name: 'eg2', total: 42 }
+            ];
+
+            sections.forEach((section, index) => {
+                const storage = new StorageManager(section.name);
+                const learned = getLearnedCount(storage);
+                const labels = document.querySelectorAll('.progress-label');
+                labels[index].textContent = `${learned}/${section.total}`;
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', updateProgressLabels);
+    </script>
+</body>
+</html>

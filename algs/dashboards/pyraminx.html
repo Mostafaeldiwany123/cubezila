@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="../../bg/theme.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pyraminx - cubezila</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="icon" type="image/png" href="../../img/demo (2).png">
+    <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="../../css/roots.css">
+    <link rel="stylesheet" href="../../css/alg-dash.css">
+    <script src="../../storage.js"></script>
+    <style>
+        .progress-label {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            background: var(--background-color);
+            color: var(--text-color);
+            padding: 4px 8px;
+            border-radius: 0 0 8px 0;
+            font-size: 0.75rem;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+        }
+
+        .cube-box:hover .progress-label {
+            transform: scale(1.05);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+ 
+        <div class="breadcrumb">
+            <a href="../../index.html"><i class="fas fa-home"></i></a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="alg-dash.html">Algorithms</a>
+            <i class="fas fa-chevron-right"></i>
+            <span>Pyraminx</span>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="cube-box" onclick="window.location.href='../pyraminx/L4E.html'">
+                <img src="../../img/L4E.png" alt="L4E">
+                <h2>L4E</h2>
+                <div class="progress-label">0/12</div>
+            </div>
+            
+            <div class="cube-box" onclick="window.location.href='../pyraminx/L3E.html'">
+                <img src="../../img/L3E.png" alt="Last Layer">
+                <h2>Last Layer</h2>
+                <div class="progress-label">0/5</div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function getLearnedCount(storage) {
+            const statuses = storage.getCaseStatuses();
+            return Object.values(statuses).filter(status => status).length;
+        }
+
+        function updateProgressLabels() {
+            const sections = [
+                { name: 'Pyram-l4e', total: 35 },
+                { name: 'Pyram-ll', total: 5 }
+            ];
+
+            sections.forEach((section, index) => {
+                const storage = new StorageManager(section.name);
+                const learned = getLearnedCount(storage);
+                const labels = document.querySelectorAll('.progress-label');
+                labels[index].textContent = `${learned}/${section.total}`;
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', updateProgressLabels);
+    </script>
+</body>
+</html>

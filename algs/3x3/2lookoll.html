@@ -3,32 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="../img/demo (2).png">
-    <title>CLL - cubezila</title>
-    <script src="../bg/theme.js"></script>
-    <script src="../language/language.js"></script>
-    <script src="reco/reco.js"></script>
+    <link rel="icon" type="image/png" href="../../img/demo (2).png">
+    <title>2-LOOK OLL - cubezila</title>
+    <script src="../../bg/theme.js"></script>
+    <script src="../../language/language.js"></script>
+    <script src="../reco/reco.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@400;700&display=swap&font-display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Zain:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="algs.css">
-    <link rel="stylesheet" href="reco/reco.css">
-    <link rel="stylesheet" href="../timer/css/focus-mode.css">
-    <link rel="stylesheet" href="mobile.css">
-    <link rel="stylesheet" href="../css/roots.css">
-    <script src="utils/puzzle-generator.js"></script>
+    <link rel="stylesheet" href="../common/algs.css">
+    <link rel="stylesheet" href="../reco/reco.css">
+    <link rel="stylesheet" href="../../timer/css/focus-mode.css">
+    <link rel="stylesheet" href="../common/mobile.css">
+    <link rel="stylesheet" href="../../css/roots.css">
 </head>
 <body>
     <header class="site-header">
  
         <div class="breadcrumb">
-            <a href="../index.html"><i class="fas fa-home"></i></a>
+            <a href="../../index.html"><i class="fas fa-home"></i></a>
             <i class="fas fa-chevron-right"></i>
-            <a href="alg-dash.html">Algorithms</a>
+            <a href="../dashboards/alg-dash.html">Algorithms</a>
             <i class="fas fa-chevron-right"></i>
-            <a href="2x2.html">2x2</a>
+            <a href="../dashboards/3x3.html">3x3</a>
             <i class="fas fa-chevron-right"></i>
-            <span>CLL</span>
+            <span>2-Look OLL</span>
         </div>
         <div class="header-tabs">
             <button class="tab active" onclick="showTab('learn')">Learn</button>
@@ -38,11 +37,11 @@
     </header>
     
     <div id="learn" class="tab-content active">
-        <h1 class="fade-in-down" >CLL</h1>
+        <h1 class="fade-in-down" data-translate="twoLookOLL">2-LOOK-OLL</h1>
         
         <div class="info-container">
             <div class="description-box">
-                <p class="fade-in-down">  CLL (Corners of the Last Layer) is a step in solving the 2x2 cube where all last-layer corners are simultaneously solved using one of 40 specific algorithms. Mastering CLL allows for faster solutions by eliminating the need for additional steps, making it a key technique for speedcubers aiming for efficient and advanced solves.</p>
+                <p class="fade-in-down" data-translate="plldescription"> 2-Look OLL simplifies the last layer orientation by splitting it into two steps. Instead of memorizing 57 algorithms, solvers only need to learn 10, making it a more accessible and efficient method for intermediate solvers. The first step orients the edges, and the second handles the corner orientation, improving solving speed without the complexity of full OLL.</p>
                 <div class="tips">
                     <span class="tip"><i class="fas fa-lightbulb"></i> Select case images to practice specific cases</span>
                     <span class="tip"><i class="fas fa-palette"></i> Use the dropdown to change case colors</span>
@@ -150,13 +149,13 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/sr-puzzlegen/dist/bundle/puzzleGen.min.js"></script>
-    <script src="../storage.js"></script>
-    <script src="utils/algUtils.js"></script>
-    <script src="data/casesData.js"></script>
-    <script src="alg.js"></script>
+    <script src="../../storage.js"></script>
+    <script src="../utils/algUtils.js"></script>
+    <script src="../data/casesData.js"></script>
+    <script src="../common/alg.js"></script>
     <script>
-        const storage = new StorageManager('cll');
-        const cases = window.ortCLLCases.map(caseData => ({
+        const storage = new StorageManager('2lookoll');
+        const cases = window.twoLookOLLCases.map(caseData => ({
             ...caseData,
             scramble: invertAlgorithm(caseData.algorithms[0]),
             selectedAlgorithm: caseData.algorithms[0]
@@ -164,27 +163,30 @@
         
         let currentCase = cases[0];
        
+
         function generatePuzzleImage(scramble, container) {
-const isPracticeImage = container.id === 'caseImage';
-
-const options = {
-    width: container.clientWidth * 2,
-    height: container.clientHeight * 2,
-    puzzle: {
-        scheme: colorSchemes[currentColorScheme],
-        size: 2,
-        alg: scramble,
-        mask: puzzleGen.Masks.CUBE_3.LL
+        const isPracticeImage = container.id === 'caseImage';
+        
+        const options = {
+            width: container.clientWidth * 2,
+            height: container.clientHeight * 2,
+            puzzle: {
+                scheme: colorSchemes[currentColorScheme],
+                size: 3,
+                alg: scramble,
+                mask: puzzleGen.Masks.CUBE_3.OLL
+            }
+        };
+    
+        try {
+            container.innerHTML = '';
+            puzzleGen.PNG(container, 'cube-top', options);
+          
+            
+        } catch (error) {
+            console.error('Error generating case image:', error);
+        }
     }
-};
-
-    try {
-        container.innerHTML = '';
-        puzzleGen.PNG(container, 'cube-top', options);
-    } catch (error) {
-        console.error('Error generating case image:', error);
-    }
-}
       </script>
 </body>
 </html>

@@ -2,37 +2,37 @@
 const zbllSubsets = {
     T: {
         name: 'T',
-        image: '../img/zbll-t.png',
+        image: '../../img/zbll-t.png',
         subgroups: ['T1', 'T2', 'T3', 'T4', 'T5', 'T6']
     },
     U: {
         name: 'U',
-        image: '../img/zbll-u.png',
+        image: '../../img/zbll-u.png',
         subgroups: ['U1', 'U2', 'U3', 'U4', 'U5', 'U6']
     },
     L: {
         name: 'L',
-        image: '../img/zbll-l.png',
+        image: '../../img/zbll-l.png',
         subgroups: ['L1', 'L2', 'L3', 'L4', 'L5', 'L6']
     },
     H: {
         name: 'H',
-        image: '../img/zbll-h.png',
+        image: '../../img/zbll-h.png',
         subgroups: ['H1', 'H2', 'H3', 'H4']
     },
     Pi: {
         name: 'Pi',
-        image: '../img/zbll-pi.png',
+        image: '../../img/zbll-pi.png',
         subgroups: ['Pi1', 'Pi2', 'Pi3', 'Pi4', 'Pi5', 'Pi6']
     },
     S: {
         name: 'S',
-        image: '../img/zbll-s.png',
+        image: '../../img/zbll-s.png',
         subgroups: ['S1', 'S2', 'S3', 'S4', 'S5', 'S6']
     },
     AS: {
         name: 'AS',
-        image: '../img/zbll-as.png',
+        image: '../../img/zbll-as.png',
         subgroups: ['AS1', 'AS2', 'AS3', 'AS4', 'AS5', 'AS6']
     }
 };
