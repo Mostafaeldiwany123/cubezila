@@ -12,6 +12,7 @@ body {
     font-family: var(--font-family);
     color: var(--text-color);
     background-color: var(--home-background-color);
+    overflow-x: hidden; /* Added to prevent horizontal scrollbars from shifting layout */
 }
 
 /* Generic container for layout */
@@ -30,7 +31,7 @@ header {
     width: 100%;
     z-index: 100;
     height: 70px;
-    padding: 0 4%; /* <-- Re-added this crucial padding for alignment */
+    padding: 0 4.5% 0 3.5%; /* Adjusted padding to shift content slightly left */
     display: flex;
     align-items: center;
     background: rgba(29, 31, 39, 0.5); /* Using a transparent version of --container-bg (dark theme) */
