@@ -30,24 +30,31 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // User Profile Dropdown
-    const userContent = document.getElementById('user-content');
-    if (userContent) {
-        const dropdown = userContent.querySelector('.dropdown');
-        const dropdownToggle = userContent.querySelector('.dropdown-toggle');
+    // Generic Dropdown Handler
+    const dropdowns = document.querySelectorAll('.dropdown');
 
-        if (dropdown && dropdownToggle) {
-            dropdownToggle.addEventListener('click', (e) => {
-                e.stopPropagation(); // Prevent click from bubbling up to document
+    dropdowns.forEach(dropdown => {
+        const toggle = dropdown.querySelector('.dropdown-toggle');
+        if (toggle) {
+            toggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // Close other open dropdowns
+                dropdowns.forEach(d => {
+                    if (d !== dropdown) {
+                        d.classList.remove('active');
+                    }
+                });
                 dropdown.classList.toggle('active');
             });
-
-            // Close dropdown if clicked outside
-            document.addEventListener('click', (e) => {
-                if (dropdown.classList.contains('active') && !dropdown.contains(e.target)) {
-                    dropdown.classList.remove('active');
-                }
-            });
         }
-    }
+    });
+
+    // Close all dropdowns if clicked outside
+    document.addEventListener('click', (e) => {
+        dropdowns.forEach(dropdown => {
+            if (dropdown.classList.contains('active') && !dropdown.contains(e.target)) {
+                dropdown.classList.remove('active');
+            }
+        });
+    });
 });
