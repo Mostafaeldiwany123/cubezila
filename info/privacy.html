@@ -4,23 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-translate="privacyPolicyTitle">Privacy Policy - Cubezila</title>
-    
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GD9J5DTDPS"></script>
-    <script>
-      // Only load GA on cubezila.com
-      if (window.location.hostname === 'cubezila.com') {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){ dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        // ensure cookies are scoped to your domain
-        gtag('config', 'G-GD9J5DTDPS', {
-          'cookie_domain': 'cubezila.com'
-        });
-      }
-    </script>
-    
     <script src="../bg/theme.js"></script>
     <link rel="icon" type="image/png" href="../img/demo (2).png">
     <link rel="apple-touch-icon" href="../img/demo (2).png">
@@ -28,17 +11,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Zain:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../css/roots.css">
+    <link rel="stylesheet" href="../css/index.css">
     <link rel="stylesheet" href="../css/info.css">
-    <link rel="stylesheet" href="../css/alg-dash.css">
     <script src="../language/language.js" defer></script>
 </head>
 <body>
     <header class="site-header">
-        <div class="breadcrumb">
-            <a href="../index.html"><i class="fas fa-home"></i></a>
-            <i class="fas fa-chevron-right"></i>
-            <span>Privacy Policy</span>
-        </div>
+        <a href="../index.html" class="logo">
+            <img src="../img/demo (1).png" alt="Cube Logo">
+            <span data-translate="cubezilaLogo">Cubezila</span>
+        </a>
     </header>
 
     <main>
@@ -74,4 +56,4 @@
         </div>
     </main>
 </body>
-</html>
+</html> 

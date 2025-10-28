@@ -15,6 +15,24 @@ const availableThemes = {
     lightblue: { isPro: false }
 };
 
+function setCookie(name, value, days) {
+    const expires = new Date();
+    expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+    document.cookie = `${name}=${encodeURIComponent(JSON.stringify(value))};expires=${expires.toUTCString()};path=/;SameSite=Strict`;
+}
+
+function getCookie(name) {
+    const match = document.cookie.match(new RegExp(`(^| )${name}=([^;]+)`));
+    if (match) {
+        try {
+            return JSON.parse(decodeURIComponent(match[2]));
+        } catch (e) {
+            return null;
+        }
+    }
+    return null;
+}
+
 // setTheme: all themes are free, just apply and save
 async function setTheme(theme) {
     if (THEMES.FREE.includes(theme)) {
@@ -27,16 +45,31 @@ async function setTheme(theme) {
 
 function applyAndSaveTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
+    setCookie('currentTheme', { name: theme, timestamp: Date.now() }, 30);
     localStorage.setItem('theme', theme);
     broadcastTheme(theme);
 }
 
 // Initialize theme immediately on page load - UPDATED LOGIC
 (function initTheme() {
-    // Only use localStorage for theme
+    // Check cookie first (more secure)
+    const savedThemeCookie = getCookie('currentTheme');
+    // Check localStorage as fallback (for backward compatibility)
     const savedThemeLocal = localStorage.getItem('theme');
+    
+    let themeToApply;
+    
+    if (savedThemeCookie?.name) {
+        themeToApply = savedThemeCookie.name;
+    } else if (savedThemeLocal) {
+        // If theme is in localStorage but not in cookie, restore it
+        themeToApply = savedThemeLocal;
+        // Save to cookie for future
+        setCookie('currentTheme', { name: savedThemeLocal, timestamp: Date.now() }, 30);
+    }
+
     // Apply theme or fallback to default
-    document.documentElement.setAttribute('data-theme', savedThemeLocal || 'light');
+    document.documentElement.setAttribute('data-theme', themeToApply || 'light');
 })();
 
 function broadcastTheme(theme) {
@@ -88,13 +121,6 @@ document.addEventListener('DOMContentLoaded', function() {
 window.addEventListener('message', (event) => {
     if (event.data?.type === 'themeChange') {
         document.documentElement.setAttribute('data-theme', event.data.theme);
-    }
-});
-
-// Listen for theme changes from other tabs/windows
-window.addEventListener('storage', (event) => {
-    if (event.key === 'theme' && event.newValue) {
-        document.documentElement.setAttribute('data-theme', event.newValue);
     }
 });
 

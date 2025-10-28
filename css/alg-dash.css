@@ -21,7 +21,7 @@
             right: 0;
             height: 70px;
             padding: 0 8%;
-            background: var(--container-bg);
+            background: var(--home-background-color);
             box-shadow: var(--box-shadow);
             z-index: 1000;
             display: flex;

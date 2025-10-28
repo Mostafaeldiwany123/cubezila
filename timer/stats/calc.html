@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../../img/demo (2).png">
+    <title>Speedcubing Analyzer - Your Personal Cubing Coach</title>
+    <script src="../../bg/theme.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./calc.css">
+    <link rel="stylesheet" href="../../css/roots.css">
+    <script src="calc.js"></script>
+</head>
+<body>
+    <div class="layout-grid">
+        <aside class="sidebar">
+            <div class="top-section">
+                <select id="sessionSelector" onchange="changeSession()">
+                    <!-- Options will be populated dynamically -->
+                </select>
+                <div class="streak-container">
+                    <i class="fas fa-fire"></i>
+                    <span id="streakCount">0</span> day streak
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><i class="fas fa-chart-bar"></i> Quick Stats</h2>
+                <div id="statsContent" class="stats-grid"></div>
+            </div>
+
+            <div class="card session-info-card">
+                <div id="sessionInfo"></div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="charts-section">
+                <div class="card chart-card">
+                    <h2><i class="fas fa-chart-line"></i> Solve Time Chart</h2>
+                    <div class="chart-container">
+                        <canvas id="solveTimeChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="card chart-card">
+                    <h2><i class="fas fa-chart-pie"></i> Progress Chart</h2>
+                    <div class="chart-container">
+                        <canvas id="progressChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2><i class="fas fa-history"></i> Solve History</h2>
+                <div class="solve-history">
+                    <table id="solveHistory">
+                        <thead>
+                            <tr>
+                                <th>Solve #</th>
+                                <th>Time (seconds)</th>
+                                <th>Puzzle Type</th>
+                                <th>Inspection Time</th>
+                                <th>Scramble</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
+                <button id="clearFilterBtn" onclick="clearFilter()">Clear Filter</button>
+            </div>
+
+            <div class="card analysis-card">
+                <h2><i class="fas fa-lightbulb"></i> Analysis and Improvement Suggestions</h2>
+                <div id="analysisContent"></div>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

@@ -1,0 +1,11 @@
+User-agent: *
+Allow: /
+Sitemap: https://cubezila.com/sitemap.xml
+
+# Optimize crawling
+Crawl-delay: 10
+
+# Prevent crawling of private areas
+Disallow: /auth/
+Disallow: /admin/
+Disallow: /api/

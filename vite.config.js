@@ -28,6 +28,8 @@ export default defineConfig({
         await fs.copy("pricing", "dist/pricing");
         await fs.copy("profile", "dist/profile");
         await fs.copy("timer", "dist/timer");
+        await fs.copy("tools", "dist/tools");
+        await fs.copy("tuts", "dist/tuts");
         await fs.copy("index.html", "dist/index.html");
         await fs.copy("manifest.json", "dist/manifest.json");
         await fs.copy("components", "dist/components");
@@ -35,8 +37,6 @@ export default defineConfig({
         await fs.copy("favicon_io", "dist/favicon_io");
         await fs.copy("sw.js", "dist/sw.js");
         await fs.copy("storage.js", "dist/storage.js");
-         await fs.copy("promptcraftr", "dist/promptcraftr");
-        
       },
     },
   ],

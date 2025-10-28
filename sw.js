@@ -1,4 +1,4 @@
-const CACHE_NAME = 'cubezila-v1';
+const CACHE_NAME = 'cubezilla-v1';
 const urlsToCache = [
   '/',
   '/index.html',
@@ -6,43 +6,57 @@ const urlsToCache = [
   '/timer/timer.html',
   '/css/index.css',
   '/css/roots.css',
-  '/timer/timer.css',
-  '/timer/timer.js',
-  '/bg/theme.js',
-  '/auth/auth.js',
-  '/js/labels.js',
-  '/language/language.js',
-  '/timer/scramble/scramble.js',
-  '/timer/tools/metronome/metronome.js',
-  '/timer/tools/alert/audio.js',
-  '/auth/timer-pro.js',
-  '/timer/tools/alert/audio.css',
-  '/timer/tools/metronome/metronome.css',
-  '/timer/css/focus-mode.css',
-  '/css/roots.css',
-  '/offline.html',
-  // CDN resources
+  './timer/timer.css',
+  './timer/timer.js',
+  './bg/theme.js',
+  './auth/auth.js',
+  './js/labels.js',
+  './language/language.js',
+  './timer/scramble/scramble.js',
+  './timer/tools/metronome/metronome.js',
+  './timer/tools/alert/audio.js',
+  './auth/timer-pro.js',
+  './timer/tools/alert/audio.css',
+  './timer/tools/metronome/metronome.css',
+  './timer/settings/settings.css',
+  './timer/layout/layout.css',
+  './timer/tutorial/tutorial.css',
+  './timer/layout/devices.css',
+  './timer/css/focus-mode.css',
+  './css/roots.css',
+  './timer/css/reset-animation.css',
+  './timer/js/reset-animation.js',
+  // Cache CDN resources
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css',
   'https://cdn.jsdelivr.net/npm/chart.js',
   'https://cdn.cubing.net/v0/js/cubing/twisty',
   'https://cdn.cubing.net/v0/js/cubing',
   'https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js',
-  // Favicons
-  '/favicon_io/apple-touch-icon.png',
-  '/favicon_io/favicon-32x32.png',
-  '/favicon_io/favicon-16x16.png',
-  '/favicon_io/site.webmanifest',
+
+  // Add favicon caching
+  './favicon_io/apple-touch-icon.png',
+  './favicon_io/favicon-32x32.png',
+  './favicon_io/favicon-16x16.png',
+  './favicon_io/site.webmanifest',
 ];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME)
-      .then((cache) => cache.addAll(urlsToCache))
+      .then((cache) => {
+        return cache.addAll(urlsToCache);
+      })
   );
 });
 
-// Remove beforeinstallprompt handler (was broken)
+// Add install prompt handler
+self.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  showInstallPromotion();
+});
 
+// Add activation handler
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((cacheNames) => {
@@ -57,6 +71,7 @@ self.addEventListener('activate', (event) => {
   );
 });
 
+// Update fetch handler for offline support
 self.addEventListener('fetch', (event) => {
   event.respondWith(
     caches.match(event.request)

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@400;600;700&family=Gemunu+Libre&display=swap" rel="stylesheet">
+    <title>Cubezila Tools</title>
+    <link rel="icon" type="image/png" href="../img/demo (2).png">
+    <link rel="stylesheet" href="../css/roots.css">
+    <link rel="stylesheet" href="../css/index.css">
+    <script src="../bg/theme.js"></script>
+    <script src="tools.js"></script>
+
+</head>
+<body>
+    <header class="site-header">
+        <div class="tab-buttons">
+            <button class="tab-btn active" data-tab="cubezila">Cubezila Tools</button>
+            <button class="tab-btn" data-tab="community">Community Tools</button>
+        </div>
+    </header>
+
+    <main>
+        <div id="cubezila" class="tab-content active">
+            <div class="container">
+                <div class="cube-box" onclick="window.location.href='inverter.html'">
+                    <img src="../img/inverter.png" alt="Algorithm Inverter">
+                    <h2>Algorithm Inverter</h2>
+                    <div class="info-text">Invert Rubik's Cube algorithms instantly</div>
+                </div>
+
+                <div class="cube-box" onclick="window.location.href='right2left.html'">
+                    <img src="../img/r2l.png" alt="Right to Left Converter">
+                    <h2>Right to Left</h2>
+                    <div class="info-text">Convert algorithms between right and left-handed notation</div>
+                </div>
+
+                <div class="cube-box coming-soon" onclick="showComingSoonMessage()">
+                    <img src="../img/img-gen.png" alt="Image Generator">
+                    <h2>Image Generator</h2>
+                    <div class="info-text">Generate custom Rubik's Cube algorithm visualizations</div>
+                </div>
+            </div>
+        </div>
+
+        <div id="community" class="tab-content">
+            <div class="container">
+                <div class="cube-box submit-tool" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSeHFpJ0Y6FJadcwrw5hx94lKSX4197DgknVi-jAcMQAnxxe6w/viewform?usp=dialog', '_blank')">
+                    <div class="icon-wrapper">
+                        <i class="fas fa-cube"></i>
+                        <i class="fas fa-plus plus-icon"></i>
+                    </div>
+                    <h2>Submit Your Tool</h2>
+                    <p class="description">Have a great tool for the cubing community?</p>
+                    <button class="submit-button">
+                        <i class="fas fa-paper-plane"></i>
+                        Share Now
+                    </button>
+                </div>
+
+                <div class="cube-box info-box">
+                    <i class="fas fa-info-circle"></i>
+                    <h2>What to Expect</h2>
+                    <ul class="info-list">
+                        <li><i class="fas fa-check"></i> Review within 48 hours</li>
+                        <li><i class="fas fa-check"></i> Full credit as tool creator</li>
+                        <li><i class="fas fa-check"></i> Featured on Cubezila Tools</li>
+                        <li><i class="fas fa-check"></i> Support from our community</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            function showComingSoonMessage() {
+                alert('This feature is coming soon! Stay tuned for exciting updates.');
+            }
+
+            // Tab switching functionality
+            document.querySelectorAll('.tab-btn').forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons and contents
+                    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked button and corresponding content
+                    button.classList.add('active');
+                    document.getElementById(button.dataset.tab).classList.add('active');
+                });
+            });
+        </script>
+    </main>
+</body>
+</html>

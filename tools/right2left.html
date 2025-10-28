@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cubezila Right to Left Converter - Cubezila</title>
+    <meta name="description" content="Convert Rubik's Cube algorithms from right-handed to left-handed notation with Cubezila's Right to Left Converter. Part of our suite of tools to help you master the Rubik's Cube.">
+    <link rel="icon" type="image/png" href="../img/demo (2).png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="../bg/theme.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@400;600;700&family=Gemunu+Libre&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="../css/roots.css">
+    <link rel="stylesheet" href="../css/apps.css">
+    <script src="tools.js"></script>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="header-icon">
+        <img src="../img/demo (2).png" alt="Cubezila Logo" style="width: 3.5rem; height: 3.5rem; margin-right: 1rem;">
+        <h1>Cubezila Right to Left</h1>
+      </div>
+      <p>
+        Convert your Rubik's cube algorithms from right-handed to left-handed notation.
+        Enter moves like "R U R' U'" or "[R U R' U']" and get the converted sequence instantly.
+      </p>
+    </header>
+
+    <form id="algorithmForm">
+      <div class="input-wrapper">
+        <input
+          type="text"
+          id="algorithm"
+          placeholder="e.g. R U R' U' or [R U R' U']"
+          autocomplete="off"
+        >
+        <button type="submit" class="generate-btn">
+          <i data-lucide="refresh-cw" style="width: 1.25rem; height: 1.25rem;"></i>
+          <span>Convert</span>
+        </button>
+      </div>
+    </form>
+
+    <div id="result" class="result">
+      <div class="algorithm-box">
+        <div class="algorithm-header">
+          <h3>Converted Algorithm</h3>
+          <button id="copyBtn" class="copy-btn" title="Copy to clipboard">
+            <i data-lucide="copy" style="width: 1.25rem; height: 1.25rem;"></i>
+          </button>
+        </div>
+        <div class="algorithm-content">
+          <div id="outputAlgorithm" class="algorithm-text"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tips">
+      <h4>Tips</h4>
+      <ul>
+        <li>• Use standard notation: R, L, U, D, F, B, M, E, S</li>
+        <li>• Use lowercase for wide moves: r, l, u, d, f, b</li>
+        <li>• Add ' for counterclockwise (e.g., R' or L')</li>
+        <li>• Add 2 for double moves (e.g., R2 or L2)</li>
+        <li>• Use [ ] or ( ) to group moves (optional)</li>
+        <li>• Separate moves with spaces</li>
+        <li>• R/r moves will be converted to L'/l' and vice versa</li>
+        <li>• U, F, B, D moves will be reversed</li>
+      </ul>
+    </div>
+
+    <div id="alert" class="alert">
+      <i data-lucide="alert-circle" style="width: 1.25rem; height: 1.25rem; color: var(--accent-color);"></i>
+      <div>
+        <h3 id="alertTitle" style="font-weight: 500; color: var(--text-color); margin-bottom: 0.25rem;"></h3>
+        <p id="alertMessage" style="font-size: 0.875rem; color: var(--text-light);"></p>
+      </div>
+    </div>
+  </div>
+  <script>
+ // Initialize Lucide icons
+lucide.createIcons();
+
+// DOM elements
+const form = document.getElementById('algorithmForm');
+const input = document.getElementById('algorithm');
+const result = document.getElementById('result');
+const outputAlgorithm = document.getElementById('outputAlgorithm');
+const copyBtn = document.getElementById('copyBtn');
+const alert = document.getElementById('alert');
+const alertTitle = document.getElementById('alertTitle');
+const alertMessage = document.getElementById('alertMessage');
+
+// Regular expressions for validation
+const validMoves = /^[RLUDFBMESrludfbxyz][2']?|[\[\](){}]$/;
+
+// Format algorithm with colored brackets and moves
+function formatAlgorithm(alg) {
+    return alg
+        .replace(/\[|\]/g, match => `<span class="bracket">${match}</span>`)
+        .replace(/\(|\)/g, match => `<span class="bracket">${match}</span>`)
+        .replace(/([RLUDFBMESrludfbxyz])('?|2?)/g, (match, move, modifier) => {
+            const isWide = move === move.toLowerCase() && 'rludfb'.includes(move);
+            const moveClass = isWide ? 'move wide' : 'move';
+            return `<span class="${moveClass}">${move}</span><span class="modifier">${modifier || ''}</span>`;
+        });
+}
+
+// Convert a single move to its right-to-left counterpart
+function convertMove(move) {
+    const baseMoveChar = move[0];
+    const modifier = move.slice(1);
+
+    switch (baseMoveChar) {
+        case 'R': return 'L' + (modifier === "'" ? '' : modifier === '2' ? '2' : "'");
+        case 'L': return 'R' + (modifier === "'" ? '' : modifier === '2' ? '2' : "'");
+        case 'r': return 'l' + (modifier === "'" ? '' : modifier === '2' ? '2' : "'");
+        case 'l': return 'r' + (modifier === "'" ? '' : modifier === '2' ? '2' : "'");
+        case 'U':
+        case 'F':
+        case 'B':
+        case 'D':
+        case 'u':
+        case 'f':
+        case 'b':
+        case 'd':
+            return modifier === "'" ? baseMoveChar : (modifier === '2' ? move : baseMoveChar + "'");
+        default: return move; // For M, E, S, x, y, z and others
+    }
+}
+
+// Show error alert
+function showError(message) {
+    alertTitle.textContent = 'Invalid Algorithm';
+    alertMessage.textContent = message;
+    alert.classList.add('visible');
+    setTimeout(() => {
+        alert.classList.remove('visible');
+    }, 3000);
+}
+
+// Handle form submission
+form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const algorithm = input.value.trim();
+
+    if (!algorithm) {
+        showError('Please enter an algorithm.');
+        return;
+    }
+
+    const moves = algorithm.split(/\s+/);
+
+    // Validate moves
+    for (const move of moves) {
+        if (!validMoves.test(move)) {
+            showError(`Invalid move: ${move}. Please use standard notation.`);
+            return;
+        }
+    }
+
+    // Convert algorithm to right-to-left
+    const convertedMoves = moves.map(move => {
+        if (/^[\[\](){}]$/.test(move)) return move;
+        return convertMove(move);
+    }).join(' ');
+
+    // Display results
+    outputAlgorithm.innerHTML = formatAlgorithm(convertedMoves);
+    result.classList.add('visible');
+
+    // Store result for copying
+    copyBtn.dataset.result = convertedMoves;
+});
+
+// Handle copy button
+copyBtn.addEventListener('click', async () => {
+    const resultToCopy = copyBtn.dataset.result;
+    console.log('Attempting to copy:', resultToCopy);
+
+    if (!resultToCopy) {
+        console.error('No result to copy');
+        showError('No algorithm to copy. Generate an algorithm first.');
+        return;
+    }
+
+    try {
+        // Fallback clipboard method if navigator.clipboard fails
+        const copyToClipboard = (text) => {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.left = '-9999px';
+            document.body.appendChild(textArea);
+            textArea.select();
+            
+            try {
+                const successful = document.execCommand('copy');
+                document.body.removeChild(textArea);
+                return successful;
+            } catch (err) {
+                document.body.removeChild(textArea);
+                throw err;
+            }
+        };
+
+        // Try modern clipboard API first
+        if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(resultToCopy);
+        } else {
+            // Fallback for non-secure contexts
+            const success = copyToClipboard(resultToCopy);
+            if (!success) {
+                throw new Error('Clipboard copy failed');
+            }
+        }
+
+        // Visual feedback
+        copyBtn.innerHTML = '<i data-lucide="check" style="width: 1.25rem; height: 1.25rem;"></i>';
+        lucide.createIcons();
+        setTimeout(() => {
+            copyBtn.innerHTML = '<i data-lucide="copy" style="width: 1.25rem; height: 1.25rem;"></i>';
+            lucide.createIcons();
+        }, 2000);
+    } catch (err) {
+        console.error('Copy error:', err);
+        showError(`Failed to copy to clipboard: ${err.message}`);
+    }
+});
+
+  </script>
+</body>
+</html>
