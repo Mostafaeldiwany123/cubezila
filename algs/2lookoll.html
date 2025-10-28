@@ -150,25 +150,15 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sr-puzzlegen/dist/bundle/puzzleGen.min.js"></script>
     <script src="../storage.js"></script>
+    <script src="utils/algUtils.js"></script>
+    <script src="data/casesData.js"></script>
     <script src="alg.js"></script>
     <script>
         const storage = new StorageManager('2lookoll');
-        const cases = [
-            { name: "OLL 1", algorithms: [ "F R U R' U' F' f R U R' U' f'"], scramble: "F R' F' R U2' F R' F' R2' U2' R'", learned: false },
-            { name: "OLL 54", algorithms: ["f R U R' U' f'", "F U R U' R' F'"], scramble: "f U R U' R' f'", learned: false },
-            { name: "OLL 55", algorithms: ["F R U R' U' F'"], scramble: "F U R U' R' F'", learned: false },
-            { name: "OLL 21", algorithms: ["R U2 R' U' R U R' U' R U' R'","F R U R' U' R U R' U' R U R' U' F'", "R U R' U R U' R' U R U2 R'"], scramble: "R U R' U R U' R' U R U2' R'", learned: false },
-            { name: "OLL 22", algorithms: ["R U2 R2 U' R2 U' R2 U2 R","f R U R' U' f' F R U R' U' F'",], scramble: "R' U2' R2' U R2' U R2' U2' R'", learned: false },
-            { name: "OLL 23", algorithms: ["R2 D' R U2 R' D R U2 R", "R U R' U R U2 R2 U' R U' R' U2 R", ], scramble: "R U2' R D R' U2' R D' R2'", learned: false },
-            { name: "OLL 24", algorithms: ["r U R' U' r' F R F'"], scramble: "F R' F' r U R U' r'", learned: false },
-            { name: "OLL 25", algorithms: ["F' r U R' U' r' F R"], scramble: "R' F' r U R U' r' F", learned: false },
-            { name: "OLL 26", algorithms: ["R U2 R' U' R U' R'", "L' U' L U' L' U2 L"], scramble: "R U R' U R U2' R'", learned: false },
-            { name: "OLL 27", algorithms: ["R U R' U R U2 R'"], scramble: "R U2' R' U' R U' R'", learned: false },
-        
-        ].map(caseData => ({
-        ...caseData,
-        scramble: invertAlgorithm(caseData.algorithms[0]),
-        selectedAlgorithm: caseData.algorithms[0]
+        const cases = window.twoLookOLLCases.map(caseData => ({
+            ...caseData,
+            scramble: invertAlgorithm(caseData.algorithms[0]),
+            selectedAlgorithm: caseData.algorithms[0]
         }));
         
         let currentCase = cases[0];

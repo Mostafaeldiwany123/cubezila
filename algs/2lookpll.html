@@ -151,59 +151,15 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sr-puzzlegen/dist/bundle/puzzleGen.min.js"></script>
     <script src="../storage.js"></script>
+    <script src="utils/algUtils.js"></script>
+    <script src="data/casesData.js"></script>
     <script src="alg.js"></script>
     <script>
         const storage = new StorageManager('2lookpll');
-        const cases = [
-        {
-    name: "Ua",
-    algorithms: [
-      "R U R' U R' U' R2 U' R' U R' U R",
-      "R2 U' S' U2 S U' R2",
-      "M2 U M' U2 M U M2"
-    ],
-  },
-  {
-    name: "Ub",
-    algorithms: [
-      "R' U R' U' R' U' R' U R U R2",
-      "M2 U' M U2 M' U' M2",
-    ],
-
-  },
-  {
-    name: "H",
-    algorithms: [
-      "M2 U' M2 U2 M2 U' M2",
-
-    ],
-  },
-  {
-    name: "T",
-    algorithms: [
-      "R U R' U' R' F R2 U' R' U' R U R' F'",
-    ],
-  },
-  {
-    name: "Y",
-    algorithms: [
-      "F R U' R' U' R U R' F' R U R' U' R' F R F'",
-      "R2 U' R2 U' R2 U F U F' R2 F U' F'",
-    ],
-  },
-  {
-    name: "Z",
-    algorithms: [
-      "M2 U M2 U M' U2 M2 U2 M'",
-      "M' U' M2 U' M2 U' M' U2 M2",
-      "M2 U' M2 U' M' U2 M2 U2 M'",
-    ],
-
-  }
-  ].map(caseData => ({
-        ...caseData,
-        scramble: invertAlgorithm(caseData.algorithms[0]),
-        selectedAlgorithm: caseData.algorithms[0]
+        const cases = window.twoLookPLLCases.map(caseData => ({
+            ...caseData,
+            scramble: invertAlgorithm(caseData.algorithms[0]),
+            selectedAlgorithm: caseData.algorithms[0]
         }));
         
         let currentCase = cases[0];

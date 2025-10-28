@@ -126,326 +126,19 @@
     </div>
 
 <script src="https://cdn.jsdelivr.net/npm/sr-puzzlegen/dist/bundle/puzzleGen.min.js"></script>
+<script src="utils/algUtils.js"></script>
+<script src="data/casesData.js"></script>
 <script src="alg.js"></script>
 <script>
- const pllCases = [
-  {
-    "name": "S (1)",
-    "algorithms": [
-      "F' L U2 F2 R U' x'",
-      "z' R' U' R U2 x' U2 R U' z"
-    ],
-    "learned": false
-  },
-  {
-    "name": "S (2)",
-    "algorithms": [
-      "R U R' F2 U F R U R'",
-      "R' F R2 U' R2 F U' R U' R' U2 R",
-      "F R2 U' R2' F U' F2 U' R"
-    ],
-    "learned": false
-  },
-  {
-    "name": "S (3)",
-    "algorithms": [
-      "R' F R U2 R U' R2 F2 R F'",
-      "F R' F' R U R' F' R2 U R'"
-    ],
-    "learned": false
-  },
-  {
-    "name": "S (4)",
-    "algorithms": [
-      "F' U R U' R' U F R U R'",
-      "F U' R U2 R' F2 R' F R"
-    ],
-    "learned": false
-  },
-  {
-    "name": "S (5)",
-    "algorithms": [
-      "R U' R' U R U' R' U F R U' R'"
-    ],
-    "learned": false
-  },
-  {
-    "name": "S (6)",
-    "algorithms": [
-      "R' F R2 U' R' U L F' L' F"
-    ],
-    "learned": false
-  },
-  {
-    "name": "AS (1)",
-    "algorithms": [
-      "B U' R2 F2 U' F x2",
-      "R' F R2 U R' F' U' R U' R'"
-    ],
-    "learned": false
-  },
-  {
-    "name": "AS (2)",
-    "algorithms": [
-      "R U' R' F' U' F2 R U' R'",
-      "R U' F2 R U2 R U' F"
-    ],
-    "learned": false
-  },
-  {
-    "name": "AS (3)",
-    "algorithms": [
-      "F' L F L' U' R U R' L' U' L",
-      "R U' R' U2 R' F R2 U2 R' F"
-    ],
-    "learned": false
-  },
-  {
-    "name": "AS (4)",
-    "algorithms": [
-      "R U' R' F' U' R U R' U' F"
-    ],
-    "learned": false
-  },
-  {
-    "name": "AS (5)",
-    "algorithms": [
-      "R U R' F' U' R U R' U' R U R'"
-    ],
-    "learned": false
-  },
-  {
-    "name": "AS (6)",
-    "algorithms": [
-      "2 R U' R2 F R U' R' F R F'"
-    ],
-    "learned": false
-  },
-  {
-    "name": "PI (1)",
-    "algorithms": [
-      "2 R2 B2 R' U R' U' R U2 R U' R2",
-      "2 F2 R U R' U2 R U R' U' F"
-    ],
-    "learned": false
-  },
-  {
-    "name": "PI (2)",
-    "algorithms": [
-      "R' F R2 U' R2 F R",
-      "R U R' L' U' L R U R'"
-    ],
-    "learned": false
-  },
-  {
-    "name": "PI (3)",
-    "algorithms": [
-      "F R' F U' F2 R U R"
-    ],
-    "learned": false
-  },
-  {
-    "name": "PI (4)",
-    "algorithms": [
-      "R U' R' U R U' R' F R U' R'"
-    ],
-    "learned": false
-  },
-  {
-    "name": "PI (5)",
-    "algorithms": [
-      "F U' R U2 R' F' R U R' F'",
-      "R U' R2 F R U R U' R' U' R' F R F'",
-      "R' U' R' F2 U' R U2 F2 R"
-    ],
-    "learned": false
-  },
-  {
-    "name": "PI (6)",
-    "algorithms": [
-      "F R U' R' F R U2 R' U F'",
-      "2 L U L F2 U L' U2 F2 L'"
-    ],
-    "learned": false
-  },
-  {
-    "name": "U (1)",
-    "algorithms": [
-      "R U R' U R U R2 F R2 U' R'"
-    ],
-    "learned": false
-  },
-  {
-    "name": "U (2)",
-    "algorithms": [
-      "x U' R' U R U' F R U R U' x'",
-      "F R U' R' F U' F' R' F' R",
-      "x U' R2 U' R2 U' x' U' F2 R2"
-    ],
-    "learned": false
-  },
-  {
-    "name": "U (3)",
-    "algorithms": [
-      "F' U2 R U2 R' U2 F"
-    ],
-    "learned": false
-  },
-  {
-    "name": "U (4)",
-    "algorithms": [
-      "R' F R F' R' F R2 U' R'"
-    ],
-    "learned": false
-  },
-  {
-    "name": "U (5)",
-    "algorithms": [
-      "R' F R F' U R U' R' F R U' R'",
-      "2 R U' R' U R U' R' U' F R U' R'"
-    ],
-    "learned": false
-  },
-  {
-    "name": "U (6)",
-    "algorithms": [
-      "R' F R2 U' R' U y' R U R'"
-    ],
-    "learned": false
-  },
-  {
-    "name": "L (1)",
-    "algorithms": [
-      "R U' R' U R U' R2 F' R F",
-      "R U R' F' R U2 R' U2 R U R'"
-    ],
-    "learned": false
-  },
-  {
-    "name": "L (2)",
-    "algorithms": [
-      "L' U L U' L' U L2 F L' F'",
-      "R' F R F' R' F R U R U2 R'"
-    ],
-    "learned": false
-  },
-  {
-    "name": "L (3)",
-    "algorithms": [
-      "R' U R2 U' R2 U' F R2 U' R'"
-    ],
-    "learned": false
-  },
-  {
-    "name": "L (4)",
-    "algorithms": [
-      "R' F R2 U R' F' R U2 R'"
-    ],
-    "learned": false
-  },
-  {
-    "name": "L (5)",
-    "algorithms": [
-      "R U R' F' R U R' U' F R' F' R",
-      "L' U L y' R U2 R U' R2"
-    ],
-    "learned": false
-  },
-  {
-    "name": "L (6)",
-    "algorithms": [
-      "R U' R' y' R' U2 R' U R2",
-      "R' F R F' U2 R U2 R' F R U' R'"
-    ],
-    "learned": false
-  },
-  {
-    "name": "T (1)",
-    "algorithms": [
-      "R2 U R U' R2 F R U2 R' F",
-      "L' U L U2 R' F2 R F' L' U L"
-    ],
-    "learned": false
-  },
-  {
-    "name": "T (2)",
-    "algorithms": [
-      "F' R' F R2 U R' U' R U R'"
-    ],
-    "learned": false
-  },
-  {
-    "name": "T (3)",
-    "algorithms": [
-      "R U' R2 F R U R U2 R'",
-      "L' U L2 F' L' U' L' U2 L"
-    ],
-    "learned": false
-  },
-  {
-    "name": "T (4)",
-    "algorithms": [
-      "R2 B2 U' R' U' R U' R' U R'"
-    ],
-    "learned": false
-  },
-  {
-    "name": "T (5)",
-    "algorithms": [
-      "R U R2 x U' R U R' U' R x'"
-    ],
-    "learned": false
-  },
-  {
-    "name": "T (6)",
-    "algorithms": [
-      "R U R' F R U R' F U' R U' R'",
-      "R U' R' U2 F R U2 R' F"
-    ],
-    "learned": false
-  },
-  {
-    "name": "H (1)",
-    "algorithms": [
-      "U' R' F R2 U' R' F R U R' F'",
-      "U' R' F R2 U' R2' U' F U R"
-    ],
-    "learned": false
-  },
-  {
-    "name": "H (2)",
-    "algorithms": [
-      "U' F' U R U' R2 F2 R U' F",
-      "F R U' R2' F U' F2 U R",
-      "R2 U2 R U' R2 U' R2 U R2 U' R2"
-    ],
-    "learned": false
-  },
-  {
-    "name": "H (3)",
-    "algorithms": [
-      "R' U' R' F2 U F' R F'",
-      "U2 R U R2' F2 U2' F R U R2",
-      "U2 R2' U' R U' R2' F' R2 B2 R' U",
-      "U' F U2' R U' R' F2 R' F2 R F'"
-    ],
-    "learned": false
-  },
-  {
-    "name": "H (4)",
-    "algorithms": [
-      "U' R U R' F' R U R' U' R U R' U'"
-    ],
-    "learned": false
-  }
-].map(caseData => ({
+    const storage = new StorageManager('eg1');
+    const cases = window.eg2Cases.map(caseData => ({
         ...caseData,
         scramble: invertAlgorithm(caseData.algorithms[0]),
         selectedAlgorithm: caseData.algorithms[0]
     }));
 
     let solves = [];
-    let currentCase = pllCases[0];
+    let currentCase = cases[0];
     let timer = 0;
     let isRunning = false;
     let timerInterval;
@@ -464,7 +157,7 @@
 
         if (storedAlgorithmList) {
             const algorithmList = JSON.parse(storedAlgorithmList);
-            pllCases.forEach((pllCase, index) => {
+            cases.forEach((pllCase, index) => {
                 if (algorithmList[index]) {
                     pllCase.algorithms = algorithmList[index];
                 }
@@ -473,7 +166,7 @@
 
         if (storedProgress) {
             const pllCasesProgress = JSON.parse(storedProgress);
-            pllCases.forEach((pllCase, index) => {
+            cases.forEach((pllCase, index) => {
                 if (pllCasesProgress[index]) {
                     pllCase.learned = pllCasesProgress[index].learned;
                 }
@@ -482,7 +175,7 @@
 
         if (storedSelectedAlgorithms) {
             const selectedAlgorithmList = JSON.parse(storedSelectedAlgorithms);
-            pllCases.forEach((pllCase, index) => {
+            cases.forEach((pllCase, index) => {
                 if (selectedAlgorithmList[index]) {
                     pllCase.selectedAlgorithm = selectedAlgorithmList[index];
                 } else {
@@ -490,7 +183,7 @@
                 }
             });
         } else {
-            pllCases.forEach(pllCase => {
+            cases.forEach(pllCase => {
                 pllCase.selectedAlgorithm = pllCase.algorithms[0];
             });
         }

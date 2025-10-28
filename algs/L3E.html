@@ -142,114 +142,15 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sr-puzzlegen/dist/bundle/puzzleGen.min.js"></script>
     <script src="../storage.js"></script>
+    <script src="utils/algUtils.js"></script>
+    <script src="data/casesData.js"></script>
     <script src="alg.js"></script>
     <script>
         const storage = new StorageManager('Pyram-ll');
-        const cases = [
-        {
-  "name": "Sune",
-    "algorithms": [
-      "R U R' U R U R'",
-      "L' U L U L' U L",
-      "R' U R U R' U R",
-      "L U L' U L U L'",
-      "R U R U R' U R U R",
-      "R' U R' U R U R' U R'",
-      "L U L U L' U L U L"
-    ]
-  },
-  {
-    "name": "AntiSune",
-    "algorithms": [
-      "L' U' L U' L' U' L",
-      "R U' R' U' R U' R'",
-      "R' U' R U' R' U' R",
-      "L U' L' U' L U' L'",
-      "R U' R U' R' U' R U' R",
-      "L' U L' U L U L' U L'",
-      "L' U' L' U' L U' L' U' L'",
-      "R' U' R' U' R U' R' U' R'",
-      "L U' L U' L' U' L U' L"
-    ]
-  },
-  {
-    "name": "Lefty Bars",
-    "algorithms": [
-      "R' U' L' U L R",
-      "R' L R L' U' L' U L",
-      "L R U R' U' L'",
-      "R U R' U' R' L R L'",
-      "R U' R L' R' U R L R",
-      "R U R' L' U' L R U' R'",
-      "R' L' U L U' L' U' L R",
-      "R' L' U' L R U' R' U' R",
-      "R' U' R' L R L' U R",
-      "L U R' L R L' U' L'",
-      "R U' R' L R' L' R' U R'",
-      "R' L R U R' U' L' U R",
-      "R L R U R U' R L' R'",
-      "R' U R U' R' L R' L' R'",
-      "R' L' U' L' R' L' R U R",
-      "L U R' U' L' U L R L'",
-      "R L R U R' U' L' U R'",
-      "R' L R' L' U' L' U L R'",
-      "R' L R L U' L' R' L' R",
-      "R L R L' U' L R' L' R'"
-    ]
-  },
-  {
-    "name": "Righty Bars",
-    "algorithms": [
-      "R' L' U' L U R",
-      "L U R U' R' L'",
-      "L R' L' R U R U' R'",
-      "L' U' L U L R' L' R",
-      "R U R' L' U L R U' R'",
-      "L' U' L R U' R' L' U L",
-      "L' U L' R L U' L' R' L'",
-      "R' L' U L U L' U' L R",
-      "R' U R U R' L' U L R",
-      "R' U' L R' L' R U R",
-      "L R U R' L' U L U L'",
-      "L R U' R' U R U R' L'",
-      "L R U' R' U' R U R' L'",
-      "L U L R' L' R U' L'",
-      "L U' L' U' L R U' R' L'",
-      "R U' R L R L' R U R'",
-      "L' U L' R' L' R L' U' L",
-      "L R' L' U' L U R U' L'",
-      "L' U L R' L R L U' L",
-      "R' U' L U R U' R' L' R"
-    ]
-  },
-  {
-    "name": "2 Flip",
-    "algorithms": [
-      "R U' R' U R' L R L'",
-      "R' L R L' U L' U' L",
-      "L R' L' R U' R U R'",
-      "L' U L U' L R' L' R",
-      "R' U L' U L U' R",
-      "L' U' L U L R' L' R",
-      "R' U L' U' L U' R",
-      "L U' R U' R' U L'",
-      "L' U' L R U R' L' U L",
-      "L U' R U R' U L'",
-      "L' U' L' R' L' R' U' R'",
-      "R' U' R U R' L R' L' R'",
-      "R U R L R L U L",
-      "L' R' L' U' L' U L' R L",
-      "L U L' U' L R' L R L",
-      "L' R' L' U' L U R U' L",
-      "R L R L' R U' R' U R",
-      "L' R' L' R U R' L R L",
-      "L' R' L' R L' U L U' L'"
-    ]
-  }
-].map(caseData => ({
-        ...caseData,
-        scramble: invertAlgorithm(caseData.algorithms[0]),
-        selectedAlgorithm: caseData.algorithms[0]
+        const cases = window.pyraminxL3ECases.map(caseData => ({
+            ...caseData,
+            scramble: invertAlgorithm(caseData.algorithms[0]),
+            selectedAlgorithm: caseData.algorithms[0]
         }));
         
         let currentCase = cases[0];

@@ -25,7 +25,7 @@
             <span>Cubezila</span>
         </a>
         <div class="breadcrumb">
-            <a href="../index.html"><i class="fas fa-home"></i></a>
+            <a href="../index.index.html"><i class="fas fa-home"></i></a>
             <i class="fas fa-chevron-right"></i>
             <a href="alg-dash.html">Algorithms</a>
             <i class="fas fa-chevron-right"></i>
@@ -154,63 +154,15 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sr-puzzlegen/dist/bundle/puzzleGen.min.js"></script>
     <script src="../storage.js"></script>
+    <script src="utils/algUtils.js"></script>
+    <script src="data/casesData.js"></script>
     <script src="alg.js"></script>
     <script>
         const storage = new StorageManager('ortegapbl');
-        const cases = [
-        {
-    "name": "Adj",
-    "algorithms": [
-      "R U R' F' R U R' U' R' F R2 U' R'",
-      "R' F R F' R U2 R' U R U2 R'",
-    ],
-    "learned": false
-  },
-  {
-    "name": "Opp",
-    "algorithms": [
-      "R U' R' U' F2 U' R U R' U F2",
-      "F R U' R' U' R U R' F' R U R' U' R' F R F'",
-      "R U' R' U' F2 U' R U R' D R2",
-    ],
-    "learned": false
-  },
-  {
-    "name": "Opp Opp",
-    "algorithms": [
-      "R2 F2 R2",
-      "R2 B2 R2",
-    ],
-    "learned": false
-  },
-  {
-    "name": "Adj Adj",
-    "algorithms": [
-      "R2 U' B2 U2 R2 U' R2",
-      "R2 U' R2 U2 F2 U' R2",
-    ],
-    "learned": false
-  },
-  {
-    "name": "Adj Opp",
-    "algorithms": [
-      "R U' R F2 R' U R'",
-      "R' F R' F2 R U' R",
-    ],
-    "learned": false
-  },
-  {
-    "name": "Opp Adj",
-    "algorithms": [
-      "R2 U R2 U' R2 U R2 U' R2",
-      "R' D R' F2 R D' R",
-    ],
-    "learned": false
-  }
-  ].map(caseData => ({
-        ...caseData,
-        scramble: invertAlgorithm(caseData.algorithms[0]),
-        selectedAlgorithm: caseData.algorithms[0]
+        const cases = window.ortegaPBLCases.map(caseData => ({
+            ...caseData,
+            scramble: invertAlgorithm(caseData.algorithms[0]),
+            selectedAlgorithm: caseData.algorithms[0]
         }));
         
         let currentCase = cases[0];
