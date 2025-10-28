@@ -16,19 +16,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 2rem;
-}
-
-body::before {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 50vh;
-    background: radial-gradient(ellipse at top, rgba(78, 115, 223, 0.2), transparent 70%);
-    z-index: -1;
-    pointer-events: none;
+    padding: 1rem; /* Compact */
 }
 
 @keyframes fadeIn {
@@ -46,7 +34,7 @@ body::before {
 }
 
 .pricing-wrapper {
-    max-width: 800px;
+    max-width: 750px; /* Slightly smaller */
     width: 100%;
     margin: 0 auto;
     position: relative;
@@ -58,7 +46,7 @@ body::before {
     gap: 8px;
     color: var(--text-light);
     text-decoration: none;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem; /* Compact */
     font-size: 0.9rem;
     transition: color 0.3s ease;
 }
@@ -73,14 +61,14 @@ body::before {
 }
 
 .pricing-header h1 {
-    font-size: 2.5rem;
+    font-size: 2.2rem; /* Compact */
     font-weight: 600;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.5rem; /* Compact */
 }
 
 .pricing-header p {
     color: var(--text-light);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.5rem; /* Compact */
 }
 
 .tabs {
@@ -88,7 +76,7 @@ body::before {
     background: var(--highlight-bg);
     border-radius: 10px;
     padding: 5px;
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem; /* Compact */
     border: 1px solid var(--border-color);
 }
 
@@ -121,9 +109,9 @@ body::before {
 .pricing-card {
     background: var(--container-bg);
     border-radius: 12px;
-    padding: 30px;
+    padding: 25px; /* Compact */
     width: 100%;
-    max-width: 350px;
+    max-width: 320px; /* Compact */
     text-align: left;
     border: 1px solid var(--border-color);
     transition: all 0.3s ease;
@@ -159,13 +147,13 @@ body::before {
 }
 
 .card-header h3 {
-    font-size: 1.3rem;
+    font-size: 1.2rem; /* Compact */
     font-weight: 600;
-    margin-bottom: 10px;
+    margin-bottom: 8px; /* Compact */
 }
 
 .price {
-    font-size: 2.5rem;
+    font-size: 2.2rem; /* Compact */
     font-weight: 700;
     color: var(--text-color);
     margin-bottom: 5px;
@@ -179,13 +167,13 @@ body::before {
 
 .card-description {
     color: var(--text-light);
-    margin-bottom: 25px;
+    margin-bottom: 20px; /* Compact */
     min-height: 40px;
     font-size: 0.9rem;
 }
 
 .features {
-    margin: 0 0 25px 0;
+    margin: 0 0 20px 0; /* Compact */
     list-style: none;
     flex-grow: 1;
 }
@@ -193,7 +181,7 @@ body::before {
 .feature {
     display: flex;
     align-items: center;
-    margin-bottom: 12px;
+    margin-bottom: 10px; /* Compact */
     color: var(--text-color);
     font-size: 0.9rem;
 }
@@ -215,7 +203,7 @@ body::before {
 
 .select-plan {
     width: 100%;
-    padding: 12px;
+    padding: 12px; /* Keep this for button size */
     border-radius: 8px;
     font-weight: 600;
     font-size: 0.9rem;
