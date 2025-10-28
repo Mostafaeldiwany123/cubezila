@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <!-- Google tag (gtag.js) -->
+    <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GD9J5DTDPS"></script>
     <script>
       // Only load GA on cubezila.com
@@ -31,118 +31,61 @@
     <script src="bg/theme.js"></script>
     <script src="language/language.js"></script>
 
-       <!-- Firebase Scripts -->
-            <link rel="icon" type="image/png" href="../img/demo (2).png">
-
-        <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/png" href="../img/demo (2).png">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Homepage - cubezila</title>
-    <!-- Font Awesome -->
-
+    <title>CubeZila - Elevate Your Speedcubing</title>
     <!-- Cubing Icons -->
     <link rel="stylesheet" href="https://cdn.cubing.net/v0/css/@cubing/icons/css">
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <!-- Link to roots.css -->
     <link rel="stylesheet" href="css/roots.css">
     <link rel="stylesheet" href="css/index.css">
 </head>
 <body>
-    <!-- Header with Login/Signup and Dropdowns -->
+    <!-- Header -->
     <header>
-        <div class="container header-container">
+        <div class="header-container container">
             <a href="#" class="logo">
                 <i class="cubing-icon event-333"></i>
                 <span>CubeZila</span>
             </a>
             <nav>
                 <ul class="nav-links">
-                    <!-- Utility links group -->
-                    <li class="nav-item">
-                        <a href="pricing/pricing.html" class="dropdown-toggle">
-                            <i class="fas fa-tag"></i> Pricing
-                        </a>
-                    </li>
-                   
-                    <li class="nav-item dropdown">
+                    <li><a href="#features">Features</a></li>
+                    <li><a href="pricing/pricing.html">Pricing</a></li>
+                    <li><a href="info/about.html">About</a></li>
+                </ul>
+            </nav>
+            <div class="auth-buttons">
+                <!-- Guest buttons -->
+                <div id="guest-content" style="display: flex; gap: 10px;">
+                    <a href="auth/login.html" class="btn btn-secondary" id="loginLink">Enter</a>
+                    <a href="auth/register.html" class="btn" id="registerLink">Sign up</a>
+                </div>
+                <!-- User profile dropdown -->
+                <div id="user-content" style="display: none;">
+                    <div class="dropdown">
                         <div class="dropdown-toggle">
-                            <i class="fas fa-palette"></i> Themes <i class="fas fa-chevron-down"></i>
+                            <img id="userAvatar" src="img/noprof.png" alt="Profile" style="width: 32px; height: 32px; border-radius: 50%; margin-right: 8px;">
+                            <span id="userName">User</span>
+                            <i class="fas fa-chevron-down"></i>
                         </div>
                         <div class="dropdown-menu">
-                            <a href="#" class="dropdown-item theme-item" data-theme="light">
-                                <span class="theme-color light"></span>
-                                Light
+                            <a href="profile/profile.html" class="dropdown-item">
+                                <i class="fas fa-user"></i> Profile
                             </a>
-                            <a href="#" class="dropdown-item theme-item" data-theme="dark">
-                                <span class="theme-color dark"></span>
-                                Dark
-                            </a>
-                            <a href="#" class="dropdown-item theme-item" data-theme="neon">
-                                <span class="theme-color neon"></span>
-                                Neon
-                            </a>
-                            <a href="#" class="dropdown-item theme-item" data-theme="blue">
-                                <span class="theme-color blue"></span>
-                                Blue
-                            </a>
-                            <a href="#" class="dropdown-item theme-item" data-theme="green">
-                                <span class="theme-color green"></span>
-                                Red
-                            </a>
-                            <a href="#" class="dropdown-item theme-item" data-theme="golden">
-                                <span class="theme-color golden"></span>
-                                Golden
-                            </a>
-                            <a href="#" class="dropdown-item theme-item" data-theme="kids">
-                                <span class="theme-color kids"></span>
-                                Kids
-                            </a>
-                            <a href="#" class="dropdown-item theme-item" data-theme="lightblue">
-                                <span class="theme-color lightblue"></span>
-                                Light Blue
+                            <a href="#" class="dropdown-item" onclick="logout(); return false;" id="logoutLink">
+                                <i class="fas fa-sign-out-alt"></i> Logout
                             </a>
                         </div>
-                    </li>
-                    <!-- Spacer -->
-                    <li class="nav-spacer"></li>
-                    <!-- Auth buttons group -->
-                    <li class="nav-item auth-buttons">
-                        <!-- Guest buttons -->
-                        <div id="guest-content" style="display: flex;">
-                            <a href="auth/login.html" class="login-btn" id="loginLink">Login</a>
-                            <span class="auth-divider">|</span>
-                            <a href="auth/register.html" class="signup-btn" id="registerLink">Sign up</a>
-                        </div>
-                        <!-- User profile dropdown -->
-                        <div id="user-content" style="display: none;">
-                            <div class="dropdown">
-                                <div class="dropdown-toggle">
-                                    <img id="userAvatar" src="img/noprof.png" alt="Profile" style="width: 32px; height: 32px; border-radius: 50%; margin-right: 8px;">
-                                    <span id="userName">User</span>
-                                    <i class="fas fa-chevron-down"></i>
-                                </div>
-                                <div class="dropdown-menu">
-                                    <a href="profile/profile.html" class="dropdown-item">
-                                        <i class="fas fa-user"></i>
-                                        Profile
-                                    </a>
-                                    <a href="#" class="dropdown-item" onclick="logout(); return false;" id="logoutLink">
-                                        <i class="fas fa-sign-out-alt"></i>
-                                        Logout
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <button class="mobile-menu-btn" id="mobileMenuBtn">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </nav>
+                    </div>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </header>
 
@@ -158,190 +101,134 @@
             </button>
         </div>
         <ul class="sidebar-nav">
-            <li class="sidebar-nav-item">
-                <a href="pricing/pricing.html" class="sidebar-link">
-                    <i class="fas fa-tag"></i>
-                    <span>Pricing</span>
-                </a>
-            </li>
-        
-            <li class="sidebar-nav-item">
-                <a href="#" class="sidebar-link sidebar-dropdown-toggle" data-dropdown="themes">
-                    <i class="fas fa-palette"></i>
-                    <span>Themes</span>
-                    <i class="fas fa-chevron-down"></i>
-                </a>
-                <div class="sidebar-dropdown" id="themes-dropdown">
-                    <a href="#" class="sidebar-link theme-item" data-theme="light">
-                        <span class="theme-color light"></span>
-                        <span>Light</span>
-                    </a>
-                    <a href="#" class="sidebar-link theme-item" data-theme="dark">
-                        <span class="theme-color dark"></span>
-                        <span>Dark</span>
-                    </a>
-                    <a href="#" class="sidebar-link theme-item" data-theme="neon">
-                        <span class="theme-color neon"></span>
-                        <span>Neon</span>
-                    </a>
-                    <a href="#" class="sidebar-link theme-item" data-theme="blue">
-                        <span class="theme-color blue"></span>
-                        <span>Blue</span>
-                    </a>
-                    <a href="#" class="sidebar-link theme-item" data-theme="green">
-                        <span class="theme-color green"></span>
-                        <span>Green</span>
-                    </a>
-                    <a href="#" class="sidebar-link theme-item" data-theme="red">
-                        <span class="theme-color red"></span>
-                        <span>Red</span>
-                    </a>
-                    <a href="#" class="sidebar-link theme-item" data-theme="golden">
-                        <span class="theme-color golden"></span>
-                        <span>Golden</span>
-                    </a>
-                    <a href="#" class="sidebar-link theme-item" data-theme="kids">
-                        <span class="theme-color kids"></span>
-                        <span>Kids</span>
-                    </a>
-                    <a href="#" class="sidebar-link theme-item" data-theme="lightblue">
-                        <span class="theme-color lightblue"></span>
-                        <span>Light Blue</span>
-                    </a>
-                </div>
-            </li>
-        </ul>
-        <div class="sidebar-divider"></div>
-        <ul class="sidebar-nav">
-            <li class="sidebar-nav-item">
-                <a href="algs/dashboards/alg-dash.html" class="sidebar-link">
-                    <i class="cubing-icon event-333"></i>
-                    <span>Algorithms</span>
-                </a>
-            </li>
-            <li class="sidebar-nav-item">
-                <a href="timer/timer.html" class="sidebar-link">
-                    <i class="cubing-icon event-clock"></i>
-                    <span>Timer</span>
-                </a>
-            </li>
+            <li class="sidebar-nav-item"><a href="#features" class="sidebar-link"><i class="fas fa-star"></i><span>Features</span></a></li>
+            <li class="sidebar-nav-item"><a href="pricing/pricing.html" class="sidebar-link"><i class="fas fa-tag"></i><span>Pricing</span></a></li>
+            <li class="sidebar-nav-item"><a href="info/about.html" class="sidebar-link"><i class="fas fa-info-circle"></i><span>About</span></a></li>
         </ul>
         <div class="sidebar-divider"></div>
         <div id="sidebar-guest-content" style="display: block;">
             <ul class="sidebar-nav">
-                <li class="sidebar-nav-item">
-                    <a href="auth/login.html" class="sidebar-link">
-                        <i class="fas fa-sign-in-alt"></i>
-                        <span>Login</span>
-                    </a>
-                </li>
-                <li class="sidebar-nav-item">
-                    <a href="auth/register.html" class="sidebar-link">
-                        <i class="fas fa-user-plus"></i>
-                        <span>Sign up</span>
-                    </a>
-                </li>
+                <li class="sidebar-nav-item"><a href="auth/login.html" class="sidebar-link"><i class="fas fa-sign-in-alt"></i><span>Login</span></a></li>
+                <li class="sidebar-nav-item"><a href="auth/register.html" class="sidebar-link"><i class="fas fa-user-plus"></i><span>Sign up</span></a></li>
             </ul>
         </div>
         <div id="sidebar-user-content" style="display: none;">
             <ul class="sidebar-nav">
-                <li class="sidebar-nav-item">
-                    <a href="profile/profile.html" class="sidebar-link">
-                        <i class="fas fa-user"></i>
-                        <span>Profile</span>
-                    </a>
-                </li>
-                <li class="sidebar-nav-item">
-                    <a href="#" class="sidebar-link" onclick="logout(); return false;">
-                        <i class="fas fa-sign-out-alt"></i>
-                        <span>Logout</span>
-                    </a>
-                </li>
+                <li class="sidebar-nav-item"><a href="profile/profile.html" class="sidebar-link"><i class="fas fa-user"></i><span>Profile</span></a></li>
+                <li class="sidebar-nav-item"><a href="#" class="sidebar-link" onclick="logout(); return false;"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
             </ul>
-        </div>
-        <div class="sidebar-footer">
-            <div class="sidebar-social">
-                <a href="https://www.tiktok.com/@dailytifa" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-                    <i class="fab fa-tiktok"></i>
-                </a>
-                <a href="https://www.youtube.com/@Mostafa_Eldiwany" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-                    <i class="fab fa-youtube"></i>
-                </a>
-                <a href="https://www.instagram.com/daily_tifa1234/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="https://www.worldcubeassociation.org/persons/2024ELDI01" target="_blank" rel="noopener noreferrer" aria-label="WCA">
-                    <i class="fas fa-cube"></i>
-                </a>
-            </div>
         </div>
     </div>
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <!-- Free Trial Banner -->
-    <div class="free-trial-banner" id="freeTrialBanner">
-        <button class="close-banner" id="closeBanner">×</button>
-        <h3><i class="fas fa-gift"></i> Limited Time Offer!</h3>
-        <p>All premium features free for 1 week!</p>
-    </div>
-
     <!-- Main Content -->
     <main>
-        <div class="container">
-            <section class="hero">
-                <div class="hero-content">
-                    <h1 class="hero-title">Master the Art of <span>Speedcubing</span> with CubeZila</h1>
-                    <p class="hero-description">
-                        Unlock your potential with our comprehensive tutorials, advanced algorithms, and precision timer. 
-                        Join thousands of cubers who have improved their solving times and techniques with CubeZila.
-                    </p>
-                    <a href="algs/dashboards/alg-dash.html" class="btn">
-                        <span>Start Here</span>
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
+        <!-- Hero Section -->
+        <section class="hero container">
+            <div class="hero-badge">
+                <i class="fas fa-check-circle"></i> CubeZila is free and always will be!
+            </div>
+            <h1 class="hero-title">Stay organized, and elevate your training experience.</h1>
+            <p class="hero-description">
+                CubeZila is your timing hub — simple, powerful, and designed for SpeedCubers by SpeedCubers.
+            </p>
+            <div class="hero-cta">
+                <a href="timer/timer.html" class="btn">
+                    <i class="fas fa-play"></i> Start now
+                </a>
+                <a href="algs/dashboards/alg-dash.html" class="btn btn-secondary">
+                    <i class="fas fa-book"></i> Algorithms
+                </a>
+            </div>
+            <div class="community-info">
+                <div class="avatars">
+                    <img src="img/noprof.png" alt="User 1">
+                    <img src="img/noprof.png" alt="User 2">
+                    <img src="img/noprof.png" alt="User 3">
                 </div>
-                <div class="hero-cards">
-                    <a href="algs/dashboards/alg-dash.html" class="card">
-                        <div class="cube-animation">
-                            <i class="cubing-icon event-333"></i>
-                        </div>
-                        <div class="card-icon">
-                            <i class="cubing-icon alg-R"></i>
-                        </div>
-                        <h3 class="card-title">
-                            Advanced Algorithms
-                        </h3>
-                        <p class="card-description">
-                            Access our library of 500+ optimized algorithms for all puzzles. 
-                            From beginner methods to advanced OLL and PLL techniques.
-                        </p>
-                        <span class="card-link">
-                            <span>Explore Algorithms</span>
-                            <i class="fas fa-chevron-right"></i>
-                        </span>
-                    </a>
-                    <a href="timer/timer.html" class="card">
-                        <div class="cube-animation">
-                            <i class="cubing-icon event-clock"></i>
-                        </div>
-                        <h3 class="card-title">
-                            Cubing Timer
-                        </h3>
-                        <p class="card-description">
-                            Track your progress with our competition-grade timer. 
-                            Analyze your solves, identify patterns, and improve your times.
-                        </p>
-                        <span class="card-link">
-                            <span>Try Timer</span>
-                            <i class="fas fa-chevron-right"></i>
-                        </span>
-                    </a>
+                <span>Join a growing community of cubers</span>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="section container">
+            <h2 class="section-title">Everything you need, all in one place.</h2>
+            <p class="section-subtitle">Our platform is packed with features to help you practice smarter, not harder.</p>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-stopwatch feature-icon"></i>
+                    <h3>Precision Timer</h3>
+                    <p>Competition-grade timer with detailed stats to track and analyze your solves.</p>
                 </div>
-            </section>
-        </div>
+                <div class="feature-card">
+                    <i class="fas fa-brain feature-icon"></i>
+                    <h3>Algorithm Library</h3>
+                    <p>Access over 500+ algorithms for various puzzles, from beginner to advanced.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-chart-line feature-icon"></i>
+                    <h3>Progress Tracking</h3>
+                    <p>Visualize your improvement over time with insightful charts and graphs.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- How it Works Section -->
+        <section id="how-it-works" class="section container">
+            <h2 class="section-title">Get started in seconds.</h2>
+            <div class="steps-container">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <h3>Practice</h3>
+                    <p>Use the timer to practice your solves and get instant feedback.</p>
+                </div>
+                <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <h3>Learn</h3>
+                    <p>Explore the algorithm library to learn new techniques and improve your efficiency.</p>
+                </div>
+                <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <h3>Improve</h3>
+                    <p>Track your progress, identify weaknesses, and become a faster cuber.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="section container">
+            <h2 class="section-title">Loved by cubers worldwide.</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <p>"CubeZila has completely transformed my practice sessions. The stats are incredibly helpful!"</p>
+                    <div class="testimonial-author">
+                        <img src="img/noprof.png" alt="User">
+                        <span>- Alex R.</span>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <p>"The best all-in-one cubing tool I've ever used. The algorithm trainer is a game-changer."</p>
+                    <div class="testimonial-author">
+                        <img src="img/noprof.png" alt="User">
+                        <span>- Jane D.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section id="cta" class="section container">
+            <div class="cta-content">
+                <h2>Ready to crush your records?</h2>
+                <p>Join CubeZila today and start your journey to becoming a speedcubing master.</p>
+                <a href="auth/register.html" class="btn btn-large">Sign Up for Free</a>
+            </div>
+        </section>
     </main>
 
-    <!-- Footer - SIMPLIFIED to a single line -->
+    <!-- Footer -->
     <footer>
         <div class="container footer-container">
             <p class="copyright">
@@ -350,36 +237,21 @@
             <div class="footer-links">
                 <a href="info/privacy.html" class="footer-link">Privacy Policy</a>
                 <a href="info/faq.html" class="footer-link">FAQ</a>
-                <a href="info/about.html" class="footer-link">About</a>
-
             </div>
             <div class="social-links">
-                <a href="https://www.tiktok.com/@dailytifa" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
-                    <i class="fab fa-tiktok"></i>
-                </a>
-                <a href="https://www.youtube.com/@Mostafa_Eldiwany" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
-                    <i class="fab fa-youtube"></i>
-                </a>
-                <a href="https://www.instagram.com/daily_tifa1234/" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                    <i class="fab fa-instagram"></i>
-                </a>
-                <a href="https://www.worldcubeassociation.org/persons/2024ELDI01" target="_blank" rel="noopener noreferrer" aria-label="WCA">
-                    <i class="fas fa-cube"></i>
-                </a>
+                <a href="https://www.tiktok.com/@dailytifa" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                <a href="https://www.youtube.com/@Mostafa_Eldiwany" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.instagram.com/daily_tifa1234/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.worldcubeassociation.org/persons/2024ELDI01" target="_blank" rel="noopener noreferrer" aria-label="WCA"><i class="fas fa-cube"></i></a>
             </div>
         </div>
     </footer>
     <script>
-      // Register service worker
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
           navigator.serviceWorker.register('/sw.js')
-            .then(registration => {
-              console.log('ServiceWorker registration successful');
-            })
-            .catch(err => {
-              console.log('ServiceWorker registration failed: ', err);
-            });
+            .then(registration => console.log('ServiceWorker registration successful'))
+            .catch(err => console.log('ServiceWorker registration failed: ', err));
         });
       }
     </script>
