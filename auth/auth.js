@@ -70,6 +70,7 @@ window.logout = async function() {
   if (confirmLogout) {
     try {
       await logoutUser();
+      localStorage.removeItem('user_profile'); // Explicitly remove on logout action
       alert('Logged out successfully');
       // Redirect to index or current page if not auth page
       if (window.location.pathname.includes('/auth/')) {
@@ -96,24 +97,34 @@ function updateUIForAuthState(user) {
   if (user && user.profile) {
     // User is signed in
     if (guestContent) guestContent.style.display = 'none';
-    if (userContent) userContent.style.display = 'flex'; // Use flex to align items
+    if (userContent) userContent.style.display = 'block'; // Changed from 'flex' to 'block'
     if (sidebarGuestContent) sidebarGuestContent.style.display = 'none';
     if (sidebarUserContent) sidebarUserContent.style.display = 'block';
 
+    const username = user.profile.username || user.displayName || 'User';
     if (userNameDisplay) {
-      userNameDisplay.textContent = user.profile.username || user.displayName || 'User';
+      userNameDisplay.textContent = username;
     }
     if (userAvatar) {
-        // Prioritize Google photoURL, then Firestore profile photoURL, then initials
         const avatarSrc = user.photoURL || user.profile.photoURL;
+        let finalAvatarUrl;
         if (avatarSrc) {
             userAvatar.src = avatarSrc;
-            userAvatar.alt = user.profile.username || user.displayName || 'User Profile';
+            finalAvatarUrl = avatarSrc;
         } else {
-            const initials = (user.profile.username || user.displayName || 'U').charAt(0).toUpperCase();
-            userAvatar.src = `https://via.placeholder.com/32/007bff/ffffff?text=${initials}`; // Placeholder with initials
-            userAvatar.alt = user.profile.username || user.displayName || 'User Profile';
+            const initials = (username).charAt(0).toUpperCase();
+            const placeholderUrl = `https://via.placeholder.com/32/007bff/ffffff?text=${initials}`;
+            userAvatar.src = placeholderUrl;
+            finalAvatarUrl = placeholderUrl;
         }
+        userAvatar.alt = username;
+
+        // Store in localStorage
+        const profileData = {
+            username: username,
+            avatarUrl: finalAvatarUrl
+        };
+        localStorage.setItem('user_profile', JSON.stringify(profileData));
     }
   } else {
     // User is signed out
@@ -124,9 +135,11 @@ function updateUIForAuthState(user) {
 
     if (userNameDisplay) userNameDisplay.textContent = 'User'; // Reset to default
     if (userAvatar) {
-        userAvatar.src = '../img/noprof.png'; // Default image
+        userAvatar.src = '/img/noprof.png'; // Default image with root-relative path
         userAvatar.alt = 'Profile';
     }
+    // Remove from localStorage
+    localStorage.removeItem('user_profile');
   }
 }
 

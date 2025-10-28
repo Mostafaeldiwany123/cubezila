@@ -31,12 +31,32 @@
     <script src="bg/theme.js"></script>
     <script src="language/language.js"></script>
 
-    <link rel="icon" type="image/png" href="../img/demo (2).png">
+    <link rel="icon" type="image/png" href="/img/demo (2).png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CubeZila - Elevate Your Speedcubing</title>
+    <!-- Anti-flash script -->
+    <script>
+        try {
+            if (localStorage.getItem('user_profile')) {
+                document.write('<style>#guest-content, #sidebar-guest-content { display: none !important; } #user-content { display: flex !important; } #sidebar-user-content { display: block !important; }</style>');
+            }
+        } catch (e) {}
+        // Instantly update profile info to prevent image/name flash
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                const profile = JSON.parse(localStorage.getItem('user_profile'));
+                if (profile) {
+                    const userAvatar = document.getElementById('userAvatar');
+                    const userName = document.getElementById('userName');
+                    if (userAvatar) userAvatar.src = profile.avatarUrl || '/img/noprof.png';
+                    if (userName) userName.textContent = profile.username || 'User';
+                }
+            } catch (e) {}
+        });
+    </script>
     <!-- Cubing Icons -->
     <link rel="stylesheet" href="https://cdn.cubing.net/v0/css/@cubing/icons/css">
     <!-- Link to roots.css -->
@@ -54,8 +74,8 @@
             <nav>
                 <ul class="nav-links">
                     <li><a href="#features">Features</a></li>
+                    <li><a href="#how-it-works">How it Works</a></li>
                     <li><a href="pricing/pricing.html">Pricing</a></li>
-                    <li><a href="info/about.html">About</a></li>
                 </ul>
             </nav>
             <div class="auth-buttons">
@@ -100,21 +120,19 @@
                     <a href="auth/register.html" class="btn" id="registerLink">Sign up</a>
                 </div>
                 <!-- User profile dropdown -->
-                <div id="user-content" style="display: none;">
-                    <div class="dropdown">
-                        <div class="dropdown-toggle">
-                            <img id="userAvatar" src="img/noprof.png" alt="Profile">
-                            <span id="userName">User</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="dropdown-menu">
-                            <a href="profile/profile.html" class="dropdown-item">
-                                <i class="fas fa-user"></i> Profile
-                            </a>
-                            <a href="#" class="dropdown-item" onclick="logout(); return false;" id="logoutLink">
-                                <i class="fas fa-sign-out-alt"></i> Logout
-                            </a>
-                        </div>
+                <div id="user-content" class="dropdown" style="display: none;">
+                    <div class="dropdown-toggle">
+                        <img id="userAvatar" src="/img/noprof.png" alt="Profile">
+                        <span id="userName">User</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="dropdown-menu">
+                        <a href="profile/profile.html" class="dropdown-item">
+                            <i class="fas fa-user"></i> Profile
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="logout(); return false;" id="logoutLink">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
                     </div>
                 </div>
             </div>
@@ -137,8 +155,8 @@
         </div>
         <ul class="sidebar-nav">
             <li class="sidebar-nav-item"><a href="#features" class="sidebar-link"><i class="fas fa-star"></i><span>Features</span></a></li>
+            <li class="sidebar-nav-item"><a href="#how-it-works" class="sidebar-link"><i class="fas fa-cogs"></i><span>How it Works</span></a></li>
             <li class="sidebar-nav-item"><a href="pricing/pricing.html" class="sidebar-link"><i class="fas fa-tag"></i><span>Pricing</span></a></li>
-            <li class="sidebar-nav-item"><a href="info/about.html" class="sidebar-link"><i class="fas fa-info-circle"></i><span>About</span></a></li>
         </ul>
         <div class="sidebar-divider"></div>
         <div id="sidebar-guest-content" style="display: block;">
@@ -177,9 +195,9 @@
             </div>
             <div class="community-info">
                 <div class="avatars">
-                    <img src="img/noprof.png" alt="User 1">
-                    <img src="img/noprof.png" alt="User 2">
-                    <img src="img/noprof.png" alt="User 3">
+                    <img src="/img/noprof.png" alt="User 1">
+                    <img src="/img/noprof.png" alt="User 2">
+                    <img src="/img/noprof.png" alt="User 3">
                 </div>
                 <span>Join a growing community of cubers</span>
             </div>
@@ -239,14 +257,14 @@
                 <div class="testimonial-card">
                     <p>"CubeZila has completely transformed my practice sessions. The stats are incredibly helpful!"</p>
                     <div class="testimonial-author">
-                        <img src="img/noprof.png" alt="User">
+                        <img src="/img/noprof.png" alt="User">
                         <span>- Alex R.</span>
                     </div>
                 </div>
                 <div class="testimonial-card">
                     <p>"The best all-in-one cubing tool I've ever used. The algorithm trainer is a game-changer."</p>
                     <div class="testimonial-author">
-                        <img src="img/noprof.png" alt="User">
+                        <img src="/img/noprof.png" alt="User">
                         <span>- Jane D.</span>
                     </div>
                 </div>
@@ -269,10 +287,6 @@
             <p class="copyright">
                 © 2025 CubeZila. All rights reserved.
             </p>
-            <div class="footer-links">
-                <a href="info/privacy.html" class="footer-link">Privacy Policy</a>
-                <a href="info/faq.html" class="footer-link">FAQ</a>
-            </div>
             <div class="social-links">
                 <a href="https://www.tiktok.com/@dailytifa" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
                 <a href="https://www.youtube.com/@Mostafa_Eldiwany" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
