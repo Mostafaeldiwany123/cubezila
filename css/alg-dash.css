@@ -20,8 +20,9 @@
             left: 0;
             right: 0;
             height: 70px;
-            padding: 0 8%;
-            background: var(--container-bg);
+            padding: 0 4%; /* Standardized padding */
+            background: rgba(29, 31, 39, 0.5); /* Transparent dark background */
+            border-bottom: 1px solid var(--border-color); /* Added border bottom */
             box-shadow: var(--box-shadow);
             z-index: 1000;
             display: flex;
@@ -32,21 +33,23 @@
         }
 
         .site-header .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--primary-color);
+            font-size: 20px; /* Standardized font size */
+            font-weight: 600; /* Standardized font weight */
+            color: var(--text-color); /* Standardized color */
             text-decoration: none;
             display: flex;
             align-items: center;
-            gap: 0.8rem;
+            gap: 10px; /* Standardized gap */
             transition: transform 0.3s ease;
         }
 
         .site-header .logo img {
-            width: 38px;
-            height: 38px;
-            object-fit: contain;
-            margin-right: 0.1rem;
+            display: none; /* Hide image logo, replaced by icon in HTML */
+        }
+
+        .site-header .logo i {
+            color: var(--primary-color);
+            font-size: 24px; /* Standardized icon size */
         }
 
         .breadcrumb {
@@ -164,7 +167,7 @@
                 font-size: 1.4rem;
             }
 
-            .site-header .logo img {
+            .site-header .logo i {
                 width: 36px;
                 height: 36px;
             }
