@@ -1,3 +1,33 @@
+// Immediately update UI from localStorage to prevent flashing
+(function initAuthUIFromCache() {
+    try {
+        const storedProfile = localStorage.getItem('user_profile');
+        if (storedProfile) {
+            const profile = JSON.parse(storedProfile);
+
+            const guestContent = document.getElementById('guest-content');
+            const userContent = document.getElementById('user-content');
+            const sidebarGuestContent = document.getElementById('sidebar-guest-content');
+            const sidebarUserContent = document.getElementById('sidebar-user-content');
+            const userNameDisplay = document.getElementById('userName');
+            const userAvatar = document.getElementById('userAvatar');
+
+            if (guestContent) guestContent.style.display = 'none';
+            if (userContent) userContent.style.display = 'flex';
+            if (sidebarGuestContent) sidebarGuestContent.style.display = 'none';
+            if (sidebarUserContent) sidebarUserContent.style.display = 'block';
+            if (userNameDisplay) userNameDisplay.textContent = profile.username;
+            if (userAvatar) {
+                userAvatar.src = profile.avatarUrl || '/img/noprof.png'; // Fallback to default image
+                userAvatar.alt = profile.username;
+            }
+        }
+    } catch (e) {
+        console.error("Failed to initialize UI from cached profile", e);
+        localStorage.removeItem('user_profile');
+    }
+})();
+
 import { registerWithEmailPassword, loginWithEmailPassword, signInWithGoogle, logoutUser, onAuthStateChange } from '../js/auth-service.js';
 import { getUserProfile } from '../js/user-service.js';
 
