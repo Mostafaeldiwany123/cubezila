@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="js/themes.js"></script>
+    <script src="js/ui-handlers.js"></script>
+    <script src="../bg/theme.js"></script>
+    <script src="js/scramble/scrambler.js"></script> 
+    <script src="js/scramble/scramble.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Zain&display=swap" rel="stylesheet">
+    <!-- Update favicon links -->
+    <link rel="apple-touch-icon" sizes="180x180" href="../favicon_io/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon_io/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon_io/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>timer - cubezila</title>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-storage.js"></script>
+    <script src="../auth/auth.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.cubing.net/v0/css/@cubing/icons/css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+    <script src="https://cdn.cubing.net/v0/js/cubing/twisty" type="module"></script>
+    <script src="../language/language.js"></script>
+    <script src="tools/metronome/metronome.js"></script>
+    <script src="tools/alert/audio.js"></script>
+    <script src="../auth/timer-pro.js"></script>
+    <link rel="stylesheet" href="timer.css">
+    <link rel="stylesheet" href="tools/alert/audio.css">
+    <link rel="stylesheet" href="tools/metronome/metronome.css">
+    <link rel="stylesheet" href="css/multiphase.css">
+    <link rel="stylesheet" href="css/settings.css">
+    <link rel="stylesheet" href="css/devices.css">
+    <link rel="stylesheet" href="css/focus-mode.css">
+    <link rel="stylesheet" href="css/sessions.css">
+    <link rel="stylesheet" href="../css/roots.css">
+    <link rel="stylesheet" href="tools/bldhelper/bld.css">
+    <link rel="stylesheet" href="tools/cross solver/cross.css">
+    <link rel="stylesheet" href="css/sync-states.css">
+    <script src="js/custom-select.js" defer></script>
+    <script src="tools/cross solver/searcher.js"></script>
+    <script src="tools/cross solver/scrambleParser.js"></script>
+    <script src="tools/cross solver/speed.js"></script>
+    <script src="tools/cross solver/tables.js"></script>
+    <script src="tools/cross solver/solvers.js"></script>
+    <script src="tools/cross solver/cross-solution.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="js/tools.js"></script>
+    <script type="module">
+        import scrambowModule from 'https://cdn.skypack.dev/scrambow';
+        window.Scrambow = scrambowModule.Scrambow;
+    </script>
+    <!-- Add dropdown component files -->
+    <link rel="stylesheet" href="../components/dropdown/dropdown.css">
+    <script src="../components/dropdown/dropdown.js"></script>
+    <script>
+      // Only load GA on cubezila.com
+      if (window.location.hostname === 'cubezila.com') {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        // ensure cookies are scoped to your domain
+        gtag('config', 'G-GD9J5DTDPS', {
+          'cookie_domain': 'cubezila.com'
+        });
+      }
+    </script>
+</head>
+<body>    
+    <div class="scramble-header">
+        <div class="header-content">
+            <div class="session-management-grid">
+                <select id="sessionSelector" onchange="changeSession()">
+                    <option value="3x3">3x3</option>
+                </select>
+                <div class="session-selector-container">
+                    <button class="session-dropdown-trigger">
+                        <div class="trigger-flex">
+                            <div class="trigger-main">
+                                <i class="cubing-icon event-333"></i>
+                                <span class="selected-session">3x3</span>
+                            </div>
+                            <div class="chevron-icon">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+                    </button>
+                </div>
+                <input type="text" id="newSessionName" placeholder="New Session Name" style="display: none;">
+            
+            </div>
+            <i class="fas fa-cog settings-icon" onclick="toggleSettingsMenu()"></i>
+        </div>
+    </div>
+
+    <div class="left-panel">
+        <div class="history-header">
+            <div class="history-nav-icons">
+                <a href="../index.html" title="Home">
+                    <i class="fas fa-home"></i>
+                </a>
+                <a href="#" title="CubeZila">
+                    <i class="fas fa-info-circle"></i>
+                </a>
+                <a href="#"  title="Statistics">
+                    <i class="fas fa-chart-line"></i>
+                </a>
+            </div>
+    
+        </div>
+
+        <div class="history-summary">
+            <div class="history-stats-grid">
+                <div class="history-stat-card">
+                    <div class="history-stat-label">Total Solves</div>
+                    <div class="history-stat-value" id="totalSolves">0</div>
+                </div>
+                <div class="history-stat-card">
+                    <div class="history-stat-label">Session Mean</div>
+                    <div class="history-stat-value" id="sessionMean">-</div>
+                </div>
+                <div class="history-stat-card">
+                    <div class="history-stat-label">Total Time</div>
+                    <div class="history-stat-value" id="totalTime">0:00</div>
+                </div>
+                <div class="history-stat-card">
+                    <div class="history-stat-label">Success Rate</div>
+                    <div class="history-stat-value" id="successRate">100%</div>
+                </div>
+                
+            </div>
+            <div class="history-progress">
+                <div class="history-progress-bar" id="sessionProgress"></div>
+            </div>
+        </div>
+
+        <div class="history-scroll">
+            <ul class="history-list" id="historyList"></ul>
+        </div>
+
+    </div>
+    <button class="collapse-btn" onclick="toggleHistoryPanel()" title="Toggle history panel">
+        <i class="fas fa-chevron-left"></i>
+    </button>
+
+    <!-- Scramble display moved here, above timer -->
+    <div class="scramble-display" id="scrambleDisplay"></div>
+
+    <!-- Icons for scramble controls -->
+    <div class="scramble-icons">
+        <button class="timer-action" title="Previous scramble" onclick="getPreviousScramble()">
+            <i class="fas fa-arrow-left"></i>
+        </button>
+        <button class="timer-action" title="Copy scramble" onclick="copyScramble()">
+            <i class="fas fa-copy"></i>
+        </button>
+        <button class="timer-action" title="Add custom scramble" onclick="addCustomScramble()">
+            <i class="fas fa-edit"></i>
+        </button>
+        <button class="timer-action" title="Next scramble" onclick="getNextScramble()">
+            <i class="fas fa-arrow-right"></i>
+        </button>
+            </div>
+
+    <!-- Timer display wrapper -->
+    <div class="timer-container">
+        <div class="inspection-display" id="inspectionDisplay"></div>
+        <div class="timer-display" id="timerDisplay">0.00</div>
+        <!-- Timer elements will be inserted here by JavaScript -->
+    </div>
+
+     <!-- Single Scramble visualization box -->
+    <div class="scramble-visualization-box" id="scrambleVisBox">
+        <div class="visualization-header">
+            <h3>  </h3>
+        </div>
+        <div id="puzzle-net-display" class="display-wrapper">
+            <twisty-player
+                id="scramble-display-player"
+                experimental-setup-anchor="start"
+                background="none"
+                hint-facelets="none"
+                visualization="none"
+                control-panel="none"
+                style="width: 0%; height: 0%;"
+                experimental-twizzle-controls
+            ></twisty-player>
+        </div>
+    </div>
+    <!-- Add mobile stats containers -->
+    <div class="mobile-mini-stats">
+        <div class="mobile-mini-stats-left">
+            <div class="mobile-stat" id="mobileAo5">ao5: --</div>
+            <div class="mobile-stat" id="mobileAo12">ao12: --</div>
+            <div class="mobile-stat" id="mobileBest">PB: --</div>
+            <div class="mobile-stat" id="mobileMean">Mean: --</div>
+        </div>
+        <div class="mobile-mini-stats-right">
+            <div class="mobile-stat" id="mobileStdDev">σ: --</div>
+            <div class="mobile-stat" id="mobileSolves">Solves: 0</div>
+            <div class="mobile-stat" id="mobileDnf">DNF: 0</div>
+            <div class="mobile-stat" id="mobilePlus2">+2: 0</div>
+        </div>
+    </div>
+
+  
+
+    <div class="settings-container">
+    <!-- <button class="settings-button" onclick="toggleSettingsMenu()">
+        <span data-translate="settings">Settings</span>
+    </button> -->
+    <div class="settings-overlay" onclick="toggleSettingsMenu()"></div>
+    <div id="settingsMenu">
+        <div class="settings-header">
+            <h2>Settings</h2>
+            <button class="settings-close" onclick="toggleSettingsMenu()">×</button>
+        </div>
+        <div class="tabs">
+            <div class="tab" onclick="toggleTab('timerSettings')">
+                <div class="tab-left">
+                    <i class="fas fa-clock"></i>
+                    <span>Timer</span>
+                </div>
+                <i class="fas fa-chevron-down chevron"></i>
+            </div>
+            <div id="timerSettings" class="tab-content">
+                <div class="settings-section">
+                    <h3 class="section-title">Timer Type</h3>
+                    <div class="settings-grid">
+                        <div class="settings-item full-width">
+                            <label for="timerType">Timer Mode</label>
+                            <select id="timerType" data-custom-dropdown onchange="changeTimerType()">
+                                <option value="keyboard">Keyboard</option>
+                                <option value="typing">Manual Input</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3 class="section-title">Timer Display</h3>
+                    <div class="settings-grid">
+                        <div class="settings-item">
+                            <label for="timerColor">Timer Color</label>
+                            <input type="color" id="timerColor" value="var(--text-color)" oninput="changeTimerColor()">
+                        </div>
+                        <div class="settings-item">
+                            <label for="timerSize">Timer Size</label>
+                            <input type="range" id="timerSize" min="5" max="30" value="12" step="0.5" oninput="changeTimerSize()">
+                        </div>
+                        <!-- Timer font selector with custom dropdown -->
+                        <div class="settings-item full-width">
+                            <label for="timerFont">Timer Font</label>
+                            <select id="timerFont" data-custom-dropdown onchange="changeTimerFont()">
+                                <option value="'Inconsolata', monospace" selected>Inconsolata</option>
+                                <option value="'Poppins', sans-serif">Poppins</option>
+                                <option value="'Roboto', sans-serif">Roboto</option>
+                                <option value="'Open Sans', sans-serif">Open Sans</option>
+                                <option value="'Montserrat', sans-serif">Montserrat</option>
+                                <option value="'Bytesized', sans-serif">Bytesized</option>
+                                <option value="'Tektur', sans-serif">Tektur</option>
+                                <option value="'Barriecito', sans-serif">Barriecito</option>
+                                <option value="'Birthstone', sans-serif">Birthstone</option>
+                                <option value="'Kablammo', sans-serif">Kablammo</option>
+                                <option value="'Luckiest Guy', sans-serif">Luckiest Guy</option>
+                                <option value="'Sansation', sans-serif">Sansation</option>
+                                <option value="'Atkinson Hyperlegible', sans-serif">Atkinson Hyperlegible</option>
+                            </select>
+                        </div>
+                        <div class="settings-item full-width">
+                            <label for="decimalPlaces">Timer Decimals</label>
+                            <select id="decimalPlaces" data-custom-dropdown onchange="changeDecimalPlaces()">
+                                <option value="0">0 (12)</option>
+                                <option value="1">1 (12.3)</option>
+                                <option value="2" selected>2 (12.34)</option>
+                                <option value="3">3 (12.345)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3 class="section-title">Timer Glow</h3>
+                    <div class="settings-grid">
+                        <div class="settings-item">
+                            <label for="timerGlowColor">Glow Color</label>
+                            <input type="color" id="timerGlowColor" value="var(--primary-color)" oninput="changeTimerGlow()">
+                        </div>
+                        <div class="settings-item">
+                            <label for="timerGlow">Glow Intensity</label>
+                            <input type="range" id="timerGlow" min="0" max="100" value="0" oninput="changeTimerGlow()">
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <h3 class="section-title">Timer State Colors</h3>
+                    <div class="settings-grid">
+                        <div class="settings-item">
+                            <label for="timerReadyColor">Ready Color</label>
+                            <input type="color" id="timerReadyColor" value="#1cbc9c" oninput="changeTimerReadyColor()">
+                        </div>
+                        <div class="settings-item">
+                            <label for="inspectionColor">Inspection Color</label>
+                            <input type="color" id="inspectionColor" value="#000000" oninput="changeInspectionColor()">
+                        </div>
+                    </div>
+                </div>
+                <div class="settings-section">
+                    <h3 class="section-title">Focus Mode Overlay</h3>
+                    <div class="settings-grid">
+                      
+                        <!-- Focus mode type selector with custom dropdown -->
+                        <div class="settings-item full-width">
+                            <label for="focusModeType">Focus Mode Type</label>
+                            <select id="focusModeType" data-custom-dropdown onchange="changeFocusModeType()">
+                                <option value="background" selected>Background</option>
+                                <option value="overlay">Overlay</option>
+                            </select>
+                        </div>
+                          <div class="settings-item">
+                            <label for="focusOverlayColor">Overlay Color</label>
+                            <input type="color" id="focusOverlayColor" value="#000000" oninput="changeFocusOverlayColor()">
+                        </div>
+                        <div class="settings-item">
+                            <label for="focusMode">Focus Mode</label>
+                            <input type="checkbox" id="focusMode" onchange="toggleDesktopFocusMode()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3 class="section-title">Timer Tools</h3>
+                    <div class="settings-grid">
+                        <div class="settings-item">
+                            <label for="hideTimer">Hide Timer</label>
+                            <input type="checkbox" id="hideTimer" onchange="toggleHideTimer()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab" onclick="toggleTab('scrambleSettings')">
+                <div class="tab-left">
+                    <i class="fas fa-random"></i>
+                    <span>Scramble</span>
+                </div>
+                <i class="fas fa-chevron-down chevron"></i>
+            </div>
+            <div id="scrambleSettings" class="tab-content">
+                <div class="back-to-main" onclick="showMainPuzzles()" style="display: none;">
+                    <i class="fas fa-arrow-left"></i>
+                    <span>Back to Main Puzzles</span>
+                </div>
+                
+                <div class="scramble-category main-puzzles">
+                    <h3 class="scramble-category-title">Main Puzzles</h3>
+                    <div class="scramble-type-grid">
+                        <div class="scramble-type-item" data-type="3x3" onclick="showSubsets()">
+                            <i class="cubing-icon event-333"></i>
+                            <span>3x3</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="2x2">
+                            <i class="cubing-icon event-222"></i>
+                            <span>2x2</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="4x4">
+                            <i class="cubing-icon event-444"></i>
+                            <span>4x4</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="5x5">
+                            <i class="cubing-icon event-555"></i>
+                            <span>5x5</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="6x6">
+                            <i class="cubing-icon event-666"></i>
+                            <span>6x6</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="7x7">
+                            <i class="cubing-icon event-777"></i>
+                            <span>7x7</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="Pyraminx">
+                            <i class="cubing-icon event-pyram"></i>
+                            <span>Pyraminx</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="skewb">
+                            <i class="cubing-icon event-skewb"></i>
+                            <span>Skewb</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="square1">
+                            <i class="cubing-icon event-sq1"></i>
+                            <span>Square-1</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="clock">
+                            <i class="cubing-icon event-clock"></i>
+                            <span>Clock</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="megaminx">
+                            <i class="cubing-icon event-minx"></i>
+                            <span>Megaminx</span>
+                        </div>
+                    </div>
+                    <div class="subset-info">
+                        <i class="fas fa-info-circle"></i>
+                        Click on the 3x3 cube to show training subsets
+                    </div>
+                </div>
+            
+                <div class="scramble-category subsets">
+                    <h3 class="scramble-category-title">CFOP</h3>
+                    <div class="scramble-type-grid">
+                        <div class="scramble-type-item" data-type="cross">
+                            <i class="cubing-icon event-333"></i>
+                            <span>Cross</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="LSLL">
+                            <i class="cubing-icon event-333"></i>
+                            <span>F2L</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="OLL">
+                            <i class="cubing-icon event-333"></i>
+                            <span>OLL</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="PLL">
+                            <i class="cubing-icon event-333"></i>
+                            <span>PLL</span>
+                        </div>
+                    </div>
+
+                    <h3 class="scramble-category-title">Roux</h3>
+                    <div class="scramble-type-grid">
+                        <div class="scramble-type-item" data-type="CMLL">
+                            <i class="cubing-icon event-333"></i>
+                            <span>CMLL</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="LSE">
+                            <i class="cubing-icon event-333"></i>
+                            <span>LSE</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="L10P">
+                            <i class="cubing-icon event-333"></i>
+                            <span>L10P</span>
+                        </div>
+                    </div>
+
+                    <h3 class="scramble-category-title">ZZ</h3>
+                    <div class="scramble-type-grid">
+                        <div class="scramble-type-item" data-type="ZZ">
+                            <i class="cubing-icon event-333"></i>
+                            <span>ZZ</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="ZZLL">
+                            <i class="cubing-icon event-333"></i>
+                            <span>ZZLL</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="ZZLSLL">
+                            <i class="cubing-icon event-333"></i>
+                            <span>ZZLSLL</span>
+                        </div>
+                    </div>
+
+                    <h3 class="scramble-category-title">Advanced Sets</h3>
+                    <div class="scramble-type-grid">
+                        <div class="scramble-type-item" data-type="ZBLL">
+                            <i class="cubing-icon event-333"></i>
+                            <span>ZBLL</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="COLL">
+                            <i class="cubing-icon event-333"></i>
+                            <span>COLL</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="2GLL">
+                            <i class="cubing-icon event-333"></i>
+                            <span>2GLL</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="CLS">
+                            <i class="cubing-icon event-333"></i>
+                            <span>CLS</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="WV">
+                            <i class="cubing-icon event-333"></i>
+                            <span>WV</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="EDGES">
+                            <i class="cubing-icon event-333"></i>
+                            <span>Edges</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="c">
+                            <i class="cubing-icon event-333"></i>
+                            <span>Corners</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="BLE">
+                            <i class="cubing-icon event-333"></i>
+                            <span>BLE</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="TRIZBLL">
+                            <i class="cubing-icon event-333"></i>
+                            <span>TRIZBLL</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="TSLE">
+                            <i class="cubing-icon event-333"></i>
+                            <span>TSLE</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="NLS">
+                            <i class="cubing-icon event-333"></i>
+                            <span>NLS</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="LCCP">
+                            <i class="cubing-icon event-333"></i>
+                            <span>LCCP</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="scramble-category move-subsets">
+                    <h3 class="scramble-category-title">Move Subsets</h3>
+                    <div class="scramble-type-grid">
+                        <div class="scramble-type-item" data-type="RU">
+                            <i class="cubing-icon event-333"></i>
+                            <span>RU</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="RUD">
+                            <i class="cubing-icon event-333"></i>
+                            <span>RUD</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="RUL">
+                            <i class="cubing-icon event-333"></i>
+                            <span>RUL</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="LU">
+                            <i class="cubing-icon event-333"></i>
+                            <span>LU</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="mu">
+                            <i class="cubing-icon event-333"></i>
+                            <span>MU</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="fru">
+                            <i class="cubing-icon event-333"></i>
+                            <span>FRU</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="FMC">
+                            <i class="cubing-icon event-333"></i>
+                            <span>FMC</span>
+                        </div>
+                        <div class="scramble-type-item" data-type="belt">
+                            <i class="cubing-icon event-333"></i>
+                            <span>Belt</span>
+                        </div>
+                 
+                    </div>
+                </div>
+                
+                <!-- Scramble Appearance Settings -->
+                <div class="settings-section">
+                    <h3 class="section-title">Scramble Display</h3>
+                    <div class="settings-grid">
+                        <div class="settings-item">
+                            <label for="scrambleSize">Scramble Size</label>
+                            <input type="range" id="scrambleSize" min="1" max="8" value="2.8" step="0.1" oninput="changeScrambleSize()">
+                        </div>
+                        <div class="settings-item">
+                            <label for="scrambleColor">Text Color</label>
+                            <input type="color" id="scrambleColor" value="var(--text-color)" oninput="changeScrambleColor()">
+                        </div>
+                        <!-- Scramble font selector with custom dropdown -->
+                        <div class="settings-item full-width">
+                            <label for="scrambleFont">Font Family</label>
+                            <select id="scrambleFont" data-custom-dropdown onchange="changeScrambleFont()">
+                                <option value="'Inconsolata', monospace" selected>Inconsolata</option>
+                                <option value="'Poppins', sans-serif">Poppins</option>
+                                <option value="'Roboto', sans-serif">Roboto</option>
+                                <option value="'Open Sans', sans-serif">Open Sans</option>
+                                <option value="'Montserrat', sans-serif">Montserrat</option>
+                                <option value="'Bytesized', sans-serif">Bytesized</option>
+                                <option value="'Tektur', sans-serif">Tektur</option>
+                                <option value="'Barriecito', sans-serif">Barriecito</option>
+                                <option value="'Birthstone', sans-serif">Birthstone</option>
+                                <option value="'Kablammo', sans-serif">Kablammo</option>
+                                <option value="'Luckiest Guy', sans-serif">Luckiest Guy</option>
+                                <option value="'Sansation', sans-serif">Sansation</option>
+                                <option value="'Atkinson Hyperlegible', sans-serif">Atkinson Hyperlegible</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3 class="section-title">Scramble Glow</h3>
+                    <div class="settings-grid">
+                        <div class="settings-item">
+                            <label for="scrambleGlowColor">Glow Color</label>
+                            <input type="color" id="scrambleGlowColor" value="#333333" oninput="changeScrambleGlow()">
+                        </div>
+                        <div class="settings-item">
+                            <label for="scrambleGlow">Glow Intensity</label>
+                            <input type="range" id="scrambleGlow" min="0" max="100" value="0" oninput="changeScrambleGlow()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab" onclick="toggleTab('inspectionSettings')">
+                <div class="tab-left">
+                    <i class="fas fa-hourglass-half"></i>
+                    <span>Inspection</span>
+                </div>
+                <i class="fas fa-chevron-down chevron"></i>
+            </div>
+            <div id="inspectionSettings" class="tab-content">
+                <div class="settings-section">
+                    <h3 class="section-title">Inspection Timer</h3>
+                    <div class="settings-grid">
+                        <div class="settings-item">
+                            <label for="enableInspection">Enable Inspection</label>
+                            <input type="checkbox" id="enableInspection" checked onchange="toggleInspectionEnabled()">
+                        </div>
+                        <div class="settings-item pro-input-wrapper">
+                            <label for="inspectionTime">Duration (seconds)</label>
+                            <input type="number" id="inspectionTime" value="15" min="0" onchange="changeInspectionTime()" class="pro-feature" >
+                    
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3 class="section-title">Voice Alerts</h3>
+                    <div class="settings-grid">
+                        <div class="settings-item full-width">
+                            <label for="voiceSelect">Alert Voice</label>
+                            <div class="dropdown">
+                                <button class="dropdown-button" onclick="toggleDropdown()">Choose Alert Voice</button>
+                                <div id="dropdownMenu" class="dropdown-menu">
+                                    <!-- Free voices -->
+                                    <div class="dropdown-item voice-item" data-voice-type="free" onclick="selectVoice('male1')">
+                                        Male 1
+                                        <i class="fas fa-play preview-icon" onclick="togglePreview(event, 'male1')"></i>
+                                    </div>
+                                    <div class="dropdown-item voice-item" data-voice-type="free" onclick="selectVoice('female1')">
+                                        Female 1 
+                                        <i class="fas fa-play preview-icon" onclick="togglePreview(event, 'female1')"></i>
+                                    </div>
+                                    
+                                    <!-- Pro voices -->
+                                    <div class="dropdown-item voice-item" data-voice-type="pro" onclick="selectVoice('male2')">
+                                        Male 2
+                                        <div class="voice-controls">
+                                            <i class="fas fa-play preview-icon" onclick="togglePreview(event, 'male2')"></i>
+                                            <i class="fas fa-crown pro-icon"></i>
+                                        </div>
+                                    </div>
+                                    <div class="dropdown-item voice-item" data-voice-type="pro" onclick="selectVoice('female2')">
+                                        Female 2
+                                        <div class="voice-controls">
+                                            <i class="fas fa-play preview-icon" onclick="togglePreview(event, 'female2')"></i>
+                                            <i class="fas fa-crown pro-icon"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab" onclick="toggleTab('displaySettings')">
+                <div class="tab-left">
+                    <i class="fas fa-palette"></i>
+                    <span>Display</span>
+                </div>
+                <i class="fas fa-chevron-down chevron"></i>
+            </div>
+            <div id="displaySettings" class="tab-content">
+                <div class="settings-section">
+                    <h3 class="section-title">Background</h3>
+                    <div class="settings-grid">
+                        <div class="settings-item">
+                            <label for="backgroundColor">Background Color</label>
+                            <input type="color" id="backgroundColor" value="#f8f9fc" oninput="changeBackgroundColor()">
+                        </div>
+                        <div class="settings-item">
+                            <label for="gradientEnabled">Use Gradient</label>
+                            <input type="checkbox" id="gradientEnabled" onchange="updateBackgroundGradient()">
+                        </div>
+                        <div class="settings-item">
+                            <label for="gradientStart">Gradient Start</label>
+                            <input type="color" id="gradientStart" value="#f8f9fc" oninput="updateBackgroundGradient()">
+                        </div>
+                        <div class="settings-item">
+                            <label for="gradientEnd">Gradient End</label>
+                            <input type="color" id="gradientEnd" value="#f8f9fc" oninput="updateBackgroundGradient()">
+                        </div>
+                        <div class="settings-item">
+                            <label for="gradientAngle">Gradient Angle</label>
+                            <input type="range" id="gradientAngle" min="0" max="360" value="45" oninput="updateBackgroundGradient()">
+                        </div>
+                    </div>
+
+                    <div class="background-preview-section">
+                        <h3 class="section-title">Background image</h3>
+                        <h4>Background Image</h4>
+                        <div class="background-previews">
+                            <div class="background-preview" onclick="setBackgroundImage('none')">
+                                <div class="none-preview">
+                                    <i class="fas fa-ban"></i>
+                                
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="custom-upload-area" id="dropZone">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <p>Drag and drop image here or click to upload</p>
+                            <input type="file" id="customBackground" accept="image/png,image/jpeg" style="display: none;">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3 class="section-title">Interface Colors</h3>
+                    <div class="settings-grid">
+                        <div class="settings-item">
+                            <label for="primaryColor">Primary Color</label>
+                            <input type="color" id="primaryColor" value="#6e93ff" oninput="changePrimaryColor()">
+                        </div>
+                        <div class="settings-item">
+                            <label for="buttonHoverColor">Button Highlight</label>
+                            <input type="color" id="buttonHoverColor" value="#54a0ff" oninput="changeButtonHoverColor()">
+                        </div>
+                        <div class="settings-item">
+                            <label for="borderColor">Border Color</label>
+                            <input type="color" id="borderColor" value="#dee2e6" oninput="changeBorderColor()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3 class="section-title">Panels & Cards</h3>
+                    <div class="settings-grid">
+                        <div class="settings-item">
+                            <label for="panelBackgroundColor">Panel Background</label>
+                            <input type="color" id="panelBackgroundColor" value="#ffffff" oninput="changePanelBackground()">
+                        </div>
+                        <div class="settings-item">
+                            <label for="highlightBgColor">Highlight Color</label>
+                            <input type="color" id="highlightBgColor" value="#f8f9fc" oninput="changeHighlightBackground()">
+                        </div>
+                        <div class="settings-item">
+                            <label for="panelShadowColor">Shadow Color</label>
+                            <input type="color" id="panelShadowColor" value="#000000" oninput="changePanelShadow()">
+                        </div>
+                        <div class="settings-item">
+                            <label for="panelShadowBlur">Shadow Blur</label>
+                            <input type="range" id="panelShadowBlur" min="0" max="50" value="10" oninput="changePanelShadow()">
+                        </div>
+                        <div class="settings-item">
+                            <label for="panelShadowSpread">Shadow Spread</label>
+                            <input type="range" id="panelShadowSpread" min="0" max="25" value="0" oninput="changePanelShadow()">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="settings-section">
+                    <h3 class="section-title">Text colors</h3>
+                    <div class="settings-grid">
+                        <div class="settings-item">
+                            <label for="mainTextColor">Main Text</label>
+                            <input type="color" id="mainTextColor" value="#333333" oninput="changeMainTextColor()">
+                        </div>
+                        <div class="settings-item">
+                            <label for="secondaryTextColor">Secondary Text</label>
+                            <input type="color" id="secondaryTextColor" value="#6c757d" oninput="changeSecondaryTextColor()">
+                        </div>
+                        <!-- Root font selector with custom dropdown -->
+                        <div class="settings-item full-width">
+                            <label for="rootFont">Default Font</label>
+                            <select id="rootFont" data-custom-dropdown onchange="changeRootFont()">
+                                <option value="'Inconsolata', monospace" selected>Inconsolata</option>
+                                <option value="'Poppins', sans-serif">Poppins</option>
+                                <option value="'Roboto', sans-serif">Roboto</option>
+                                <option value="'Open Sans', sans-serif">Open Sans</option>
+                                <option value="'Montserrat', sans-serif">Montserrat</option>
+                                <option value="'Bytesized', sans-serif">Bytesized</option>
+                                <option value="'Tektur', sans-serif">Tektur</option>
+                                <option value="'Barriecito', sans-serif">Barriecito</option>
+                                <option value="'Birthstone', sans-serif">Birthstone</option>
+                                <option value="'Kablammo', sans-serif">Kablammo</option>
+                                <option value="'Luckiest Guy', sans-serif">Luckiest Guy</option>
+                                <option value="'Sansation', sans-serif">Sansation</option>
+                                <option value="'Atkinson Hyperlegible', sans-serif">Atkinson Hyperlegible</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Add new Layout tab here -->
+            <div class="tab" onclick="toggleTab('layoutSettings')">
+                <div class="tab-left">
+                    <i class="fas fa-table"></i>
+                    <span>Layout</span>
+                </div>
+                <i class="fas fa-chevron-down chevron"></i>
+            </div>
+            <div id="layoutSettings" class="tab-content">
+    <div class="settings-section">
+        <h3 class="section-title">History Panel Layout</h3>
+        <div class="settings-grid">
+            <div class="settings-item full-width">
+                <label for="historyLayout">History Layout Style</label>
+                <select id="historyLayout" data-custom-dropdown onchange="changeHistoryLayout()">
+                    <option value="cstimer" selected>CStimer Table</option>
+                    <option value="compact">Compact Grid</option>
+                    <option value="default">Default List</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="settings-section">
+        <h3 class="section-title">Timer Elements</h3>
+        <div class="settings-grid">
+            <div class="settings-item full-width">
+                <label for="timerElements">Timer Display Elements</label>
+                <select id="timerElements" data-custom-dropdown onchange="changeTimerElements()">
+                    <option value="none">None</option>
+                    <option value="actions">Action Buttons</option>
+                    <option value="averages">Averages</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+
+            <div class="tab" onclick="toggleTab('dataSettings')">
+                <div class="tab-left">
+                    <i class="fas fa-database"></i>
+                    <span>Data</span>
+                </div>
+                <i class="fas fa-chevron-down chevron"></i>
+            </div>
+            <div id="dataSettings" class="tab-content">
+                <div class="data-management-section">
+                    <h3 class="section-title">Import Data</h3>
+                    <div class="data-import-area" id="dataDropZone">
+                        <i class="fas fa-file-import"></i>
+                        <p>Drag and drop file here or click to import</p>
+                        <p class="data-help-text">Supports .txt (Cubezila/csTimer) and .csv (Twisty Timer)</p>
+                        <input type="file" id="importFile" accept=".txt,.csv">
+                    </div>
+
+                    <h3 class="section-title">Export Options</h3>
+                    <div class="data-buttons-grid">
+                        <button class="data-button primary" onclick="exportData()">
+                            <i class="fas fa-download"></i>
+                            <span>Export All Data</span>
+                        </button>
+                        <button class="data-button" onclick="exportSelectedSession()">
+                            <i class="fas fa-file-export"></i>
+                            <span>Export Session</span>
+                        </button>
+                        <button class="data-button" onclick="exportTwistyData()">
+                            <i class="fas fa-share-square"></i>
+                            <span>Export to Twisty</span>
+                        </button>
+                        <button class="data-button warning" onclick="resetToDefaults()">
+                            <i class="fas fa-trash-alt"></i>
+                            <span>Clear All Data</span>
+                        </button>
+                    </div>
+
+                    <h3 class="section-title">Cloud Sync</h3>
+                    <div class="data-buttons-grid">
+                        <button class="data-button primary" onclick="syncDataToCloud()">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                            <span>Sync to Cloud</span>
+                        </button>
+                        <button class="data-button" onclick="loadDataFromCloud()">
+                            <i class="fas fa-cloud-download-alt"></i>
+                            <span>Load from Cloud</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="tab" onclick="toggleTab('additionalSettings')">
+                <div class="tab-left">
+                    <i class="fas fa-sliders-h"></i>
+                    <span>Additional</span>
+                </div>
+                <i class="fas fa-chevron-down chevron"></i>
+            </div>
+            <div id="additionalSettings" class="tab-content">
+                <!-- Existing additional settings content -->
+                <div class="scroll-container">
+                    <div class="additional-grid">
+                        <div class="additional-item">
+                            <label for="highlightBest">Highlight Best</label>
+                            <input type="checkbox" id="highlightBest" onchange="toggleHighlightBest()" class="pro-feature" disabled>
+                        </div>
+                              
+            
+                        <div class="tool-item">
+                            <label for="fullscreenMode">Fullscreen</label>
+                            <input type="checkbox" id="fullscreenMode" onchange="toggleFullscreen()">
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            <div class="tab" onclick="toggleTab('themesSettings')">
+                <div class="tab-left">
+                    <i class="fas fa-palette"></i>
+                    <span>Themes</span>
+                </div>
+                <i class="fas fa-chevron-down chevron"></i>
+            </div>
+            <div id="themesSettings" class="tab-content">
+                <div class="settings-section">
+                    <h3 class="section-title">Theme Templates</h3>
+                    <div class="theme-templates-grid">
+                        <!-- Theme previews will be inserted here by JavaScript -->
+                    </div>
+
+                    <h3 class="section-title">Theme Management</h3>
+                    
+                    <div class="custom-upload-area" id="themeDropZone">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Drag and drop theme file here or click to upload</p>
+                        <input type="file" id="themeImport" accept=".json" style="display: none;">
+                    </div>
+
+                    <div class="theme-actions">
+                        <button onclick="exportTheme()" class="theme-btn">
+                            <i class="fas fa-download"></i>
+                            Export Theme
+                        </button>
+                        <button onclick="resetUI()" class="theme-btn warning">
+                            <i class="fas fa-sync-alt"></i>
+                            Reset UI
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script src="js/statistics.js"></script>
+    <script src="js/popup-handlers.js"></script>
+    <script src="js/mobile.js"></script>
+    <script src="js/typing-mode.js"></script>
+    <script src="js/reset2defaults.js"></script>
+    <script src="js/penalty.js"></script>
+    <script src="js/notifications.js"></script>
+    <script src="js/timer.js"></script>
+    <script src="js/focus-mode.js"></script>
+    <script src="js/export.js"></script>
+    <script src="tools/bldhelper/combined.js"></script>
+    <script src="tools/bldhelper/bld.js"></script>
+    <script src="tools/multiphase/multiphase.js"></script>
+    <script>
+        // Register service worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful');
+                    })
+                    .catch(err => {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+            });
+        }
+    </script>
+
+    <!-- Tools Controls -->
+    <div class="tools-controls"  data-custom-dropdown>
+        <div class="tools-select-wrapper" >
+            <select class="tools-select ">
+                <option value="scramble">Scramble</option>
+                <option value="metronome">Metronome</option>
+                <option value="graph">Solve Graph</option>
+                <option value="cross">Cross Solver</option>
+                <option value="bld">BLD Helper</option>
+                <option value="lastsolve">Last Solve</option>
+                <option value="remove">Remove Solves</option>
+                <option value="multiphase">Multi-Phase Timer</option>
+            </select>
+        </div>
+        <button class="tools-add">
+            <i class="fas fa-plus"></i>
+        </button>
+    </div>
+</body>
+</html>
+
+<div class="mobile-tabs">
+    <div class="mobile-tab active" data-tab="timer" onclick="switchTab('timer')">
+        <i class="fas fa-clock mobile-tab-icon"></i>
+        <span class="mobile-tab-label">Timer</span>
+    </div>
+    <div class="mobile-tab" data-tab="history" onclick="switchTab('history')">
+        <i class="fas fa-history mobile-tab-icon"></i>
+        <span class="mobile-tab-label">History</span>
+    </div>
+    <div class="mobile-tab" data-tab="statistics" onclick="switchTab('statistics')">
+        <i class="fas fa-chart-line mobile-tab-icon"></i>
+        <span class="mobile-tab-label">Stats</span>
+    </div>
+</div>
+

@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../img/demo (2).png">
+    <title>L3E - cubezila</title>
+    <script src="../bg/theme.js"></script>
+    <script src="../language/language.js"></script>
+    <script src="reco/reco.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@400;700&display=swap&font-display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Zain:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="algs.css">
+    <link rel="stylesheet" href="reco/reco.css">
+    <link rel="stylesheet" href="../timer/css/focus-mode.css">
+    <link rel="stylesheet" href="mobile.css">
+    <link rel="stylesheet" href="../css/roots.css">
+    <script src="utils/puzzle-generator.js"></script>
+</head>
+<body>
+    <header class="site-header">
+ 
+        <div class="breadcrumb">
+            <a href="../index.html"><i class="fas fa-home"></i></a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="alg-dash.html">Algorithms</a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="pyraminx.html">pyraminx</a>
+            <i class="fas fa-chevron-right"></i>
+            <span>Last-Layer</span>
+        </div>
+        <div class="header-tabs">
+            <button class="tab active" onclick="showTab('learn')">Learn</button>
+            <span class="tab-separator">|</span>
+            <button class="tab" onclick="showTab('practice')">Practice</button>
+        </div>
+    </header>
+    
+    <div id="learn" class="tab-content active">
+        <h1 class="fade-in-down" >Pyraminx Last-Layer</h1>
+        
+        <div class="info-container">
+            <div class="description-box">
+                <p class="fade-in-down">  Pyraminx Last-Layer is an intermidate method for solving the last layer of the pyraminx after finishing the V shape. It consists of 5 algorithms.</p>
+                <div class="tips">
+                    <span class="tip"><i class="fas fa-lightbulb"></i> Select case images to practice specific cases</span>
+                    <span class="tip"><i class="fas fa-palette"></i> Use the dropdown to change case colors</span>
+                </div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-stats">
+                    <span class="progress-count"></span>
+                    <span class="progress-label">algorithms learned</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+        </div>
+
+        <table id="pllTable" class="fade-in-down">
+            <thead>
+                <tr>
+                    <th data-translate="name">NAME</th>
+                            <th class="case-header">
+                                <div class="case-title">
+                                    <span data-translate="case">CASE</span>
+                        
+                                    </div>
+                                </div>
+                            </th>
+                    <th data-translate="algorithm">ALGORITHM</th>
+                    <th data-translate="scramble">SCRAMBLE</th>
+                    <th data-translate="best">BEST</th>
+                    <th data-translate="avg">AVG</th>
+                    <th data-translate="status" style="text-align: center;">STATUS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Table rows will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+    
+    <div id="practice" class="tab-content">
+        <div class="practice-container">
+            <div class="practice-area">
+                <div class="practice-header">
+                    <div class="practice-controls">
+                        <div class="selected-counter">
+                            Selected: <span id="selectedCounter">0/0</span>
+                        </div>
+                        <span class="tab-separator">|</span>
+                        <button id="newCaseButton" class="control-button" title="New Case">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                        <span class="tab-separator">|</span>
+                        <button id="hintButton" class="control-button" title="Show Hint">
+                            <i class="fas fa-lightbulb"></i>
+                        </button>
+                    </div>
+                </div>
+                <h2 id="currentCase"></h2>
+                <div class="case-image-container">
+                    <div id="caseImage"></div>
+                </div>
+                <div id="scramble"></div>
+                <div id="timer">0.00</div>
+                <div id="hint"></div>
+            </div>
+
+            <div class="recent-solves">
+                <div class="recent-solves-header">
+                    <h2 data-translate="hist">History</h2>
+                </div>
+                <div class="solve-cards">
+                    <!-- Cards will be added dynamically -->
+                </div>
+                <div class="no-history-message">
+                    <i class="fas fa-clock"></i>
+                    <p>No history</p>
+                    <span>Press space to start timing</span>
+                </div>
+                <div id="resetIconContainer">
+                    <button id="resetIcon" title="Reset All Solves">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div id="overlay" class="overlay"></div>
+    <div id="details-popup" class="details-popup">
+        <button class="details-popup-close" onclick="closeDetailsPopup()">&times;</button>
+        <h3>Solve Details</h3>
+        <div id="popup-content"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sr-puzzlegen/dist/bundle/puzzleGen.min.js"></script>
+    <script src="../storage.js"></script>
+    <script src="alg.js"></script>
+    <script>
+        const storage = new StorageManager('Pyram-ll');
+        const cases = [
+        {
+  "name": "Sune",
+    "algorithms": [
+      "R U R' U R U R'",
+      "L' U L U L' U L",
+      "R' U R U R' U R",
+      "L U L' U L U L'",
+      "R U R U R' U R U R",
+      "R' U R' U R U R' U R'",
+      "L U L U L' U L U L"
+    ]
+  },
+  {
+    "name": "AntiSune",
+    "algorithms": [
+      "L' U' L U' L' U' L",
+      "R U' R' U' R U' R'",
+      "R' U' R U' R' U' R",
+      "L U' L' U' L U' L'",
+      "R U' R U' R' U' R U' R",
+      "L' U L' U L U L' U L'",
+      "L' U' L' U' L U' L' U' L'",
+      "R' U' R' U' R U' R' U' R'",
+      "L U' L U' L' U' L U' L"
+    ]
+  },
+  {
+    "name": "Lefty Bars",
+    "algorithms": [
+      "R' U' L' U L R",
+      "R' L R L' U' L' U L",
+      "L R U R' U' L'",
+      "R U R' U' R' L R L'",
+      "R U' R L' R' U R L R",
+      "R U R' L' U' L R U' R'",
+      "R' L' U L U' L' U' L R",
+      "R' L' U' L R U' R' U' R",
+      "R' U' R' L R L' U R",
+      "L U R' L R L' U' L'",
+      "R U' R' L R' L' R' U R'",
+      "R' L R U R' U' L' U R",
+      "R L R U R U' R L' R'",
+      "R' U R U' R' L R' L' R'",
+      "R' L' U' L' R' L' R U R",
+      "L U R' U' L' U L R L'",
+      "R L R U R' U' L' U R'",
+      "R' L R' L' U' L' U L R'",
+      "R' L R L U' L' R' L' R",
+      "R L R L' U' L R' L' R'"
+    ]
+  },
+  {
+    "name": "Righty Bars",
+    "algorithms": [
+      "R' L' U' L U R",
+      "L U R U' R' L'",
+      "L R' L' R U R U' R'",
+      "L' U' L U L R' L' R",
+      "R U R' L' U L R U' R'",
+      "L' U' L R U' R' L' U L",
+      "L' U L' R L U' L' R' L'",
+      "R' L' U L U L' U' L R",
+      "R' U R U R' L' U L R",
+      "R' U' L R' L' R U R",
+      "L R U R' L' U L U L'",
+      "L R U' R' U R U R' L'",
+      "L R U' R' U' R U R' L'",
+      "L U L R' L' R U' L'",
+      "L U' L' U' L R U' R' L'",
+      "R U' R L R L' R U R'",
+      "L' U L' R' L' R L' U' L",
+      "L R' L' U' L U R U' L'",
+      "L' U L R' L R L U' L",
+      "R' U' L U R U' R' L' R"
+    ]
+  },
+  {
+    "name": "2 Flip",
+    "algorithms": [
+      "R U' R' U R' L R L'",
+      "R' L R L' U L' U' L",
+      "L R' L' R U' R U R'",
+      "L' U L U' L R' L' R",
+      "R' U L' U L U' R",
+      "L' U' L U L R' L' R",
+      "R' U L' U' L U' R",
+      "L U' R U' R' U L'",
+      "L' U' L R U R' L' U L",
+      "L U' R U R' U L'",
+      "L' U' L' R' L' R' U' R'",
+      "R' U' R U R' L R' L' R'",
+      "R U R L R L U L",
+      "L' R' L' U' L' U L' R L",
+      "L U L' U' L R' L R L",
+      "L' R' L' U' L U R U' L",
+      "R L R L' R U' R' U R",
+      "L' R' L' R U R' L R L",
+      "L' R' L' R L' U L U' L'"
+    ]
+  }
+].map(caseData => ({
+        ...caseData,
+        scramble: invertAlgorithm(caseData.algorithms[0]),
+        selectedAlgorithm: caseData.algorithms[0]
+        }));
+        
+        let currentCase = cases[0];
+       
+        function generatePuzzleImage(scramble, container) {
+const isPracticeImage = container.id === 'caseImage';
+
+const options = {
+    width: container.clientWidth * 2,
+    height: container.clientHeight * 2,
+    puzzle: {
+
+        size: 3,
+        type: "pyraminx",
+        alg: scramble,
+    }
+};
+
+    try {
+        container.innerHTML = '';
+        puzzleGen.PNG(container, 'pyraminx', options);
+    } catch (error) {
+        console.error('Error generating case image:', error);
+    }
+}
+      </script>
+</body>
+</html>

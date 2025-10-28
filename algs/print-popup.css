@@ -1,0 +1,96 @@
+/* Print Popup Modal Styles */
+.print-popup {
+  display: none;
+  position: fixed;
+  z-index: 2000;
+  left: 0; top: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.6);
+  justify-content: center;
+  align-items: center;
+}
+.print-popup.open {
+  display: flex;
+}
+.print-popup-content {
+  background: var(--container-bg, #fff);
+  border-radius: 12px;
+  padding: 32px 24px 24px 24px;
+  min-width: 340px;
+  max-width: 90vw;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+}
+.print-popup-close {
+  position: absolute;
+  top: 12px;
+  right: 16px;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  color: var(--text-light, #888);
+  cursor: pointer;
+}
+.print-controls {
+  display: flex;
+  gap: 1.5rem;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+#print-preview-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  justify-content: flex-start;
+}
+.print-preview-card {
+  background: var(--container-bg, #fff);
+  border: 1px solid var(--alg-border, #ccc);
+  border-radius: 8px;
+  padding: 16px;
+  min-width: 260px;
+  max-width: 320px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  cursor: move;
+  user-select: none;
+}
+.print-preview-card.exporting {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+.print-preview-svg {
+  width: 100px;
+  height: 100px;
+  background: #f8f8f8;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.print-preview-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0 !important;
+  padding: 0 !important;
+  margin: 64px 0 0 0 !important;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  align-items: flex-start;
+}
+.print-preview-name, .print-preview-alg {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1 !important;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  width: 100%;
+  text-align: left;
+}

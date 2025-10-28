@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../img/demo (2).png">
+    <title>EG-1 Learning and Practice</title>
+    <script src="../bg/theme.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@400;700&display=swap&font-display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Zain:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="algs.css">
+    <script src="../language/language.js" defer></script>
+    <link rel="stylesheet" href="../css/roots.css">
+    <script src="../js/cube.js"></script>
+</head>
+<body>
+    <h1 class="fade-in-down">2x2 EG-1</h1>
+    <p class="fade-in-down" data-translate="eg1description">
+        EG-1 is an advanced method for solving the 2x2 cube when the first face has a solved layer with incorrect permutation. It consists of 42 algorithms divided into 7 different subsets: S, AS, PI, U, L, T, and H. Learning EG-1 can significantly improve your solving speed by allowing you to solve the cube in just two looks.
+    </p>
+    <p class="fade-in-down" style="font-size: 1.1em; margin-top: 10px; color: #555;">
+        <strong data-translate="tipLabel">Tip:</strong> 
+        <span data-translate="tip1">
+            Select the case image below to practice a specific case.
+        </span>
+        <br>
+        <strong data-translate="tipLabel">Tip:</strong> 
+        <span data-translate="tip2">
+            click on the dropdown to change the color of the case.
+        </span>
+    </p>
+    <div class="progress-container fade-in-down">
+        <h2 data-translate="progressbar">Learning Progress</h2>
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+        <div class="progress-text">0% Complete</div>
+    </div>
+    
+    <div class="tabs fade-in-down">
+        <button class="tab active" onclick="showTab('learn')" data-translate="learnTab">Learn</button>
+        <button class="tab" onclick="showTab('practice')" data-translate="practiceTab">Practice</button>
+    </div>
+    
+    <div id="learn" class="tab-content active">
+        <table id="pllTable" class="fade-in-down">
+            <thead>
+                <tr>
+                    <th data-translate="name">NAME</th>
+                            <th class="case-header">
+                                <div class="case-title">
+                                    <span data-translate="case">CASE</span>
+                                    <div class="dropdown">
+                                        <i class="fa-solid fa-sort dropdown-icon"></i>
+                                        <div class="dropdown-content" id="colorDropdown">
+                                            <div class="color-option" data-color="yellow">Yellow Top</div>
+                                            <div class="color-option" data-color="white">White Top</div>
+                                            <div class="color-option" data-color="red">Red Top</div>
+                                            <div class="color-option" data-color="orange">Orange Top</div>
+                                            <div class="color-option" data-color="blue">Blue Top</div>
+                                            <div class="color-option" data-color="green">Green Top</div>
+                                </div>
+                            </div>
+                        </div>
+                    </th>
+                    <th data-translate="algorithm">ALGORITHM</th>
+                    <th data-translate="scramble">SCRAMBLE</th>
+                    <th data-translate="best">BEST</th>
+                    <th data-translate="avg">AVG</th>
+                    <th data-translate="status">STATUS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Table rows will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+    
+    <div id="practice" class="tab-content">
+        <div class="practice-area">
+            <h2 id="currentCase"></h2>
+            <div class="case-image-container">
+                <div id="caseImage"></div>
+            </div>
+            <div id="scramble"></div>
+            <div id="timer">0.00</div>
+            <button id="newCaseButton" class="button" data-translate="newCaseButton">New Case</button>
+            <button id="hintButton"><i class="fas fa-lightbulb"></i></button>
+            <div id="hint"></div>
+        </div>
+    </div>
+    
+    <div class="recent-solves">
+        <div class="recent-solves-header">
+            <h2 data-translate="hist">Recent Solves</h2>
+        </div>
+    
+        <div class="recent-solves-content" style="position: relative; height: 400px;">
+            <table id="recentSolvesTable" style="width: 100%; table-layout: fixed;">
+                <thead>
+                    <tr>
+                        <th data-translate="case">Case</th>
+                        <th data-translate="time">Time</th>
+                        <th data-translate="action">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Dynamically populated rows -->
+                </tbody>
+            </table>
+        </div>
+    
+        <div id="resetIconContainer">
+            <button id="resetIcon" title="Reset All Solves">
+                <i class="fas fa-trash-alt"></i>
+            </button>
+        </div>
+    </div>
+    
+    <div id="overlay" class="overlay"></div>
+    <div id="details-popup" class="details-popup">
+        <button class="details-popup-close" onclick="closeDetailsPopup()">&times;</button>
+        <h3>Solve Details</h3>
+        <div id="popup-content"></div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/sr-puzzlegen/dist/bundle/puzzleGen.min.js"></script>
+<script src="alg.js"></script>
+<script>
+ const pllCases = [
+  {
+    "name": "S (1)",
+    "algorithms": [
+      "F' L U2 F2 R U' x'",
+      "z' R' U' R U2 x' U2 R U' z"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S (2)",
+    "algorithms": [
+      "R U R' F2 U F R U R'",
+      "R' F R2 U' R2 F U' R U' R' U2 R",
+      "F R2 U' R2' F U' F2 U' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S (3)",
+    "algorithms": [
+      "R' F R U2 R U' R2 F2 R F'",
+      "F R' F' R U R' F' R2 U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S (4)",
+    "algorithms": [
+      "F' U R U' R' U F R U R'",
+      "F U' R U2 R' F2 R' F R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S (5)",
+    "algorithms": [
+      "R U' R' U R U' R' U F R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S (6)",
+    "algorithms": [
+      "R' F R2 U' R' U L F' L' F"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS (1)",
+    "algorithms": [
+      "B U' R2 F2 U' F x2",
+      "R' F R2 U R' F' U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS (2)",
+    "algorithms": [
+      "R U' R' F' U' F2 R U' R'",
+      "R U' F2 R U2 R U' F"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS (3)",
+    "algorithms": [
+      "F' L F L' U' R U R' L' U' L",
+      "R U' R' U2 R' F R2 U2 R' F"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS (4)",
+    "algorithms": [
+      "R U' R' F' U' R U R' U' F"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS (5)",
+    "algorithms": [
+      "R U R' F' U' R U R' U' R U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS (6)",
+    "algorithms": [
+      "2 R U' R2 F R U' R' F R F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "PI (1)",
+    "algorithms": [
+      "2 R2 B2 R' U R' U' R U2 R U' R2",
+      "2 F2 R U R' U2 R U R' U' F"
+    ],
+    "learned": false
+  },
+  {
+    "name": "PI (2)",
+    "algorithms": [
+      "R' F R2 U' R2 F R",
+      "R U R' L' U' L R U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "PI (3)",
+    "algorithms": [
+      "F R' F U' F2 R U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "PI (4)",
+    "algorithms": [
+      "R U' R' U R U' R' F R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "PI (5)",
+    "algorithms": [
+      "F U' R U2 R' F' R U R' F'",
+      "R U' R2 F R U R U' R' U' R' F R F'",
+      "R' U' R' F2 U' R U2 F2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "PI (6)",
+    "algorithms": [
+      "F R U' R' F R U2 R' U F'",
+      "2 L U L F2 U L' U2 F2 L'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U (1)",
+    "algorithms": [
+      "R U R' U R U R2 F R2 U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U (2)",
+    "algorithms": [
+      "x U' R' U R U' F R U R U' x'",
+      "F R U' R' F U' F' R' F' R",
+      "x U' R2 U' R2 U' x' U' F2 R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U (3)",
+    "algorithms": [
+      "F' U2 R U2 R' U2 F"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U (4)",
+    "algorithms": [
+      "R' F R F' R' F R2 U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U (5)",
+    "algorithms": [
+      "R' F R F' U R U' R' F R U' R'",
+      "2 R U' R' U R U' R' U' F R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U (6)",
+    "algorithms": [
+      "R' F R2 U' R' U y' R U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L (1)",
+    "algorithms": [
+      "R U' R' U R U' R2 F' R F",
+      "R U R' F' R U2 R' U2 R U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L (2)",
+    "algorithms": [
+      "L' U L U' L' U L2 F L' F'",
+      "R' F R F' R' F R U R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L (3)",
+    "algorithms": [
+      "R' U R2 U' R2 U' F R2 U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L (4)",
+    "algorithms": [
+      "R' F R2 U R' F' R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L (5)",
+    "algorithms": [
+      "R U R' F' R U R' U' F R' F' R",
+      "L' U L y' R U2 R U' R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L (6)",
+    "algorithms": [
+      "R U' R' y' R' U2 R' U R2",
+      "R' F R F' U2 R U2 R' F R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T (1)",
+    "algorithms": [
+      "R2 U R U' R2 F R U2 R' F",
+      "L' U L U2 R' F2 R F' L' U L"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T (2)",
+    "algorithms": [
+      "F' R' F R2 U R' U' R U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T (3)",
+    "algorithms": [
+      "R U' R2 F R U R U2 R'",
+      "L' U L2 F' L' U' L' U2 L"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T (4)",
+    "algorithms": [
+      "R2 B2 U' R' U' R U' R' U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T (5)",
+    "algorithms": [
+      "R U R2 x U' R U R' U' R x'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T (6)",
+    "algorithms": [
+      "R U R' F R U R' F U' R U' R'",
+      "R U' R' U2 F R U2 R' F"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H (1)",
+    "algorithms": [
+      "U' R' F R2 U' R' F R U R' F'",
+      "U' R' F R2 U' R2' U' F U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H (2)",
+    "algorithms": [
+      "U' F' U R U' R2 F2 R U' F",
+      "F R U' R2' F U' F2 U R",
+      "R2 U2 R U' R2 U' R2 U R2 U' R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H (3)",
+    "algorithms": [
+      "R' U' R' F2 U F' R F'",
+      "U2 R U R2' F2 U2' F R U R2",
+      "U2 R2' U' R U' R2' F' R2 B2 R' U",
+      "U' F U2' R U' R' F2 R' F2 R F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H (4)",
+    "algorithms": [
+      "U' R U R' F' R U R' U' R U R' U'"
+    ],
+    "learned": false
+  }
+].map(caseData => ({
+        ...caseData,
+        scramble: invertAlgorithm(caseData.algorithms[0]),
+        selectedAlgorithm: caseData.algorithms[0]
+    }));
+
+    let solves = [];
+    let currentCase = pllCases[0];
+    let timer = 0;
+    let isRunning = false;
+    let timerInterval;
+
+    const LOCAL_STORAGE_PREFIX = 'eg1';
+
+    function loadFromLocalStorage() {
+        const storedSolveHistory = localStorage.getItem(`${LOCAL_STORAGE_PREFIX}solveHistory`);
+        const storedAlgorithmList = localStorage.getItem(`${LOCAL_STORAGE_PREFIX}algorithmList`);
+        const storedProgress = localStorage.getItem(`${LOCAL_STORAGE_PREFIX}pllCasesProgress`);
+        const storedSelectedAlgorithms = localStorage.getItem(`${LOCAL_STORAGE_PREFIX}selectedAlgorithmList`);
+
+        if (storedSolveHistory) {
+            solves = JSON.parse(storedSolveHistory);
+        }
+
+        if (storedAlgorithmList) {
+            const algorithmList = JSON.parse(storedAlgorithmList);
+            pllCases.forEach((pllCase, index) => {
+                if (algorithmList[index]) {
+                    pllCase.algorithms = algorithmList[index];
+                }
+            });
+        }
+
+        if (storedProgress) {
+            const pllCasesProgress = JSON.parse(storedProgress);
+            pllCases.forEach((pllCase, index) => {
+                if (pllCasesProgress[index]) {
+                    pllCase.learned = pllCasesProgress[index].learned;
+                }
+            });
+        }
+
+        if (storedSelectedAlgorithms) {
+            const selectedAlgorithmList = JSON.parse(storedSelectedAlgorithms);
+            pllCases.forEach((pllCase, index) => {
+                if (selectedAlgorithmList[index]) {
+                    pllCase.selectedAlgorithm = selectedAlgorithmList[index];
+                } else {
+                    pllCase.selectedAlgorithm = pllCase.algorithms[0];
+                }
+            });
+        } else {
+            pllCases.forEach(pllCase => {
+                pllCase.selectedAlgorithm = pllCase.algorithms[0];
+            });
+        }
+
+        updateRecentSolves();
+        initializeTable();
+        updateProgress();
+    }
+
+
+    function generatePuzzleImage(scramble, container) {
+const isPracticeImage = container.id === 'caseImage';
+
+const options = {
+    width: container.clientWidth * 2,
+    height: container.clientHeight * 2,
+    puzzle: {
+        scheme: colorSchemes[currentColorScheme],
+        size: 2,
+        alg: scramble,
+        mask: puzzleGen.Masks
+    }
+};
+
+try {
+    container.innerHTML = '';
+    puzzleGen.PNG(container, 'cube-top', options);
+    
+    if (isPracticeImage) {
+        setTimeout(() => {
+            const image = container.querySelector('canvas, svg, img');
+            if (image) {
+                image.style.width = '180px';  // Smaller size
+                image.style.height = '180px'; // Smaller size
+                image.style.position = 'relative';
+                image.style.left = '50%';
+                image.style.transform = 'translateX(-50%) translateY(-25px)'; // Move up by 20px
+            }
+        }, 0);
+    }
+} catch (error) {
+    console.error('Error generating case image:', error);
+}
+}
+
+</script>
+</body>
+</html>

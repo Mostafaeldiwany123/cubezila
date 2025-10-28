@@ -1,0 +1,3534 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../img/demo (2).png">
+    <title>ZBLL - cubezila</title>
+    <script src="../bg/theme.js"></script>
+    <script src="../language/language.js"></script>
+    <script src="reco/reco.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@400;700&display=swap&font-display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Zain:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="algs.css">
+    <link rel="stylesheet" href="reco/reco.css">
+    <link rel="stylesheet" href="../timer/css/focus-mode.css">
+    <link rel="stylesheet" href="mobile.css">
+    <link rel="stylesheet" href="../css/roots.css">
+        <script src="zbll.js"></script>
+        <script src="zbll.js"></script>
+</head>
+<body>
+    <header class="site-header">
+ 
+        <div class="breadcrumb">
+            <a href="../index.html"><i class="fas fa-home"></i></a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="alg-dash.html">Algorithms</a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="3x3.html">3x3</a>
+            <i class="fas fa-chevron-right"></i>
+            <span>ZBLL</span>
+        </div>
+        <div class="header-tabs">
+            <button class="tab active" onclick="showTab('learn')">Learn</button>
+            <span class="tab-separator">|</span>
+            <button class="tab" onclick="showTab('practice')">Practice</button>
+        </div>
+    </header>
+    
+    <div id="learn" class="tab-content active">
+        <h1 class="fade-in-down" >ZBLL</h1>
+        
+        <div class="info-container">
+            <div class="description-box">
+                <p class="fade-in-down" >  ZBLL (Zborowski-Bruchem Last Layer) is an advanced method for solving the last layer of the cube in one look. It consists of 472 algorithms that solve the corners and edges simultaneously when the edges are oriented.</p>
+                <div class="tips">
+                    <span class="tip"><i class="fas fa-lightbulb"></i> Select case images to practice specific cases</span>
+                    <span class="tip"><i class="fas fa-palette"></i> Use the dropdown to change case colors</span>
+                </div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-stats">
+                    <span class="progress-count"></span>
+                    <span class="progress-label">algorithms learned</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+        </div>
+
+        <table id="pllTable" class="fade-in-down">
+            <thead>
+                <tr>
+                    <th data-translate="name">NAME</th>
+                            <th class="case-header">
+                                <div class="case-title">
+                                    <span data-translate="case">CASE</span>
+                                    <div class="dropdown">
+                                        <i class="fa-solid fa-sort dropdown-icon"></i>
+                                        <div class="dropdown-content" id="colorDropdown">
+                                            <div class="color-option" data-color="yellow">Yellow Top</div>
+                                            <div class="color-option" data-color="white">White Top</div>
+                                            <div class="color-option" data-color="red">Red Top</div>
+                                            <div class="color-option" data-color="orange">Orange Top</div>
+                                            <div class="color-option" data-color="blue">Blue Top</div>
+                                            <div class="color-option" data-color="green">Green Top</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </th>
+                    <th data-translate="algorithm">ALGORITHM</th>
+                    <th data-translate="scramble">SCRAMBLE</th>
+                    <th data-translate="best">BEST</th>
+                    <th data-translate="avg">AVG</th>
+                    <th data-translate="status" style="text-align: center;">STATUS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Table rows will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+    
+    <div id="practice" class="tab-content">
+        <div class="practice-container">
+            <div class="practice-area">
+                <div class="practice-header">
+                    <div class="practice-controls">
+                        <div class="selected-counter">
+                            Selected: <span id="selectedCounter">0/0</span>
+                        </div>
+                        <span class="tab-separator">|</span>
+                        <button id="newCaseButton" class="control-button" title="New Case">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                        <span class="tab-separator">|</span>
+                        <button id="hintButton" class="control-button" title="Show Hint">
+                            <i class="fas fa-lightbulb"></i>
+                        </button>
+                    </div>
+                </div>
+                <h2 id="currentCase"></h2>
+                <div class="case-image-container">
+                    <div id="caseImage"></div>
+                </div>
+                <div id="scramble"></div>
+                <div id="timer">0.00</div>
+                <div id="hint"></div>
+            </div>
+
+            <div class="recent-solves">
+                <div class="recent-solves-header">
+                    <h2 data-translate="hist">History</h2>
+                </div>
+                <div class="solve-cards">
+                    <!-- Cards will be added dynamically -->
+                </div>
+                <div class="no-history-message">
+                    <i class="fas fa-clock"></i>
+                    <p>No history</p>
+                    <span>Press space to start timing</span>
+                </div>
+                <div id="resetIconContainer">
+                    <button id="resetIcon" title="Reset All Solves">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div id="overlay" class="overlay"></div>
+    <div id="details-popup" class="details-popup">
+        <button class="details-popup-close" onclick="closeDetailsPopup()">&times;</button>
+        <h3>Solve Details</h3>
+        <div id="popup-content"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sr-puzzlegen/dist/bundle/puzzleGen.min.js"></script>
+    <script src="../storage.js"></script>
+    <script src="alg.js"></script>
+    <script>
+        const storage = new StorageManager('zbll');
+        const cases = [
+      {
+    "name": "T1 (1)",
+    "algorithms": [
+      "U R' D R D' R' D R U R' D' R D R' D' R",
+      "U' R U R' U R U2' R' L' U' L U' L' U2 L",
+      "U' R U R' U R U2 R' U2 R' U' R U' R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T1 (2)",
+    "algorithms": [
+      "R' U R U2 R' U' R U' R U R' U' R' U' R U R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T1 (3)",
+    "algorithms": [
+      "U2 R' U2 R U R' U R2 U2 R' U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T1 (4)",
+    "algorithms": [
+      "R U2 R' U' R U' R2 U2 R U R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T1 (5)",
+    "algorithms": [
+      "R' U R U2 R' U' R U2 R' U' R U' R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T1 (6)",
+    "algorithms": [
+      "U2 R U' R' U2 R U R' U2 R U R' U R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T1 (7)",
+    "algorithms": [
+      "R' U R2 U R' U R' U' R U' R' U' R U R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T1 (8)",
+    "algorithms": [
+      "U' R U R' U R U' R' U R' U' R2 U' R2 U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T1 (9)",
+    "algorithms": [
+      "U2 R' U2 R U R' U R U' R' U' R U' R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T1 (10)",
+    "algorithms": [
+      "R U2 R' U' R U' R' U R U R' U R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T1 (11)",
+    "algorithms": [
+      "U' R' U' R2 U R2 U R2 U2 R' U R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T1 (12)",
+    "algorithms": [
+      "U' R U R2 U' R2 U' R2 U2 R U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T2 (1)",
+    "algorithms": [
+      "U2 R U R' F' R U R' U' R' F R U' R' F R U R U' R' F'",
+      "U R U R' U R U R2 D' r U2 r' D R2 U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T2 (2)",
+    "algorithms": [
+      "U R' U' R U' R' U' R2 D r' U2 r D' R2 U' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T2 (3)",
+    "algorithms": [
+      "U2 R U' R2 D' r U2 r' D R2 U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T2 (4)",
+    "algorithms": [
+      "R' U R2 D r' U2 r D' R2 U' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T2 (5)",
+    "algorithms": [
+      "R' U2 R U2 R2 D' R U2 R' D R2 U' R' U R",
+      "R' U' R U2 R D R' U' R D' R2 U R U' R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T2 (6)",
+    "algorithms": [
+      "U2 R U R' U2 R' D' R U R' D R2 U' R' U R U' R'",
+      "U' R U2 R' U' R U r' F r U2 R' r' F r"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T2 (7)",
+    "algorithms": [
+      "R' U' R U R2 D' R U2 R' D R2 U2 R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T2 (8)",
+    "algorithms": [
+      "U R U R' U' R U R2 D' R U' R' D R U2 R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T2 (9)",
+    "algorithms": [
+      "U R' D' R U' R' D R U' R U' R' U R U' R' U' R U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T2 (10)",
+    "algorithms": [
+      "R U' R' U R U R' U' R U R' U R' D' R U R' D R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T2 (11)",
+    "algorithms": [
+      "U R U R D R' U R D' R' U L' U R' U' L"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T2 (12)",
+    "algorithms": [
+      "U r U r' R U R' U' R U R' U' r U' r' F R U R' U' F'",
+      "U2 R2 F R U R' U' R' F' R' U' R2 U2 R U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T3 (1)",
+    "algorithms": [
+      "R' U' R' U' R U R' F' R U R' U' R' F R'",
+      "R' U R U2 L' R' U R U' L"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T3 (2)",
+    "algorithms": [
+      "R' U2 R U R2 F R U R U' R' F' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T3 (3)",
+    "algorithms": [
+      "U2 R' U' R2 U R' F' R U R' U' R' F R2 U' R' U' R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T3 (4)",
+    "algorithms": [
+      "U2 r U' r U2 R' F R U2 r2 F"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T3 (5)",
+    "algorithms": [
+      "U' R' U' R' D' R U R' D R U2 R U R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T3 (6)",
+    "algorithms": [
+      "R' U' R y R U R' U' R l U' R' U l'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T3 (7)",
+    "algorithms": [
+      "R D R' U' R D' R' U' R' U R U' R' U R U R' U' R",
+      "U L' U2 R U2 R' U2 L U R U R' U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T3 (8)",
+    "algorithms": [
+      "F U' R' U2 R U F' R' U' R U R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T3 (9)",
+    "algorithms": [
+      "U2 R' U' R U' R' U R F U' R' U2 R U F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T3 (10)",
+    "algorithms": [
+      "R U R' U R U' R' U' L' U2 R U2 R' U2 L"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T3 (11)",
+    "algorithms": [
+      "R' U2 R U R' U R F U R U2 R' U R U R' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T3 (12)",
+    "algorithms": [
+      "r' U' l' U2 R U' R' U2 l R U' R' U2 r"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T4 (1)",
+    "algorithms": [
+      "U' l' U2 R' D2 R U2 R' D2 R2 x'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T4 (2)",
+    "algorithms": [
+      "R' U2 R U' R' F R U R' U' R' F' R U' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T4 (3)",
+    "algorithms": [
+      "R' U2 R' D' R U2 R' D R' U R' U R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T4 (4)",
+    "algorithms": [
+      "U2 R U2 R D R' U2 R D' R U' R U' R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T4 (5)",
+    "algorithms": [
+      "R' D' R U R' D R U2 R U2 R' U R U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T4 (6)",
+    "algorithms": [
+      "U R' U' R' D' R U R' D R U' R U' R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T4 (7)",
+    "algorithms": [
+      "R' U R2 D R' U R D' R' U R' U' R U' R' U' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T4 (8)",
+    "algorithms": [
+      "U2 R U' R2 D' R U' R' D R U' R U R' U R U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T4 (9)",
+    "algorithms": [
+      "U R' U' R U' F U' R' U R U F' R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T4 (10)",
+    "algorithms": [
+      "R' D' R U R' D R2 U R' U2 R U' R' U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T4 (11)",
+    "algorithms": [
+      "U2 F R U R' U' R U' R' U' R U R' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T4 (12)",
+    "algorithms": [
+      "U' R U R' U2 R U' R' U2 R U' R2 F' R U R U' R' F"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T5 (1)",
+    "algorithms": [
+      "R U R D R' U' R D' R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T5 (2)",
+    "algorithms": [
+      "U' R U2 R' U2 R' F R U R U' R' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T5 (3)",
+    "algorithms": [
+      "U2 R2 B2 R' U2 R' U2 R B2 R' U R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T5 (4)",
+    "algorithms": [
+      "U' R' D' R U R' D R2 U' R' U R U R' U' R U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T5 (5)",
+    "algorithms": [
+      "U' F' U' r' F2 r U' r' F' r F"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T5 (6)",
+    "algorithms": [
+      "U' R U R' U' R U' R' L U' R U R' L'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T5 (7)",
+    "algorithms": [
+      "U R U R' U R U R' U2 L R U' R' U L'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T5 (8)",
+    "algorithms": [
+      "R' U' R U' R2' F' R U R U' R' F U R U' R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T5 (9)",
+    "algorithms": [
+      "U R' U' R U R' U' R2 D R' U2 R D' R' U R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T5 (10)",
+    "algorithms": [
+      "U2 R U R D R' U2 R D' R' U' R' U R U' R' U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T5 (11)",
+    "algorithms": [
+      "U2 F R U R' U' R' F' U2 R U R U' R2 U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T5 (12)",
+    "algorithms": [
+      "U' R U' R' U' R U R D R' U2 R D' R' U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T6 (1)",
+    "algorithms": [
+      "x' U' R' D R U R' D' R x"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T6 (2)",
+    "algorithms": [
+      "U R U R' U' R' F' R U2 R U2 R' F"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T6 (3)",
+    "algorithms": [
+      "R2 F2 R U2 R U2 R' F2 R U' R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T6 (4)",
+    "algorithms": [
+      "U' R D R' U' R D' R2 U R U' R' U' R U R' U' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T6 (5)",
+    "algorithms": [
+      "U F U R U2 R' U R U R' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T6 (6)",
+    "algorithms": [
+      "R U R' U' R U' R'  U' F R U R' U' R' F' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T6 (7)",
+    "algorithms": [
+      "U R' U' R U' R' U R' U' R U R' F' R U R' U' R' F R'",
+      "U R' U' R U' R' U' R U2 L' R' U R U' L"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T6 (8)",
+    "algorithms": [
+      "U F R U R' U' R U R' U' F' R U R' U' R' F R F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T6 (9)",
+    "algorithms": [
+      "U R U R' U' R U R2 D' R U2 R' D R U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T6 (10)",
+    "algorithms": [
+      "R' U2 R F U' R' U R U F' R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T6 (11)",
+    "algorithms": [
+      "U R' U2 R2 U R' U' R' U2 F' R U2 R U2 R' F"
+    ],
+    "learned": false
+  },
+  {
+    "name": "T6 (12)",
+    "algorithms": [
+      "U' R' U R U R' U' R' D' R U2 R' D R U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U1 (1)",
+    "algorithms": [
+      "U R U2 R' U' R U' R' U2 R' U2 R U R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U1 (2)",
+    "algorithms": [
+      "R U R' U' R U' R U2 R2 U' R U R' U' R2 U' R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U1 (3)",
+    "algorithms": [
+      "R' U' R U' R' U2 R2 U R' U R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U1 (4)",
+    "algorithms": [
+      "U2 R U R' U R U2 R2 U' R U' R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U1 (5)",
+    "algorithms": [
+      "U' R U R' U' R U' R' U2 R U' R' U2 R U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U1 (6)",
+    "algorithms": [
+      "U' R' U' R U R' U R U2 R' U R U2 R' U' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U1 (7)",
+    "algorithms": [
+      "U R U2 R2 U' R2 U' R' U R' U' R U R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U1 (8)",
+    "algorithms": [
+      "U R' U2 R2 U R2 U R U' R U R' U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U1 (9)",
+    "algorithms": [
+      "U R' U2 R U R' U R U R' U' R U' R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U1 (10)",
+    "algorithms": [
+      "U R U2 R' U' R U' R' U' R U R' U R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U1 (11)",
+    "algorithms": [
+      "R' U' R U' R U2 R2 U' R2 U' R2 U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U1 (12)",
+    "algorithms": [
+      "U2 R U R' U R' U2 R2 U R2 U R2 U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U2 (1)",
+    "algorithms": [
+      "U2 R' U' R U' F U' R' U R U R' U R U' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U2 (2)",
+    "algorithms": [
+      "R U R' U L' U R U' M' x' U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U2 (3)",
+    "algorithms": [
+      "U' R U2 R2 F R F' M' U' R U' R' U M"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U2 (4)",
+    "algorithms": [
+      "U' R' U2 R F U' R' U R U R' U R U' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U2 (5)",
+    "algorithms": [
+      "U2  R2 D R' U' R D' R' U' R' U R U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U2 (6)",
+    "algorithms": [
+      "R2 D' R U R' D R U R U' R' U' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U2 (7)",
+    "algorithms": [
+      "R U' R' U' R U R D R' U R D' R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U2 (8)",
+    "algorithms": [
+      "U2 R' U R U R' U' R' D' R U' R' D R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U2 (9)",
+    "algorithms": [
+      "M' U R' U' F' U F R2 U R' U R U2 r'",
+      "U F R U R' U' F' R' F R2 B' R2 F' R2 B R'",
+      "M U' M' F R U R' U' F' M U M'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U2 (10)",
+    "algorithms": [
+      "U' F R U R' U' R U R' U' F' U' R' F' U' F U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U2 (11)",
+    "algorithms": [
+      "F R U' R' U' R U2 R' U' R U' R' U' R U2 R' U' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U2 (12)",
+    "algorithms": [
+      "U r' U' R' F R U r F R U' R' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U3 (1)",
+    "algorithms": [
+      "R' F R U' R' U' R U R' F' R U R' U' R' F R F' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U3 (2)",
+    "algorithms": [
+      "U' F2 R U' R' U' R U R' F' R U R' U' R' F R F2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U3 (3)",
+    "algorithms": [
+      "R U' R' U R U' L U r' F U2 R U2 R2 x"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U3 (4)",
+    "algorithms": [
+      "U R' U R U R' F' R U R' U' R' F R2 U' R' U2 R U' R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U3 (5)",
+    "algorithms": [
+      "U R U' L U L' U R' U' l U2 R U2 R2 x"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U3 (6)",
+    "algorithms": [
+      "U R' U L' U' L U' R U l' U2 R' U2 R2 x'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U3 (7)",
+    "algorithms": [
+      "F R U R U2 R' U' R U' R' U2 R' U2 R U' R' U' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U3 (8)",
+    "algorithms": [
+      "U' r U R' U' r' F R2 U' R' U' R U2 R' U' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U3 (9)",
+    "algorithms": [
+      "U F U R U2 R' U R U R2 F' r U R U' r'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U3 (10)",
+    "algorithms": [
+      "U' R U2 R' U2 R' F R U R U2 R' U' R U2 R' U' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U3 (11)",
+    "algorithms": [
+      "U' R' U' R F R2 D' R U R' D R2 U' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U3 (12)",
+    "algorithms": [
+      "U' r U R' U' r' F R U R' U' R F' R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U4 (1)",
+    "algorithms": [
+      "x R2 U2 R' D2 R U2 R' D2 R' x'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U4 (2)",
+    "algorithms": [
+      "U2 x R2 D2 R U2 R' D2 R U2 l"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U4 (3)",
+    "algorithms": [
+      "R U R' U R U' R' U2 R' D' R U2 R' D R2 U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U4 (4)",
+    "algorithms": [
+      "U' R' U2 R U R' U R' D R' U2 R D' R' U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U4 (5)",
+    "algorithms": [
+      "U' R U' R' U' R U' R' U R' D' R U R' D R2 U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U4 (6)",
+    "algorithms": [
+      "U' R' U R U R' U R U' R D R' U' R D' R2 U' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U4 (7)",
+    "algorithms": [
+      "R' U2 R U R' U R' D' R U' R' D R U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U4 (8)",
+    "algorithms": [
+      "R U' R' U' R U2 R' U2 R' D' R U' R' D R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U4 (9)",
+    "algorithms": [
+      "R' U' R U2 R' F' R U R' U' R' F R2 U2 R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U4 (10)",
+    "algorithms": [
+      "U2 R U R' U R U R' U2 R U' R2 D' R U' R' D R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U4 (11)",
+    "algorithms": [
+      "F R U' R' U' R U2 R' U' F' U R U R' U R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U4 (12)",
+    "algorithms": [
+      "R F U' R' U' R U2 R' U' R F' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U5 (1)",
+    "algorithms": [
+      "R2 D' r U2 r' D R U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U5 (2)",
+    "algorithms": [
+      "R2 D' R U2 R' D R U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U5 (3)",
+    "algorithms": [
+      "R U' R' D R' U' R D' R2 U R' U' R' U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U5 (4)",
+    "algorithms": [
+      "U2 R U R' U R U2 R2 U z U R' D R U' z'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U5 (5)",
+    "algorithms": [
+      "U R2 D' R U' R' D R2 U' R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U5 (6)",
+    "algorithms": [
+      "U' R' U R U R' U2 R U2 y R U' R' U2 R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U5 (7)",
+    "algorithms": [
+      "U' R2 D R' U R D' R2 U' R U' R' U2 R U' R' U2 R U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U5 (8)",
+    "algorithms": [
+      "U' R2' F' R U2 R U2' R' F U' R U R' U' R",
+      "U R U L' U R' U' L U' R U R' U R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U5 (9)",
+    "algorithms": [
+      "U' R' U2 R2 D R' U2 R D' R2 U R U2 R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U5 (10)",
+    "algorithms": [
+      "U' R U R' U2 F2 R U2 R' U2 R' F2 R2 U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U5 (11)",
+    "algorithms": [
+      "U' R' U2 R' D' R U2 R' D R U2 R U R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U5 (12)",
+    "algorithms": [
+      "U' R' U R U' R' U' R U2 R D R' U' R D' R2 U' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U6 (1)",
+    "algorithms": [
+      "R' U2 R U R2 F' R U R U' R' F R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U6 (2)",
+    "algorithms": [
+      "U2 R2 D R' U2 R D' R' U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U6 (3)",
+    "algorithms": [
+      "R' U' R U R U R' U' R' U F R U R U' R' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U6 (4)",
+    "algorithms": [
+      "R U' R' U' R U2 R' U' R' D' R U2 R' D R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U6 (5)",
+    "algorithms": [
+      "U R U R2 D' R U R' D R2 U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U6 (6)",
+    "algorithms": [
+      "U' R U' R' U' R U2 R' U2 y' R' U R U2 R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U6 (7)",
+    "algorithms": [
+      "U R' U R' U' D' R U' R' U2 R U' R' D R U' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U6 (8)",
+    "algorithms": [
+      "U' R U R' U R U' R' U F' R U2 R' U2 R' F R",
+      "U R' U' L U' R U L' U R' U' R U' R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U6 (9)",
+    "algorithms": [
+      "U' R' U' R U R' U R U2 F R' U R U' F' R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U6 (10)",
+    "algorithms": [
+      "U R U R' U R U' R' U R U' R' U' L' U R U' R' L"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U6 (11)",
+    "algorithms": [
+      "U' R U2 R D R' U2 R D' R' U2 R' U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "U6 (12)",
+    "algorithms": [
+      "U' R U' R' U R U R' U2 R' D' R U R' D R2 U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L1 (1)",
+    "algorithms": [
+      "R U2 R' U2 R' U' R U R U' R' U2 R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L1 (2)",
+    "algorithms": [
+      "R U R' U R U' R' U R U' R' U R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L1 (3)",
+    "algorithms": [
+      "U2 R U2 R' U' R U' R' U2 R U R' U R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L1 (4)",
+    "algorithms": [
+      "U2 R U R' U R U2 R' U2 R U2 R' U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L1 (5)",
+    "algorithms": [
+      "R2 U R' U R' U' R U' R' U' R U R U' R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L1 (6)",
+    "algorithms": [
+      "U' R2 U' R U' R U R' U R U R' U' R' U R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L1 (7)",
+    "algorithms": [
+      "U R' U2 R U R' U R U' R U2 R' U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L1 (8)",
+    "algorithms": [
+      "U2 R U2 R' U' R U' R' U R' U2 R U R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L1 (9)",
+    "algorithms": [
+      "U R2 U R' U' R' U R U R' U R U' R U' R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L1 (10)",
+    "algorithms": [
+      "r U r' U R U' R' U R U' R' M' U R U2' r'",
+      "U2 R2 U' R U R U' R' U' R U' R' U R' U R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L1 (11)",
+    "algorithms": [
+      "U2 R U R' U R U2 R' U R' U' R U' R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L1 (12)",
+    "algorithms": [
+      "U R' U' R U' R' U2 R U' R U R' U R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L2 (1)",
+    "algorithms": [
+      "F R U' R' U' R U R D R' U' R D' R' U2 R' U' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L2 (2)",
+    "algorithms": [
+      "U2 F R U R2' F R F' R U' R' F'",
+      "U F R U R' U' R U' R' U2 R U2 R' U' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L2 (3)",
+    "algorithms": [
+      "L' U2 R U' R' U2 L R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L2 (4)",
+    "algorithms": [
+      "R' U' R U R' F' R U R' U' R' F R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L2 (5)",
+    "algorithms": [
+      "U R' U F' R U R' U' R' F R2 U' R' U' R U R' U' R",
+      "F R U R' U' R' F R2 U' R' U' R U R' F2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L2 (6)",
+    "algorithms": [
+      "R' U' R U R' U' R' F R2 U' R' U' R U R' F' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L2 (7)",
+    "algorithms": [
+      "U r U2 R r2 F R' F' r2 U2 r'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L2 (8)",
+    "algorithms": [
+      "U2 r U2 r2 F R F' r2 R' U2 r'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L2 (9)",
+    "algorithms": [
+      "U2 F R U R' U' F' r U r' U R U' R' r U' r'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L2 (10)",
+    "algorithms": [
+      "U r U r' R U R' U' r U' r' F U R U' R' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L2 (11)",
+    "algorithms": [
+      "U' R U R' U R U' R' F2 R U2 R' U2 R' F2 R2 U' R'",
+      "U R U2 R' U' L' U2 R U R' L U L' U L"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L2 (12)",
+    "algorithms": [
+      "R U R2 F2 R U2 R U2 R' F2 R U R' U' R U' R'",
+      "U R U R' U' R' U2 R' U D R' U' R U2 D' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L3 (1)",
+    "algorithms": [
+      "U' F' r U R' U' r' F R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L3 (2)",
+    "algorithms": [
+      "R' U' R U R' F2 R U2 R' U2 R' F2 R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L3 (3)",
+    "algorithms": [
+      "U' F' R U2 R' U2 R' F R U R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L3 (4)",
+    "algorithms": [
+      "U R' U R U' R' U R U R' U' R2 D R' U R D' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L3 (5)",
+    "algorithms": [
+      "F R U' R' U' R U2 R' U' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L3 (6)",
+    "algorithms": [
+      "U2 R' U' R U2 R' F' R U R' U' R' F R2 U R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L3 (7)",
+    "algorithms": [
+      "R' F R U R U' R' F' U R U R' U R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L3 (8)",
+    "algorithms": [
+      "R2 D' R U' R' D R U R' U' R' U' R U R U R U' R",
+      "R' U R U2 R' L' U R U L U r' F r"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L3 (9)",
+    "algorithms": [
+      "U F R' F' R U R U' R' F U R U' R' U R U' R' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L3 (10)",
+    "algorithms": [
+      "U' F' R U2 R' U2 R' F U2 R U R U' R2 U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L3 (11)",
+    "algorithms": [
+      "U2 R U R' U R' D' R U2 R' D R2 U' R' U R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L3 (12)",
+    "algorithms": [
+      "U R' U' R' D' R U2 R' D R U R U' R' U' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L4 (1)",
+    "algorithms": [
+      "U2 F R' F' r U R U' r'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L4 (2)",
+    "algorithms": [
+      "U' R U R' U' R B2 R' U2 R U2 R B2 R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L4 (3)",
+    "algorithms": [
+      "U2 F R U R' U' R' F' R U2 R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L4 (4)",
+    "algorithms": [
+      "U2 R U' R' U R U' R' U' R U R2 D' R U' R' D R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L4 (5)",
+    "algorithms": [
+      "R' F' R U R' U' R' F R U' R U R' U R",
+      "U F' r' F r U r' F2 r U F"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L4 (6)",
+    "algorithms": [
+      "U R U R' U R U R' U' R U R D R' U2 R D' R' U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L4 (7)",
+    "algorithms": [
+      "U L R U' R' U R L' U R' U R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L4 (8)",
+    "algorithms": [
+      "U L U' R U R' L' U2 R U' R' U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L4 (9)",
+    "algorithms": [
+      "U R' U2 R U R' U' F' R U R' U' R' F R2 U R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L4 (10)",
+    "algorithms": [
+      "U R' U2 R2 U R' U' R' U2 F R U R U' R' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L4 (11)",
+    "algorithms": [
+      "U R U R' U R U' R' U' L' U R U' M' x'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L4 (12)",
+    "algorithms": [
+      "U2 R U R D R' U2 R D' R' U' R' U R U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L5 (1)",
+    "algorithms": [
+      "U R' U2 R' D' R U2 R' D R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L5 (2)",
+    "algorithms": [
+      "U R' U2 R' D' r U2 r' D R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L5 (3)",
+    "algorithms": [
+      "U2 R D R' U2 R D' R' U' R' U2 R U' R' U' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L5 (4)",
+    "algorithms": [
+      "U2 R U2 R U R U' R2 D R' U R D' R U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L5 (5)",
+    "algorithms": [
+      "U R U R' U2 R U R' U2 y' R' U2 R U' R' U' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L5 (6)",
+    "algorithms": [
+      "R' U2 R U R2 D' R U R' D R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L5 (7)",
+    "algorithms": [
+      "U R U R' U' R U' R' U L' U R U' L U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L5 (8)",
+    "algorithms": [
+      "U R U' R' U2 R U R' U2 R U R' U R2 D R' U' R D' R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L5 (9)",
+    "algorithms": [
+      "U R' U2 R U2 R' U' R2 D R' U2 R D' R2 U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L5 (10)",
+    "algorithms": [
+      "U2 F' R U R' U' R' F R2 U' R' U' R U' R' U R U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L5 (11)",
+    "algorithms": [
+      "R U' R2 F2 R U2 R U2 R' F2 U2 R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L5 (12)",
+    "algorithms": [
+      "U R' U R2 D R' U R D' R' U2 R' U R U R' U' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L6 (1)",
+    "algorithms": [
+      "U2 R U2 R D R' U2 R D' R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L6 (2)",
+    "algorithms": [
+      "U R' F' R U R' U' R' F R2 U' R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L6 (3)",
+    "algorithms": [
+      "U' L' U R U' L U R2 U2 R U R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L6 (4)",
+    "algorithms": [
+      "U' F R U R' U' R' F' U' R U R U' R' U' R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L6 (5)",
+    "algorithms": [
+      "U2 R' U' R U2 R' U' R y U2 R U2 R' U R U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L6 (6)",
+    "algorithms": [
+      "U' R U2 R' U' R2 D R' U' R D' R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L6 (7)",
+    "algorithms": [
+      "U2 R' U' R U R' U R U' L U' R' U L' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L6 (8)",
+    "algorithms": [
+      "U2 R' U R' D' R U R' U2 R U R' D U R U' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L6 (9)",
+    "algorithms": [
+      "U2 R U2 R' U2 R U R2 D' R U2 R' D R2 U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L6 (10)",
+    "algorithms": [
+      "U' R U R' U R U2 R D R' U2 R D' R' U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L6 (11)",
+    "algorithms": [
+      "U' R' U R2 B2 R' U2 R' U2 R B2 U2 R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "L6 (12)",
+    "algorithms": [
+      "U2 R U' R2 D' R U' R' D R U2 R U' R' U' R U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi1 (1)",
+    "algorithms": [
+      "R' U' R U R U2 R' U' R U' R2 U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi1 (2)",
+    "algorithms": [
+      "R U R' U' R' U2 R U R' U R2 U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi1 (3)",
+    "algorithms": [
+      "U' R' U2 R U R' U R2 U R' U R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi1 (4)",
+    "algorithms": [
+      "U R U2 R' U' R U' R2 U' R U' R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi1 (5)",
+    "algorithms": [
+      "U' R U2 R' U2 R U' R' U2 R U' R' U2 R U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi1 (6)",
+    "algorithms": [
+      "U R' U2 R U2 R' U R U2 R' U R U2 R' U' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi1 (7)",
+    "algorithms": [
+      "U2 R U' R' U2 R U R' U2 R U R' U2 R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi1 (8)",
+    "algorithms": [
+      "U2 R' U R U2 R' U' R U2 R' U' R U2 R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi1 (9)",
+    "algorithms": [
+      "R' U2 R2 U R2 U R2 U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi1 (10)",
+    "algorithms": [
+      "R U2 R2 U' R2 U' R2 U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi1 (11)",
+    "algorithms": [
+      "R U R' U' R' U' R U R U R' U' R' U R U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi1 (12)",
+    "algorithms": [
+      "R U2 R' U' R U' R' U' R U2 R' U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi2 (1)",
+    "algorithms": [
+      "U2 R2 U R' U2 R' U' R U R D R' U R D' R' U R U' R2'",
+      "U' R U R' U R U' R' U' R2 D R' U2 R D' R2 U R U' R'",
+      "F R2 U' R U' R U' R' U2 R' U R2 F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi2 (2)",
+    "algorithms": [
+      "U2 F R2 U' R U2 R U R' U R' U R2 F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi2 (3)",
+    "algorithms": [
+      "F U R' U' R2 U' R2 U2 R U2 R U R' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi2 (4)",
+    "algorithms": [
+      "r' U' R U' R' U R U' R' U R' F R F' U r"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi2 (5)",
+    "algorithms": [
+      "U R U2 R' U' F' R U2 R' U' R U' R' F R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi2 (6)",
+    "algorithms": [
+      "U R' U' R' D' R U R' D R U2 R' D' R U2 R' D R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi2 (7)",
+    "algorithms": [
+      "U' r U R' U R' F R F' R U' R' U R U2' r'",
+      "U' R' U' R U R' U' R2 D R' U R D' R' U R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi2 (8)",
+    "algorithms": [
+      "U R U R' U' R U R2 D' R U' R' D R U' R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi2 (9)",
+    "algorithms": [
+      "U2 R U2 R' U R' D' R U R' D R2 U' R' U R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi2 (10)",
+    "algorithms": [
+      "U2 R' U2 R U' R D R' U' R D' R2 U R U' R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi2 (11)",
+    "algorithms": [
+      "R2 D R' U' R D' R' U' R' U R U' R' U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi2 (12)",
+    "algorithms": [
+      "R2 D' R U R' D R U R U' R' U R U R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi3 (1)",
+    "algorithms": [
+      "U' F U R U2 R' U R U R' F' R U2 R' U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi3 (2)",
+    "algorithms": [
+      "r U' r' U' r U r' U' l R U' R' U l'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi3 (3)",
+    "algorithms": [
+      "r' U r U r' U' r U R2 F R F' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi3 (4)",
+    "algorithms": [
+      "r' U' R U' R' U2 r U' R U2 R' U2 R' F R F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi3 (5)",
+    "algorithms": [
+      "R' U' R U R2 F' R U R U' R' F U' R U R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi3 (6)",
+    "algorithms": [
+      "R U2 R D' R U' R' D R' U' R2 U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi3 (7)",
+    "algorithms": [
+      "R' U' R U' R2 D' R U R' D R2 U' R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi3 (8)",
+    "algorithms": [
+      "U2 L' U R U' L U' R' U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi3 (9)",
+    "algorithms": [
+      "R U' L' U R' U L U L' U L"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi3 (10)",
+    "algorithms": [
+      "U R2 D' R U2 R' D R2 U R2 D' R U R' D R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi3 (11)",
+    "algorithms": [
+      "U' R2 D R' U2 R D' R2 U' R2 D R' U' R D' R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi3 (12)",
+    "algorithms": [
+      "U' R U2 R2 F R U R U2 R' U' R U2 R' U' F' R U R'",
+      "U2 R U2 R' U' R U r' F2 r U2 R' U' r' F r"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi4 (1)",
+    "algorithms": [
+      "U R U2 R2 U' R U' R' U2 F R U R U' R' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi4 (2)",
+    "algorithms": [
+      "U' R U R' U R U2 R2 F' r U R U' r' F"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi4 (3)",
+    "algorithms": [
+      "U' r' F' r U' r' F2 r2 U R' U' r' F R F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi4 (4)",
+    "algorithms": [
+      "F R U R' U' R' F' R U2 R' U' R2 U' R2 U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi4 (5)",
+    "algorithms": [
+      "U R' U' R L U2 R' U2 R U2 L' U R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi4 (6)",
+    "algorithms": [
+      "U' F U' R U' R' U R U R' U2 R U2 R' U F' U"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi4 (7)",
+    "algorithms": [
+      "U R2 D' R U' R' D R U R' D' R U R' D R U R U' R' U' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi4 (8)",
+    "algorithms": [
+      "R' U' F' R U R' U' R' F R2 U2' R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi4 (9)",
+    "algorithms": [
+      "U' R U R' U R U' R' U' R' F' R U2 R U2' R' F"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi4 (10)",
+    "algorithms": [
+      "U2 R' U' R' D' R U R' D R' U R' U R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi4 (11)",
+    "algorithms": [
+      "U2 R U R D R' U' R D' R U' R U' R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi4 (12)",
+    "algorithms": [
+      "U F U R U' R' U R U2 R' U' R U R' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi5 (1)",
+    "algorithms": [
+      "r' F' r U r U2 r' F2 U' R U R' U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi5 (2)",
+    "algorithms": [
+      "U2 R U2 R' U2 R' F R2 U' R' U2 R U2 R' U' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi5 (3)",
+    "algorithms": [
+      "R' F R U R' U' R' F' R2 U' R' U R U' R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi5 (4)",
+    "algorithms": [
+      "R' L U2 R2 U R2 U R U L' U' R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi5 (5)",
+    "algorithms": [
+      "l U2 l' U2 R' U2 R B2 U R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi5 (6)",
+    "algorithms": [
+      "U' R U R' U F2 R U2 R' U2 R' F2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi5 (7)",
+    "algorithms": [
+      "U' R' U2 R U R' U R2 U' L' U R' U' L"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi5 (8)",
+    "algorithms": [
+      "U R U R' U R U' R' U R U' R D R' U' R D' R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi5 (9)",
+    "algorithms": [
+      "R U R' U' R' F R2 U R' U' R U R' U' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi5 (10)",
+    "algorithms": [
+      "U R2 D R' U2' R D' R2' U' R U' R' U R U2' R' U' R U' R'",
+      "U2 R' U' R U' R' U' R U' x' U L' U L U2 R U' R' U x"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi5 (11)",
+    "algorithms": [
+      "R U2 R' U' R U R' U2 L' U R U' M' x'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi5 (12)",
+    "algorithms": [
+      "U' L R' U' R U L' U2 R' U R U' R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi6 (1)",
+    "algorithms": [
+      "U' R U R' U R U' R2' F R F' R U' R' F' U F",
+      "U' R U R' U R U' R' U F2 r U2 r' U' r' F r"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi6 (2)",
+    "algorithms": [
+      "U F U R U2 R' U2 R U R2 F' R U2 R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi6 (3)",
+    "algorithms": [
+      "R U' R' U' R U' R' U R U R' U R' F' R U R U' R' F"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi6 (4)",
+    "algorithms": [
+      "U2 R' U2 R U R' U' R U R2 F R U R U' R' F' R",
+      "R L' U2 R2 U' R2 U' R' U' L U R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi6 (5)",
+    "algorithms": [
+      "R' F2 R U2 R U2 R' F2 U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi6 (6)",
+    "algorithms": [
+      "U R' U' R U' B2 R' U2 R U2 l U2 l'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi6 (7)",
+    "algorithms": [
+      "U R U2 R' U' R U' R2 U L U' R U L'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi6 (8)",
+    "algorithms": [
+      "U' R' U' R U' R' U R U' R' U R' D' R U R' D R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi6 (9)",
+    "algorithms": [
+      "U F U R U' R' U R U' R2 F' R U R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi6 (10)",
+    "algorithms": [
+      "U R U R' U R U2' R' U' R U R' U R2 D R' U2 R D' R2'",
+      "R U R' U R U2 R' U' R L' U R' U' L U2 R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi6 (11)",
+    "algorithms": [
+      "R' U2 R U R' U' R U2 L U' R' U R L'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "Pi6 (12)",
+    "algorithms": [
+      "U R L' U R' U' L U2 R U' R' U R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H1 (1)",
+    "algorithms": [
+      "R U2 R' U' R U' R' U' R' U' R U' R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H1 (2)",
+    "algorithms": [
+      "R' U2 R U R' U R U R U R' U R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H1 (3)",
+    "algorithms": [
+      "U R' U' R U' R' U R U' R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H1 (4)",
+    "algorithms": [
+      "U' R U R' U R U' R' U R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H1 (5)",
+    "algorithms": [
+      "R' U2 R U R' U R' D' R U R' D R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H1 (6)",
+    "algorithms": [
+      "R U2 R' U' R U R' U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H1 (7)",
+    "algorithms": [
+      "U R U R' U R U' R' U R U' R' U R' U' R2 U' R' U R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H1 (8)",
+    "algorithms": [
+      "U R U R' U R U2 R' U' R' U2 R U R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H2 (1)",
+    "algorithms": [
+      "U R U2 R D R' U' R D' R2 U' R' F R U R U' R' F'",
+      "U x' U' R U' R' U R' F2 R U' R U R' U x"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H2 (2)",
+    "algorithms": [
+      "F U R U' R' U R U' R' U R U' R' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H2 (3)",
+    "algorithms": [
+      "R U R' y' U R' U R U' R2 F R F' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H2 (4)",
+    "algorithms": [
+      "R' U' R y U' R U' R' U R l U' R' U l'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H2 (5)",
+    "algorithms": [
+      "F R U R' U' R U R' U' F' U R' F' U' F U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H2 (6)",
+    "algorithms": [
+      "R' U' R U' R' U2 R U R' U' R U R' F' R U R' U' R' F R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H2 (7)",
+    "algorithms": [
+      "U L' U L U' L' U' L U R' U' R U L' U' L U2 R' U' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H2 (8)",
+    "algorithms": [
+      "U R U' R' U R U R' U' L U L' U' R U R' U2 L U L'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H3 (1)",
+    "algorithms": [
+      "U2 R U R' U R U2 R' F R U' R' U' R U2 R' U' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H3 (2)",
+    "algorithms": [
+      "R U R2 F R F' r U' r' U r U r' U2",
+      "l U' R U R' l' U r U' r' U r U r'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H3 (3)",
+    "algorithms": [
+      "U2 R' F R' F' R2 U' r' U r U' r' U' r"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H3 (4)",
+    "algorithms": [
+      "U R' U' R U' R' U' L U' R U L'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H3 (5)",
+    "algorithms": [
+      "U R U R' U R U L' U R' U' L"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H3 (6)",
+    "algorithms": [
+      "U' R' U' R U' R' U F' R U R' U' R' F R2 U' R' U R",
+      "U' R' U' R U' R U R2 U R2 U L' U R' U' L"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H3 (7)",
+    "algorithms": [
+      "U' R U R' U R' U' R2 U' R2 U' L U' R U L'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H3 (8)",
+    "algorithms": [
+      "U2 R' U2' R U R2' D' R U' R' D R2 U R' U R",
+      "R U2 R2 U' R' D R' U' R D' R U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H3 (9)",
+    "algorithms": [
+      "R U2 R' U' R2 D R' U R D' R2' U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H3 (10)",
+    "algorithms": [
+      "F R U' R' U' R U2 R' U' F' U R U R' U R U2 R'",
+      "U2 R U R' U' L' U2 R U2 R' U L U' r' F2 r"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H3 (11)",
+    "algorithms": [
+      "U' R2 D' R U' R' D R2 U' R2 D' R U2 R' D R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H3 (12)",
+    "algorithms": [
+      "U' R2 D R' U R D' R2' U R2 D R' U2 R D' R2'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H4 (1)",
+    "algorithms": [
+      "U2 F R' F' r U R U' r2 F2 r U r' F r"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H4 (2)",
+    "algorithms": [
+      "U R U R' U' R' F R U R U' R' F' R U R' U R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H4 (3)",
+    "algorithms": [
+      "R' U2 R U' L U2 R' U2 R U2 L' R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H4 (4)",
+    "algorithms": [
+      "R U2 R' U L' U2 R U2 R' U2 L R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H4 (5)",
+    "algorithms": [
+      "U' F U' R U2 R' U2 R U' R' U' R U R' U F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H4 (6)",
+    "algorithms": [
+      "U' R' F R U R' U' F' R U' R' U R' F R F' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H4 (7)",
+    "algorithms": [
+      "U' R U2 R' U' R U' R D' R U' R' D R U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H4 (8)",
+    "algorithms": [
+      "R U2 R2 F U' R2 U' R2 U F' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H4 (9)",
+    "algorithms": [
+      "U2 R' U2 R U2' R2 F' R U R U' R' F U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H4 (10)",
+    "algorithms": [
+      "U' F B' R2 B R2 U' R2 U' R2 U R2 F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H4 (11)",
+    "algorithms": [
+      "U R' U' R U' R' U R U R' F R U R' U' R' F' R2",
+      "U2 F R U R' U' R' F' U2 R U R' U R2 U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "H4 (12)",
+    "algorithms": [
+      "U F R U' R' U R U2 R' U' R U R' U' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S1 (1)",
+    "algorithms": [
+      "U' R' U R2 U R' U R U2 R U2 R U R' U R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S1 (2)",
+    "algorithms": [
+      "U' R' U2 R2 U R  U' R' U R U R2 U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S1 (3)",
+    "algorithms": [
+      "R U R' U R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S1 (4)",
+    "algorithms": [
+      "U' R' U2 R U R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S1 (5)",
+    "algorithms": [
+      "R U R2 U' R2 U' R2 U2 R2 U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S1 (6)",
+    "algorithms": [
+      "U2 R' U' R U' R U R2 U R2 U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S1 (7)",
+    "algorithms": [
+      "U' R U R' U' R' U2 R U R U' R' U R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S1 (8)",
+    "algorithms": [
+      "U' R' U' R U R U R' U' R' U R U R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S1 (9)",
+    "algorithms": [
+      "R U R' U R U' R' U R' U' R2 U' R' U R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S1 (10)",
+    "algorithms": [
+      "R U R' U R U R U R U R U' R' U' R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S1 (11)",
+    "algorithms": [
+      "U R U R' U R' U' R2 U' R' U R' U' R U R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S1 (12)",
+    "algorithms": [
+      "R U R' U R U' R' U R' U' R' U R U' R' U' R2 U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S2 (1)",
+    "algorithms": [
+      "F U' R' U R U F' R U R2 U R2 U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S2 (2)",
+    "algorithms": [
+      "U R' D' R U' R' D R U2 R U R' U2 R U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S2 (3)",
+    "algorithms": [
+      "R' U2 R U R' U' R F U' R' U' R U F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S2 (4)",
+    "algorithms": [
+      "R' U R U2 R' U R U2 R D R' U' R D' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S2 (5)",
+    "algorithms": [
+      "L' U2 R U' R' U2 L U R U' R' U R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S2 (6)",
+    "algorithms": [
+      "U F R U R' U' R U R2 U' F' U R U R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S2 (7)",
+    "algorithms": [
+      "U2 R U R' F' R U R' U R U2 R' F R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S2 (8)",
+    "algorithms": [
+      "U R U2 L' R' U2 R U2 R' U2 L U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S2 (9)",
+    "algorithms": [
+      "U' R U' R2 U2 D' R U R' U D R2 U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S2 (10)",
+    "algorithms": [
+      "U F U R' F R F' R U' R' U R U' R' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S2 (11)",
+    "algorithms": [
+      "R U R' U' L' U R U' L U' L' U R' U' L"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S2 (12)",
+    "algorithms": [
+      "F R U' R U2 R' U2 R' U' R U2 R' U' R2 U' R2 F'",
+      "U2 r' F2 R F' r U' R' U r' F r U2 R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S3 (1)",
+    "algorithms": [
+      "R U' L' U R' U' L"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S3 (2)",
+    "algorithms": [
+      "U R' U2 R U R' U' R' D' R U2 R' D R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S3 (3)",
+    "algorithms": [
+      "U' R' D U' R' U R U2 D' R2 U R' U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S3 (4)",
+    "algorithms": [
+      "U R' U' R' U R2 D' U2 R U R' U' D R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S3 (5)",
+    "algorithms": [
+      "R2 D R' U2 R D' R' U' R' U R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S3 (6)",
+    "algorithms": [
+      "D' R U R' U R U' R' U' D R2 U' R U' R' U R' U R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S3 (7)",
+    "algorithms": [
+      "R U R' U R U R' U' R U R D R' U' R D' R' U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S3 (8)",
+    "algorithms": [
+      "U' R' U2 R U R' U' R' D' R U' R' D R U R U' R' U' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S3 (9)",
+    "algorithms": [
+      "U' R' U2 F' R U R' U' R' F R U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S3 (10)",
+    "algorithms": [
+      "R2 U R U R' U' R' U' R' L' U R' U' L"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S3 (11)",
+    "algorithms": [
+      "U R U2 R' U2 R' F R2 U R' U' R U R' U' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S3 (12)",
+    "algorithms": [
+      "R U R' U R U' R' U' R' F R2 U' R' U' R U R' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S4 (1)",
+    "algorithms": [
+      "U' R2 U R' U R D R' U2 R D' R' U R U' R2'",
+      "R' D R2 D' R2 U R2 D R2 D' R2 U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S4 (2)",
+    "algorithms": [
+      "U' R U R' U R U' R D R' U' R D' R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S4 (3)",
+    "algorithms": [
+      "U2 R U' R' U' R U' R' U2 R U R2 D' R U2 R' D R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S4 (4)",
+    "algorithms": [
+      "U F U R U' R' U R U' l U' R2 D' R U R' x"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S4 (5)",
+    "algorithms": [
+      "U2 R2 D' R U' R' D R U' R U R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S4 (6)",
+    "algorithms": [
+      "U R U2 R' L' U2 R U R' U2 L R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S4 (7)",
+    "algorithms": [
+      "R' D' R U R' D R2 U' R' U R U R' U' R U2 R' U R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S4 (8)",
+    "algorithms": [
+      "R U' R' U' R U R D R' U2 R D' R2 U R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S4 (9)",
+    "algorithms": [
+      "U' R' U2 R' D' R U R' D R U' R U R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S4 (10)",
+    "algorithms": [
+      "U R' U' R U' R2 F' R U R U' R' F U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S4 (11)",
+    "algorithms": [
+      "U2 R U R' U R' D' R U2 R' D R2 U' R' U R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S4 (12)",
+    "algorithms": [
+      "U2 R U2 R' U' R U R' U' R U R D R' U2 R D' R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S5 (1)",
+    "algorithms": [
+      "f R' F' R U2 R U2 R' U2 S'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S5 (2)",
+    "algorithms": [
+      "U R' D' R U R' D R2 U R' U2 R U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S5 (3)",
+    "algorithms": [
+      "R' D R' U R D' U R U' R' U' R2 U R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S5 (4)",
+    "algorithms": [
+      "U R' U2 R U R2 D' R U' R' D R U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S5 (5)",
+    "algorithms": [
+      "U2 R2 D' r U2 r' D R2 U R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S5 (6)",
+    "algorithms": [
+      "R' U2 R U R' U R' D' R U2 R' D R U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S5 (7)",
+    "algorithms": [
+      "R L' U R' U' L U2 R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S5 (8)",
+    "algorithms": [
+      "U2 R2 D' R U2 R' D R2 U R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S5 (9)",
+    "algorithms": [
+      "R2 F R U R U' R' F' R U' R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S5 (10)",
+    "algorithms": [
+      "U R U R' U R' U' R' D' R U R' D R' U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S5 (11)",
+    "algorithms": [
+      "U' R' U' F U' R2 U R2 U F' R U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S5 (12)",
+    "algorithms": [
+      "U' R2 D' R U2 R D2 R' U' R D2 R' U R' D R U2 R",
+      "U' R' U' R' D' R U' R' D R' U R2 U R U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S6 (1)",
+    "algorithms": [
+      "U2 R U R' U' R U R2 D' R U2 R' D R2 U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S6 (2)",
+    "algorithms": [
+      "R U R' U R U' R2 F' R U R U' R' F R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S6 (3)",
+    "algorithms": [
+      "U2 R U R' U R2 D r' U2 r D' R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S6 (4)",
+    "algorithms": [
+      "R' U R U2 R' U R2 D R' U R D' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S6 (5)",
+    "algorithms": [
+      "U' R' U' R U R2 U' R' U' R U D' R U R' D R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S6 (6)",
+    "algorithms": [
+      "U2 R' U' R U' R2 D' R U2 R' D R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S6 (7)",
+    "algorithms": [
+      "U2 R U2 R' U2 L U' R' U L' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S6 (8)",
+    "algorithms": [
+      "R U2 R D R' U2 R D' R' U R' U R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S6 (9)",
+    "algorithms": [
+      "R U R2 F' R U2 R U2 R' F R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S6 (10)",
+    "algorithms": [
+      "U R U R' U' R U R2 D' R U R' D R U R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S6 (11)",
+    "algorithms": [
+      "F' R U R' U R U2 R' F U R U' R' U2 R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "S6 (12)",
+    "algorithms": [
+      "U R' F R U R' U' R' F' D' R U R' D R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS1 (1)",
+    "algorithms": [
+      "U R U' R2 U' R U' R' U2 R' U2 R' U' R U' R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS1 (2)",
+    "algorithms": [
+      "U R U2 R2 U' R' U R U' R' U' R2 U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS1 (3)",
+    "algorithms": [
+      "R' U' R U' R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS1 (4)",
+    "algorithms": [
+      "U R U2 R' U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS1 (5)",
+    "algorithms": [
+      "R' U' R2 U R2 U R2 U2 R2 U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS1 (6)",
+    "algorithms": [
+      "U2 R U R' U R' U' R2 U' R2 U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS1 (7)",
+    "algorithms": [
+      "U R' U' R U R U2 R' U' R' U R U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS1 (8)",
+    "algorithms": [
+      "U R U R' U' R' U' R U R U' R' U' R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS1 (9)",
+    "algorithms": [
+      "U R U R' U R' U' R U R' U' R2 U' R2 U R U' R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS1 (10)",
+    "algorithms": [
+      "R' U' R U' R' U' R' U' R' U' R' U R U R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS1 (11)",
+    "algorithms": [
+      "U R U R' U' R U R2 U' R2 U' R' U R U' R' U R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS1 (12)",
+    "algorithms": [
+      "U2 R U R' U R' U' R' U R U' R' U' R' U' R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS2 (1)",
+    "algorithms": [
+      "U' R U2 R2 U' R2 U' R' F U' R' U' R U F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS2 (2)",
+    "algorithms": [
+      "U' R D R' U R D' R' U2 R' U' R U2 R' U' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS2 (3)",
+    "algorithms": [
+      "U' R U2 R' U' R U R' L' U R U' L U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS2 (4)",
+    "algorithms": [
+      "R U' R' U2 R U' R' U2 R' D' R U R' D R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS2 (5)",
+    "algorithms": [
+      "U' F U' R' U R U F' R' U R U' R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS2 (6)",
+    "algorithms": [
+      "U R U R' U L' U2 R U2 R' U2 R L U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS2 (7)",
+    "algorithms": [
+      "R U R' F' R U2 R' U' R U' R' F R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS2 (8)",
+    "algorithms": [
+      "R U  R' U' R' U' F U R2 U' R' U R U' R' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS2 (9)",
+    "algorithms": [
+      "U R' U R2 U2 D R' U' R U' D' R2 U' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS2 (10)",
+    "algorithms": [
+      "R' U R U R' U r U' R' U R U r' R' F R F' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS2 (11)",
+    "algorithms": [
+      "z D' R' D R U R' D' R U' R U R' D R U' z'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS2 (12)",
+    "algorithms": [
+      "R U2 R' U' R U r' F r U2 R' U' r' F2 r"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS3 (1)",
+    "algorithms": [
+      "R' U L U' R U L'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS3 (2)",
+    "algorithms": [
+      "U' R U2 R' U' R U R D R' U2 R D' R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS3 (3)",
+    "algorithms": [
+      "U R D' U R U' R' U2 D R2 U' R U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS3 (4)",
+    "algorithms": [
+      "U' R U R U' R2 D U2 R' U' R U D' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS3 (5)",
+    "algorithms": [
+      "R2 D' R U2 R' D R U R U' R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS3 (6)",
+    "algorithms": [
+      "D R' U' R U' R' U R U D' R2 U R' U R U' R U' R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS3 (7)",
+    "algorithms": [
+      "R' U' R U' R' U' R U R' U' R' D' R U R' D R U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS3 (8)",
+    "algorithms": [
+      "U R U2 R' U' R U R D  R' U R D' R' U' R' U R U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS3 (9)",
+    "algorithms": [
+      "U2 F U R U' R' U R U' R2 F' R U2 R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS3 (10)",
+    "algorithms": [
+      "U2 F R U' R' U R U R2 F' R U R U R' U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS3 (11)",
+    "algorithms": [
+      "U2 R' U2 R' F' R U R U' R' F U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS3 (12)",
+    "algorithms": [
+      "U2 L' U R U' L R U R U R U' R' U' R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS4 (1)",
+    "algorithms": [
+      "R D' R2 D R2 U' R2 D' R2 D R2 U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS4 (2)",
+    "algorithms": [
+      "U R' U' R U' R' U R' D' R U R' D R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS4 (3)",
+    "algorithms": [
+      "l U' R' D R2 U l' U R' U' R U R' U' F'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS4 (4)",
+    "algorithms": [
+      "U' R' D' R U2 R' D R2 U' R' U2 R U R' U R U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS4 (5)",
+    "algorithms": [
+      "U2 R2 D R' U R D' R' U R' U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS4 (6)",
+    "algorithms": [
+      "U R U2 R' L' U2 R U' R' U2 L R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS4 (7)",
+    "algorithms": [
+      "U' R U R' U' R' U' R U R U' R' U' R2 D' R U' R' D R U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS4 (8)",
+    "algorithms": [
+      "U' R U2 R' U' R2 D R' U2 R D' R' U' R' U R U R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS4 (9)",
+    "algorithms": [
+      "U R U2 R' U R' D' R U' R' D R U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS4 (10)",
+    "algorithms": [
+      "U' R2 D R' U2 R D' R' U' R' U R U' R' U  R U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS4 (11)",
+    "algorithms": [
+      "U2 R' U' R U' R D R' U' R D' R' U R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS4 (12)",
+    "algorithms": [
+      "U2 R' U2 F' R U R' U' R' F R2 U R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS5 (1)",
+    "algorithms": [
+      "U' R U2 R2 D' R U2 R' D R2 U' R' U R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS5 (2)",
+    "algorithms": [
+      "U' R D R' U' R D' R2 U' R U2 R' U' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS5 (3)",
+    "algorithms": [
+      "R D' R U' R' D U' R' U R U R2 U' R' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS5 (4)",
+    "algorithms": [
+      "R U R' F' R U R' U' R' F R2 U R' U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS5 (5)",
+    "algorithms": [
+      "U2 R2 D r' U2 r D' R2 U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS5 (6)",
+    "algorithms": [
+      "R U2 R' U' R U' R D R' U2 R D' R' U2 R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS5 (7)",
+    "algorithms": [
+      "L R' U' R U L' U2 R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS5 (8)",
+    "algorithms": [
+      "U2 R2 D R' U2 R D' R2 U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS5 (9)",
+    "algorithms": [
+      "R U R' F' R U2 R' U2 R' F R2 U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS5 (10)",
+    "algorithms": [
+      "R U2' R' U' R' D' R U' R' D R2 U' R' U R U' R'",
+      "U' R' U' R U' R U R D R' U' R D' R U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS5 (11)",
+    "algorithms": [
+      "U R U R' U2 R U R' U' F' R U2 R' U' R U' R' F"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS5 (12)",
+    "algorithms": [
+      "R2 D' R U' R' D F R U R U' R' F' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS6 (1)",
+    "algorithms": [
+      "U' R U2 R' U' F' R U R' U' R' F R2 U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS6 (2)",
+    "algorithms": [
+      "U' R' U2 R' D' R U R' D R2 U' R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS6 (3)",
+    "algorithms": [
+      "U2 R' U' R U' R2 D' r U2 r' D R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS6 (4)",
+    "algorithms": [
+      "R U' R' U2 R U' R2 D' R U' R' D R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS6 (5)",
+    "algorithms": [
+      "U R U R' U' R2 U R U R' U' D R' U' R D' R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS6 (6)",
+    "algorithms": [
+      "U2 R' U' R U' R2 D' R U2 R' D R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS6 (7)",
+    "algorithms": [
+      "U2 R U2 R' U2 L' U R U' R' L"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS6 (8)",
+    "algorithms": [
+      "R' U2 R' D' R U2 R' D R U' R U' R' U2 R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS6 (9)",
+    "algorithms": [
+      "R' U' R U R' F R U R' U' R' F' R2"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS6 (10)",
+    "algorithms": [
+      "U R U2 R D' R U' R' D R U R U' R U' R'"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS6 (11)",
+    "algorithms": [
+      "U R U R' U R' F U' R2 U' R2 U F' U R"
+    ],
+    "learned": false
+  },
+  {
+    "name": "AS6 (12)",
+    "algorithms": [
+      "U' R U R' U R' U' R2 U' R D' R U R' D R U R"
+    ],
+    "learned": false
+  }
+].map(caseData => ({
+        ...caseData,
+        scramble: invertAlgorithm(caseData.algorithms[0]),
+        selectedAlgorithm: caseData.algorithms[0]
+        }));
+        
+        let currentCase = cases[0];
+       
+
+        function generatePuzzleImage(scramble, container) {
+        const isPracticeImage = container.id === 'caseImage';
+        
+        const options = {
+            width: container.clientWidth * 2,
+            height: container.clientHeight * 2,
+            puzzle: {
+                scheme: colorSchemes[currentColorScheme],
+                size: 3,
+                alg: scramble,
+                mask: puzzleGen.Masks.CUBE_3.ZBLL
+            }
+        };
+    
+        try {
+            container.innerHTML = '';
+            puzzleGen.PNG(container, 'cube-top', options);
+            
+        } catch (error) {
+        console.error('Error generating case image:', error);
+    }
+    }
+      </script>
+</body>
+</html>

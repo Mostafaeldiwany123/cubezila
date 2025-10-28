@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../img/demo (2).png">
+    <title>2-LOOK PLL - cubezila</title>
+    <script src="../bg/theme.js"></script>
+    <script src="../language/language.js"></script>
+    <script src="reco/reco.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@400;700&display=swap&font-display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Zain:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="algs.css">
+    <link rel="stylesheet" href="reco/reco.css">
+    <link rel="stylesheet" href="../timer/css/focus-mode.css">
+    <link rel="stylesheet" href="mobile.css">
+    <link rel="stylesheet" href="../css/roots.css">
+    <script src="utils/puzzle-generator.js"></script>
+</head>
+<body>
+    <header class="site-header">
+ 
+        <div class="breadcrumb">
+            <a href="../index.html"><i class="fas fa-home"></i></a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="alg-dash.html">Algorithms</a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="3x3.html">3x3</a>
+            <i class="fas fa-chevron-right"></i>
+            <span>2-Look PLL</span>
+        </div>
+        <div class="header-tabs">
+            <button class="tab active" onclick="showTab('learn')">Learn</button>
+            <span class="tab-separator">|</span>
+            <button class="tab" onclick="showTab('practice')">Practice</button>
+        </div>
+    </header>
+    
+    <div id="learn" class="tab-content active">
+        <h1 class="fade-in-down" data-translate="twoLookPLL">2-LOOK-PLL</h1>
+        
+        <div class="info-container">
+            <div class="description-box">
+                <p class="fade-in-down" data-translate="plldescription">2-look PLL is a two-step process that solves the last layer permutation by memorizing just 6 algorithms instead of 21, making it easier to learn and implement.</p>
+                <div class="tips">
+                    <span class="tip"><i class="fas fa-lightbulb"></i> Select case images to practice specific cases</span>
+                    <span class="tip"><i class="fas fa-palette"></i> Use the dropdown to change case colors</span>
+                </div>
+            </div>
+            
+            <div class="progress-container">
+                <div class="progress-stats">
+                    <span class="progress-count"></span>
+                    <span class="progress-label">algorithms learned</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+        </div>
+
+        <table id="pllTable" class="fade-in-down">
+            <thead>
+                <tr>
+                    <th data-translate="name">NAME</th>
+                            <th class="case-header">
+                                <div class="case-title">
+                                    <span data-translate="case">CASE</span>
+                                    <div class="dropdown">
+                                        <i class="fa-solid fa-sort dropdown-icon"></i>
+                                        <div class="dropdown-content" id="colorDropdown">
+                                            <div class="color-option" data-color="yellow">Yellow Top</div>
+                                            <div class="color-option" data-color="white">White Top</div>
+                                            <div class="color-option" data-color="red">Red Top</div>
+                                            <div class="color-option" data-color="orange">Orange Top</div>
+                                            <div class="color-option" data-color="blue">Blue Top</div>
+                                            <div class="color-option" data-color="green">Green Top</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </th>
+                    <th data-translate="algorithm">ALGORITHM</th>
+                    <th data-translate="scramble">SCRAMBLE</th>
+                    <th data-translate="best">BEST</th>
+                    <th data-translate="avg">AVG</th>
+                    <th data-translate="status" style="text-align: center;">STATUS</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Table rows will be dynamically added here -->
+            </tbody>
+        </table>
+    </div>
+    
+    <div id="practice" class="tab-content">
+        <div class="practice-container">
+            <div class="practice-area">
+                <div class="practice-header">
+                    <div class="practice-controls">
+                        <div class="selected-counter">
+                            Selected: <span id="selectedCounter">0/0</span>
+                        </div>
+                        <span class="tab-separator">|</span>
+                        <button id="newCaseButton" class="control-button" title="New Case">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                        <span class="tab-separator">|</span>
+                        <button id="hintButton" class="control-button" title="Show Hint">
+                            <i class="fas fa-lightbulb"></i>
+                        </button>
+                    </div>
+                </div>
+                <h2 id="currentCase"></h2>
+                <div class="case-image-container">
+                    <div id="caseImage"></div>
+                </div>
+                <div id="scramble"></div>
+                <div id="timer">0.00</div>
+                <div id="hint"></div>
+            </div>
+
+            <div class="recent-solves">
+                <div class="recent-solves-header">
+                    <h2 data-translate="hist">History</h2>
+                </div>
+                <div class="solve-cards">
+                    <!-- Cards will be added dynamically -->
+                </div>
+                <div class="no-history-message">
+                    <i class="fas fa-clock"></i>
+                    <p>No history</p>
+                    <span>Press space to start timing</span>
+                </div>
+                <div id="resetIconContainer">
+                    <button id="resetIcon" title="Reset All Solves">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    <div id="overlay" class="overlay"></div>
+    <div id="details-popup" class="details-popup">
+        <button class="details-popup-close" onclick="closeDetailsPopup()">&times;</button>
+        <h3>Solve Details</h3>
+        <div id="popup-content"></div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/sr-puzzlegen/dist/bundle/puzzleGen.min.js"></script>
+    <script src="../storage.js"></script>
+    <script src="alg.js"></script>
+    <script>
+        const storage = new StorageManager('2lookpll');
+        const cases = [
+        {
+    name: "Ua",
+    algorithms: [
+      "R U R' U R' U' R2 U' R' U R' U R",
+      "R2 U' S' U2 S U' R2",
+      "M2 U M' U2 M U M2"
+    ],
+  },
+  {
+    name: "Ub",
+    algorithms: [
+      "R' U R' U' R' U' R' U R U R2",
+      "M2 U' M U2 M' U' M2",
+    ],
+
+  },
+  {
+    name: "H",
+    algorithms: [
+      "M2 U' M2 U2 M2 U' M2",
+
+    ],
+  },
+  {
+    name: "T",
+    algorithms: [
+      "R U R' U' R' F R2 U' R' U' R U R' F'",
+    ],
+  },
+  {
+    name: "Y",
+    algorithms: [
+      "F R U' R' U' R U R' F' R U R' U' R' F R F'",
+      "R2 U' R2 U' R2 U F U F' R2 F U' F'",
+    ],
+  },
+  {
+    name: "Z",
+    algorithms: [
+      "M2 U M2 U M' U2 M2 U2 M'",
+      "M' U' M2 U' M2 U' M' U2 M2",
+      "M2 U' M2 U' M' U2 M2 U2 M'",
+    ],
+
+  }
+  ].map(caseData => ({
+        ...caseData,
+        scramble: invertAlgorithm(caseData.algorithms[0]),
+        selectedAlgorithm: caseData.algorithms[0]
+        }));
+        
+        let currentCase = cases[0];
+       
+
+        function generatePuzzleImage(scramble, container) {
+    const isPracticeImage = container.id === 'caseImage';
+    
+    const options = {
+        width: container.clientWidth * 2,
+        height: container.clientHeight * 2,
+        puzzle: {
+            scheme: colorSchemes[currentColorScheme],
+            size: 3,
+            alg: scramble,
+            mask: puzzleGen.Masks.CUBE_3.PLL
+        }
+    };
+
+    try {
+        container.innerHTML = '';
+        puzzleGen.PNG(container, 'cube-top', options);
+    } catch (error) {
+        console.error('Error generating case image:', error);
+    }
+}
+      </script>
+</body>
+</html>

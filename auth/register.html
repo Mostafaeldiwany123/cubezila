@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../img/demo (2).png">
+    <title>Register - Cubezilla</title>
+    <script src="../../bg/theme.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <link rel="stylesheet" href="../css/roots.css">
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GD9J5DTDPS"></script>
+    <script>
+      // Only load GA on cubezila.com
+      if (window.location.hostname === 'cubezila.com') {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        // ensure cookies are scoped to your domain
+        gtag('config', 'G-GD9J5DTDPS', {
+          'cookie_domain': 'cubezila.com'
+        });
+      }
+    </script>
+</head>
+<body>
+    <header class="site-header">
+        <div class="breadcrumb">
+            <a href="../index.html"><i class="fas fa-home"></i></a>
+            <i class="fas fa-chevron-right"></i>
+            <span>Register</span>
+        </div>
+    </header>
+    <div class="main-content">
+        <div class="container">
+            <h2>Create Account</h2>
+            <div class="error-message" id="errorMessage"></div>
+            <form id="registerForm" class="form-container">
+                <input type="text" id="registerUsername" placeholder="Username" required>
+                <input type="email" id="registerEmail" placeholder="Email" required>
+                <input type="text" id="wcaId" placeholder="WCA ID (optional)">
+                <input type="password" id="registerPassword" placeholder="Password" required>
+                <input type="password" id="confirmPassword" placeholder="Confirm Password" required>
+                <button type="submit" id="registerButton">
+                    <span>Create Account</span>
+                </button>
+            </form>
+            <p class="register-link">
+                Already have an account? <a href="login.html">Login here</a>
+            </p>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="auth.js"></script>
+    <script src="language.js"></script>
+</body>
+</html>

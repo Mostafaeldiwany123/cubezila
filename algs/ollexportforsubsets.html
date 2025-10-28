@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>OLL Subset PNG Exporter with Sequential Numbers (16:9 Preview + Ultra‑High‑Res Export)</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
+
+    .print-popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      overflow: auto;
+    }
+    .print-popup-content {
+      background: white;
+      padding: 20px;
+      border-radius: 5px;
+      width: 90%;
+      max-width: 95%;
+      max-height: 90vh;
+      overflow: auto;
+    }
+    .print-controls {
+      margin-bottom: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .print-controls label {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .align-controls {
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .align-controls button {
+      padding: 6px 12px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+    .align-controls label {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .align-controls input[type="number"] {
+      width: 60px;
+    }
+    .print-preview-card {
+      width: 1920px;
+      height: 1080px;
+      position: relative;
+      border: 1px dashed #999;
+      background: transparent;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #print-preview-grid {
+      width: 100%;
+      height: calc(90vh - 260px);
+      overflow: auto;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 10px;
+      background: #f0f0f0;
+    }
+    .draggable {
+      position: absolute;
+      cursor: move;
+      user-select: none;
+    }
+    .selected {
+      outline: 2px dashed #3498db;
+    }
+    #exportContainer {
+      position: absolute;
+      left: -9999px;
+      top: -9999px;
+      width: 3840px;
+      height: 2160px;
+      background: transparent;
+      overflow: visible;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    #progress-message {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #3498db;
+    }
+    .svg-group {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .svg-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+    }
+    .number-element {
+      font-family: 'Inconsolata', monospace;
+    color: #FFFFFF; /* Changed to white */
+      text-align: center;
+      white-space: nowrap;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/sr-puzzlegen/dist/bundle/puzzleGen.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</head>
+<body>
+  <button id="exportBtn">Export Subset PNGs</button>
+  <div id="print-popup" class="print-popup">
+    <div class="print-popup-content">
+      <h3>Export OLL Subsets with Sequential Numbers (1920×1080 Preview, 3840×2160 Export)</h3>
+      <div class="print-controls">
+        <label>SVG Size:
+          <input type="number" id="svgSize" value="170" min="50" max="400" />
+        </label>
+        <label>Number Font Size:
+          <input type="number" id="numberFontSize" value="30" min="10" max="60" />
+        </label>
+      </div>
+      <div class="align-controls">
+        <button id="alignLeftBtn">Align Left</button>
+        <button id="alignCenterBtn">Align Center</button>
+        <button id="alignRightBtn">Align Right</button>
+        <label>X:
+          <input type="number" id="xPos" value="0" />
+        </label>
+        <label>Y:
+          <input type="number" id="yPos" value="0" />
+        </label>
+      </div>
+      <div id="print-preview-grid"></div>
+      <div style="margin-top: 20px; display: flex; gap: 10px; align-items: center;">
+        <button id="printPNGsBtn">Export Subset PNGs (ZIP)</button>
+        <button onclick="closePrintPopup()">Close</button>
+        <div id="progress-message"></div>
+      </div>
+    </div>
+  </div>
+  <div id="exportContainer"></div>
+  <script>
+    // ============================
+    // Default preset values
+    // ============================
+    const preset = {
+      svgSize: 170,
+      svgX: 0,
+      svgY: 0,
+      numberFontSize: 30,
+      numberY: 205
+    };
+
+    // ============================
+    // Data and color scheme setup
+    // ============================
+    const cases = [
+      { name: "OLL 1", image: "1.png", algorithms: ["R U2 R2 F R F' U2 R' F R F'"], learned: false },
+      { name: "OLL 2", image: "2.png", algorithms: ["r U r' U2 R U2 R' U2 r U' r'"], learned: false },
+      { name: "OLL 3", image: "3.png", algorithms: ["r' R2 U R' U r U2 r' U M'"], learned: false },
+      { name: "OLL 4", image: "4.png", algorithms: ["R U R' U' R' F R S R U R' U' f'"], learned: false },
+      { name: "OLL 5", image: "5.png", algorithms: ["r' U2 R U R' U r"], learned: false },
+      { name: "OLL 6", image: "6.png", algorithms: ["r U2 R' U' R U' r'"], learned: false },
+      { name: "OLL 7", image: "7.png", algorithms: ["r U R' U R U2 r'"], learned: false },
+      { name: "OLL 8", image: "8.png", algorithms: ["r' U' R U' R' U2 r"], learned: false },
+      { name: "OLL 9", image: "9.png", algorithms: ["R U R' U' R' F R2 U R' U' F'"], learned: false },
+      { name: "OLL 10", image: "10.png", algorithms: ["R U R' U R' F R F' R U2 R'"], learned: false },
+      { name: "OLL 11", image: "11.png", algorithms: ["S R U R' U R U2 R' U2 S'"], learned: false },
+      { name: "OLL 12", image: "12.png", algorithms: ["S R' U' R U' R' U2 R U2 S'"], learned: false },
+      { name: "OLL 13", image: "13.png", algorithms: ["F U R U' R2 F' R U R U' R'"], learned: false },
+      { name: "OLL 14", image: "14.png", algorithms: ["S R U R' U' R' F R2 U R' U' f'"], learned: false },
+      { name: "OLL 15", image: "15.png", algorithms: ["r' U' r R' U' R U r' U r"], learned: false },
+      { name: "OLL 16", image: "16.png", algorithms: ["r U r' R U R' U' r U' r'"], learned: false },
+      { name: "OLL 17", image: "17.png", algorithms: ["R U R' U R' F R F' U2 R' F R F'"], learned: false },
+      { name: "OLL 18", image: "18.png", algorithms: ["r U R' U R U2 r2 U' R U' R' U2 r"], learned: false },
+      { name: "OLL 19", image: "19.png", algorithms: ["r' R U R U R' U' M' R' F R F'"], learned: false },
+      { name: "OLL 20", image: "20.png", algorithms: ["M U R U R' U' M2 U R U' r'"], learned: false },
+      { name: "OLL 21", image: "21.png", algorithms: ["R U R' U R U' R' U R U2 R'"], learned: false },
+      { name: "OLL 22", image: "22.png", algorithms: ["R U2 R2 U' R2 U' R2 U2 R"], learned: false },
+      { name: "OLL 23", image: "23.png", algorithms: ["R2 D' R U2 R' D R U2 R"], learned: false },
+      { name: "OLL 24", image: "24.png", algorithms: ["r U R' U' r' F R F'"], learned: false },
+      { name: "OLL 25", image: "25.png", algorithms: ["F' r U R' U' r' F R"], learned: false },
+      { name: "OLL 26", image: "26.png", algorithms: ["R U2 R' U' R U' R'"], learned: false },
+      { name: "OLL 27", image: "27.png", algorithms: ["R U R' U R U2 R'"], learned: false },
+      { name: "OLL 28", image: "28.png", algorithms: ["r U R' U' r' R U R U' R'"], learned: false },
+      { name: "OLL 29", image: "29.png", algorithms: ["S' R U R' U' R' F R F' U S"], learned: false },
+      { name: "OLL 30", image: "30.png", algorithms: ["r' D' r U' r' D r2 U' r' U r U r'"], learned: false },
+      { name: "OLL 31", image: "31.png", algorithms: ["R' U' F U R U' R' F' R"], learned: false },
+      { name: "OLL 32", image: "32.png", algorithms: ["S R U R' U' R' F R f'"], learned: false },
+      { name: "OLL 33", image: "33.png", algorithms: ["R U R' U' R' F R F'"], learned: false },
+      { name: "OLL 34", image: "34.png", algorithms: ["f R f' U' r' U' R U M'"], learned: false },
+      { name: "OLL 35", image: "35.png", algorithms: ["R U2 R2 F R F' R U2 R'"], learned: false },
+      { name: "OLL 36", image: "36.png", algorithms: ["L' U' L U' L' U L U L F' L' F"], learned: false },
+      { name: "OLL 37", image: "37.png", algorithms: ["F R U' R' U' R U R' F'"], learned: false },
+      { name: "OLL 38", image: "38.png", algorithms: ["R U R' U R U' R' U' R' F R F'"], learned: false },
+      { name: "OLL 39", image: "39.png", algorithms: ["f' L F L' U' L' U L S"], learned: false },
+      { name: "OLL 40", image: "40.png", algorithms: ["f R' F' R U R U' R' S'"], learned: false },
+      { name: "OLL 41", image: "41.png", algorithms: ["R U R' U R U' R' U R U' R' U' R' F R F'"], learned: false },
+      { name: "OLL 42", image: "42.png", algorithms: ["L' U' L U' L' U L U' L' U L U L F' L' F"], learned: false },
+      { name: "OLL 43", image: "43.png", algorithms: ["R' U' F' U F R"], learned: false },
+      { name: "OLL 44", image: "44.png", algorithms: ["F U R U' R' F'"], learned: false },
+      { name: "OLL 45", image: "45.png", algorithms: ["F R U R' U' F'"], learned: false },
+      { name: "OLL 46", image: "46.png", algorithms: ["R' U' R' F R F' U R"], learned: false },
+      { name: "OLL 47", image: "47.png", algorithms: ["F' L' U' L U L' U' L U F"], learned: false },
+      { name: "OLL 48", image: "48.png", algorithms: ["F R U R' U' R U R' U' F'"], learned: false },
+      { name: "OLL 49", image: "49.png", algorithms: ["r U' r2 U r2 U r2 U' r"], learned: false },
+      { name: "OLL 50", image: "50.png", algorithms: ["r' U r2 U' r2 U' r2 U r'"], learned: false },
+      { name: "OLL 51", image: "51.png", algorithms: ["F U R U' R' U R U' R' F'"], learned: false },
+      { name: "OLL 52", image: "52.png", algorithms: ["R' F' U' F U' R U R' U R"], learned: false },
+      { name: "OLL 53", image: "53.png", algorithms: ["r' U' R U' R' U R U' R' U2 r"], learned: false },
+      { name: "OLL 54", image: "54.png", algorithms: ["r U R' U R U' R' U R U2 r'"], learned: false },
+      { name: "OLL 55", image: "55.png", algorithms: ["R' F U R U' R2 F' R2 U R' U' R"], learned: false },
+      { name: "OLL 56", image: "56.png", algorithms: ["R' F' R U' r' F r M' U' r' F2 R"], learned: false },
+      { name: "OLL 57", image: "57.png", algorithms: ["R U R' U' M' U R U' r'"], learned: false }
+    ];
+
+    const subsets = [
+      { name: "Dot Cases", cases: [1, 2, 3, 4, 17, 18, 19, 20] },
+      { name: "L Shapes", cases: [5, 6, 7, 8, 9, 10, 11, 12, 28, 29, 30, 31, 32, 35, 36, 37, 38, 41, 42, 43, 44, 47, 48, 49, 50, 53, 54] },
+      { name: "Cross Solved", cases: [21, 22, 23, 24, 25, 26, 27] },
+      { name: "Line Shapes", cases: [13, 14, 15, 16, 33, 34, 39, 40, 45, 46, 51, 52, 55, 56, 57] }
+    ];
+
+    const colorSchemes = {
+      yellow: {
+        U: { value: '#FFFF00' },
+        D: { value: '#FFFFFF' },
+        F: { value: '#0000FF' },
+        B: { value: '#00FF00' },
+        R: { value: '#FF0000' },
+        L: { value: '#FFA500' }
+      }
+    };
+    let currentColorScheme = 'yellow';
+
+    function cleanAlgorithm(alg) {
+      return alg.replace(/[[\](){}]/g, '').trim();
+    }
+
+    function invertMove(move) {
+      if (!move) return '';
+      const baseMove = move[0];
+      const modifier = move.slice(1);
+      if (modifier === "2'") return move;
+      if (modifier === '2') return move;
+      if (modifier === "'") return baseMove;
+      return baseMove + "'";
+    }
+
+    function invertAlgorithm(algorithm) {
+      const cleanedAlg = cleanAlgorithm(algorithm);
+      const withSpaces = cleanedAlg.replace(/([A-Z])(?=[A-Z])/g, '$1 ');
+      const moves = withSpaces.split(/\s+/);
+      return moves.reverse().map(move => invertMove(move)).join(' ');
+    }
+
+    // ============================
+    // Element references
+    // ============================
+    const printPopup       = document.getElementById('print-popup');
+    const printPreviewGrid = document.getElementById('print-preview-grid');
+    const svgSizeInput     = document.getElementById('svgSize');
+    const numberFontSize   = document.getElementById('numberFontSize');
+    const alignLeftBtn     = document.getElementById('alignLeftBtn');
+    const alignCenterBtn   = document.getElementById('alignCenterBtn');
+    const alignRightBtn    = document.getElementById('alignRightBtn');
+    const xPosInput        = document.getElementById('xPos');
+    const yPosInput        = document.getElementById('yPos');
+    const printPNGsBtn     = document.getElementById('printPNGsBtn');
+    const progressMessage  = document.getElementById('progress-message');
+
+    let selectedElement = null;
+
+    document.getElementById('exportBtn').onclick = openPrintPopup;
+
+    function openPrintPopup() {
+      svgSizeInput.value = preset.svgSize;
+      numberFontSize.value = preset.numberFontSize;
+      printPopup.style.display = 'flex';
+      renderPrintPreview();
+    }
+
+    function closePrintPopup() {
+      printPopup.style.display = 'none';
+      clearSelection();
+    }
+
+    function generatePuzzleImage(scramble, container, size) {
+      const options = {
+        width: size,
+        height: size,
+        puzzle: {
+          scheme: colorSchemes[currentColorScheme],
+          size: 3,
+          alg: scramble,
+          mask: puzzleGen.Masks.CUBE_3.OLL
+        }
+      };
+      try {
+        container.innerHTML = '';
+        puzzleGen.SVG(container, 'cube-top', options);
+      } catch (error) {
+        console.error('Error generating case image:', error);
+      }
+    }
+
+    function makeDraggable(element, container) {
+      let isDragging = false;
+      let offsetX, offsetY;
+
+      element.addEventListener('mousedown', function(e) {
+        e.stopPropagation();
+        selectElement(element);
+        isDragging = true;
+        const rect = element.getBoundingClientRect();
+        offsetX = e.clientX - rect.left;
+        offsetY = e.clientY - rect.top;
+      });
+
+      document.addEventListener('mousemove', function(e) {
+        if (isDragging && selectedElement === element) {
+          const containerRect = container.getBoundingClientRect();
+          let left = e.clientX - offsetX - containerRect.left;
+          let top  = e.clientY - offsetY - containerRect.top;
+          const elRect = element.getBoundingClientRect();
+
+          left = Math.max(0, Math.min(left, containerRect.width - elRect.width));
+          top  = Math.max(0, Math.min(top, containerRect.height - elRect.height));
+
+          element.style.left = left + 'px';
+          element.style.top  = top + 'px';
+          updateXYInputs(left, top);
+        }
+      });
+
+      document.addEventListener('mouseup', function() {
+        isDragging = false;
+      });
+    }
+
+    function clearSelection() {
+      if (selectedElement) {
+        selectedElement.classList.remove('selected');
+        selectedElement = null;
+      }
+      xPosInput.value = 0;
+      yPosInput.value = 0;
+    }
+
+    function selectElement(el) {
+      clearSelection();
+      selectedElement = el;
+      el.classList.add('selected');
+      const left = parseInt(el.style.left) || 0;
+      const top  = parseInt(el.style.top)  || 0;
+      xPosInput.value = left;
+      yPosInput.value = top;
+    }
+
+    function updateXYInputs(x, y) {
+      xPosInput.value = Math.round(x);
+      yPosInput.value = Math.round(y);
+    }
+
+    function renderPrintPreview() {
+      printPreviewGrid.innerHTML = '';
+      clearSelection();
+
+      const container = document.createElement('div');
+      container.className = 'print-preview-card';
+      const svgGroup = document.createElement('div');
+      svgGroup.className = 'svg-group draggable';
+      svgGroup.style.position = 'relative';
+      svgGroup.style.left = preset.svgX + 'px';
+      svgGroup.style.top = preset.svgY + 'px';
+
+      const svgSize = parseInt(svgSizeInput.value, 10);
+      const numberSize = parseInt(numberFontSize.value, 10);
+      const sampleSubset = subsets[0]; // Display first subset (Dot Cases) as preview
+      sampleSubset.cases.forEach((caseNum, index) => {
+        const caseData = cases[caseNum - 1];
+        const svgContainer = document.createElement('div');
+        svgContainer.className = 'svg-container';
+
+        const svgWrapper = document.createElement('div');
+        svgWrapper.className = 'svg-element';
+        svgWrapper.style.width = svgSize + 'px';
+        svgWrapper.style.height = svgSize + 'px';
+        generatePuzzleImage(invertAlgorithm(caseData.algorithms[0]), svgWrapper, svgSize);
+        svgContainer.appendChild(svgWrapper);
+
+        const numberWrapper = document.createElement('div');
+        numberWrapper.className = 'number-element';
+        numberWrapper.textContent = (index + 1).toString(); // Sequential number (1, 2, 3, ...)
+        numberWrapper.style.fontSize = numberSize + 'px';
+        svgContainer.appendChild(numberWrapper);
+
+        svgGroup.appendChild(svgContainer);
+      });
+
+      container.appendChild(svgGroup);
+      makeDraggable(svgGroup, container);
+      printPreviewGrid.appendChild(container);
+    }
+
+    function alignLeft() {
+      if (!selectedElement) return;
+      selectedElement.style.left = '0px';
+      updateXYInputs(0, parseInt(selectedElement.style.top) || 0);
+    }
+
+    function alignCenter() {
+      if (!selectedElement) return;
+      const parentWidth = 1920;
+      const elWidth = selectedElement.offsetWidth;
+      const newLeft = (parentWidth - elWidth) / 2;
+      selectedElement.style.left = newLeft + 'px';
+      updateXYInputs(newLeft, parseInt(selectedElement.style.top) || 0);
+    }
+
+    function alignRight() {
+      if (!selectedElement) return;
+      const parentWidth = 1920;
+      const elWidth = selectedElement.offsetWidth;
+      const newLeft = parentWidth - elWidth;
+      selectedElement.style.left = newLeft + 'px';
+      updateXYInputs(newLeft, parseInt(selectedElement.style.top) || 0);
+    }
+
+    xPosInput.addEventListener('input', () => {
+      if (!selectedElement) return;
+      const newX = parseInt(xPosInput.value) || 0;
+      selectedElement.style.left = newX + 'px';
+    });
+    yPosInput.addEventListener('input', () => {
+      if (!selectedElement) return;
+      const newY = parseInt(yPosInput.value) || 0;
+      selectedElement.style.top = newY + 'px';
+    });
+
+    svgSizeInput.oninput = renderPrintPreview;
+    numberFontSize.oninput = renderPrintPreview;
+    alignLeftBtn.addEventListener('click', alignLeft);
+    alignCenterBtn.addEventListener('click', alignCenter);
+    alignRightBtn.addEventListener('click', alignRight);
+
+    printPNGsBtn.onclick = async function() {
+      printPNGsBtn.disabled = true;
+      printPNGsBtn.textContent = 'Processing...';
+      progressMessage.textContent = 'Starting 4K PNG export...';
+
+      const exportContainer = document.getElementById('exportContainer');
+      const previewSvgGroup = document.querySelector('.svg-group');
+      const svgPosX1920 = parseFloat(previewSvgGroup.style.left);
+      const svgPosY1920 = parseFloat(previewSvgGroup.style.top);
+
+      const scaleFactor = 2;
+      const svgSize1920 = parseInt(svgSizeInput.value, 10);
+      const svgSize3840 = svgSize1920 * scaleFactor;
+      const numberFontSize1920 = parseInt(numberFontSize.value, 10);
+      const numberFontSize3840 = numberFontSize1920 * scaleFactor;
+
+      const zip = new JSZip();
+      let renderedCount = 0;
+      const totalSubsets = subsets.length;
+
+      for (const subset of subsets) {
+        exportContainer.innerHTML = '';
+        exportContainer.style.width = '3840px';
+        exportContainer.style.height = '2160px';
+        exportContainer.style.background = 'transparent';
+
+        const svgGroup = document.createElement('div');
+        svgGroup.className = 'svg-group';
+        svgGroup.style.position = 'relative';
+        svgGroup.style.left = (svgPosX1920 * scaleFactor) + 'px';
+        svgGroup.style.top = (svgPosY1920 * scaleFactor) + 'px';
+        svgGroup.style.display = 'flex';
+        svgGroup.style.flexWrap = 'wrap';
+        svgGroup.style.gap = (10 * scaleFactor) + 'px';
+        svgGroup.style.justifyContent = 'center';
+
+        subset.cases.forEach((caseNum, index) => {
+          const caseData = cases[caseNum - 1];
+          const svgContainer = document.createElement('div');
+          svgContainer.className = 'svg-container';
+          svgContainer.style.display = 'flex';
+          svgContainer.style.flexDirection = 'column';
+          svgContainer.style.alignItems = 'center';
+          svgContainer.style.gap = (5 * scaleFactor) + 'px';
+
+          const svgWrapper = document.createElement('div');
+          svgWrapper.className = 'svg-element';
+          svgWrapper.style.width = svgSize3840 + 'px';
+          svgWrapper.style.height = svgSize3840 + 'px';
+          generatePuzzleImage(invertAlgorithm(caseData.algorithms[0]), svgWrapper, svgSize3840);
+          svgContainer.appendChild(svgWrapper);
+
+          const numberWrapper = document.createElement('div');
+          numberWrapper.className = 'number-element';
+          numberWrapper.textContent = (index + 1).toString(); // Sequential number (1, 2, 3, ...)
+          numberWrapper.style.fontSize = numberFontSize3840 + 'px';
+          svgContainer.appendChild(numberWrapper);
+
+          svgGroup.appendChild(svgContainer);
+        });
+
+        exportContainer.appendChild(svgGroup);
+
+        await new Promise(res => setTimeout(res, 50));
+
+        try {
+          const canvas = await html2canvas(exportContainer, {
+            backgroundColor: null,
+            width: 3840,
+            height: 2160,
+            scale: 1
+          });
+
+          const dataUrl = canvas.toDataURL('image/png');
+          const base64 = dataUrl.split(',')[1];
+          const subsetName = subset.name.replace(/[^a-z0-9]/gi, '_');
+          zip.file(`${subsetName}_4K.png`, base64, { base64: true });
+
+          renderedCount++;
+          progressMessage.textContent = `Rendering ${renderedCount}/${totalSubsets} (4K)…`;
+        } catch (err) {
+          console.error(`Failed to render subset ${subset.name}:`, err);
+          progressMessage.textContent = `Error on ${subset.name}, continuing…`;
+        }
+      }
+
+      progressMessage.textContent = 'Zipping 4K files…';
+      const blob = await zip.generateAsync({ type: 'blob' });
+      saveAs(blob, 'oll_subsets_4K.zip');
+
+      printPNGsBtn.disabled = false;
+      printPNGsBtn.textContent = 'Export Subset PNGs (ZIP)';
+      progressMessage.textContent = 'Export complete!';
+      setTimeout(() => progressMessage.textContent = '', 3000);
+    };
+  </script>
+</body>
+</html>

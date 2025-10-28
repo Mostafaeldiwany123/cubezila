@@ -1,0 +1,798 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@200&display=swap'); /* Updated to Thin 100 */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+
+/* New fonts */
+@import url('https://fonts.googleapis.com/css2?family=Bytesized&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tektur&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Barriecito&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Birthstone&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kablammo&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Luckiest+Guy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sansation&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Parkinsans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Atkinson Hyperlegible&display=swap');
+@font-face {
+    font-family: 'Digital7';
+    src: url('/fonts/digital-7.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;  
+}
+  
+:root {
+
+    --background-color: #f8f9fc;
+    --text-color: #2d3748;
+    --container-bg: rgb(255, 255, 255);
+    --header-bg: linear-gradient(90deg, #d3d3d3, #ffffff);
+    --shadow-color: rgba(0, 0, 0, 0.05);
+    --highlight-bg: rgba(239, 240, 244, 0.95);
+    --transition-smooth: all 0.3s ease;
+    --button-primary: #2962ff;
+    --button-hover: rgba(41, 98, 255, 0.6);
+    --stats-value: #2962ff;
+    --font-family: 'Inconsolata', monospace;
+    --box-shadow: 0 8px 24px var(--shadow-color);
+    --border-radius: 12px;
+    --transition-duration: 0.3s;
+    --button-color: #2d2d2d;
+    --navbar-width: 256px;
+    --navbar-width-min: 80px;
+   
+    --input-bg: #ffffff;
+    --hover-bg: #f5f5f5;
+    --active-bg: #e0e0e0;
+    --secondary-text: #718096;
+    --tertiary-text: #999;
+    --error-color: #f44336;
+    --timer-text: #ffffff;
+      --primary-color: #6e93ff;
+    --secondary-color: #2c3e50;
+    --accent-color: #e74c3c;
+    --text-light: #6c757d;
+    --border-color: rgba(226, 232, 240, 0.8);
+    --gradient-primary: linear-gradient(135deg, #0038df, #3498db);
+    --gradient-secondary: linear-gradient(135deg, #e74c3c, #ff4081);
+    --box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    --home-primary-color: #4e73df;
+    --home-secondary-color: #2c3e50;
+    --home-accent-color: #e74c3c;
+    --home-background-color: #f8f9fa;
+    --home-text-color: #333;
+    --home-text-light: #6c757d;
+    --home-border-color: #dee2e6;
+    --home-gradient-primary: linear-gradient(135deg, #4e73df, #3498db);
+    --home-gradient-secondary: linear-gradient(135deg, #e74c3c, #ff4081);
+    --home-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --home-transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --home-glow-primary: 0 0 15px rgba(110, 147, 255, 0.5);
+    --alg-background-color: #1a1a1a;
+    --alg-text-color: #ffffff;
+    --alg-container-bg: #2d2d2d;
+    --alg-header-bg: #2d2d2d;
+    --alg-header-text: #ffffff;
+    --alg-border-color: #444444;
+    --alg-shadow-color: rgba(0, 0, 0, 0.3);
+    --alg-highlight-bg: #363636;
+    --alg-button-primary: #2962ff;
+    --alg-button-hover: #1565c0;
+    --alg-stats-value: #2962ff;
+    --alg-input-bg: #363636;
+    --alg-input-border: #444444;
+    --alg-input-text: #ffffff;
+    --alg-tab-bg: #363636;
+    --alg-tab-active-bg: #2d2d2d;
+    --alg-highlight-color: #4a4a00;
+    --login-primary-color: #4e73df;
+    --login-secondary-color: #2c3e50;
+    --login-accent-color: #e74c3c;
+    --login-background-color: #f8f9fa;
+    --login-text-color: #333;
+    --login-text-light: #6c757d;
+    --login-border-color: #dee2e6;
+    --login-gradient-primary: linear-gradient(135deg, #4e73df, #3498db);
+    --login-gradient-secondary: linear-gradient(135deg, #e74c3c, #ff4081);
+    --login-box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --webkit-tap-highlight: transparent;
+    --selection-background: transparent;
+    --selection-text: inherit;
+    --img-select: #ffeb3b;
+    --alg-border: #d7d7d7;
+    --glow-box-shadow: 0 0 25px rgba(76, 81, 191, 0.15);
+    --glow-text-shadow: 0 0 10px rgba(76, 81, 191, 0.2);
+}
+:root[data-theme="dark"] {
+    --background-color: #181a20;
+    --text-color: #F3F6FA;
+    --container-bg: #1d1f27;
+    --button-color: #F3F6FA;
+    --header-bg: #1d1f27;
+    --border-color: #232A3A;
+    --shadow-color: rgba(0, 0, 0, 0.45);
+    --highlight-bg: #282b34; /* slightly lighter than --background-color for subtle distinction */
+    --button-primary: #4e73df;
+    --button-hover: #375ab7;
+    --stats-value: #4e73df;
+    --input-bg: #232634;
+    --hover-bg: #232A3A;
+    --active-bg: #232634;
+    --secondary-text: #A0AEC0;
+    --tertiary-text: #6C7A89;
+    --navbar-dark-primary: var(--container-bg);
+    --navbar-dark-secondary: var(--highlight-bg);
+    --navbar-light-primary: var(--text-color);
+    --navbar-light-secondary: var(--secondary-text);
+    --primary-color: #4e73df;
+    --secondary-color: #7dcfff;
+    --accent-color: #4e73df;
+    --text-light: #A0AEC0;
+    --gradient-primary: linear-gradient(135deg, #4e73df 0%, #232634 100%);
+    --gradient-secondary: linear-gradient(135deg, #ffb547 0%, #232634 100%);
+    --box-shadow: 0 1px 12px 1px rgba(0,0,0,0.55); /* Stronger, less blur, more depth */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --glow-primary: 0 0 18px rgba(78, 115, 223, 0.35);
+    --home-primary-color: #4e73df;
+    --home-secondary-color: #232634;
+    --home-accent-color: #4e73df;
+    --home-background-color: #181A20;
+    --home-text-color: #F3F6FA;
+    --home-text-light: #A0AEC0;
+    --home-border-color: #232A3A;
+    --home-gradient-primary: linear-gradient(135deg, #4e73df 0%, #232634 100%);
+    --home-gradient-secondary: linear-gradient(135deg, #ffb547 0%, #232634 100%);
+    --home-box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    --home-transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --home-glow-primary: 0 0 18px rgba(78, 115, 223, 0.35);
+    --alg-background-color: #181A20;
+    --alg-text-color: #F3F6FA;
+    --alg-container-bg: #232634;
+    --alg-header-bg: #ffffff;
+    --alg-header-text: #F3F6FA;
+    --alg-border-color: #1e1f20;
+    --alg-shadow-color: rgba(0,0,0,0.45);
+    --alg-highlight-bg: #232A3A;
+    --alg-button-primary: #4e73df;
+    --alg-button-hover: #4e73df;
+    --alg-stats-value: #4e73df;
+    --alg-input-bg: #232634;
+    --alg-input-border: #232A3A;
+    --alg-input-text: #F3F6FA;
+    --alg-tab-bg: #232A3A;
+    --alg-tab-active-bg: #232634;
+    --alg-highlight-color: #4e73df;
+    --login-primary-color: #4e73df;
+    --login-secondary-color: #232634;
+    --login-accent-color: #4e73df;
+    --login-background-color: #181A20;
+    --login-text-color: #F3F6FA;
+    --login-text-light: #A0AEC0;
+    --login-border-color: #232A3A;
+    --login-gradient-primary: linear-gradient(135deg, #4e73df 0%, #232634 100%);
+    --login-gradient-secondary: linear-gradient(135deg, #4e73df 0%, #232634 100%);
+    --login-box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+    --img-select: #4e73df;
+    --alg-border: #31333d;
+    --glow-box-shadow: 0 0 35px rgba(78, 115, 223, 0.18), 0 0 70px rgba(78, 115, 223, 0.12);
+    --glow-text-shadow: 0 0 10px rgba(0, 64, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+:root[data-theme="neon"] {
+    --background-color: #0f0f0f;
+    --text-color: #39ff14;
+    --container-bg: #1a1a1a;
+    --button-color: #39ff14;
+    --header-bg: #1a1a1a;
+    --border-color: #39ff14;
+    --shadow-color: rgba(57, 255, 20, 0.3);
+    --highlight-bg: #2a2a2a;
+    --button-primary: #3a3a3a;
+    --button-hover: rgba(39, 39, 39, 0.6);
+    --stats-value: #39ff14;
+    --input-bg: #2a2a2a;
+    --hover-bg: #3a3a3a;
+    --active-bg: #1a1a1a;
+    --secondary-text: #a0aec0;
+    --tertiary-text: #666;
+   
+    --primary-color: #39ff14;
+    --secondary-color: #34495e;
+    --accent-color: #ff6b6b;
+    --text-light: #a0aec0;
+    --gradient-primary: linear-gradient(135deg, #39ff14, #54a0ff);
+    --gradient-secondary: linear-gradient(135deg, #ff6b6b, #ff4081);
+    --box-shadow: 0 4px 6px rgba(57, 255, 20, 0.2);
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --glow-primary: 0 0 15px rgba(57, 255, 20, 0.5);
+    --home-primary-color: #39ff14;
+    --home-secondary-color: #34495e;
+    --home-accent-color: #ff6b6b;
+    --home-background-color: #1a1a1a;
+    --home-text-color: #e2e8f0;
+    --home-text-light: #a0aec0;
+    --home-border-color: #2d3748;
+    --home-gradient-primary: linear-gradient(135deg, #39ff14, #54a0ff);
+    --home-gradient-secondary: linear-gradient(135deg, #ff6b6b, #ff4081);
+    --home-box-shadow: 0 4px 6px rgba(57, 255, 20, 0.2);
+    --home-transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --home-glow-primary: 0 0 15px rgba(57, 255, 20, 0.5);
+    --alg-background-color: #0f0f0f;
+    --alg-text-color: #39ff14;
+    --alg-container-bg: #1a1a1a;
+    --alg-header-bg: #1a1a1a;
+    --alg-header-text: #39ff14;
+    --alg-border-color: #39ff14;
+    --alg-shadow-color: rgba(57, 255, 20, 0.3);
+    --alg-highlight-bg: #2a2a2a;
+    --alg-button-primary: #39ff14;
+    --alg-button-hover: #1565c0;
+    --alg-stats-value: #39ff14;
+    --alg-input-bg: #2a2a2a;
+    --alg-input-border: #39ff14;
+    --alg-input-text: #39ff14;
+    --alg-tab-bg: #2a2a2a;
+    --alg-tab-active-bg: #1a1a1a;
+    --alg-highlight-color: #4a4a00;
+    --login-primary-color: #39ff14;
+    --login-secondary-color: #34495e;
+    --login-accent-color: #ff6b6b;
+    --login-background-color: #0f0f0f;
+    --login-text-color: #e2e8f0;
+    --login-text-light: #a0aec0;
+    --login-border-color: #2d3748;
+    --login-gradient-primary: linear-gradient(135deg, #39ff14, #54a0ff);
+    --login-gradient-secondary: linear-gradient(135deg, #ff6b6b, #ff4081);
+    --login-box-shadow: 0 4px 6px rgba(57, 255, 20, 0.2);
+    --img-select: #39ff14;
+    --alg-border: #39ff14;
+    --glow-box-shadow: 0 0 35px rgba(58, 58, 58, 0.9), 0 0 70px rgba(58, 58, 58, 0.6);
+    --glow-text-shadow: 0 0 10px rgba(57, 255, 20, 1), 0 0 20px rgba(57, 255, 20, 0.8);
+}
+
+:root[data-theme="blue"] {
+    --background-color: #001f3f; /* Dark blue background */
+    --text-color: #ffffff; /* White text */
+    --container-bg: #003366; /* Darker blue container */
+    --button-color: #0074d9; /* Bright blue button */
+    --header-bg: #003366; /* Darker blue header */
+    --border-color: #0074d9; /* Bright blue border */
+    --shadow-color: rgba(0, 116, 217, 0.3); /* Blue shadow */
+    --highlight-bg: #004080; /* Darker blue highlight */
+    --button-primary: #0074d9; /* Bright blue primary button */
+    --button-hover: rgba(0, 116, 217, 0.6); /* Semi-transparent blue hover */
+    --stats-value: #0074d9; /* Bright blue stats value */
+    --input-bg: #004080; /* Darker blue input background */
+    --hover-bg: #0059b3; /* Brighter blue hover background */
+    --active-bg: #003366; /* Darker blue active background */
+    --secondary-text: #a0aec0; /* Light gray secondary text */
+    --tertiary-text: #666; /* Dark gray tertiary text */
+    --navbar-dark-primary: var(--container-bg); /* Dark blue navbar primary */
+    --navbar-dark-secondary: var(--highlight-bg); /* Darker blue navbar secondary */
+    --navbar-light-primary: var(--text-color); /* White navbar primary */
+    --navbar-light-secondary: var(--secondary-text); /* Light gray navbar secondary */
+    --primary-color: #0074d9; /* Bright blue primary color */
+    --secondary-color: #34495e; /* Dark blue secondary color */
+    --accent-color: #ff6b6b; /* Red accent color */
+    --text-light: #a0aec0; /* Light gray text */
+    --gradient-primary: linear-gradient(135deg, #0074d9, #54a0ff); /* Blue gradient */
+    --gradient-secondary: linear-gradient(135deg, #ff6b6b, #ff4081); /* Red gradient */
+    --box-shadow: 0 4px 6px rgba(0, 116, 217, 0.2); /* Blue shadow */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth transition */
+    --glow-primary: 0 0 15px rgba(0, 116, 217, 0.5); /* Blue glow effect */
+    --home-primary-color: #0074d9; /* Bright blue home primary color */
+    --home-secondary-color: #34495e; /* Dark blue home secondary color */
+    --home-accent-color: #ff6b6b; /* Red home accent color */
+    --home-background-color: #001f3f; /* Dark blue home background */
+    --home-text-color: #ffffff; /* White home text */
+    --home-text-light: #a0aec0; /* Light gray home text */
+    --home-border-color: #0074d9; /* Bright blue home border */
+    --home-gradient-primary: linear-gradient(135deg, #0074d9, #54a0ff); /* Blue home gradient */
+    --home-gradient-secondary: linear-gradient(135deg, #ff6b6b, #ff4081); /* Red home gradient */
+    --home-box-shadow: 0 4px 6px rgba(0, 116, 217, 0.2); /* Blue home shadow */
+    --home-transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth home transition */
+    --home-glow-primary: 0 0 15px rgba(0, 116, 217, 0.5); /* Blue home glow effect */
+    --alg-background-color: #001f3f; /* Dark blue algorithm background */
+    --alg-text-color: #ffffff; /* White algorithm text */
+    --alg-container-bg: #003366; /* Darker blue algorithm container */
+    --alg-header-bg: #003366; /* Darker blue algorithm header */
+    --alg-header-text: #ffffff; /* White algorithm header text */
+    --alg-border-color: #0074d9; /* Bright blue algorithm border */
+    --alg-shadow-color: rgba(0, 116, 217, 0.3); /* Blue algorithm shadow */
+    --alg-highlight-bg: #004080; /* Darker blue algorithm highlight */
+    --alg-button-primary: #0074d9; /* Bright blue algorithm button */
+    --alg-button-hover: rgba(0, 116, 217, 0.6); /* Semi-transparent blue algorithm button hover */
+    --alg-stats-value: #0074d9; /* Bright blue algorithm stats value */
+    --alg-input-bg: #004080; /* Darker blue algorithm input background */
+    --alg-input-border: #0074d9; /* Bright blue algorithm input border */
+    --alg-input-text: #ffffff; /* White algorithm input text */
+    --alg-tab-bg: #004080; /* Darker blue algorithm tab background */
+    --alg-tab-active-bg: #003366; /* Darker blue algorithm active tab background */
+    --alg-highlight-color: #004080; /* Darker blue algorithm highlight color */
+    --login-primary-color: #0074d9; /* Bright blue login primary color */
+    --login-secondary-color: #34495e; /* Dark blue login secondary color */
+    --login-accent-color: #ff6b6b; /* Red login accent color */
+    --login-background-color: #001f3f; /* Dark blue login background */
+    --login-text-color: #ffffff; /* White login text */
+    --login-text-light: #a0aec0; /* Light gray login text */
+    --login-border-color: #0074d9; /* Bright blue login border */
+    --login-gradient-primary: linear-gradient(135deg, #0074d9, #54a0ff); /* Blue login gradient */
+    --login-gradient-secondary: linear-gradient(135deg, #ff6b6b, #ff4081); /* Red login gradient */
+    --login-box-shadow: 0 4px 6px rgba(0, 116, 217, 0.2); /* Blue login shadow */
+    --img-select: #0074d9;
+    --alg-border: #0074d9;
+    --glow-box-shadow: 0 0 35px rgba(0, 116, 217, 0.9), 0 0 70px rgba(0, 116, 217, 0.6);
+    --glow-text-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 0.8);
+}
+
+:root[data-theme="green"] {
+    --background-color: #0f3d0f; /* Dark green background */
+    --text-color: #ffffff; /* White text */
+    --container-bg: #1a661a; /* Darker green container */
+    --button-color: #2ecc40; /* Bright green button */
+    --header-bg: #1a661a; /* Darker green header */
+    --border-color: #2ecc40; /* Bright green border */
+    --shadow-color: rgba(46, 204, 64, 0.3); /* Green shadow */
+    --highlight-bg: #2a802a; /* Darker green highlight */
+    --button-primary: #2ecc40; /* Bright green primary button */
+    --button-hover: rgba(46, 204, 64, 0.6); /* Semi-transparent green hover */
+    --stats-value: #2ecc40; /* Bright green stats value */
+    --input-bg: #2a802a; /* Darker green input background */
+    --hover-bg: #3a9b3a; /* Brighter green hover background */
+    --active-bg: #1a661a; /* Darker green active background */
+    --secondary-text: #a0aec0; /* Light gray secondary text */
+    --tertiary-text: #666; /* Dark gray tertiary text */
+    --navbar-dark-primary: var(--container-bg); /* Dark green navbar primary */
+    --navbar-dark-secondary: var(--highlight-bg); /* Darker green navbar secondary */
+    --navbar-light-primary: var(--text-color); /* White navbar primary */
+    --navbar-light-secondary: var(--secondary-text); /* Light gray navbar secondary */
+    --primary-color: #2ecc40; /* Bright green primary color */
+    --secondary-color: #34495e; /* Dark blue secondary color */
+    --accent-color: #ff6b6b; /* Red accent color */
+    --text-light: #a0aec0; /* Light gray text */
+    --gradient-primary: linear-gradient(135deg, #2ecc40, #54a0ff); /* Green gradient */
+    --gradient-secondary: linear-gradient(135deg, #ff6b6b, #ff4081); /* Red gradient */
+    --box-shadow: 0 4px 6px rgba(46, 204, 64, 0.2); /* Green shadow */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth transition */
+    --glow-primary: 0 0 15px rgba(46, 204, 64, 0.5); /* Green glow effect */
+    --home-primary-color: #2ecc40; /* Bright green home primary color */
+    --home-secondary-color: #34495e; /* Dark blue home secondary color */
+    --home-accent-color: #ff6b6b; /* Red home accent color */
+    --home-background-color: #0f3d0f; /* Dark green home background */
+    --home-text-color: #ffffff; /* White home text */
+    --home-text-light: #a0aec0; /* Light gray home text */
+    --home-border-color: #2ecc40; /* Bright green home border */
+    --home-gradient-primary: linear-gradient(135deg, #2ecc40, #54a0ff); /* Green home gradient */
+    --home-gradient-secondary: linear-gradient(135deg, #ff6b6b, #ff4081); /* Red home gradient */
+    --home-box-shadow: 0 4px 6px rgba(46, 204, 64, 0.2); /* Green home shadow */
+    --home-transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth home transition */
+    --home-glow-primary: 0 0 15px rgba(46, 204, 64, 0.5); /* Green home glow effect */
+    --alg-background-color: #0f3d0f; /* Dark green algorithm background */
+    --alg-text-color: #ffffff; /* White algorithm text */
+    --alg-container-bg: #1a661a; /* Darker green algorithm container */
+    --alg-header-bg: #1a661a; /* Darker green algorithm header */
+    --alg-header-text: #ffffff; /* White algorithm header text */
+    --alg-border-color: #2ecc40; /* Bright green algorithm border */
+    --alg-shadow-color: rgba(46, 204, 64, 0.3); /* Green algorithm shadow */
+    --alg-highlight-bg: #2a802a; /* Darker green algorithm highlight */
+    --alg-button-primary: #2ecc40; /* Bright green algorithm button */
+    --alg-button-hover: rgba(46, 204, 64, 0.6); /* Semi-transparent green algorithm button hover */
+    --alg-stats-value: #2ecc40; /* Bright green algorithm stats value */
+    --alg-input-bg: #2a802a; /* Darker green algorithm input background */
+    --alg-input-border: #2ecc40; /* Bright green algorithm input border */
+    --alg-input-text: #ffffff; /* White algorithm input text */
+    --alg-tab-bg: #2a802a; /* Darker green algorithm tab background */
+    --alg-tab-active-bg: #1a661a; /* Darker green algorithm active tab background */
+    --alg-highlight-color: #2a802a; /* Darker green algorithm highlight color */
+    --login-primary-color: #2ecc40; /* Bright green login primary color */
+    --login-secondary-color: #34495e; /* Dark blue login secondary color */
+    --login-accent-color: #ff6b6b; /* Red login accent color */
+    --login-background-color: #0f3d0f; /* Dark green login background */
+    --login-text-color: #ffffff; /* White login text */
+    --login-text-light: #a0aec0; /* Light gray login text */
+    --login-border-color: #2ecc40; /* Bright green login border */
+    --login-gradient-primary: linear-gradient(135deg, #2ecc40, #54a0ff); /* Green login gradient */
+    --login-gradient-secondary: linear-gradient(135deg, #ff6b6b, #ff4081); /* Red login gradient */
+    --login-box-shadow: 0 4px 6px rgba(46, 204, 64, 0.2); /* Green login shadow */
+    --img-select: #2ecc40;
+    --alg-border: #2ecc40;
+    --glow-box-shadow: 0 0 35px rgba(46, 204, 64, 0.9), 0 0 70px rgba(46, 204, 64, 0.6);
+    --glow-text-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 0.8);
+}
+
+:root[data-theme="red"] {
+    --background-color: #3f0f0f; /* Dark red background */
+    --text-color: #ffffff; /* White text */
+    --container-bg: #661a1a; /* Darker red container */
+    --button-color: #ff4136; /* Bright red button */
+    --header-bg: #661a1a; /* Darker red header */
+    --border-color: #ff4136; /* Bright red border */
+    --shadow-color: rgba(255, 65, 54, 0.3); /* Red shadow */
+    --highlight-bg: #802a2a; /* Darker red highlight */
+    --button-primary: #ff4136; /* Bright red primary button */
+    --button-hover: rgba(255, 65, 54, 0.6); /* Semi-transparent red hover */
+    --stats-value: #ff4136; /* Bright red stats value */
+    --input-bg: #802a2a; /* Darker red input background */
+    --hover-bg: #b33a3a; /* Brighter red hover background */
+    --active-bg: #661a1a; /* Darker red active background */
+    --secondary-text: #a0aec0; /* Light gray secondary text */
+    --tertiary-text: #666; /* Dark gray tertiary text */
+    --navbar-dark-primary: var(--container-bg); /* Dark red navbar primary */
+    --navbar-dark-secondary: var(--highlight-bg); /* Darker red navbar secondary */
+    --navbar-light-primary: var(--text-color); /* White navbar primary */
+    --navbar-light-secondary: var(--secondary-text); /* Light gray navbar secondary */
+    --primary-color: #ff4136; /* Bright red primary color */
+    --secondary-color: #34495e; /* Dark blue secondary color */
+    --accent-color: #39ff14; /* Neon green accent color */
+    --text-light: #a0aec0; /* Light gray text */
+    --gradient-primary: linear-gradient(135deg, #ff4136, #ff6b6b); /* Red gradient */
+    --gradient-secondary: linear-gradient(135deg, #39ff14, #ff4081); /* Green gradient */
+    --box-shadow: 0 4px 6px rgba(255, 65, 54, 0.2); /* Red shadow */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth transition */
+    --glow-primary: 0 0 15px rgba(255, 65, 54, 0.5); /* Red glow effect */
+    --home-primary-color: #ff4136; /* Bright red home primary color */
+    --home-secondary-color: #34495e; /* Dark blue home secondary color */
+    --home-accent-color: #39ff14; /* Neon green home accent color */
+    --home-background-color: #3f0f0f; /* Dark red home background */
+    --home-text-color: #ffffff; /* White home text */
+    --home-text-light: #a0aec0; /* Light gray home text */
+    --home-border-color: #ff4136; /* Bright red home border */
+    --home-gradient-primary: linear-gradient(135deg, #ff4136, #ff6b6b); /* Red home gradient */
+    --home-gradient-secondary: linear-gradient(135deg, #39ff14, #ff4081); /* Green home gradient */
+    --home-box-shadow: 0 4px 6px rgba(255, 65, 54, 0.2); /* Red home shadow */
+    --home-transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); /* Smooth home transition */
+    --home-glow-primary: 0 0 15px rgba(255, 65, 54, 0.5); /* Red home glow effect */
+    --alg-background-color: #3f0f0f; /* Dark red algorithm background */
+    --alg-text-color: #ffffff; /* White algorithm text */
+    --alg-container-bg: #661a1a; /* Darker red algorithm container */
+    --alg-header-bg: #661a1a; /* Darker red algorithm header */
+    --alg-header-text: #ffffff; /* White algorithm header text */
+    --alg-border-color: #ff4136; /* Bright red algorithm border */
+    --alg-shadow-color: rgba(255, 65, 54, 0.3); /* Red algorithm shadow */
+    --alg-highlight-bg: #802a2a; /* Darker red algorithm highlight */
+    --alg-button-primary: #ff4136; /* Bright red algorithm button */
+    --alg-button-hover: rgba(255, 65, 54, 0.6); /* Semi-transparent red algorithm button hover */
+    --alg-stats-value: #ff4136; /* Bright red algorithm stats value */
+    --alg-input-bg: #802a2a; /* Darker red algorithm input background */
+    --alg-input-border: #ff4136; /* Bright red algorithm input border */
+    --alg-input-text: #ffffff; /* White algorithm input text */
+    --alg-tab-bg: #802a2a; /* Darker red algorithm tab background */
+    --alg-tab-active-bg: #661a1a; /* Darker red algorithm active tab background */
+    --alg-highlight-color: #802a2a; /* Darker red algorithm highlight color */
+    --login-primary-color: #ff4136; /* Bright red login primary color */
+    --login-secondary-color: #34495e; /* Dark blue login secondary color */
+    --login-accent-color: #39ff14; /* Neon green login accent color */
+    --login-background-color: #3f0f0f; /* Dark red login background */
+    --login-text-color: #ffffff; /* White login text */
+    --login-text-light: #a0aec0; /* Light gray login text */
+    --login-border-color: #ff4136; /* Bright red login border */
+    --login-gradient-primary: linear-gradient(135deg, #ff4136, #ff6b6b); /* Red login gradient */
+    --login-gradient-secondary: linear-gradient(135deg, #39ff14, #ff4081); /* Green login gradient */
+    --login-box-shadow: 0 4px 6px rgba(255, 65, 54, 0.2); /* Red login shadow */
+    --img-select: #ff4136;
+    --alg-border: #ff4136;
+    --glow-box-shadow: 0 0 35px rgba(255, 65, 54, 0.9), 0 0 70px rgba(255, 65, 54, 0.6);
+    --glow-text-shadow: 0 0 10px rgba(255, 65, 54, 1), 0 0 20px rgba(255, 65, 54, 0.8);
+}
+
+:root[data-theme="golden"] {
+    --background-color: #2C1810; /* Rich dark brown background */
+    --text-color: #FFD700; /* Gold text */
+    --container-bg: #3D2314; /* Deeper brown container */
+    --button-color: #FFD700; /* Gold button */
+    --header-bg: linear-gradient(135deg, #3D2314, #8B4513); /* Royal brown gradient header */
+    --border-color: #DAA520; /* Golden rod border */
+    --shadow-color: rgba(218, 165, 32, 0.3); /* Golden shadow */
+    --highlight-bg: #4A2917; /* Rich highlight brown */
+    --button-primary: #DAA520; /* Golden rod primary button */
+    --button-hover: rgba(255, 215, 0, 0.6); /* Semi-transparent gold hover */
+    --stats-value: #FFD700; /* Gold stats value */
+    --input-bg: #4A2917; /* Rich brown input background */
+    --hover-bg: #5E331E; /* Lighter brown hover */
+    --active-bg: #3D2314; /* Deep brown active */
+    --secondary-text: #FFC857; /* Light gold secondary text */
+    --tertiary-text: #CD853F; /* Peru brown tertiary text */
+   
+    --primary-color: #FFD700; /* Gold primary */
+    --secondary-color: #DAA520; /* Golden rod secondary */
+    --accent-color: #B8860B; /* Dark golden rod accent */
+    --text-light: #FFC857; /* Light gold text */
+    --gradient-primary: linear-gradient(135deg, #FFD700, #DAA520); /* Gold gradient */
+    --gradient-secondary: linear-gradient(135deg, #DAA520, #B8860B); /* Golden rod gradient */
+    --box-shadow: 0 4px 12px rgba(218, 165, 32, 0.3); /* Luxurious golden shadow */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --glow-primary: 0 0 20px rgba(255, 215, 0, 0.4); /* Golden glow effect */
+    
+    /* Home specific variables */
+    --home-primary-color: #FFD700;
+    --home-secondary-color: #DAA520;
+    --home-accent-color: #B8860B;
+    --home-background-color: #2C1810;
+    --home-text-color: #FFD700;
+    --home-text-light: #FFC857;
+    --home-border-color: #DAA520;
+    --home-gradient-primary: linear-gradient(135deg, #FFD700, #DAA520);
+    --home-gradient-secondary: linear-gradient(135deg, #DAA520, #B8860B);
+    --home-box-shadow: 0 4px 12px rgba(218, 165, 32, 0.3);
+    --home-glow-primary: 0 0 20px rgba(255, 215, 0, 0.4);
+
+    /* Algorithm specific variables */
+    --alg-background-color: #2C1810;
+    --alg-text-color: #FFD700;
+    --alg-container-bg: #3D2314;
+    --alg-header-bg: #3D2314;
+    --alg-header-text: #FFD700;
+    --alg-border-color: #DAA520;
+    --alg-shadow-color: rgba(218, 165, 32, 0.3);
+    --alg-highlight-bg: #4A2917;
+    --alg-button-primary: #DAA520;
+    --alg-button-hover: #FFD700;
+    --alg-stats-value: #FFD700;
+    --alg-input-bg: #4A2917;
+    --alg-input-border: #DAA520;
+    --alg-input-text: #FFD700;
+    --alg-tab-bg: #4A2917;
+    --alg-tab-active-bg: #3D2314;
+    --alg-highlight-color: #DAA520;
+
+    /* Login specific variables */
+    --login-primary-color: #FFD700;
+    --login-secondary-color: #DAA520;
+    --login-accent-color: #B8860B;
+    --login-background-color: #2C1810;
+    --login-text-color: #FFD700;
+    --login-text-light: #FFC857;
+    --login-border-color: #DAA520;
+    --login-gradient-primary: linear-gradient(135deg, #FFD700, #DAA520);
+    --login-gradient-secondary: linear-gradient(135deg, #DAA520, #B8860B);
+    --login-box-shadow: 0 4px 12px rgba(218, 165, 32, 0.3);
+    
+    --img-select: #DAA520;
+    --alg-border: #DAA520;
+    --glow-box-shadow: 0 0 35px rgba(255, 215, 0, 0.9), 0 0 70px rgba(218, 165, 32, 0.6);
+    --glow-text-shadow: 0 0 10px rgba(255, 215, 0, 1), 0 0 20px rgba(218, 165, 32, 0.8);
+}
+
+:root[data-theme="kids"] {
+    --background-color: #FFE5F1; /* Soft pink background */
+    --text-color: #FF6B6B; /* Coral text */
+    --container-bg: #FFFFFF; /* White container */
+    --button-color: #7CB9E8; /* Baby blue button */
+    --header-bg: linear-gradient(135deg, #FFB6C1, #87CEEB); /* Pink to sky blue gradient */
+    --border-color: #FFA07A; /* Light salmon border */
+    --shadow-color: rgba(255, 182, 193, 0.4); /* Pink shadow */
+    --highlight-bg: #F0FFF0; /* Honeydew highlight */
+    --button-primary: #FF69B4; /* Hot pink primary button */
+    --button-hover: rgba(255, 105, 180, 0.6); /* Semi-transparent pink hover */
+    --stats-value: #FF1493; /* Deep pink stats */
+    --input-bg: #FFF0F5; /* Lavender blush input */
+    --hover-bg: #FFE4E1; /* Misty rose hover */
+    --active-bg: #FFB6C1; /* Light pink active */
+    --secondary-text: #FF69B4; /* Hot pink secondary text */
+    --tertiary-text: #DDA0DD; /* Plum tertiary text */
+    --primary-color: #FF69B4; /* Hot pink primary */
+    --secondary-color: #87CEEB; /* Sky blue secondary */
+    --accent-color: #98FB98; /* Pale green accent */
+    --gradient-primary: linear-gradient(135deg, #FFB6C1, #87CEEB);
+    --gradient-secondary: linear-gradient(135deg, #98FB98, #DDA0DD);
+    --box-shadow: 0 4px 12px rgba(255, 182, 193, 0.4);
+    --glow-primary: 0 0 20px rgba(255, 105, 180, 0.4);
+    --font-family: 'Comic Neue', cursive;
+
+    /* Home specific variables */
+    --home-primary-color: #FF69B4;
+    --home-secondary-color: #87CEEB;
+    --home-accent-color: #98FB98;
+    --home-background-color: #FFE5F1;
+    --home-text-color: #FF6B6B;
+    --home-text-light: #FF69B4;
+    --home-border-color: #FFA07A;
+    --home-box-shadow: 0 4px 12px rgba(255, 182, 193, 0.4);
+    --home-glow-primary: 0 0 20px rgba(255, 105, 180, 0.4);
+
+    /* Algorithm specific variables */
+    --alg-background-color: #FFE5F1;
+    --alg-text-color: #FF6B6B;
+    --alg-container-bg: #FFFFFF;
+    --alg-header-bg: linear-gradient(135deg, #FFB6C1, #87CEEB);
+    --alg-header-text: #FF69B4;
+    --alg-border-color: #FFA07A;
+    --alg-shadow-color: rgba(255, 182, 193, 0.4);
+    --alg-button-primary: #FF69B4;
+    --alg-button-hover: rgba(255, 105, 180, 0.6);
+    --alg-input-bg: #FFF0F5;
+    --alg-input-border: #FFB6C1;
+    --alg-input-text: #FF6B6B;
+    --alg-tab-bg: #FFF0F5;
+    --alg-tab-active-bg: #FFE4E1;
+
+    /* Additional fun elements */
+    --img-select: #FF69B4;
+    --alg-border: #FFB6C1;
+    --glow-box-shadow: 0 0 35px rgba(255, 105, 180, 0.9), 0 0 70px rgba(255, 182, 193, 0.6);
+    --glow-text-shadow: 0 0 10px rgba(255, 105, 180, 1), 0 0 20px rgba(255, 182, 193, 0.8);
+}
+
+:root[data-theme="lightblue"] {
+    --background-color: #011627;
+    --text-color: #c3e4ff;
+    --container-bg: #012a4a;
+    --button-color: #00b4d8;
+    --header-bg: linear-gradient(135deg, #caf0f8, #90e0ef);
+    --border-color: #48cae4;
+    --shadow-color: rgba(0, 180, 216, 0.25);
+    --highlight-bg: #013a63;
+    --button-primary: #00b4d8;
+    --button-hover: #0096c7;
+    --stats-value: #0077b6;
+    --input-bg: #f0fbff;
+    --hover-bg: #caf0f8;
+    --active-bg: #90e0ef;
+    --secondary-text: #0096c7;
+    --tertiary-text: #48cae4;
+    --primary-color: #00b4d8;
+    --secondary-color: #0077b6;
+    --accent-color: #90e0ef;
+    --text-light: #48cae4;
+    --gradient-primary: linear-gradient(135deg, #00b4d8, #48cae4);
+    --gradient-secondary: linear-gradient(135deg, #90e0ef, #caf0f8);
+    --box-shadow: 0 8px 20px rgba(0, 180, 216, 0.2);
+    --glow-primary: 0 0 25px rgba(0, 180, 216, 0.4);
+
+    /* Enhanced Home specific variables */
+    --home-primary-color: #00b4d8;
+    --home-secondary-color: #0077b6;
+    --home-accent-color: #90e0ef;
+    --home-background-color: #e0f7ff;
+    --home-text-color: #0353a4;
+    --home-text-light: #48cae4;
+    --home-border-color: #48cae4;
+    --home-gradient-primary: linear-gradient(135deg, #00b4d8, #0096c7);
+    --home-gradient-secondary: linear-gradient(135deg, #90e0ef, #caf0f8);
+    --home-box-shadow: 0 8px 20px rgba(0, 180, 216, 0.25);
+    --home-glow-primary: 0 0 30px rgba(0, 180, 216, 0.5);
+    --home-transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* Enhanced Algorithm specific variables */
+    --alg-background-color: #e0f7ff;
+    --alg-text-color: #0353a4;
+    --alg-container-bg: #f0fbff;
+    --alg-header-bg: linear-gradient(135deg, #caf0f8, #90e0ef);
+    --alg-header-text: #0353a4;
+    --alg-border-color: #48cae4;
+    --alg-shadow-color: rgba(0, 180, 216, 0.25);
+    --alg-highlight-bg: #e6faff;
+    --alg-button-primary: #00b4d8;
+    --alg-button-hover: rgba(0, 180, 216, 0.8);
+    --alg-stats-value: #0077b6;
+    --alg-input-bg: #f0fbff;
+    --alg-input-border: #48cae4;
+    --alg-input-text: #0353a4;
+    --alg-tab-bg: #caf0f8;
+    --alg-tab-active-bg: #90e0ef;
+    --alg-highlight-color: #e6faff;
+
+    /* Additional effects */
+    --button-glow: 0 0 15px rgba(0, 180, 216, 0.6);
+    --text-shadow: 0 2px 4px rgba(0, 180, 216, 0.2);
+    --card-gradient: linear-gradient(45deg, #f0fbff, #caf0f8);
+    --hover-glow: 0 0 20px rgba(0, 180, 216, 0.4);
+    --active-glow: 0 0 25px rgba(0, 180, 216, 0.5);
+    --img-select: #00b4d8;
+    --alg-border: #48cae4;
+    --glow-box-shadow: 0 0 35px rgba(0, 180, 216, 0.9), 0 0 70px rgba(72, 202, 228, 0.6);
+    --glow-text-shadow: 0 0 10px rgba(0, 180, 216, 1), 0 0 20px rgba(72, 202, 228, 0.8);
+}
+
+* {
+    -webkit-tap-highlight-color: var(--webkit-tap-highlight);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
+    font-family: var(--font-family);
+}
+
+input, textarea {
+    -webkit-user-select: text;
+    user-select: text;
+}
+
+/* Ensure the background color is applied to the html and body elements */
+html, body {
+    background-color: var(--background-color);
+}
+     /* Apply Zain font only to Arabic text when Arabic language is active */
+     body.ar [data-translate]:not(i):not(.fas):not(.fab) {
+        font-family: 'Zain', sans-serif !important;
+    }
+
+/* Notification system */
+.notification {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--container-bg);
+    color: var(--text-color);
+    padding: 12px 20px;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--box-shadow);
+    z-index: 9999;
+    opacity: 0;
+    transition: var(--transition-smooth);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    backdrop-filter: blur(8px);
+    min-width: 280px;
+    max-width: 90%;
+}
+
+.notification i {
+    font-size: 18px;
+}
+
+.notification span {
+    flex: 1;
+    font-size: 0.95em;
+}
+
+.notification .undo-button {
+    padding: 6px 12px;
+    background: var(--gradient-primary);
+    color: var(--text-color);
+    border: none;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: var(--transition-smooth);
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.notification .undo-button:hover {
+    background: var(--gradient-secondary);
+    transform: translateY(-1px);
+}
+
+.notification.show {
+    opacity: 1;
+    animation: notificationGlow 2s infinite alternate;
+}
+
+@keyframes notificationGlow {
+    from {
+        box-shadow: var(--box-shadow);
+    }
+    to {
+        box-shadow: var(--box-shadow), 0 0 15px var(--glow-primary);
+    }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .notification {
+        bottom: 70px; /* Move above mobile tab bar */
+        padding: 10px 16px;
+        min-width: unset;
+        width: 85%;
+        gap: 8px;
+    }
+
+    .notification i {
+        font-size: 16px;
+    }
+
+    .notification span {
+        font-size: 0.9em;
+    }
+
+    .notification .undo-button {
+        padding: 4px 10px;
+        font-size: 0.85em;
+    }
+}

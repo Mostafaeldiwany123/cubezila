@@ -1,0 +1,29 @@
+{
+  "name": "cubezila",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "build": "node fix-html.js && vite build && node minify.js && node remove-html.js ",
+    "dev": "vite"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "cssnano": "^7.0.6",
+    "fs-extra": "^11.3.0",
+    "http-server": "^14.1.1",
+    "javascript-obfuscator": "^4.1.1",
+    "postcss": "^8.5.3",
+    "postcss-cli": "^11.0.0",
+    "uglify-js": "^3.19.3",
+    "vite": "^6.3.5"
+  },
+  "dependencies": {
+    "clean-css": "^5.3.3",
+    "html-minifier": "^4.0.0",
+    "terser": "^5.39.0"
+  }
+}

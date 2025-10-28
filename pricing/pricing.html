@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GD9J5DTDPS"></script>
+    <script>
+      // Only load GA on cubezila.com
+      if (window.location.hostname === 'cubezila.com') {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        // ensure cookies are scoped to your domain
+        gtag('config', 'G-GD9J5DTDPS', {
+          'cookie_domain': 'cubezila.com'
+        });
+      }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="../bg/theme.js"></script>
+    <link rel="stylesheet" href="../css/pricing.css">
+    <link rel="stylesheet" href="../css/roots.css">
+    <link rel="icon" type="image/png" href="../img/demo (2).png">
+    <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Cubezilla - Pricing</title>
+</head>
+<body>
+     <!-- Header -->
+    <header class="site-header">
+        <nav class="breadcrumb">
+            <a href="../index.html"><i class="fas fa-home"></i></a>
+            <i class="fas fa-chevron-right"></i>
+            <span>Pricing</span>
+        </nav>
+    </header>
+    <div class="pricing-container">
+        <div class="pricing-header">
+            <h1>Choose Your Plan</h1>
+            <p>Unlock advanced features and take your cubing to the next level</p>
+            <div class="tabs">
+                <button class="tab active" onclick="showPricing('monthly')">Monthly</button>
+                <button class="tab" onclick="showPricing('yearly')">Yearly</button>
+            </div>
+        </div>
+
+        <div class="pricing-cards" id="monthly">
+            <div class="pricing-card free">
+                <div class="card-header">
+                    <h3>Free</h3>
+                    <div class="price">0 EGP<span>/month</span></div>
+                </div>
+                <div class="features">
+                    <div class="feature"><i class="fas fa-check"></i> Basic Timer</div>
+                    <div class="feature"><i class="fas fa-check"></i> Standard Scrambles</div>
+                    <div class="feature"><i class="fas fa-check"></i> Basic Statistics</div>
+                    <div class="feature disabled"><i class="fas fa-times"></i> Advanced Analytics</div>
+                    <div class="feature disabled"><i class="fas fa-times"></i> Custom Themes</div>
+                    <div class="feature disabled"><i class="fas fa-times"></i> Things in pro</div>
+                </div>
+                <button class="select-plan" onclick="selectPlan('free')">Current Plan</button>
+            </div>
+
+            <div class="pricing-card pro">
+                <div class="popular-tag">Most Popular</div>
+                <div class="card-header">
+                    <h3>Pro</h3>
+                    <div class="price">80 EGP<span>/month</span></div>
+                </div>
+                <div class="features">
+                    <div class="feature"><i class="fas fa-check"></i> Everything not in free</div>
+                    <div class="feature"><i class="fas fa-check"></i> cross solver</div>
+                    <div class="feature"><i class="fas fa-check"></i> Advanced Tools</div>
+                    <div class="feature"><i class="fas fa-check"></i> Advanced statistics</div>
+                    <div class="feature"><i class="fas fa-check"></i> cfop trainer</div>
+                    <div class="feature"><i class="fas fa-check"></i> 10% off online competitions</div>
+                </div>
+                <button class="select-plan pro-btn" onclick="selectPlan('monthly')">Get Pro</button>
+            </div>
+        </div>
+
+        <div class="pricing-cards" id="yearly" style="display: none;">
+            <div class="pricing-card free">
+                <div class="card-header">
+                    <h3>Free</h3>
+                    <div class="price">0 EGP<span>/year</span></div>
+                </div>
+                <div class="features">
+                    <div class="feature"><i class="fas fa-check"></i> Basic Timer</div>
+                    <div class="feature"><i class="fas fa-check"></i> Standard Scrambles</div>
+                    <div class="feature"><i class="fas fa-check"></i> Basic Statistics</div>
+                    <div class="feature disabled"><i class="fas fa-times"></i> Advanced Analytics</div>
+                    <div class="feature disabled"><i class="fas fa-times"></i> Custom Themes</div>
+                    <div class="feature disabled"><i class="fas fa-times"></i> Things in pro</div>
+                </div>
+                <button class="select-plan" onclick="selectPlan('free')">Current Plan</button>
+            </div>
+
+            <div class="pricing-card pro">
+                <div class="popular-tag">Save 20%</div>
+                <div class="card-header">
+                    <h3>Pro</h3>
+                    <div class="price">800 EGP<span>/year</span></div>
+                </div>
+                <div class="features">
+                    <div class="feature"><i class="fas fa-check"></i> Everything in monthly</div>
+                    <div class="feature"><i class="fas fa-check"></i> Advanced algorithms</div>
+                    <div class="feature"><i class="fas fa-check"></i> Advanced Tools</div>
+                    <div class="feature"><i class="fas fa-check"></i> Instant access to updates</div>
+                    <div class="feature"><i class="fas fa-check"></i> Get mentioned in credits page</div>
+                    <div class="feature"><i class="fas fa-check"></i> 20% off online competitions</div>
+                </div>
+                <button class="select-plan pro-btn" onclick="selectPlan('yearly')">Get Pro</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div id="payment-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <div class="modal-header">
+                <i class="fas fa-cube"></i>
+                <h2>Get Cubezilla Pro</h2>
+            </div>
+            <div class="payment-details">
+                <div class="notice">
+                    <i class="fas fa-info-circle"></i>
+                    <div>
+                        <p>Currently, we're accepting payments through InstaPay only, due to problems with International payments.</p>
+                    </div>
+                </div>
+                
+                <div class="steps">
+                    <div class="step">
+                        <span class="step-number">1</span>
+                        <p>Fill out the forum with your information</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">2</span>
+                        <p>We'll contact you with InstaPay payment info</p>
+                    </div>
+                    <div class="step">
+                        <span class="step-number">3</span>
+                        <p>After payment, you'll get Pro access within 24h</p>
+                    </div>
+                </div>
+                
+                <div class="action-buttons">
+                    <button class="confirm-btn" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSeSjeu-YaEYRCmRIlL4hVBu2eY7EmTOBEnMb2rSyqDrmOShiw/viewform?usp=dialog', '_blank')">
+                        <i class="fas fa-external-link-alt"></i>
+                        Fill Out Forum
+                    </button>
+                    <button class="secondary-btn" onclick="document.getElementById('payment-modal').style.display='none'">
+                        Maybe Later
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const priceMap = {
+            EG: {
+                currency: 'EGP',
+                monthly: 80,
+                yearly: 800,
+                lifetime: 2200
+            },
+            default: {
+                currency: 'USD',
+                monthly: 3,
+                yearly: 25,
+                lifetime: 65
+            }
+        };
+
+        let userCountry = 'default';
+
+        async function initializePricing() {
+            try {
+                const response = await fetch('https://ipapi.co/json/');
+                const data = await response.json();
+                userCountry = data.country_code;
+                updatePricing();
+            } catch (error) {
+                console.error('Error detecting location:', error);
+                updatePricing(); // Use default pricing
+            }
+        }
+
+        function updatePricing() {
+            const prices = priceMap[userCountry] || priceMap.default;
+            
+            // Update monthly prices
+            document.querySelector('#monthly .pro .price').innerHTML = 
+                `${prices.monthly} ${prices.currency}<span>/month</span>`;
+            
+            // Update yearly prices
+            document.querySelector('#yearly .pro .price').innerHTML = 
+                `${prices.yearly} ${prices.currency}<span>/year</span>`;
+        }
+
+        function showPricing(period) {
+            document.querySelectorAll('.pricing-cards').forEach(card => card.style.display = 'none');
+            document.getElementById(period).style.display = 'flex';
+            
+            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        function selectPlan(plan) {
+            if (plan === 'free') return;
+            
+            const modal = document.getElementById('payment-modal');
+            modal.style.display = 'block';
+        }
+
+        function goBack() {
+            window.history.back();
+        }
+
+        // Initialize pricing when page loads
+        document.addEventListener('DOMContentLoaded', initializePricing);
+
+        // Modal close button
+        document.querySelector('.close').onclick = function() {
+            document.getElementById('payment-modal').style.display = 'none';
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('payment-modal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

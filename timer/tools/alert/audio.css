@@ -1,0 +1,65 @@
+/*alert voice dropdown*/
+.dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+  }
+  
+  .dropdown-button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    background-color: var(--highlight-bg);
+    cursor: pointer;
+    text-align: left;
+    color: var(--text-color);
+  }
+  
+  .dropdown-button:hover {
+    background-color: var(--container-bg);
+  }
+  
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: var(--container-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    width: 100%;
+    box-shadow: 0 4px 6px var(--shadow-color);
+    z-index: 100;
+    margin-top: 5px;
+  }
+  
+  .dropdown-menu .dropdown-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    color: var(--text-color);
+  }
+  
+  .dropdown-menu .dropdown-item:hover {
+    background-color: var(--highlight-bg);
+  }
+  
+  .preview-icon {
+    font-size: 16px;
+    color: var(--button-primary);
+    cursor: pointer;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+  
+  .preview-icon:hover {
+    color: var(--button-hover);
+  }
+  
+  .preview-icon.playing {
+    color: var(--error-color);
+    transform: scale(1.2);
+  }
+  
