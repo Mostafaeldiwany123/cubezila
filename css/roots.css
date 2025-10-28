@@ -34,7 +34,7 @@
     --button-primary: #2962ff;
     --button-hover: rgba(41, 98, 255, 0.6);
     --stats-value: #2962ff;
-    --font-family: 'Inconsolata', monospace;
+    --font-family: 'Poppins', sans-serif; /* Changed from Inconsolata */
     --font-family-heading: 'Montserrat', sans-serif; /* New heading font */
     --font-family-body: 'Poppins', sans-serif; /* New body font */
     --box-shadow: 0 8px 24px var(--shadow-color);
@@ -322,7 +322,7 @@
     --login-border-color: #0074d9; /* Bright blue login border */
     --login-gradient-primary: linear-gradient(135deg, #0074d9, #54a0ff); /* Blue login gradient */
     --login-gradient-secondary: linear-gradient(135deg, #ff6b6b, #ff4081); /* Red login gradient */
-    --login-box-shadow: 0 4px 6px rgba(0, 116, 217, 0.2); /* Blue login shadow */
+    --login-box-shadow: 0 4px 6px rgba(0, 116, 217, 0.2);
     --img-select: #0074d9;
     --alg-border: #0074d9;
     --glow-box-shadow: 0 0 35px rgba(0, 116, 217, 0.9), 0 0 70px rgba(0, 116, 217, 0.6);
@@ -397,7 +397,7 @@
     --login-border-color: #2ecc40; /* Bright green login border */
     --login-gradient-primary: linear-gradient(135deg, #2ecc40, #54a0ff); /* Green login gradient */
     --login-gradient-secondary: linear-gradient(135deg, #ff6b6b, #ff4081); /* Red login gradient */
-    --login-box-shadow: 0 4px 6px rgba(46, 204, 64, 0.2); /* Green login shadow */
+    --login-box-shadow: 0 4px 6px rgba(46, 204, 64, 0.2);
     --img-select: #2ecc40;
     --alg-border: #2ecc40;
     --glow-box-shadow: 0 0 35px rgba(46, 204, 64, 0.9), 0 0 70px rgba(46, 204, 64, 0.6);
