@@ -18,12 +18,6 @@ if (registerForm) {
     const username = document.getElementById('registerUsername').value;
     const email = document.getElementById('registerEmail').value;
     const password = document.getElementById('registerPassword').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
-
-    if (password !== confirmPassword) {
-      showErrorMessage("Passwords don't match");
-      return;
-    }
 
     try {
       await registerWithEmailPassword(email, password, username);

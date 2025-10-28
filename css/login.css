@@ -25,7 +25,7 @@ body {
     flex: 1;
 }
 
-/* Left Panel: Branding & Image */
+/* Right Panel: Branding & Image */
 .auth-image-container {
     flex: 1;
     background: linear-gradient(135deg, rgba(29, 31, 39, 0.9), rgba(18, 18, 18, 0.95)), url('https://images.unsplash.com/photo-1593113646773-462716a9ca93?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1740&q=80') no-repeat center center;
@@ -36,29 +36,27 @@ body {
     align-items: center;
     padding: 3rem;
     text-align: center;
-    position: relative;
-}
-
-.auth-image-container .logo {
-    position: absolute;
-    top: 40px;
-    left: 40px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    text-decoration: none;
-    color: var(--text-color);
-    font-weight: 600;
-    font-size: 20px;
-}
-
-.auth-image-container .logo i {
-    color: var(--primary-color);
-    font-size: 24px;
 }
 
 .right-panel-content {
     max-width: 400px;
+}
+
+.right-panel-content .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+    font-size: 22px;
+    margin-bottom: 2rem;
+}
+
+.right-panel-content .logo i {
+    color: var(--primary-color);
+    font-size: 28px;
 }
 
 .right-panel-content h2 {
@@ -74,7 +72,7 @@ body {
     line-height: 1.7;
 }
 
-/* Right Panel: Form */
+/* Left Panel: Form */
 .auth-form-container {
     flex: 1;
     display: flex;
@@ -114,11 +112,11 @@ body {
 
 .auth-description {
     color: var(--text-light);
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .form-group {
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
 }
 
 .form-group label {
