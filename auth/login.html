@@ -8,7 +8,7 @@
     <script src="../../bg/theme.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../css/login.css">
     <link rel="stylesheet" href="../css/roots.css">
@@ -32,18 +32,22 @@
     </script>
 </head>
 <body>
-    <header class="site-header">
-        <div class="breadcrumb">
-            <a href="../index.html"><i class="fas fa-home"></i></a>
-            <i class="fas fa-chevron-right"></i>
-            <span>Login</span>
-        </div>
-    </header>
-    <div class="main-content">
-        <div class="auth-layout">
-            <div class="auth-form-container">
+    <div class="auth-layout">
+        <div class="auth-image-container">
+            <a href="../index.html" class="logo">
+                <i class="cubing-icon event-333"></i>
+                <span>CubeZila</span>
+            </a>
+            <div class="right-panel-content">
                 <h2>Welcome Back!</h2>
-                <p class="auth-description">Log in to continue your speedcubing journey. Track your progress, learn new algorithms, and connect with the community.</p>
+                <p>Log in to continue your speedcubing journey. Track your progress, learn new algorithms, and connect with the community.</p>
+            </div>
+        </div>
+        <div class="auth-form-container">
+            <div class="form-wrapper">
+                <a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+                <h2>Login</h2>
+                <p class="auth-description">Enter your credentials to access your account.</p>
                 <div class="error-message" id="errorMessage"></div>
                 <form id="loginForm" class="form-container">
                     <div class="form-group">
@@ -66,20 +70,6 @@
                 <p class="register-link">
                     Don't have an account? <a href="register.html">Register here</a>
                 </p>
-            </div>
-            <div class="auth-image-container">
-                <div class="right-panel-content">
-                    <h2>Master the Cube</h2>
-                    <p>Join thousands of cubers improving their times and learning new techniques with CubeZila.</p>
-                    <div class="feature-card-right">
-                        <div class="feature-card-dots">
-                            <div class="dot red"></div>
-                            <div class="dot yellow"></div>
-                            <div class="dot green"></div>
-                        </div>
-                        <p>Start tracking your solves and unlock your full potential today!</p>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
