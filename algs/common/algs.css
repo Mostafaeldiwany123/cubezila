@@ -787,9 +787,8 @@ button:focus {
     left: 0;
     right: 0;
     height: 70px; /* Add fixed height */
-    padding: 0 4%;
-    background: rgba(29, 31, 39, 0.5);
-    border-bottom: 1px solid var(--border-color);
+    padding: 0 8%;
+    background: var(--home-background-color);
     box-shadow: var(--home-box-shadow);
     z-index: 1000;
     display: flex;
@@ -800,25 +799,30 @@ button:focus {
 }
 
 .site-header .logo {
-    font-size: 20px;
-    font-weight: 600;
-    color: var(--text-color);
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--primary-color);
     text-decoration: none;
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 0.8rem;
     transition: transform 0.3s ease;
 }
 
 .site-header .logo img {
-    display: none;
+    width: 38px;  /* Increased from 32px */
+    height: 38px; /* Increased from 32px */
+    object-fit: contain;
+    transform-origin: left center; /* Ensures scaling from left side */
+    margin-right: 0.1rem; /* Add some spacing after the logo */
 }
 
 .site-header .logo i {
     color: var(--primary-color);
-    font-size: 24px;
+    font-size: 2rem;
     /* Removed rotation animation */
 }
+
 
 /* Add padding-top to account for fixed header */
 h1 {
