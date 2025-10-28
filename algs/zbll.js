@@ -59,9 +59,15 @@ function generateSubsetsContainer() {
     container.appendChild(mainSubsets);
     container.appendChild(subgroupContainer);
 
-    // Insert after progress container
-    const progressContainer = document.querySelector('.progress-container');
-    progressContainer.parentNode.insertBefore(container, progressContainer.nextSibling);
+    // Corrected insertion point: after the info-container
+    const infoContainer = document.querySelector('.info-container');
+    if (infoContainer) {
+        infoContainer.parentNode.insertBefore(container, infoContainer.nextSibling);
+    } else {
+        // Fallback if info-container is not found
+        const h1 = document.querySelector('h1');
+        if (h1) h1.parentNode.insertBefore(container, h1.nextSibling);
+    }
 }
 
 function createSubsetBox(subset) {
