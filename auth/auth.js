@@ -97,7 +97,7 @@ function updateUIForAuthState(user) {
   if (user && user.profile) {
     // User is signed in
     if (guestContent) guestContent.style.display = 'none';
-    if (userContent) userContent.style.display = 'flex'; // Use flex to align items
+    if (userContent) userContent.style.display = 'block'; // Changed from 'flex' to 'block'
     if (sidebarGuestContent) sidebarGuestContent.style.display = 'none';
     if (sidebarUserContent) sidebarUserContent.style.display = 'block';
 

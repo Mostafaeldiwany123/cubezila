@@ -120,21 +120,19 @@
                     <a href="auth/register.html" class="btn" id="registerLink">Sign up</a>
                 </div>
                 <!-- User profile dropdown -->
-                <div id="user-content" style="display: none;">
-                    <div class="dropdown">
-                        <div class="dropdown-toggle">
-                            <img id="userAvatar" src="/img/noprof.png" alt="Profile">
-                            <span id="userName">User</span>
-                            <i class="fas fa-chevron-down"></i>
-                        </div>
-                        <div class="dropdown-menu">
-                            <a href="profile/profile.html" class="dropdown-item">
-                                <i class="fas fa-user"></i> Profile
-                            </a>
-                            <a href="#" class="dropdown-item" onclick="logout(); return false;" id="logoutLink">
-                                <i class="fas fa-sign-out-alt"></i> Logout
-                            </a>
-                        </div>
+                <div id="user-content" class="dropdown" style="display: none;">
+                    <div class="dropdown-toggle">
+                        <img id="userAvatar" src="/img/noprof.png" alt="Profile">
+                        <span id="userName">User</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="dropdown-menu">
+                        <a href="profile/profile.html" class="dropdown-item">
+                            <i class="fas fa-user"></i> Profile
+                        </a>
+                        <a href="#" class="dropdown-item" onclick="logout(); return false;" id="logoutLink">
+                            <i class="fas fa-sign-out-alt"></i> Logout
+                        </a>
                     </div>
                 </div>
             </div>
