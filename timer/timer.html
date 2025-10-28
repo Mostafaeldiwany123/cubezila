@@ -11,7 +11,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="../favicon_io/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon_io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../favicon_io/favicon-16x16.png">
-    <link rel="manifest" href="../favicon_io/site.webmanifest">
+    <link rel="manifest" href="/manifest.json">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>timer - cubezila</title>
@@ -28,7 +28,6 @@
     <script src="tools/metronome/metronome.js"></script>
     <script src="tools/alert/audio.js"></script>
     <script src="../auth/timer-pro.js"></script>
-    <script src="js/cubeSimulator.js" type="module"></script>
     <link rel="stylesheet" href="timer.css">
     <link rel="stylesheet" href="tools/alert/audio.css">
     <link rel="stylesheet" href="tools/metronome/metronome.css">
@@ -57,17 +56,20 @@
     <!-- Add dropdown component files -->
     <link rel="stylesheet" href="../components/dropdown/dropdown.css">
     <script src="../components/dropdown/dropdown.js"></script>
+    <script>
+      // Only load GA on cubezila.com
+      if (window.location.hostname === 'cubezila.com') {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        gtag('js', new Date());
 
+        // ensure cookies are scoped to your domain
+        gtag('config', 'G-GD9J5DTDPS', {
+          'cookie_domain': 'cubezila.com'
+        });
+      }
+    </script>
 </head>
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-3ERDJNMDF7"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-3ERDJNMDF7');
-</script>
 <body>    
     <div class="scramble-header">
         <div class="header-content">
@@ -620,8 +622,8 @@
                         </div>
                         <div class="settings-item pro-input-wrapper">
                             <label for="inspectionTime">Duration (seconds)</label>
-                            <input type="number" id="inspectionTime" value="15" min="0" onchange="changeInspectionTime()" class="pro-feature" disabled>
-                            <i class="fas fa-crown pro-lock"></i>
+                            <input type="number" id="inspectionTime" value="15" min="0" onchange="changeInspectionTime()" class="pro-feature" >
+                    
                         </div>
                     </div>
                 </div>
@@ -966,7 +968,7 @@
         // Register service worker
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
-                navigator.serviceWorker.register('../js/sw.js')
+                navigator.serviceWorker.register('/sw.js')
                     .then(registration => {
                         console.log('ServiceWorker registration successful');
                     })

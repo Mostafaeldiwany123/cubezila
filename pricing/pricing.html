@@ -3,6 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GD9J5DTDPS"></script>
+    <script>
+      // Only load GA on cubezila.com
+      if (window.location.hostname === 'cubezila.com') {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        // ensure cookies are scoped to your domain
+        gtag('config', 'G-GD9J5DTDPS', {
+          'cookie_domain': 'cubezila.com'
+        });
+      }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <script src="../bg/theme.js"></script>
@@ -14,8 +29,14 @@
     <title>Cubezilla - Pricing</title>
 </head>
 <body>
-    <button class="back-button" onclick="goBack()">✕</button>
-    
+     <!-- Header -->
+    <header class="site-header">
+        <nav class="breadcrumb">
+            <a href="../index.html"><i class="fas fa-home"></i></a>
+            <i class="fas fa-chevron-right"></i>
+            <span>Pricing</span>
+        </nav>
+    </header>
     <div class="pricing-container">
         <div class="pricing-header">
             <h1>Choose Your Plan</h1>

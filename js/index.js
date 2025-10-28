@@ -1,229 +1,190 @@
-
-
-    // Mobile menu functionality
-    const menuBtn = document.querySelector('.menu-btn');
-    const navLinks = document.querySelector('.nav-links');
-
-    if (menuBtn && navLinks) {
-        menuBtn.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-    }
-
-    // Theme access and lock functionality
-    function handleThemeClick(event) {
-        const themeLink = event.currentTarget;
-        if (themeLink.classList.contains('locked')) {
-            event.preventDefault();
-            alert('This theme is only available for premium users. Upgrade to Pro to unlock all themes!');
-            return;
+ 
+       // Mobile Sidebar Implementation
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileSidebar = document.getElementById('mobileSidebar');
+        const sidebarClose = document.getElementById('sidebarClose');
+        const sidebarOverlay = document.getElementById('sidebarOverlay');
+        const dropdownToggles = document.querySelectorAll('.sidebar-dropdown-toggle');
+        
+        // Toggle mobile sidebar
+        function toggleSidebar() {
+            mobileSidebar.classList.toggle('active');
+            sidebarOverlay.classList.toggle('active');
+            mobileMenuBtn.classList.toggle('active');
+            document.body.style.overflow = mobileSidebar.classList.contains('active') ? 'hidden' : '';
         }
-    }
-    
-
-    function updateThemeAccess(userRole) {
-        const premiumThemes = document.querySelectorAll('.premium-theme');
-        premiumThemes.forEach(theme => {
-            if (userRole === 'pro_user' || userRole === 'admin') {
-                theme.classList.remove('locked');
-                theme.setAttribute('onclick', `setTheme('${theme.dataset.theme}')`);
-                const lockIcon = theme.querySelector('.fa-lock');
-                if (lockIcon) {
-                    lockIcon.remove();
-                }
-            } else {
-                theme.classList.add('locked');
-                theme.removeAttribute('onclick');
-                theme.addEventListener('click', handleThemeClick);
-                if (!theme.querySelector('.fa-lock')) {
-                    theme.innerHTML += ' <i class="fas fa-lock"></i>';
-                }
-            }
-        });
-    }
-
-    // Update UI based on user role
-    function updateUIForRole(userRole) {
-        // Update body class for pro styling
-        document.body.classList.toggle('pro-user', userRole === 'pro_user' || userRole === 'admin');
-
-        // Update pro button
-        const proButtonContainer = document.getElementById('pro-button-container');
-        if (proButtonContainer) {
-            if (!userRole || userRole === 'free_user') {
-                proButtonContainer.innerHTML = `
-                    <a href="pricing/pricing" class="header-btn pro-btn">
-                        <i class="fas fa-crown"></i>
-                        <span>Free User</span>
-                    </a>`;
-            } else if (userRole === 'pro_user') {
-                proButtonContainer.innerHTML = `
-                    <div class="header-btn pro-btn">
-                        <i class="fas fa-crown"></i>
-                        <span>Pro User</span>
-                    </div>`;
-            } else if (userRole === 'admin') {
-                proButtonContainer.innerHTML = `
-                    <div class="header-btn pro-btn">
-                        <i class="fas fa-crown"></i>
-                        <span>Admin</span>
-                    </div>`;
-            }
-        }
-
-        // Update theme access
-        updateThemeAccess(userRole);
-    }
-
-    // Update pro button based on user role
-    function updateProButton(userRole) {
-        const proButtonContainer = document.getElementById('pro-button-container');
-        if (proButtonContainer) {
-            if (!userRole || userRole === 'free_user') {
-                proButtonContainer.innerHTML = `
-                    <a href="pricing/pricing" class="header-btn pro-btn">
-                        <i class="fas fa-crown"></i>
-                        <span>Free User</span>
-                    </a>`;
-            } else if (userRole === 'pro_user') {
-                proButtonContainer.innerHTML = `
-                    <div class="header-btn pro-btn">
-                        <i class="fas fa-crown"></i>
-                        <span>Pro User</span>
-                    </div>`;
-            } else if (userRole === 'admin') {
-                proButtonContainer.innerHTML = `
-                    <div class="header-btn pro-btn">
-                        <i class="fas fa-crown"></i>
-                        <span>Admin</span>
-                    </div>`;
-            }
-        }
-    }
-
-    // Show coming soon message
-    function showComingSoonMessage() {
-        const userRole = localStorage.getItem('userRole') || 'guest';
-        if (userRole === 'pro_user' || userRole === 'admin') {
-            alert('Welcome Pro User! You\'ll get early access to this feature. We\'ll notify you as soon as it\'s ready!');
-        } else {
-            alert('This feature is coming soon! Upgrade to Pro to get early access when available.');
-        }
-    }
-
-    // Sign out functionality
-    function signOut() {
-        firebase.auth().signOut().then(() => {
-            localStorage.removeItem('userRole');
-            window.location.href = 'index';
-        }).catch((error) => {
-            console.error('Error signing out:', error);
-        });
-    }
-
-    // Dropdown functionality
-    document.querySelectorAll('.dropdown button').forEach(button => {
-        button.addEventListener('click', function() {
-            this.classList.toggle('active');
-        });
-
-        // Remove active class when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!e.target.closest('.dropdown')) {
-                button.classList.remove('active');
-            }
-        });
-    });
-
-    // Firebase auth state observer
-    firebase.auth().onAuthStateChanged((user) => {
-        const avatarContainer = document.getElementById('nav-footer-avatar');
-        const guestContent = document.getElementById('guest-content');
-        const userContent = document.getElementById('user-content');
-        const guestFooterContent = document.getElementById('guest-footer-content');
-        const userFooterContent = document.getElementById('user-footer-content');
-
-        if (user) {
-            // Fetch user data and WCA profile
-            Promise.all([
-                firebase.database().ref('users/' + user.uid).once('value'),
-                firebase.database().ref('wca_profiles/' + user.uid).once('value')
-            ]).then(([userSnapshot, wcaSnapshot]) => {
-                const userData = userSnapshot.val();
-                const wcaData = wcaSnapshot.val();
-
-                if (userData) {
-                    // Show avatar container and update UI
-                    if (avatarContainer) avatarContainer.style.display = 'block';
-                    const userNameElement = document.getElementById('userName');
-                    if (userNameElement) userNameElement.textContent = userData.username || user.email;
-                    if (guestContent) guestContent.style.display = 'none';
-                    if (userContent) userContent.style.display = 'block';
-                    if (guestFooterContent) guestFooterContent.style.display = 'none';
-                    if (userFooterContent) userFooterContent.style.display = 'block';
-
-                    // Update avatar if WCA ID exists
-                    if (wcaData && wcaData.wcaId) {
-                        const avatarUrl = `https://www.worldcubeassociation.org/uploads/user/${wcaData.wcaId}.jpg`;
-                        const avatarImg = document.getElementById('userAvatar');
-                        if (avatarImg) {
-                            avatarImg.src = avatarUrl;
-                            avatarImg.onerror = function() {
-                                this.src = 'img/noprof.png';
-                            };
+        
+        mobileMenuBtn.addEventListener('click', toggleSidebar);
+        sidebarClose.addEventListener('click', toggleSidebar);
+        sidebarOverlay.addEventListener('click', toggleSidebar);
+        
+        // Handle sidebar dropdowns
+        dropdownToggles.forEach(toggle => {
+            toggle.addEventListener('click', (e) => {
+                e.preventDefault();
+                const dropdownId = toggle.getAttribute('data-dropdown');
+                const dropdown = document.getElementById(`${dropdownId}-dropdown`);
+                
+                // Close all other dropdowns
+                document.querySelectorAll('.sidebar-dropdown.active').forEach(d => {
+                    if (d.id !== `${dropdownId}-dropdown`) {
+                        d.classList.remove('active');
+                        // Reset icon rotation for other dropdowns
+                        const otherToggle = document.querySelector(`[data-dropdown="${d.id.replace('-dropdown', '')}"]`);
+                        if (otherToggle) {
+                            const otherIcon = otherToggle.querySelector('.fa-chevron-down');
+                            if (otherIcon) otherIcon.style.transform = 'rotate(0)';
                         }
                     }
-                }
-            }).catch((error) => {
-                console.error('Error fetching user data:', error);
-            });
-
-            // Fetch user role and update UI
-            firebase.database().ref('users/' + user.uid + '/role').once('value')
-                .then((snapshot) => {
-                    const userRole = snapshot.val() || 'free_user';
-                    localStorage.setItem('userRole', userRole);
-                    updateUIForRole(userRole);
-                    updateProButton(userRole);
-                })
-                .catch((error) => {
-                    console.error('Error fetching user role:', error);
                 });
+                
+                // Toggle current dropdown
+                dropdown.classList.toggle('active');
+                
+                // Toggle icon rotation
+                const icon = toggle.querySelector('.fa-chevron-down');
+                if (dropdown.classList.contains('active')) {
+                    icon.style.transform = 'rotate(180deg)';
+                } else {
+                    icon.style.transform = 'rotate(0)';
+                }
+            });
+        });
+
+        // Free Trial Banner - Show once with animation
+        const freeTrialBanner = document.getElementById('freeTrialBanner');
+        const closeBanner = document.getElementById('closeBanner');
+        
+        // Check if banner was already shown
+        const bannerShown = localStorage.getItem('bannerShown');
+        
+        if (!bannerShown) {
+            // Show banner after 2 seconds with animation
+            setTimeout(() => {
+                freeTrialBanner.classList.add('show');
+            }, 2000);
         } else {
-            // Hide avatar container and reset UI for guests
-            if (avatarContainer) avatarContainer.style.display = 'none';
-            if (guestContent) guestContent.style.display = 'block';
-            if (userContent) userContent.style.display = 'none';
-            if (guestFooterContent) guestFooterContent.style.display = 'block';
-            if (userFooterContent) userFooterContent.style.display = 'none';
-
-            // Reset user role
-            localStorage.removeItem('userRole');
-            updateUIForRole('guest');
-            updateProButton(null);
+            // Hide banner if already shown
+            freeTrialBanner.style.display = 'none';
         }
-    });
+        
+        closeBanner.addEventListener('click', () => {
+            freeTrialBanner.classList.remove('show');
+            setTimeout(() => {
+                freeTrialBanner.style.display = 'none';
+            }, 500);
+            // Mark banner as shown
+            localStorage.setItem('bannerShown', 'true');
+        });
 
-    // Listen for avatar updates from profile
-    window.addEventListener('message', function(event) {
-        if (event.data.type === 'avatarUpdate') {
-            const avatarImg = document.getElementById('userAvatar');
-            if (avatarImg) {
-                avatarImg.src = event.data.avatarUrl;
+        // Dropdown functionality with slide animation
+        const dropdowns = document.querySelectorAll('.dropdown');
+        
+        dropdowns.forEach(dropdown => {
+            const toggle = dropdown.querySelector('.dropdown-toggle');
+            const menu = dropdown.querySelector('.dropdown-menu');
+            
+            // Set initial styles for animation
+            menu.style.display = 'block';
+            menu.style.opacity = '0';
+            menu.style.visibility = 'hidden';
+            menu.style.transform = 'translateY(-20px)';
+            menu.style.transition = 'all 0.3s ease';
+            
+            toggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                
+                // Close all other dropdowns
+                dropdowns.forEach(d => {
+                    if (d !== dropdown && d.classList.contains('active')) {
+                        d.classList.remove('active');
+                        const dMenu = d.querySelector('.dropdown-menu');
+                        dMenu.style.opacity = '0';
+                        dMenu.style.visibility = 'hidden';
+                        dMenu.style.transform = 'translateY(-20px)';
+                    }
+                });
+                
+                // Toggle current dropdown
+                dropdown.classList.toggle('active');
+                
+                if (dropdown.classList.contains('active')) {
+                    menu.style.opacity = '1';
+                    menu.style.visibility = 'visible';
+                    menu.style.transform = 'translateY(0)';
+                } else {
+                    menu.style.opacity = '0';
+                    menu.style.visibility = 'hidden';
+                    menu.style.transform = 'translateY(-20px)';
+                }
+            });
+        });
+        
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', () => {
+            dropdowns.forEach(dropdown => {
+                if (dropdown.classList.contains('active')) {
+                    dropdown.classList.remove('active');
+                    const menu = dropdown.querySelector('.dropdown-menu');
+                    menu.style.opacity = '0';
+                    menu.style.visibility = 'hidden';
+                    menu.style.transform = 'translateY(-20px)';
+                }
+            });
+        });
+        
+        // Prevent dropdown menu clicks from closing the dropdown
+        document.querySelectorAll('.dropdown-menu').forEach(menu => {
+            menu.addEventListener('click', (e) => {
+                e.stopPropagation();
+            });
+        });
+
+        // Theme handling
+        document.querySelectorAll('.theme-item').forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const theme = item.dataset.theme;
+                document.documentElement.setAttribute('data-theme', theme);
+                localStorage.setItem('theme', theme);
+            });
+        });
+
+        // Apply saved theme on load
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        document.documentElement.setAttribute('data-theme', savedTheme);
+
+        // Initialize auth state listener
+        firebase.auth().onAuthStateChanged((user) => {
+            if (user) {
+                document.getElementById('guest-content').style.display = 'none';
+                document.getElementById('user-content').style.display = 'block';
+                document.getElementById('sidebar-guest-content').style.display = 'none';
+                document.getElementById('sidebar-user-content').style.display = 'block';
+                
+                // Fetch user data
+                firebase.database().ref('users/' + user.uid).once('value')
+                    .then((snapshot) => {
+                        const userData = snapshot.val();
+                        if (userData) {
+                            document.getElementById('userName').textContent = userData.username;
+                            
+                            // Check for WCA profile
+                            if (userData.wcaId) {
+                                const wcaImageUrl = `https://www.worldcubeassociation.org/uploads/user/${userData.wcaId}.jpg`;
+                                document.getElementById('userAvatar').src = wcaImageUrl;
+                            }
+                        }
+                    });
+            } else {
+                document.getElementById('guest-content').style.display = 'block';
+                document.getElementById('user-content').style.display = 'none';
+                document.getElementById('sidebar-guest-content').style.display = 'block';
+                document.getElementById('sidebar-user-content').style.display = 'none';
             }
-        }
-    });
+        });
 
-    // Navigation functions
-    function navigateToProfile() {
-        const user = firebase.auth().currentUser;
-        if (!user) {
-            alert('Please log in to view your profile');
-            return;
-        }
-        window.location.href = 'profile';
-    }
-
-    function navigateToSettings() {
-        window.location.href = 'settings';
-    }
+        // Add floating animation to some elements
+        document.querySelectorAll('.card-icon').forEach(icon => {
+            icon.classList.add('floating');
+        });

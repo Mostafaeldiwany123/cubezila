@@ -689,7 +689,7 @@ function updateCrossSolution() {
     solutionsList.innerHTML = `
         <div class="loading-animation">
             <div class="spinner"></div>
-            <p>Calculating solutions...</p>
+            <p>Finding solutions...</p>
         </div>`;
 
     // Add slight delay to ensure loading animation shows

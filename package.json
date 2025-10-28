@@ -4,7 +4,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "node fix-html.js && vite build && node minify.js && node remove-html.js "
+    "build": "node fix-html.js && vite build && node minify.js && node remove-html.js ",
+    "dev": "vite"
   },
   "keywords": [],
   "author": "",

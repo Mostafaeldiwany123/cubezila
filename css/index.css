@@ -1,4 +1,4 @@
-        * {
+* {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
@@ -29,8 +29,25 @@
             position: sticky;
             top: 0;
             z-index: 100;
-            padding: 15px 0;
+            height: 70px; /* Match alg-dash header height */
+            padding: 0 8%; /* Match alg-dash header horizontal padding */
+            display: flex;
+            align-items: center;
             animation: slideDown 0.5s ease;
+        }
+
+        @media (max-width: 992px) {
+            header {
+                padding: 0 5%;
+                height: 60px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 0 2%;
+                height: 60px;
+            }
         }
 
         @keyframes slideDown {
@@ -596,7 +613,7 @@
         }
 
         .card:hover {
-            box-shadow: var(--glow-box-shadow);
+             box-shadow: var(--box-shadow);
             transform: translateY(-5px);
         }
 
@@ -884,4 +901,3 @@
             background-color: var(--secondary-text);
             opacity: 0.2;
         }
-  

@@ -76,30 +76,28 @@ function minifyCSSFiles(dir) {
   });
 }
 
-// Minify HTML files (safe config)
-function minifyHTMLFiles(dir) {
+// Remove all comments from HTML files (HTML and JS in <script> tags), but do not minify or collapse whitespace
+function stripCommentsFromHTMLFiles(dir) {
   fs.readdirSync(dir).forEach((file) => {
     const filePath = path.join(dir, file);
     const stats = fs.statSync(filePath);
 
     if (stats.isDirectory()) {
-      minifyHTMLFiles(filePath);
+      stripCommentsFromHTMLFiles(filePath);
     } else if (file.endsWith(".html")) {
-      const code = fs.readFileSync(filePath, "utf8");
-      const minified = htmlMinifier.minify(code, {
-        collapseWhitespace: true,
-        removeComments: true,
-        minifyJS: false, // Don't minify inline JS
-        minifyCSS: false, // Don't minify inline CSS
-        keepClosingSlash: true,
-        removeRedundantAttributes: false,
-        removeOptionalTags: false,
-        removeAttributeQuotes: false,
-        caseSensitive: true,
-        html5: true,
+      let code = fs.readFileSync(filePath, "utf8");
+      // Remove HTML comments
+      code = code.replace(/<!--([\s\S]*?)-->/g, "");
+      // Remove JS comments inside <script> tags
+      code = code.replace(/(<script[^>]*>)([\s\S]*?)(<\/script>)/gi, (match, open, js, close) => {
+        // Remove /* ... */ and // ... comments
+        let cleaned = js
+          .replace(/\/\*[\s\S]*?\*\//g, '') // multi-line
+          .replace(/(^|\n|\r)\s*\/\/.*(?=\n|\r|$)/g, ''); // single-line
+        return open + cleaned + close;
       });
-      fs.writeFileSync(filePath, minified, "utf8");
-      console.log(`Minified HTML: ${filePath}`);
+      fs.writeFileSync(filePath, code, "utf8");
+      console.log(`Stripped comments from HTML: ${filePath}`);
     }
   });
 }
@@ -107,4 +105,4 @@ function minifyHTMLFiles(dir) {
 // Run all minification functions
 minifyJSFiles(directory);
 minifyCSSFiles(directory);
-minifyHTMLFiles(directory);
+stripCommentsFromHTMLFiles(directory);
