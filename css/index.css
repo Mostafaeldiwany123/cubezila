@@ -6,9 +6,9 @@
 }
 
 body {
-    background-color: #0A0A0A;
-    color: #EDEDED;
-    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color); /* Use var */
+    color: var(--text-color); /* Use var */
+    font-family: var(--font-family-body);
     overflow-x: hidden;
     min-height: 100vh;
     display: flex;
@@ -23,7 +23,8 @@ body::before {
     left: 0;
     right: 0;
     height: 50vh;
-    background: radial-gradient(ellipse at top, rgba(142, 68, 173, 0.2), transparent 70%);
+    /* Using a subtle color from the dark theme for the radial gradient */
+    background: radial-gradient(ellipse at top, rgba(78, 115, 223, 0.2), transparent 70%); /* Based on --primary-color in dark theme */
     z-index: -2;
     opacity: 0.5;
     pointer-events: none;
@@ -36,6 +37,7 @@ body::after {
     left: 0;
     right: 0;
     bottom: 0;
+    /* Subtle grid pattern using a dark border color */
     background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23222' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
     z-index: -1;
     opacity: 0.1;
@@ -59,9 +61,9 @@ header {
     padding: 0 4%;
     display: flex;
     align-items: center;
-    background: rgba(10, 10, 10, 0.5);
+    background: rgba(29, 31, 39, 0.5); /* Using a transparent version of --container-bg (dark theme) */
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid #222;
+    border-bottom: 1px solid var(--border-color); /* Use var */
     animation: slideDown 0.5s ease-out;
 }
 
@@ -82,13 +84,13 @@ header {
     align-items: center;
     gap: 10px;
     text-decoration: none;
-    color: #EDEDED;
+    color: var(--text-color); /* Use var */
     font-weight: 600;
     font-size: 20px;
 }
 
 .logo i {
-    color: #9F54FF;
+    color: var(--primary-color); /* Use var */
     font-size: 24px;
 }
 
@@ -105,7 +107,7 @@ header nav {
 }
 
 .nav-links a {
-    color: #aaa;
+    color: var(--text-light); /* Use var */
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
@@ -113,7 +115,7 @@ header nav {
 }
 
 .nav-links a:hover {
-    color: #fff;
+    color: var(--text-color); /* Use var */
 }
 
 .auth-buttons {
@@ -139,34 +141,34 @@ header nav {
 }
 
 .btn {
-    background-color: #fff;
-    color: #0A0A0A;
+    background-color: var(--button-color); /* Use var (White/Light in dark theme) */
+    color: var(--background-color); /* Dark text on light button */
 }
 
 .btn:hover {
-    background-color: #ccc;
+    background-color: var(--hover-bg); /* Use var */
 }
 
 .btn-secondary {
-    background-color: rgba(255, 255, 255, 0.05);
-    color: #fff;
-    border: 1px solid #444;
+    background-color: var(--highlight-bg); /* Use var */
+    color: var(--text-color); /* Use var */
+    border: 1px solid var(--border-color); /* Use var */
 }
 
 .btn-secondary:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-color: #555;
+    background-color: var(--hover-bg); /* Use var */
+    border-color: var(--primary-color); /* Use var */
 }
 
 .btn-large {
     padding: 15px 30px;
     font-size: 1.1rem;
-    background: #fff;
-    color: #0A0A0A;
+    background: var(--button-color); /* Use var */
+    color: var(--background-color); /* Dark text on light button */
 }
 
 .btn-large:hover {
-    background: #ccc;
+    background: var(--hover-bg); /* Use var */
 }
 
 /* Main Content */
@@ -197,14 +199,14 @@ main {
     gap: 8px;
     padding: 6px 12px;
     border-radius: 20px;
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid #333;
+    background: var(--highlight-bg); /* Use var */
+    border: 1px solid var(--border-color); /* Use var */
     font-size: 13px;
-    color: #ccc;
+    color: var(--secondary-text); /* Use var */
 }
 
 .hero-badge i {
-    color: #2ECC71;
+    color: #2ECC71; /* Keep green for success/check */
 }
 
 .hero-title {
@@ -213,11 +215,12 @@ main {
     line-height: 1.1;
     max-width: 800px;
     letter-spacing: -1.5px;
+    color: var(--text-color); /* Use var */
 }
 
 .hero-description {
     font-size: 1.1rem;
-    color: #aaa;
+    color: var(--text-light); /* Use var */
     max-width: 550px;
     line-height: 1.6;
 }
@@ -233,7 +236,7 @@ main {
     align-items: center;
     gap: 10px;
     font-size: 13px;
-    color: #888;
+    color: var(--secondary-text); /* Use var */
     margin-top: 10px;
 }
 
@@ -245,7 +248,7 @@ main {
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    border: 2px solid #0A0A0A;
+    border: 2px solid var(--background-color); /* Use var */
     margin-left: -8px;
 }
 
@@ -264,11 +267,12 @@ main {
     font-weight: 600;
     margin-bottom: 15px;
     letter-spacing: -1px;
+    color: var(--text-color); /* Use var */
 }
 
 .section-subtitle {
     text-align: center;
-    color: #aaa;
+    color: var(--text-light); /* Use var */
     max-width: 500px;
     margin: 0 auto 50px auto;
 }
@@ -282,31 +286,32 @@ main {
 }
 
 .feature-card {
-    background: #111;
+    background: var(--container-bg); /* Use var */
     padding: 30px;
     border-radius: 12px;
-    border: 1px solid #222;
-    transition: all 0.3s ease;
+    border: 1px solid var(--border-color); /* Use var */
+    transition: var(--transition-smooth);
 }
 
 .feature-card:hover {
     transform: translateY(-5px);
-    border-color: #9F54FF;
+    border-color: var(--primary-color); /* Use var */
 }
 
 .feature-icon {
     font-size: 24px;
-    color: #9F54FF;
+    color: var(--primary-color); /* Use var */
     margin-bottom: 15px;
 }
 
 .feature-card h3 {
     font-size: 1.2rem;
     margin-bottom: 10px;
+    color: var(--text-color); /* Use var */
 }
 
 .feature-card p {
-    color: #aaa;
+    color: var(--text-light); /* Use var */
     line-height: 1.6;
 }
 
@@ -328,8 +333,8 @@ main {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: 2px solid #9F54FF;
-    color: #9F54FF;
+    border: 2px solid var(--primary-color); /* Use var */
+    color: var(--primary-color); /* Use var */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -340,15 +345,16 @@ main {
 .step h3 {
     font-size: 1.2rem;
     margin-bottom: 10px;
+    color: var(--text-color); /* Use var */
 }
 
 .step p {
-    color: #aaa;
+    color: var(--text-light); /* Use var */
 }
 
 .step-arrow {
     font-size: 1.5rem;
-    color: #444;
+    color: var(--border-color); /* Use var */
     margin-top: 50px;
 }
 
@@ -361,15 +367,15 @@ main {
 }
 
 .testimonial-card {
-    background: #111;
+    background: var(--container-bg); /* Use var */
     padding: 30px;
     border-radius: 12px;
-    border: 1px solid #222;
+    border: 1px solid var(--border-color); /* Use var */
 }
 
 .testimonial-card p {
     font-style: italic;
-    color: #ccc;
+    color: var(--secondary-text); /* Use var */
     margin-bottom: 20px;
 }
 
@@ -387,7 +393,7 @@ main {
 
 .testimonial-author span {
     font-weight: 500;
-    color: #aaa;
+    color: var(--text-light); /* Use var */
 }
 
 /* CTA Section */
@@ -396,7 +402,8 @@ main {
 }
 
 .cta-content {
-    background: linear-gradient(45deg, #8E44AD, #5B32B4);
+    /* Use primary gradient for CTA */
+    background: var(--gradient-primary); 
     padding: 50px;
     border-radius: 15px;
     text-align: center;
@@ -405,18 +412,19 @@ main {
 .cta-content h2 {
     font-size: 2.2rem;
     margin-bottom: 15px;
+    color: #fff; /* Ensure text is white on gradient */
 }
 
 .cta-content p {
-    color: #eee;
+    color: var(--secondary-text); /* Use a lighter text color for contrast */
     margin-bottom: 30px;
 }
 
 /* Footer */
 footer {
     padding: 30px 0;
-    background: #0A0A0A;
-    border-top: 1px solid #222;
+    background: var(--background-color); /* Use var */
+    border-top: 1px solid var(--border-color); /* Use var */
 }
 
 .footer-container {
@@ -426,18 +434,18 @@ footer {
 }
 
 .copyright {
-    color: #888;
+    color: var(--secondary-text); /* Use var */
     font-size: 14px;
 }
 
 .footer-links a, .social-links a {
-    color: #888;
+    color: var(--secondary-text); /* Use var */
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
 .footer-links a:hover, .social-links a:hover {
-    color: #fff;
+    color: var(--text-color); /* Use var */
 }
 
 .footer-links {
@@ -480,20 +488,101 @@ footer {
 }
 
 /* Mobile Sidebar and Dropdown styles */
-.mobile-menu-btn { display: none; background: none; border: none; color: #fff; font-size: 24px; cursor: pointer; }
-.mobile-sidebar { position: fixed; top: 0; left: -300px; width: 300px; height: 100%; background: #111; z-index: 105; transition: left 0.3s ease; padding: 20px; }
+.mobile-menu-btn { 
+    display: none; 
+    background: none; 
+    border: none; 
+    color: var(--text-color); /* Use var */
+    font-size: 24px; 
+    cursor: pointer; 
+}
+.mobile-sidebar { 
+    position: fixed; 
+    top: 0; 
+    left: -300px; 
+    width: 300px; 
+    height: 100%; 
+    background: var(--container-bg); /* Use var */
+    z-index: 105; 
+    transition: left 0.3s ease; 
+    padding: 20px; 
+}
 .mobile-sidebar.active { left: 0; }
-.sidebar-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 104; opacity: 0; visibility: hidden; transition: opacity 0.3s ease; }
+.sidebar-overlay { 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%; 
+    background: rgba(0,0,0,0.5); 
+    z-index: 104; 
+    opacity: 0; 
+    visibility: hidden; 
+    transition: opacity 0.3s ease; 
+}
 .sidebar-overlay.active { opacity: 1; visibility: visible; }
-.sidebar-header { display: flex; justify-content: space-between; align-items: center; padding-bottom: 15px; border-bottom: 1px solid #333; }
-.sidebar-logo { color: #fff; text-decoration: none; font-size: 18px; font-weight: 600; display: flex; align-items: center; gap: 8px; }
-.sidebar-close { background: none; border: none; color: #fff; font-size: 20px; cursor: pointer; }
+.sidebar-header { 
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
+    padding-bottom: 15px; 
+    border-bottom: 1px solid var(--border-color); /* Use var */
+}
+.sidebar-logo { 
+    color: var(--text-color); /* Use var */
+    text-decoration: none; 
+    font-size: 18px; 
+    font-weight: 600; 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+}
+.sidebar-close { 
+    background: none; 
+    border: none; 
+    color: var(--text-color); /* Use var */
+    font-size: 20px; 
+    cursor: pointer; 
+}
 .sidebar-nav { list-style: none; margin-top: 20px; }
-.sidebar-link { display: block; padding: 12px 0; color: #aaa; text-decoration: none; transition: color 0.3s ease; display: flex; align-items: center; gap: 12px; }
-.sidebar-link:hover { color: #fff; }
-.sidebar-divider { height: 1px; background: #333; margin: 20px 0; }
-.dropdown-menu { position: absolute; top: calc(100% + 10px); right: 0; background: #111; border: 1px solid #333; border-radius: 8px; padding: 5px; min-width: 180px; opacity: 0; visibility: hidden; transform: translateY(10px); transition: all 0.3s ease; }
+.sidebar-link { 
+    display: block; 
+    padding: 12px 0; 
+    color: var(--secondary-text); /* Use var */
+    text-decoration: none; 
+    transition: color 0.3s ease; 
+    display: flex; 
+    align-items: center; 
+    gap: 12px; 
+}
+.sidebar-link:hover { color: var(--text-color); }
+.sidebar-divider { height: 1px; background: var(--border-color); margin: 20px 0; }
+.dropdown-menu { 
+    position: absolute; 
+    top: calc(100% + 10px); 
+    right: 0; 
+    background: var(--container-bg); /* Use var */
+    border: 1px solid var(--border-color); /* Use var */
+    border-radius: 8px; 
+    padding: 5px; 
+    min-width: 180px; 
+    opacity: 0; 
+    visibility: hidden; 
+    transform: translateY(10px); 
+    transition: all 0.3s ease; 
+}
 .dropdown.active .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
-.dropdown-item { display: flex; align-items: center; gap: 10px; padding: 8px 12px; color: #aaa; text-decoration: none; border-radius: 5px; }
-.dropdown-item:hover { background: #222; color: #fff; }
+.dropdown-item { 
+    display: flex; 
+    align-items: center; 
+    gap: 10px; 
+    padding: 8px 12px; 
+    color: var(--secondary-text); /* Use var */
+    text-decoration: none; 
+    border-radius: 5px; 
+}
+.dropdown-item:hover { 
+    background: var(--highlight-bg); /* Use var */
+    color: var(--text-color); /* Use var */
+}
 .dropdown-toggle { cursor: pointer; display: flex; align-items: center; }
