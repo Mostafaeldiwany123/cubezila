@@ -32,7 +32,6 @@ header {
 
 .header-container {
     display: flex;
-    justify-content: space-between;
     align-items: center;
     width: 100%;
 }
@@ -53,13 +52,11 @@ header {
 }
 
 header .breadcrumb {
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
     display: flex;
     align-items: center;
     gap: 8px;
     font-size: 1rem;
+    margin: 0 auto; /* This centers the breadcrumb and pushes other elements to the sides */
 }
 
 header .breadcrumb a,
@@ -80,6 +77,7 @@ header .breadcrumb a:hover {
     display: flex;
     align-items: center;
     gap: 10px;
+    margin-left: auto; /* Ensure it stays to the right */
 }
 
 /* Buttons */
