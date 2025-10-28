@@ -59,26 +59,31 @@
                 <div class="progress-label">0/6</div>
             </div>
             
-            <div class="cube-box" onclick="window.location.href='../2x2/ortcll.html'">
+            <div class="cube-box locked" onclick="handleLockedAlgClick(event, '../2x2/ortcll.html', 'CLL')">
                 <img src="../../img/2x2.png" alt="CLL">
                 <h2>CLL</h2>
                 <div class="progress-label">0/40</div>
+                <i class="fas fa-lock lock-icon"></i>
             </div>
             
-            <div class="cube-box" onclick="window.location.href='../2x2/eg1.html'">
+            <div class="cube-box locked" onclick="handleLockedAlgClick(event, '../2x2/eg1.html', 'EG-1')">
                 <img src="../../img/eg1.png" alt="EG-1">
                 <h2>EG-1</h2>
                 <div class="progress-label">0/42</div>
+                <i class="fas fa-lock lock-icon"></i>
             </div>
             
-            <div class="cube-box" onclick="window.location.href='../2x2/eg2.html'">
+            <div class="cube-box locked" onclick="handleLockedAlgClick(event, '../2x2/eg2.html', 'EG-2')">
                 <img src="../../img/eg2.png" alt="EG-2">
                 <h2>EG-2</h2>
                 <div class="progress-label">0/42</div>
+                <i class="fas fa-lock lock-icon"></i>
             </div>
         </div>
     </main>
 
+    <script type="module" src="../../js/auth-service.js"></script>
+    <script type="module" src="../common/alg-access.js"></script>
     <script>
         function getLearnedCount(storage) {
             const statuses = storage.getCaseStatuses();

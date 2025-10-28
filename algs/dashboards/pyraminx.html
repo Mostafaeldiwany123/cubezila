@@ -47,10 +47,11 @@
     </header>
     <main>
         <div class="container">
-            <div class="cube-box" onclick="window.location.href='../pyraminx/L4E.html'">
+            <div class="cube-box locked" onclick="handleLockedAlgClick(event, '../pyraminx/L4E.html', 'L4E')">
                 <img src="../../img/L4E.png" alt="L4E">
                 <h2>L4E</h2>
                 <div class="progress-label">0/12</div>
+                <i class="fas fa-lock lock-icon"></i>
             </div>
             
             <div class="cube-box" onclick="window.location.href='../pyraminx/L3E.html'">
@@ -61,6 +62,8 @@
         </div>
     </main>
 
+    <script type="module" src="../../js/auth-service.js"></script>
+    <script type="module" src="../common/alg-access.js"></script>
     <script>
         function getLearnedCount(storage) {
             const statuses = storage.getCaseStatuses();
