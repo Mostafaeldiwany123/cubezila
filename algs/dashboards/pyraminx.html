@@ -11,6 +11,26 @@
     <link rel="stylesheet" href="https://cdn.cubing.net/v0/css/@cubing/icons/css">
     <link rel="stylesheet" href="../../css/alg-dash.css">
     <script src="../../storage.js"></script>
+    <!-- Anti-flash script -->
+    <script>
+        try {
+            if (localStorage.getItem('user_profile')) {
+                document.write('<style>#guest-content, #sidebar-guest-content { display: none !important; } #user-content { display: flex !important; } #sidebar-user-content { display: block !important; }</style>');
+            }
+        } catch (e) {}
+        // Instantly update profile info to prevent image/name flash
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                const profile = JSON.parse(localStorage.getItem('user_profile'));
+                if (profile) {
+                    const userAvatar = document.getElementById('userAvatar');
+                    const userName = document.getElementById('userName');
+                    if (userAvatar) userAvatar.src = profile.avatarUrl || '/img/noprof.png';
+                    if (userName) userName.textContent = profile.username || 'User';
+                }
+            } catch (e) {}
+        });
+    </script>
     <style>
         .progress-label {
             position: absolute;
