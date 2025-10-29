@@ -9,8 +9,8 @@ let authCheckCompleted = false;
 let messageInterval;
 
 const loadingMessages = [
-    "Checking access...",
     "Loading images...",
+    "Loading icons...",
     "Loading algorithms..."
 ];
 
