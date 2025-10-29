@@ -52,7 +52,7 @@ header {
     padding: 0 4%;
     display: flex;
     align-items: center;
-    background: rgba(29, 31, 39, 0.5); /* Using a transparent version of --container-bg (dark theme) */
+    background: var(--header-bg); /* Using a transparent version of --container-bg (dark theme) */
     backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--border-color); /* Use var */
     animation: slideDown 0.5s ease-out;
