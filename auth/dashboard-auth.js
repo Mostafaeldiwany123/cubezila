@@ -27,7 +27,6 @@ function isProUser() {
 }
 
 function applyProLocks() {
-    const contentWrapper = document.querySelector('.content-wrapper');
     const cubeBoxes = document.querySelectorAll('.cube-box');
 
     cubeBoxes.forEach(box => {
@@ -82,11 +81,6 @@ function applyProLocks() {
             }
         }
     });
-
-    // Finally, make the content visible after all locks are applied
-    if (contentWrapper) {
-        contentWrapper.classList.add('visible');
-    }
 }
 
 function handleProClick(event) {
