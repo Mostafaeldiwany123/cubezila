@@ -107,6 +107,7 @@ export const translations = {
         cube3x3Title: "3x3",
         cube2x2Title: "2x2",
         pyraminxTitle: "Pyraminx",
+        pyraminx_last_layer_title: "Last Layer",
     },
     ar: {
         nav_features: "الميزات",
@@ -216,5 +217,6 @@ export const translations = {
         cube3x3Title: "٣×٣",
         cube2x2Title: "٢×٢",
         pyraminxTitle: "بيرامينكس",
+        pyraminx_last_layer_title: "الطبقة الأخيرة",
     }
 };
