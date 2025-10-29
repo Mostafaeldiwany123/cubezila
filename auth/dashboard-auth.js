@@ -11,26 +11,6 @@ const PRICING_PAGE = '../../pricing.html';
 
 let currentUserRole = null;
 
-function showLoading() {
-    const overlay = document.getElementById('loading-overlay');
-    if (overlay) {
-        overlay.classList.remove('hidden');
-    }
-}
-
-function hideLoading() {
-    const overlay = document.getElementById('loading-overlay');
-    if (overlay) {
-        overlay.classList.add('hidden');
-        // Remove overlay after transition
-        setTimeout(() => {
-            if (overlay.parentNode) {
-                overlay.parentNode.removeChild(overlay);
-            }
-        }, 500);
-    }
-}
-
 // 1. Listen for auth state changes to determine user role
 onAuthStateChange((user) => {
     if (user && user.profile) {
@@ -107,9 +87,6 @@ function applyProLocks() {
     if (contentWrapper) {
         contentWrapper.classList.add('visible');
     }
-    
-    // Hide loading overlay once content is ready
-    hideLoading();
 }
 
 function handleProClick(event) {
@@ -163,6 +140,3 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
-
-// Start the check immediately and show loading
-document.addEventListener('DOMContentLoaded', showLoading);
