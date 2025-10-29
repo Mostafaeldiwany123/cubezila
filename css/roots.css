@@ -719,16 +719,9 @@ html, body {
     background-color: var(--background-color);
 }
      /* Apply Zain font only to Arabic text when Arabic language is active */
-     body.ar [data-translate] {
+     body.ar [data-translate]:not(i):not(.fas):not(.fab) {
         font-family: 'Zain', sans-serif !important;
     }
-    /* Exclude icons from the Zain font application */
-    body.ar [data-translate] i,
-    body.ar [data-translate] .fas,
-    body.ar [data-translate] .fab {
-        font-family: 'Font Awesome 6 Free', 'Font Awesome 6 Brands', sans-serif !important;
-    }
-
 
 /* Notification system */
 .notification {
