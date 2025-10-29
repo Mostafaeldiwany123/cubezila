@@ -45,3 +45,27 @@ export async function getUserProfile(uid) {
 export async function updateUserProfile(uid, updates) {
   await usersCollection.doc(uid).update(updates);
 }
+
+/**
+ * Fetches all user profiles from Firestore.
+ * Requires Firestore rules that allow admins to read the users collection.
+ * @returns {Promise<Array<object>>} Array of user profile data with their UIDs.
+ */
+export async function getAllUsers() {
+  const snapshot = await usersCollection.get();
+  const users = [];
+  snapshot.forEach(doc => {
+    users.push({ uid: doc.id, ...doc.data() });
+  });
+  return users;
+}
+
+/**
+ * Deletes a user's profile from Firestore.
+ * NOTE: This does NOT delete the user from Firebase Authentication.
+ * That requires the Admin SDK, typically in a backend environment.
+ * @param {string} uid - User ID to delete.
+ */
+export async function deleteUserProfile(uid) {
+  await usersCollection.doc(uid).delete();
+}

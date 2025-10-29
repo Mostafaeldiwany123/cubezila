@@ -17,6 +17,7 @@ export default defineConfig({
       name: "copy-static-files",
       closeBundle: async () => {
         await fs.copy("algs", "dist/algs");
+        await fs.copy("admin", "dist/admin");
         await fs.copy("audio", "dist/audio");
         await fs.copy("auth", "dist/auth");
         await fs.copy("bg", "dist/bg");

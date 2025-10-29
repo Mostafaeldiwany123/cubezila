@@ -126,6 +126,34 @@ function updateUIForAuthState(user) {
         };
         localStorage.setItem('user_profile', JSON.stringify(profileData));
     }
+
+    // Add Admin/Subadmin Dashboard link
+    const userDropdownMenu = document.querySelector('#user-content .dropdown-menu');
+    if (userDropdownMenu) {
+        // Remove existing admin links to prevent duplicates
+        userDropdownMenu.querySelector('.admin-link')?.remove();
+        userDropdownMenu.querySelector('.subadmin-link')?.remove();
+
+        const profileLink = userDropdownMenu.querySelector('a[href="profile/profile.html"]');
+
+        if (user.profile.role === 'admin') {
+            const adminLink = document.createElement('a');
+            adminLink.href = 'admin/dashboard.html';
+            adminLink.className = 'dropdown-item admin-link';
+            adminLink.innerHTML = '<i class="fas fa-user-shield"></i> Admin Dashboard';
+            if (profileLink) {
+                profileLink.insertAdjacentElement('afterend', adminLink);
+            }
+        } else if (user.profile.role === 'subadmin') {
+            const subadminLink = document.createElement('a');
+            subadminLink.href = 'admin/dashboard.html'; // Both can point to the same dashboard for now
+            subadminLink.className = 'dropdown-item subadmin-link';
+            subadminLink.innerHTML = '<i class="fas fa-user-cog"></i> Subadmin Dashboard';
+            if (profileLink) {
+                profileLink.insertAdjacentElement('afterend', subadminLink);
+            }
+        }
+    }
   } else {
     // User is signed out
     if (guestContent) guestContent.style.display = 'flex'; // Use flex
