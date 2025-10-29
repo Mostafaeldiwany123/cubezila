@@ -54,7 +54,7 @@ header {
     align-items: center;
     background: var(--header-bg); /* Using a transparent version of --container-bg (dark theme) */
     backdrop-filter: blur(10px);
-    border-bottom: 1px solid var(--border-color); /* Use var */
+    border-bottom: 2px solid var(--border-color); /* Use var */
     animation: slideDown 0.5s ease-out;
 }
 
