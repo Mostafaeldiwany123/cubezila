@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Go Pro - Cubezila</title>
+    <link rel="icon" type="image/png" href="/img/demo (2).png">
+    <script src="/bg/theme.js"></script>
+    <link rel="stylesheet" href="/css/roots.css">
+    <link rel="stylesheet" href="/css/pricing.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="pricing-layout">
+        <div class="pricing-content-container">
+            <div class="pricing-wrapper">
+                <a href="/index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+                <div class="pricing-header">
+                    <h1>Unlock Your Full Potential</h1>
+                    <p>This algorithm set is a pro feature. Choose a plan to take your cubing to the next level.</p>
+                </div>
+                <div class="pricing-cards">
+                    <div class="pricing-card">
+                        <div class="card-header">
+                            <h3>Free</h3>
+                            <div class="price">$0<span>/month</span></div>
+                            <p class="card-description">Get started with the essential tools to track your solves and learn basic algorithms.</p>
+                        </div>
+                        <ul class="features">
+                            <li class="feature"><i class="fas fa-check"></i> Unlimited solve tracking</li>
+                            <li class="feature"><i class="fas fa-check"></i> Basic statistics</li>
+                            <li class="feature"><i class="fas fa-check"></i> Access to beginner alg sets</li>
+                            <li class="feature disabled"><i class="fas fa-times"></i> Advanced algorithm sets</li>
+                            <li class="feature disabled"><i class="fas fa-times"></i> Pro timer features</li>
+                            <li class="feature disabled"><i class="fas fa-times"></i> Premium themes</li>
+                        </ul>
+                        <a href="/auth/register.html" class="select-plan free-btn">Get Started</a>
+                    </div>
+                    <div class="pricing-card pro">
+                        <div class="popular-tag">Most Popular</div>
+                        <div class="card-header">
+                            <h3>Pro</h3>
+                            <div class="price">$5<span>/month</span></div>
+                            <p class="card-description">Unlock all features, including advanced algorithms, pro timer tools, and premium themes.</p>
+                        </div>
+                        <ul class="features">
+                            <li class="feature"><i class="fas fa-check"></i> Everything in Free, plus:</li>
+                            <li class="feature"><i class="fas fa-check"></i> Full access to all algorithm sets</li>
+                            <li class="feature"><i class="fas fa-check"></i> Pro timer with inspection & multi-phase</li>
+                            <li class="feature"><i class="fas fa-check"></i> Exclusive themes and sounds</li>
+                            <li class="feature"><i class="fas fa-check"></i> In-depth performance analytics</li>
+                            <li class="feature"><i class="fas fa-check"></i> Priority support</li>
+                        </ul>
+                        <button class="select-plan pro-btn" id="upgradeToPro">Upgrade to Pro</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById('upgradeToPro').addEventListener('click', () => {
+            alert('Pro subscriptions are coming soon! Stay tuned.');
+        });
+    </script>
+</body>
+</html>
