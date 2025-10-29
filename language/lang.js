@@ -101,6 +101,12 @@ export const translations = {
         pricing_modal_step3: "Enjoy instant access to all Pro features!",
         pricing_modal_confirm: "Go to Checkout",
         pricing_modal_cancel: "Maybe Later",
+        
+        // Algorithm Dashboard
+        alg_dash_title: "Algorithms",
+        cube3x3Title: "3x3",
+        cube2x2Title: "2x2",
+        pyraminxTitle: "Pyraminx",
     },
     ar: {
         nav_features: "الميزات",
@@ -204,5 +210,11 @@ export const translations = {
         pricing_modal_step3: "استمتع بالوصول الفوري إلى جميع ميزات Pro!",
         pricing_modal_confirm: "الانتقال إلى الدفع",
         pricing_modal_cancel: "ربما لاحقًا",
+
+        // Algorithm Dashboard
+        alg_dash_title: "الخوارزميات",
+        cube3x3Title: "3x3",
+        cube2x2Title: "2x2",
+        pyraminxTitle: "بيرامينكس",
     }
 };
