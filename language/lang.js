@@ -45,19 +45,6 @@ export const translations = {
         cta_final_button: "Start Your Free Account",
         footer_copyright: "© 2025 CubeZila. All rights reserved.",
         lang_toggle: "AR", // Display AR text when currently in English
-        
-        // New Algorithm Dashboard Keys
-        alg_dash_title: "Algorithm Dashboards",
-        alg_dash_home: "Home",
-        alg_dash_algorithms: "Algorithms",
-        alg_dash_3x3: "3x3",
-        alg_dash_2x2: "2x2",
-        alg_dash_4x4: "4x4",
-        alg_dash_pyraminx: "Pyraminx",
-        alg_dash_skewb: "Skewb",
-        alg_dash_megaminx: "Megaminx",
-        alg_dash_square1: "Square-1",
-        alg_dash_clock: "Clock",
     },
     ar: {
         nav_features: "الميزات",
@@ -105,18 +92,5 @@ export const translations = {
         cta_final_button: "ابدأ حسابك المجاني",
         footer_copyright: "© 2025 كيوبزيلا. جميع الحقوق محفوظة.",
         lang_toggle: "EN", // Display EN text when currently in Arabic
-
-        // New Algorithm Dashboard Keys
-        alg_dash_title: "لوحات خوارزميات",
-        alg_dash_home: "الرئيسية",
-        alg_dash_algorithms: "الخوارزميات",
-        alg_dash_3x3: "3x3",
-        alg_dash_2x2: "2x2",
-        alg_dash_4x4: "4x4",
-        alg_dash_pyraminx: "بيرامينكس",
-        alg_dash_skewb: "سكيوب",
-        alg_dash_megaminx: "ميغامينكس",
-        alg_dash_square1: "سكوير-1",
-        alg_dash_clock: "كلوك",
     }
 };

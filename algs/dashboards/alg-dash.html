@@ -3,16 +3,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-translate="alg_dash_title">Algorithm Dashboards</title>
-    <link rel="icon" type="image/png" href="/img/demo (2).png">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>alg-dash</title>
+    <link rel="icon" type="image/png" href="../../img/demo (2).png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Cubing Icons -->
-    <link rel="stylesheet" href="https://cdn.cubing.net/v0/css/@cubing/icons/css">
-    <!-- Link to roots.css and alg-dash.css -->
     <link rel="stylesheet" href="../../css/roots.css">
+    <link rel="stylesheet" href="https://cdn.cubing.net/v0/css/@cubing/icons/css">
     <link rel="stylesheet" href="../../css/alg-dash.css">
+    <script src="../../bg/theme.js"></script>
+    <!-- Anti-flash script -->
+    <script>
+        try {
+            if (localStorage.getItem('user_profile')) {
+                document.write('<style>#guest-content, #sidebar-guest-content { display: none !important; } #user-content { display: flex !important; } #sidebar-user-content { display: block !important; }</style>');
+            }
+        } catch (e) {}
+        // Instantly update profile info to prevent image/name flash
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                const profile = JSON.parse(localStorage.getItem('user_profile'));
+                if (profile) {
+                    const userAvatar = document.getElementById('userAvatar');
+                    const userName = document.getElementById('userName');
+                    if (userAvatar) userAvatar.src = profile.avatarUrl || '/img/noprof.png';
+                    if (userName) userName.textContent = profile.username || 'User';
+                }
+            } catch (e) {}
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <div class="header-container container" style="justify-content: flex-start;">
+            <div class="breadcrumb">
+                <a href="../../index.html"><i class="fas fa-home"></i></a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Algorithms</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="mobile-sidebar" id="mobileSidebar">
+        <div class="sidebar-header">
+            <a href="../../index.html" class="sidebar-logo"><i class="cubing-icon event-333"></i><span>CubeZila</span></a>
+            <button class="sidebar-close" id="sidebarClose"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="sidebar-divider"></div>
+        <div id="sidebar-guest-content" style="display: block;">
+            <ul class="sidebar-nav">
+                <li class="sidebar-nav-item"><a href="../../auth/login.html" class="sidebar-link"><i class="fas fa-sign-in-alt"></i><span>Login</span></a></li>
+                <li class="sidebar-nav-item"><a href="../../auth/register.html" class="sidebar-link"><i class="fas fa-user-plus"></i><span>Sign up</span></a></li>
+            </ul>
+        </div>
+        <div id="sidebar-user-content" style="display: none;">
+            <ul class="sidebar-nav">
+                <li class="sidebar-nav-item"><a href="../../profile/profile.html" class="sidebar-link"><i class="fas fa-user"></i><span>Profile</span></a></li>
+                <li class="sidebar-nav-item"><a href="#" class="sidebar-link" onclick="logout(); return false;"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
     
+    <main>
+        <div class="cube-grid-container">
+            <div class="cube-box" onclick="window.location.href='3x3.html'">
+                <img src="../../img/3x3.png" alt="3x3 Rubik's Cube">
+                <h2 data-translate="cube3x3Title">3x3</h2>
+            </div>
+            <div class="cube-box" onclick="window.location.href='2x2.html'">
+                <img src="../../img/2x2.png" alt="2x2 Rubik's Cube">
+                <h2 data-translate="cube2x2Title">2x2</h2>
+            </div>
+            <div class="cube-box" onclick="window.location.href='pyraminx.html'">
+                <img src="../../img/Pyraminx.png" alt="Pyraminx Cube">
+                <h2 data-translate="pyraminxTitle">Pyraminx</h2>
+            </div>
+        </div>
+    </main>
+
+    <script src="../../language/language.js" defer></script>
     <!-- Firebase SDKs -->
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
@@ -23,168 +91,8 @@
     <script type="module" src="../../js/user-service.js"></script>
     <script type="module" src="../../js/auth-service.js"></script>
     <script type="module" src="../../auth/auth.js"></script>
-    <script src="../../bg/theme.js"></script>
-    <script type="module" src="../../language/language.js"></script>
-</head>
-<body>
-    <!-- Header -->
-    <header>
-        <div class="header-container container">
-            <a href="../../index.html" class="logo">
-                <i class="cubing-icon event-333"></i>
-                <span>CubeZila</span>
-            </a>
-            <div class="breadcrumb">
-                <a href="../../index.html" data-translate="alg_dash_home">Home</a>
-                <i class="fas fa-chevron-right"></i>
-                <span data-translate="alg_dash_algorithms">Algorithms</span>
-            </div>
-            <div class="auth-buttons">
-                <!-- Language Toggle Button -->
-                <button class="dropdown-toggle theme-toggle" id="languageToggleBtn" onclick="toggleLanguage()">
-                    <!-- Text content set by JS -->
-                </button>
-                <!-- Theme Dropdown -->
-                <div class="theme-dropdown dropdown">
-                    <button class="dropdown-toggle theme-toggle" aria-label="Select Theme">
-                        <i class="fas fa-palette"></i>
-                    </button>
-                    <div class="dropdown-menu theme-menu">
-                        <a href="#" class="dropdown-item theme-item" onclick="setTheme('light'); return false;">
-                            <span class="theme-color-swatch" style="background: #f8f9fc;"></span> Light
-                        </a>
-                        <a href="#" class="dropdown-item theme-item" onclick="setTheme('dark'); return false;">
-                            <span class="theme-color-swatch" style="background: #181a20; border: 1px solid #232A3A;"></span> Dark
-                        </a>
-                        <a href="#" class="dropdown-item theme-item" onclick="setTheme('neon'); return false;">
-                            <span class="theme-color-swatch" style="background: #0f0f0f; border: 1px solid #39ff14;"></span> Neon
-                        </a>
-                        <a href="#" class="dropdown-item theme-item" onclick="setTheme('blue'); return false;">
-                            <span class="theme-color-swatch" style="background: #001f3f;"></span> Blue
-                        </a>
-                        <a href="#" class="dropdown-item theme-item" onclick="setTheme('green'); return false;">
-                            <span class="theme-color-swatch" style="background: #0f3d0f;"></span> Green
-                        </a>
-                        <a href="#" class="dropdown-item theme-item" onclick="setTheme('red'); return false;">
-                            <span class="theme-color-swatch" style="background: #3f0f0f;"></span> Red
-                        </a>
-                        <a href="#" class="dropdown-item theme-item" onclick="setTheme('golden'); return false;">
-                            <span class="theme-color-swatch" style="background: #2C1810;"></span> Golden
-                        </a>
-                        <a href="#" class="dropdown-item theme-item" onclick="setTheme('kids'); return false;">
-                            <span class="theme-color-swatch" style="background: #FFE5F1;"></span> Kids
-                        </a>
-                        <a href="#" class="dropdown-item theme-item" onclick="setTheme('lightblue'); return false;">
-                            <span class="theme-color-swatch" style="background: #e0f7ff;"></span> Light Blue
-                        </a>
-                    </div>
-                </div>
-                <!-- Guest buttons -->
-                <div id="guest-content" style="display: flex; gap: 10px;">
-                    <a href="../../auth/login.html" class="btn btn-secondary" id="loginLink" data-translate="auth_enter">Enter</a>
-                    <a href="../../auth/register.html" class="btn" id="registerLink" data-translate="auth_signup">Sign up</a>
-                </div>
-                <!-- User profile dropdown -->
-                <div id="user-content" class="dropdown" style="display: none;">
-                    <div class="dropdown-toggle">
-                        <img id="userAvatar" src="/img/noprof.png" alt="Profile">
-                        <span id="userName">User</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="dropdown-menu">
-                        <a href="../../profile/profile.html" class="dropdown-item" data-translate="profile">
-                            <i class="fas fa-user"></i> Profile
-                        </a>
-                        <a href="#" class="dropdown-item" onclick="logout(); return false;" id="logoutLink" data-translate="logout">
-                            <i class="fas fa-sign-out-alt"></i> Logout
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </header>
-
-    <!-- Mobile Sidebar (Simplified for this context, assuming it's handled by JS/CSS) -->
-    <div class="mobile-sidebar" id="mobileSidebar">
-        <div class="sidebar-header">
-            <a href="../../index.html" class="sidebar-logo">
-                <i class="cubing-icon event-333"></i>
-                <span>CubeZila</span>
-            </a>
-            <button class="sidebar-close" id="sidebarClose">
-                <i class="fas fa-times"></i>
-            </button>
-        </div>
-        <ul class="sidebar-nav">
-            <li class="sidebar-nav-item"><a href="../../index.html" class="sidebar-link" data-translate="alg_dash_home"><i class="fas fa-home"></i><span>Home</span></a></li>
-            <li class="sidebar-nav-item"><a href="#" class="sidebar-link" data-translate="alg_dash_algorithms"><i class="fas fa-book-open"></i><span>Algorithms</span></a></li>
-            <li class="sidebar-nav-item"><a href="../../pricing/pricing.html" class="sidebar-link" data-translate="sidebar_pricing"><i class="fas fa-tag"></i><span>Pricing</span></a></li>
-        </ul>
-        <div class="sidebar-divider"></div>
-        <div id="sidebar-guest-content" style="display: block;">
-            <ul class="sidebar-nav">
-                <li class="sidebar-nav-item"><a href="../../auth/login.html" class="sidebar-link" data-translate="sidebar_login"><i class="fas fa-sign-in-alt"></i><span>Login</span></a></li>
-                <li class="sidebar-nav-item"><a href="../../auth/register.html" class="sidebar-link" data-translate="sidebar_signup"><i class="fas fa-user-plus"></i><span>Sign up</span></a></li>
-            </ul>
-        </div>
-        <div id="sidebar-user-content" style="display: none;">
-            <ul class="sidebar-nav">
-                <li class="sidebar-nav-item"><a href="../../profile/profile.html" class="sidebar-link" data-translate="sidebar_profile"><i class="fas fa-user"></i><span>Profile</span></a></li>
-                <li class="sidebar-nav-item"><a href="#" class="sidebar-link" onclick="logout(); return false;" data-translate="sidebar_logout"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
-            </ul>
-        </div>
-    </div>
-    <div class="sidebar-overlay" id="sidebarOverlay"></div>
-
-    <!-- Main Content -->
-    <main>
-        <div class="cube-grid-container">
-            <!-- 3x3 -->
-            <a href="../3x3/3x3.html" class="cube-box" style="animation-delay: 0.1s;">
-                <i class="cubing-icon event-333" style="font-size: 100px;"></i>
-                <h2 data-translate="alg_dash_3x3">3x3</h2>
-            </a>
-            <!-- 2x2 -->
-            <a href="../2x2/2x2.html" class="cube-box" style="animation-delay: 0.2s;">
-                <i class="cubing-icon event-222" style="font-size: 100px;"></i>
-                <h2 data-translate="alg_dash_2x2">2x2</h2>
-            </a>
-            <!-- 4x4 -->
-            <a href="../4x4/4x4.html" class="cube-box" style="animation-delay: 0.3s;">
-                <i class="cubing-icon event-444" style="font-size: 100px;"></i>
-                <h2 data-translate="alg_dash_4x4">4x4</h2>
-            </a>
-            <!-- Pyraminx -->
-            <a href="../pyraminx/pyraminx.html" class="cube-box" style="animation-delay: 0.4s;">
-                <i class="cubing-icon event-pyram" style="font-size: 100px;"></i>
-                <h2 data-translate="alg_dash_pyraminx">Pyraminx</h2>
-            </a>
-            <!-- Skewb -->
-            <a href="../skewb/skewb.html" class="cube-box" style="animation-delay: 0.5s;">
-                <i class="cubing-icon event-skewb" style="font-size: 100px;"></i>
-                <h2 data-translate="alg_dash_skewb">Skewb</h2>
-            </a>
-            <!-- Megaminx -->
-            <a href="../megaminx/megaminx.html" class="cube-box" style="animation-delay: 0.6s;">
-                <i class="cubing-icon event-minx" style="font-size: 100px;"></i>
-                <h2 data-translate="alg_dash_megaminx">Megaminx</h2>
-            </a>
-            <!-- Square-1 -->
-            <a href="../square1/square1.html" class="cube-box" style="animation-delay: 0.7s;">
-                <i class="cubing-icon event-sq1" style="font-size: 100px;"></i>
-                <h2 data-translate="alg_dash_square1">Square-1</h2>
-            </a>
-            <!-- Clock -->
-            <a href="../clock/clock.html" class="cube-box" style="animation-delay: 0.8s;">
-                <i class="cubing-icon event-clock" style="font-size: 100px;"></i>
-                <h2 data-translate="alg_dash_clock">Clock</h2>
-            </a>
-        </div>
-    </main>
-
+    <script type="module" src="../../js/notification.js"></script>
+    <!-- UI script -->
     <script src="../../js/index.js"></script>
 </body>
 </html>
