@@ -12,7 +12,7 @@ function showLoading() {
         overlay.className = 'loading-overlay';
         overlay.innerHTML = `
             <div class="loading-spinner"></div>
-            <div class="loading-text">Checking access...</div>
+            <div class="loading-text">Loading algorithms and images...</div>
         `;
         document.body.appendChild(overlay);
     }
