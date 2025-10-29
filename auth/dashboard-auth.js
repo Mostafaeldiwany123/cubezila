@@ -38,58 +38,99 @@ function applyProLocks() {
 
         const isProAlg = PRO_ALGS.some(alg => targetPage.includes(alg));
 
+        // If the user is Pro, ensure no locks are present and restore original click handler
+        if (isProUser()) {
+            box.classList.remove('pro-locked');
+            box.querySelector('.locked-overlay')?.remove();
+            box.querySelector('.pro-lock-icon')?.remove();
+            // Restore original onclick if it was removed
+            if (box.hasAttribute('data-target-href')) {
+                box.setAttribute('onclick', `window.location.href='${targetPage}'`);
+                box.removeAttribute('data-target-href');
+                box.removeEventListener('click', handleProClick);
+                box.removeAttribute('data-listener-added');
+            }
+            return;
+        }
+        
+        // If the user is NOT Pro and the algorithm is Pro
         if (isProAlg) {
-            // Add lock icon visually
+            box.classList.add('pro-locked');
+            
+            // 1. Add dark overlay
+            if (!box.querySelector('.locked-overlay')) {
+                const overlay = document.createElement('div');
+                overlay.className = 'locked-overlay';
+                box.appendChild(overlay);
+            }
+
+            // 2. Add lock icon visually (big and centered)
             if (!box.querySelector('.pro-lock-icon')) {
                 const lockIcon = document.createElement('i');
-                lockIcon.className = 'fas fa-lock pro-lock-icon';
+                lockIcon.className = 'fas fa-lock pro-lock-icon large-lock';
                 box.appendChild(lockIcon);
             }
 
-            // Override click behavior
+            // 3. Override click behavior
             box.setAttribute('data-target-href', targetPage);
             box.removeAttribute('onclick');
-            box.addEventListener('click', handleProClick);
+            // Ensure we don't add multiple listeners
+            if (!box.hasAttribute('data-listener-added')) {
+                box.addEventListener('click', handleProClick);
+                box.setAttribute('data-listener-added', 'true');
+            }
         }
     });
 }
 
 function handleProClick(event) {
     event.preventDefault();
-    const box = event.currentTarget;
-    const targetHref = box.getAttribute('data-target-href');
-
-    if (isProUser()) {
-        // Allow navigation
-        window.location.href = targetHref;
-    } else {
-        // Deny access and show notification
-        showNotification('Upgrade to Pro to unlock this algorithm!', 'fas fa-crown', 5000);
-        
-        // Optional: Redirect to pricing page after a short delay
-        setTimeout(() => {
-            window.location.href = PRICING_PAGE;
-        }, 1000);
-    }
+    // Deny access and show notification, DO NOT REDIRECT
+    showNotification('Upgrade to Pro to unlock this algorithm!', 'fas fa-crown', 5000);
 }
 
-// Add CSS for the lock icon
+// Add CSS for the lock icon and overlay
 const style = document.createElement('style');
 style.textContent = `
     .cube-box {
         position: relative;
+        overflow: hidden; /* Ensure overlay stays inside */
     }
-    .pro-lock-icon {
+    
+    /* Overlay for locked boxes */
+    .locked-overlay {
         position: absolute;
-        top: 10px;
-        right: 10px;
-        color: var(--primary-color);
-        font-size: 1.2em;
-        opacity: 0.8;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.4); /* Slightly dark overlay */
+        z-index: 10;
         transition: opacity 0.3s;
     }
-    .cube-box:hover .pro-lock-icon {
-        opacity: 1;
+
+    /* Large, centered lock icon */
+    .pro-lock-icon.large-lock {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: var(--primary-color);
+        font-size: 3em; /* Bigger lock */
+        opacity: 0.9;
+        z-index: 11;
+        text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+    
+    /* Hide default progress label when locked for cleaner look */
+    .cube-box.pro-locked .progress-label {
+        opacity: 0.5;
+    }
+    
+    /* Ensure hover effects don't interfere with the lock */
+    .cube-box.pro-locked:hover {
+        transform: none;
+        cursor: default;
     }
 `;
 document.head.appendChild(style);
