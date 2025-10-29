@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="/img/demo (2).png">
-    <title data-translate="register_title">Register - Cubezilla</title>
+    <title>Register - Cubezilla</title>
     <script src="../../bg/theme.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,34 +35,34 @@
     <div class="auth-layout">
         <div class="auth-form-container">
             <div class="form-wrapper">
-                <a href="../index.html" class="back-link" data-translate="auth_back_home"><i class="fas fa-arrow-left"></i> Back to Home</a>
-                <h2 data-translate="register_title">Create Account</h2>
-                <p class="auth-description" data-translate="register_description">Join CubeZila and start your journey.</p>
+                <a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+                <h2>Create Account</h2>
+                <p class="auth-description">Join CubeZila and start your journey.</p>
                 <div class="error-message" id="errorMessage"></div>
                 <form id="registerForm" class="form-container">
                     <div class="form-group">
-                        <label for="registerUsername" data-translate="register_username">Full Name</label>
+                        <label for="registerUsername">Full Name</label>
                         <input type="text" id="registerUsername" placeholder="Enter your full name" required>
                     </div>
                     <div class="form-group">
-                        <label for="registerEmail" data-translate="login_email">Email</label>
+                        <label for="registerEmail">Email</label>
                         <input type="email" id="registerEmail" placeholder="Enter your email" required>
                     </div>
                     <div class="form-group">
-                        <label for="registerPassword" data-translate="login_password">Password</label>
+                        <label for="registerPassword">Password</label>
                         <input type="password" id="registerPassword" placeholder="Create a strong password" required>
                     </div>
                     <button type="submit" id="registerButton">
-                        <span data-translate="register_button">Create Account</span>
+                        <span>Create Account</span>
                     </button>
                 </form>
-                <div class="or-divider"><span data-translate="or_divider">or</span></div>
+                <div class="or-divider"><span>or</span></div>
                 <button id="googleSignInButton" class="google-btn">
                     <i class="fab fa-google"></i>
-                    <span data-translate="register_google">Sign up with Google</span>
+                    <span>Sign up with Google</span>
                 </button>
                 <p class="register-link">
-                    <span data-translate="login_link_prompt">Already have an account?</span> <a href="login.html" data-translate="login_link_text">Login here</a>
+                    Already have an account? <a href="login.html">Login here</a>
                 </p>
             </div>
         </div>
@@ -72,8 +72,8 @@
                     <i class="cubing-icon event-333"></i>
                     <span>CubeZila</span>
                 </div>
-                <h2 data-translate="join_community_title">Join the Community</h2>
-                <p data-translate="join_community_desc">Create an account to unlock your full speedcubing potential. Start mastering the cube today!</p>
+                <h2>Join the Community</h2>
+                <p>Create an account to unlock your full speedcubing potential. Start mastering the cube today!</p>
             </div>
         </div>
     </div>
@@ -87,6 +87,6 @@
     <script type="module" src="../js/user-service.js"></script>
     <script type="module" src="../js/auth-service.js"></script>
     <script type="module" src="auth.js"></script>
-    <script type="module" src="../language/language.js"></script>
+    <script src="language.js"></script>
 </body>
 </html>
