@@ -23,7 +23,9 @@ body {
     padding: 0 20px;
 }
 
-    position: fixed;
+/* Header */
+header {
+      position: fixed;
     top: 0;
     left: 0;
     width: 100%;
@@ -36,6 +38,7 @@ body {
     backdrop-filter: blur(10px);
     border-bottom: 2px solid var(--border-color); /* Use var */
     animation: slideDown 0.5s ease-out;
+}
 
 .header-container {
     display: flex;
