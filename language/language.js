@@ -39,11 +39,9 @@ window.toggleLanguage = function() {
     setLanguage(newLang);
 };
 
-// Load the saved language or default to English
-document.addEventListener("DOMContentLoaded", () => {
-    const savedLanguage = localStorage.getItem("selectedLanguage") || "en";
-    setLanguage(savedLanguage);
-});
+// Load the saved language or default to English immediately when the module loads.
+const savedLanguage = localStorage.getItem("selectedLanguage") || "en";
+setLanguage(savedLanguage);
 
 // Make setLanguage globally accessible for other scripts if needed
 window.setLanguage = setLanguage;
