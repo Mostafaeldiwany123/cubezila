@@ -28,10 +28,6 @@ export const translations = {
         feature_algs_desc: "Explore thousands of algorithms for 2x2, 3x3, Pyraminx, and more, complete with visual aids.",
         feature_analytics_title: "Advanced Analytics",
         feature_analytics_desc: "Track Ao5, Ao12, and custom averages. Identify weaknesses and monitor your progress over time.",
-        feature_algs_title: "Massive Algorithm Library",
-        feature_algs_desc: "Explore thousands of algorithms for 2x2, 3x3, Pyraminx, and more, complete with visual aids.",
-        feature_analytics_title: "Advanced Analytics",
-        feature_analytics_desc: "Track Ao5, Ao12, and custom averages. Identify weaknesses and monitor your progress over time.",
         how_it_works_title: "Your Path to Sub-10 Seconds.",
         step1_title: "Time",
         step1_desc: "Use our precise timer to record your solves and generate accurate scrambles.",
@@ -49,17 +45,6 @@ export const translations = {
         cta_final_button: "Start Your Free Account",
         footer_copyright: "© 2025 CubeZila. All rights reserved.",
         lang_toggle: "AR", // Display AR text when currently in English
-        
-        // Algorithm Dashboard Translations
-        breadcrumb_algs: "Algorithms",
-        alg_dash_title: "Algorithm Dashboards",
-        alg_dash_subtitle: "Select a puzzle or method to start drilling cases.",
-        alg_3x3_title: "3x3 Methods",
-        alg_2x2_title: "2x2 Methods",
-        alg_pyra_title: "Pyraminx",
-        alg_oll_title: "OLL (Orientation of Last Layer)",
-        alg_pll_title: "PLL (Permutation of Last Layer)",
-        alg_zbll_title: "ZBLL (Zborowski-Block Last Layer)",
     },
     ar: {
         nav_features: "الميزات",
@@ -107,16 +92,5 @@ export const translations = {
         cta_final_button: "ابدأ حسابك المجاني",
         footer_copyright: "© 2025 كيوبزيلا. جميع الحقوق محفوظة.",
         lang_toggle: "EN", // Display EN text when currently in Arabic
-
-        // Algorithm Dashboard Translations
-        breadcrumb_algs: "الخوارزميات",
-        alg_dash_title: "لوحات خوارزميات التدريب",
-        alg_dash_subtitle: "اختر لغزًا أو طريقة لبدء التدريب على الحالات.",
-        alg_3x3_title: "طرق 3x3",
-        alg_2x2_title: "طرق 2x2",
-        alg_pyra_title: "بيرامينكس",
-        alg_oll_title: "OLL (توجيه الطبقة الأخيرة)",
-        alg_pll_title: "PLL (تبديل الطبقة الأخيرة)",
-        alg_zbll_title: "ZBLL (الطبقة الأخيرة من كتلة زبوروفسكي)",
     }
 };

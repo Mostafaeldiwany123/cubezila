@@ -3,63 +3,96 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Algorithm Dashboards - CubeZila</title>
+    <title>alg-dash</title>
+    <link rel="icon" type="image/png" href="../../img/demo (2).png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.cubing.net/v0/css/@cubing/icons/css">
     <link rel="stylesheet" href="../../css/roots.css">
+    <link rel="stylesheet" href="https://cdn.cubing.net/v0/css/@cubing/icons/css">
     <link rel="stylesheet" href="../../css/alg-dash.css">
     <script src="../../bg/theme.js"></script>
-    <script type="module" src="../../language/language.js"></script>
+    <!-- Anti-flash script -->
+    <script>
+        try {
+            if (localStorage.getItem('user_profile')) {
+                document.write('<style>#guest-content, #sidebar-guest-content { display: none !important; } #user-content { display: flex !important; } #sidebar-user-content { display: block !important; }</style>');
+            }
+        } catch (e) {}
+        // Instantly update profile info to prevent image/name flash
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                const profile = JSON.parse(localStorage.getItem('user_profile'));
+                if (profile) {
+                    const userAvatar = document.getElementById('userAvatar');
+                    const userName = document.getElementById('userName');
+                    if (userAvatar) userAvatar.src = profile.avatarUrl || '/img/noprof.png';
+                    if (userName) userName.textContent = profile.username || 'User';
+                }
+            } catch (e) {}
+        });
+    </script>
 </head>
 <body>
-    <div class="container alg-dash-container">
-        <!-- Breadcrumb -->
-        <div class="breadcrumb">
-            <a href="../../index.html">Home</a> / 
-            <span data-translate="breadcrumb_algs">Algorithms</span>
+    <header>
+        <div class="header-container container" style="justify-content: flex-start;">
+            <div class="breadcrumb">
+                <a href="../../index.html"><i class="fas fa-home"></i></a>
+                <i class="fas fa-chevron-right"></i>
+                <span>Algorithms</span>
+            </div>
         </div>
+    </header>
 
-        <h1 class="page-title" data-translate="alg_dash_title">Algorithm Dashboards</h1>
-        <p class="page-subtitle" data-translate="alg_dash_subtitle">Select a puzzle or method to start drilling cases.</p>
-
-        <div class="dashboard-grid">
-            
-            <!-- 3x3 Methods -->
-            <a href="../3x3/f2l.html" class="dash-card">
-                <i class="cubing-icon event-333"></i>
-                <h3 data-translate="alg_3x3_title">3x3 Methods</h3>
-            </a>
-
-            <!-- 2x2 Methods -->
-            <a href="../2x2/ortega.html" class="dash-card">
-                <i class="cubing-icon event-222"></i>
-                <h3 data-translate="alg_2x2_title">2x2 Methods</h3>
-            </a>
-
-            <!-- Pyraminx -->
-            <a href="../pyraminx/pyra.html" class="dash-card">
-                <i class="cubing-icon event-pyram"></i>
-                <h3 data-translate="alg_pyra_title">Pyraminx</h3>
-            </a>
-
-            <!-- OLL -->
-            <a href="../3x3/oll.html" class="dash-card">
-                <i class="cubing-icon event-333"></i>
-                <h3 data-translate="alg_oll_title">OLL (Orientation of Last Layer)</h3>
-            </a>
-
-            <!-- PLL -->
-            <a href="../3x3/pll.html" class="dash-card">
-                <i class="cubing-icon event-333"></i>
-                <h3 data-translate="alg_pll_title">PLL (Permutation of Last Layer)</h3>
-            </a>
-
-            <!-- ZBLL -->
-            <a href="../3x3/zbll.html" class="dash-card">
-                <i class="cubing-icon event-333"></i>
-                <h3 data-translate="alg_zbll_title">ZBLL (Zborowski-Block Last Layer)</h3>
-            </a>
+    <div class="mobile-sidebar" id="mobileSidebar">
+        <div class="sidebar-header">
+            <a href="../../index.html" class="sidebar-logo"><i class="cubing-icon event-333"></i><span>CubeZila</span></a>
+            <button class="sidebar-close" id="sidebarClose"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="sidebar-divider"></div>
+        <div id="sidebar-guest-content" style="display: block;">
+            <ul class="sidebar-nav">
+                <li class="sidebar-nav-item"><a href="../../auth/login.html" class="sidebar-link"><i class="fas fa-sign-in-alt"></i><span>Login</span></a></li>
+                <li class="sidebar-nav-item"><a href="../../auth/register.html" class="sidebar-link"><i class="fas fa-user-plus"></i><span>Sign up</span></a></li>
+            </ul>
+        </div>
+        <div id="sidebar-user-content" style="display: none;">
+            <ul class="sidebar-nav">
+                <li class="sidebar-nav-item"><a href="../../profile/profile.html" class="sidebar-link"><i class="fas fa-user"></i><span>Profile</span></a></li>
+                <li class="sidebar-nav-item"><a href="#" class="sidebar-link" onclick="logout(); return false;"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
+            </ul>
         </div>
     </div>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+    
+    <main>
+        <div class="cube-grid-container">
+            <div class="cube-box" onclick="window.location.href='3x3.html'">
+                <img src="../../img/3x3.png" alt="3x3 Rubik's Cube">
+                <h2 data-translate="cube3x3Title">3x3</h2>
+            </div>
+            <div class="cube-box" onclick="window.location.href='2x2.html'">
+                <img src="../../img/2x2.png" alt="2x2 Rubik's Cube">
+                <h2 data-translate="cube2x2Title">2x2</h2>
+            </div>
+            <div class="cube-box" onclick="window.location.href='pyraminx.html'">
+                <img src="../../img/Pyraminx.png" alt="Pyraminx Cube">
+                <h2 data-translate="pyraminxTitle">Pyraminx</h2>
+            </div>
+        </div>
+    </main>
+
+    <script src="../../language/language.js" defer></script>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <!-- Modular Firebase Scripts -->
+    <script type="module" src="../../js/firebase-config.js"></script>
+    <script type="module" src="../../js/user-service.js"></script>
+    <script type="module" src="../../js/auth-service.js"></script>
+    <script type="module" src="../../auth/auth.js"></script>
+    <script type="module" src="../../js/notification.js"></script>
+    <!-- UI script -->
+    <script src="../../js/index.js"></script>
 </body>
 </html>
