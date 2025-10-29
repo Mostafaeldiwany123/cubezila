@@ -30,10 +30,10 @@ function applyProLocks() {
     const cubeBoxes = document.querySelectorAll('.cube-box');
 
     cubeBoxes.forEach(box => {
-        const link = box.getAttribute('onclick');
+        const link = box.getAttribute('onclick') || box.getAttribute('data-target-href');
         if (!link) return;
 
-        const targetPage = link.match(/window\.location\.href='(.*?)'/)?.[1];
+        const targetPage = link.match(/window\.location\.href='(.*?)'|data-target-href='(.*?)'/)?.[1] || link.match(/window\.location\.href='(.*?)'|data-target-href='(.*?)'/)?.[2];
         if (!targetPage) return;
 
         const isProAlg = PRO_ALGS.some(alg => targetPage.includes(alg));
@@ -58,18 +58,27 @@ function applyProLocks() {
             box.classList.add('pro-locked');
             
             // 1. Add dark overlay
-            if (!box.querySelector('.locked-overlay')) {
-                const overlay = document.createElement('div');
+            let overlay = box.querySelector('.locked-overlay');
+            if (!overlay) {
+                overlay = document.createElement('div');
                 overlay.className = 'locked-overlay';
                 box.appendChild(overlay);
             }
 
             // 2. Add lock icon visually (big and centered)
-            if (!box.querySelector('.pro-lock-icon')) {
-                const lockIcon = document.createElement('i');
+            let lockIcon = box.querySelector('.pro-lock-icon');
+            if (!lockIcon) {
+                lockIcon = document.createElement('i');
                 lockIcon.className = 'fas fa-lock pro-lock-icon large-lock';
                 box.appendChild(lockIcon);
             }
+
+            // Trigger fade-in after elements are added/reset
+            // Use a slight timeout to ensure the browser registers the initial opacity: 0 state
+            setTimeout(() => {
+                overlay.classList.add('fade-in-lock');
+                lockIcon.classList.add('fade-in-lock');
+            }, 50); 
 
             // 3. Override click behavior
             box.setAttribute('data-target-href', targetPage);
@@ -106,7 +115,8 @@ style.textContent = `
         height: 100%;
         background-color: rgba(0, 0, 0, 0.4); /* Slightly dark overlay */
         z-index: 10;
-        transition: opacity 0.3s;
+        opacity: 0; /* Initial state: hidden */
+        transition: opacity 0.5s ease-in-out; /* Transition definition */
     }
 
     /* Large, centered lock icon */
@@ -117,11 +127,18 @@ style.textContent = `
         transform: translate(-50%, -50%);
         color: var(--primary-color);
         font-size: 3em; /* Bigger lock */
-        opacity: 0.9;
+        opacity: 0; /* Initial state: hidden */
         z-index: 11;
         text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        transition: opacity 0.5s ease-in-out; /* Transition definition */
     }
     
+    /* Active state for fade-in */
+    .locked-overlay.fade-in-lock,
+    .pro-lock-icon.fade-in-lock {
+        opacity: 1;
+    }
+
     /* Hide default progress label when locked for cleaner look */
     .cube-box.pro-locked .progress-label {
         opacity: 0.5;
