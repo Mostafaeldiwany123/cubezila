@@ -11,23 +11,13 @@ const PRICING_PAGE = '../../pricing.html';
 
 let currentUserRole = null;
 
-// 1. Listen for auth state changes to determine user role
-onAuthStateChange((user) => {
-    if (user && user.profile) {
-        currentUserRole = user.profile.role;
-    } else {
-        currentUserRole = 'guest';
-    }
-    // 2. Apply locks once the role is known
-    applyProLocks();
-});
-
-function isProUser() {
-    return PRO_ROLES.includes(currentUserRole);
+function isProUser(role) {
+    return PRO_ROLES.includes(role);
 }
 
-function applyProLocks() {
+function applyProLocks(role) {
     const cubeBoxes = document.querySelectorAll('.cube-box');
+    const isPro = isProUser(role);
 
     cubeBoxes.forEach(box => {
         const link = box.getAttribute('onclick');
@@ -39,7 +29,7 @@ function applyProLocks() {
         const isProAlg = PRO_ALGS.some(alg => targetPage.includes(alg));
 
         // If the user is Pro, ensure no locks are present and restore original click handler
-        if (isProUser()) {
+        if (isPro) {
             box.classList.remove('pro-locked');
             box.querySelector('.locked-overlay')?.remove();
             box.querySelector('.pro-lock-icon')?.remove();
@@ -88,6 +78,29 @@ function handleProClick(event) {
     // Deny access and show notification, DO NOT REDIRECT
     showNotification('Upgrade to Pro to unlock this algorithm!', 'fas fa-crown', 5000);
 }
+
+// 1. Immediate check on DOMContentLoaded using localStorage
+document.addEventListener('DOMContentLoaded', () => {
+    const localRole = localStorage.getItem('user_role');
+    if (localRole) {
+        currentUserRole = localRole;
+        applyProLocks(currentUserRole);
+    } else {
+        // If no role is stored, assume guest/free for immediate visual locking
+        applyProLocks('free_user');
+    }
+});
+
+// 2. Listen for auth state changes to confirm/update user role (asynchronous)
+onAuthStateChange((user) => {
+    if (user && user.profile) {
+        currentUserRole = user.profile.role;
+    } else {
+        currentUserRole = 'guest';
+    }
+    // 3. Apply locks again with the authoritative role from Firebase/Firestore
+    applyProLocks(currentUserRole);
+});
 
 // Add CSS for the lock icon and overlay
 const style = document.createElement('style');

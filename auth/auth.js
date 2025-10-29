@@ -71,6 +71,7 @@ window.logout = async function() {
     try {
       await logoutUser();
       localStorage.removeItem('user_profile'); // Explicitly remove on logout action
+      localStorage.removeItem('user_role'); // Also remove role
       alert('Logged out successfully');
       // Redirect to index or current page if not auth page
       if (window.location.pathname.includes('/auth/')) {
@@ -97,7 +98,7 @@ function updateUIForAuthState(user) {
   if (user && user.profile) {
     // User is signed in
     if (guestContent) guestContent.style.display = 'none';
-    if (userContent) userContent.style.display = 'block'; // Changed from 'flex' to 'block'
+    if (userContent) userContent.style.display = 'flex'; // Ensure it uses flex for dropdown
     if (sidebarGuestContent) sidebarGuestContent.style.display = 'none';
     if (sidebarUserContent) sidebarUserContent.style.display = 'block';
 
@@ -122,9 +123,11 @@ function updateUIForAuthState(user) {
         // Store in localStorage
         const profileData = {
             username: username,
-            avatarUrl: finalAvatarUrl
+            avatarUrl: finalAvatarUrl,
+            role: user.profile.role // Store role here too
         };
         localStorage.setItem('user_profile', JSON.stringify(profileData));
+        localStorage.setItem('user_role', user.profile.role); // Store role separately for quick access
     }
   } else {
     // User is signed out
@@ -140,10 +143,32 @@ function updateUIForAuthState(user) {
     }
     // Remove from localStorage
     localStorage.removeItem('user_profile');
+    localStorage.removeItem('user_role');
   }
 }
 
-// Auth state observer
+// Function to check localStorage and update UI immediately
+function initializeUIFromLocalStorage() {
+    try {
+        const profileData = JSON.parse(localStorage.getItem('user_profile'));
+        if (profileData && profileData.username) {
+            // Simulate a user object structure for immediate UI update
+            const mockUser = {
+                profile: profileData,
+                displayName: profileData.username,
+                photoURL: profileData.avatarUrl
+            };
+            updateUIForAuthState(mockUser);
+        }
+    } catch (e) {
+        console.error("Error reading profile from localStorage:", e);
+    }
+}
+
+// 1. Run immediate UI update
+initializeUIFromLocalStorage();
+
+// 2. Auth state observer (runs asynchronously and overwrites local data if needed)
 onAuthStateChange((user) => {
   updateUIForAuthState(user);
   // Additional UI updates for specific pages can be handled here or in page-specific scripts
