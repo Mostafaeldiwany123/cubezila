@@ -19,6 +19,22 @@
         <div class="loading-spinner"></div>
         <div class="loading-text">Loading algorithms and images...</div>
     </div>
+    <header class="site-header">
+        <div class="breadcrumb">
+            <a href="../../index.html"><i class="fas fa-home"></i></a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="../dashboards/alg-dash.html">Algorithms</a>
+            <i class="fas fa-chevron-right"></i>
+            <a href="../dashboards/2x2.html">2x2</a>
+            <i class="fas fa-chevron-right"></i>
+            <span>EG 2</span>
+        </div>
+        <div class="header-tabs">
+            <button class="tab active" onclick="showTab('learn')">Learn</button>
+            <span class="tab-separator">|</span>
+            <button class="tab" onclick="showTab('practice')">Practice</button>
+        </div>
+    </header>
     <h1 class="fade-in-down">2x2 EG-1</h1>
     <p class="fade-in-down" data-translate="eg1description">
         EG-1 is an advanced method for solving the 2x2 cube when the first face has a solved layer with incorrect permutation. It consists of 42 algorithms divided into 7 different subsets: S, AS, PI, U, L, T, and H. Learning EG-1 can significantly improve your solving speed by allowing you to solve the cube in just two looks.
@@ -82,43 +98,50 @@
     </div>
     
     <div id="practice" class="tab-content">
-        <div class="practice-area">
-            <h2 id="currentCase"></h2>
-            <div class="case-image-container">
-                <div id="caseImage"></div>
+        <div class="practice-container">
+            <div class="practice-area">
+                <div class="practice-header">
+                    <div class="practice-controls">
+                        <div class="selected-counter">
+                            Selected: <span id="selectedCounter">0/0</span>
+                        </div>
+                        <span class="tab-separator">|</span>
+                        <button id="newCaseButton" class="control-button" title="New Case">
+                            <i class="fas fa-sync-alt"></i>
+                        </button>
+                        <span class="tab-separator">|</span>
+                        <button id="hintButton" class="control-button" title="Show Hint">
+                            <i class="fas fa-lightbulb"></i>
+                        </button>
+                    </div>
+                </div>
+                <h2 id="currentCase"></h2>
+                <div class="case-image-container">
+                    <div id="caseImage"></div>
+                </div>
+                <div id="scramble"></div>
+                <div id="timer">0.00</div>
+                <div id="hint"></div>
             </div>
-            <div id="scramble"></div>
-            <div id="timer">0.00</div>
-            <button id="newCaseButton" class="button" data-translate="newCaseButton">New Case</button>
-            <button id="hintButton"><i class="fas fa-lightbulb"></i></button>
-            <div id="hint"></div>
-        </div>
-    </div>
     
-    <div class="recent-solves">
-        <div class="recent-solves-header">
-            <h2 data-translate="hist">Recent Solves</h2>
-        </div>
-    
-        <div class="recent-solves-content" style="position: relative; height: 400px;">
-            <table id="recentSolvesTable" style="width: 100%; table-layout: fixed;">
-                <thead>
-                    <tr>
-                        <th data-translate="case">Case</th>
-                        <th data-translate="time">Time</th>
-                        <th data-translate="action">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Dynamically populated rows -->
-                </tbody>
-            </table>
-        </div>
-    
-        <div id="resetIconContainer">
-            <button id="resetIcon" title="Reset All Solves">
-                <i class="fas fa-trash-alt"></i>
-            </button>
+            <div class="recent-solves">
+                <div class="recent-solves-header">
+                    <h2 data-translate="hist">History</h2>
+                </div>
+                <div class="solve-cards">
+                    <!-- Cards will be added dynamically -->
+                </div>
+                <div class="no-history-message">
+                    <i class="fas fa-clock"></i>
+                    <p>No history</p>
+                    <span>Press space to start timing</span>
+                </div>
+                <div id="resetIconContainer">
+                    <button id="resetIcon" title="Reset All Solves">
+                        <i class="fas fa-trash-alt"></i>
+                    </button>
+                </div>
+            </div>
         </div>
     </div>
     

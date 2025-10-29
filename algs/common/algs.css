@@ -753,9 +753,9 @@ button:focus {
 }
 /* Breadcrumb Styles */
 .site-header .breadcrumb {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
+  position: static; /* Remove absolute positioning */
+  left: auto;
+  transform: none;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -807,6 +807,7 @@ button:focus {
     align-items: center;
     gap: 0.8rem;
     transition: transform 0.3s ease;
+    /* Removed flex-shrink: 0; */
 }
 
 .site-header .logo img {
