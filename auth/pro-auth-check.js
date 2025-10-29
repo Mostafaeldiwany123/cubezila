@@ -33,6 +33,7 @@ function hideLoading() {
 }
 
 function checkProAccess() {
+    // Show loading immediately to prevent content flash while Firebase initializes
     showLoading();
 
     onAuthStateChange((user) => {
@@ -40,16 +41,16 @@ function checkProAccess() {
             const userRole = user.profile.role;
             
             if (PRO_ROLES.includes(userRole)) {
-                // Access granted
+                // Access granted: hide loading immediately
                 hideLoading();
             } else {
-                // Free user or unauthorized role
+                // Free user or unauthorized role: deny access
                 showNotification('Upgrade to Pro to access this algorithm!', 'fas fa-lock', 5000);
-                // Secure redirect
+                // Secure redirect (using replace to prevent back button access)
                 window.location.replace(PRICING_PAGE);
             }
         } else {
-            // User is not logged in
+            // User is not logged in: deny access
             showNotification('Please log in or upgrade to Pro to access this page.', 'fas fa-user-lock', 5000);
             // Secure redirect
             window.location.replace(PRICING_PAGE);
