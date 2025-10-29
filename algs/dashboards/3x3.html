@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <script src="../../bg/theme.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>3x3 - cubezila</title>
@@ -10,6 +11,26 @@
     <link rel="stylesheet" href="https://cdn.cubing.net/v0/css/@cubing/icons/css">
     <link rel="stylesheet" href="../../css/alg-dash.css">
     <script src="../../storage.js"></script>
+    <!-- Anti-flash script -->
+    <script>
+        try {
+            if (localStorage.getItem('user_profile')) {
+                document.write('<style>#guest-content, #sidebar-guest-content { display: none !important; } #user-content { display: flex !important; } #sidebar-user-content { display: block !important; }</style>');
+            }
+        } catch (e) {}
+        // Instantly update profile info to prevent image/name flash
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                const profile = JSON.parse(localStorage.getItem('user_profile'));
+                if (profile) {
+                    const userAvatar = document.getElementById('userAvatar');
+                    const userName = document.getElementById('userName');
+                    if (userAvatar) userAvatar.src = profile.avatarUrl || '/img/noprof.png';
+                    if (userName) userName.textContent = profile.username || 'User';
+                }
+            } catch (e) {}
+        });
+    </script>
     <style>
         .progress-label {
             position: absolute;
@@ -34,6 +55,10 @@
 <body>
     <header>
         <div class="header-container container">
+            <a href="../../index.html" class="logo">
+                <i class="cubing-icon event-333"></i>
+                <span>CubeZila</span>
+            </a>
             <div class="breadcrumb">
                 <a href="../../index.html"><i class="fas fa-home"></i></a>
                 <i class="fas fa-chevron-right"></i>
@@ -41,8 +66,63 @@
                 <i class="fas fa-chevron-right"></i>
                 <span>3x3</span>
             </div>
+            <div class="auth-buttons">
+                <div class="theme-dropdown dropdown">
+                    <button class="dropdown-toggle theme-toggle" aria-label="Select Theme">
+                        <i class="fas fa-palette"></i>
+                    </button>
+                    <div class="dropdown-menu theme-menu">
+                        <a href="#" class="dropdown-item theme-item" onclick="setTheme('light'); return false;"><span class="theme-color-swatch" style="background: #f8f9fc;"></span> Light</a>
+                        <a href="#" class="dropdown-item theme-item" onclick="setTheme('dark'); return false;"><span class="theme-color-swatch" style="background: #181a20;"></span> Dark</a>
+                        <a href="#" class="dropdown-item theme-item" onclick="setTheme('neon'); return false;"><span class="theme-color-swatch" style="background: #0f0f0f; border: 1px solid #39ff14;"></span> Neon</a>
+                        <a href="#" class="dropdown-item theme-item" onclick="setTheme('blue'); return false;"><span class="theme-color-swatch" style="background: #001f3f;"></span> Blue</a>
+                        <a href="#" class="dropdown-item theme-item" onclick="setTheme('green'); return false;"><span class="theme-color-swatch" style="background: #0f3d0f;"></span> Green</a>
+                        <a href="#" class="dropdown-item theme-item" onclick="setTheme('red'); return false;"><span class="theme-color-swatch" style="background: #3f0f0f;"></span> Red</a>
+                        <a href="#" class="dropdown-item theme-item" onclick="setTheme('golden'); return false;"><span class="theme-color-swatch" style="background: #2C1810;"></span> Golden</a>
+                        <a href="#" class="dropdown-item theme-item" onclick="setTheme('kids'); return false;"><span class="theme-color-swatch" style="background: #FFE5F1;"></span> Kids</a>
+                        <a href="#" class="dropdown-item theme-item" onclick="setTheme('lightblue'); return false;"><span class="theme-color-swatch" style="background: #e0f7ff;"></span> Light Blue</a>
+                    </div>
+                </div>
+                <div id="guest-content" style="display: flex; gap: 10px;">
+                    <a href="../../auth/login.html" class="btn btn-secondary" id="loginLink">Enter</a>
+                    <a href="../../auth/register.html" class="btn" id="registerLink">Sign up</a>
+                </div>
+                <div id="user-content" class="dropdown" style="display: none;">
+                    <div class="dropdown-toggle">
+                        <img id="userAvatar" src="../../img/noprof.png" alt="Profile">
+                        <span id="userName">User</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="dropdown-menu">
+                        <a href="../../profile/profile.html" class="dropdown-item"><i class="fas fa-user"></i> Profile</a>
+                        <a href="#" class="dropdown-item" onclick="logout(); return false;" id="logoutLink"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
         </div>
     </header>
+
+    <div class="mobile-sidebar" id="mobileSidebar">
+        <div class="sidebar-header">
+            <a href="../../index.html" class="sidebar-logo"><i class="cubing-icon event-333"></i><span>CubeZila</span></a>
+            <button class="sidebar-close" id="sidebarClose"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="sidebar-divider"></div>
+        <div id="sidebar-guest-content" style="display: block;">
+            <ul class="sidebar-nav">
+                <li class="sidebar-nav-item"><a href="../../auth/login.html" class="sidebar-link"><i class="fas fa-sign-in-alt"></i><span>Login</span></a></li>
+                <li class="sidebar-nav-item"><a href="../../auth/register.html" class="sidebar-link"><i class="fas fa-user-plus"></i><span>Sign up</span></a></li>
+            </ul>
+        </div>
+        <div id="sidebar-user-content" style="display: none;">
+            <ul class="sidebar-nav">
+                <li class="sidebar-nav-item"><a href="../../profile/profile.html" class="sidebar-link"><i class="fas fa-user"></i><span>Profile</span></a></li>
+                <li class="sidebar-nav-item"><a href="#" class="sidebar-link" onclick="logout(); return false;"><i class="fas fa-sign-out-alt"></i><span>Logout</span></a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <main>
         <div class="cube-grid-container">
@@ -124,5 +204,19 @@
 
         document.addEventListener('DOMContentLoaded', updateProgressLabels);
     </script>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <!-- Modular Firebase Scripts -->
+    <script type="module" src="../../js/firebase-config.js"></script>
+    <script type="module" src="../../js/user-service.js"></script>
+    <script type="module" src="../../js/auth-service.js"></script>
+    <script type="module" src="../../auth/auth.js"></script>
+    <script type="module" src="../../js/notification.js"></script>
+    <script type="module" src="../../auth/dashboard-auth.js"></script>
+    <!-- UI script -->
+    <script src="../../js/index.js"></script>
 </body>
 </html>
