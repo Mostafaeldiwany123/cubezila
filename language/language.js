@@ -6,7 +6,12 @@ function setLanguage(lang) {
     elements.forEach((el) => {
         const key = el.getAttribute("data-translate");
         if (translations[lang] && translations[lang][key]) {
-            el.textContent = translations[lang][key];
+            // If the element is an input or textarea, set its placeholder
+            if (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA') {
+                el.placeholder = translations[lang][key];
+            } else {
+                el.textContent = translations[lang][key];
+            }
         }
     });
     
