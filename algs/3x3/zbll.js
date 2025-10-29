@@ -176,6 +176,7 @@ function showSubgroups(subset) {
     // Add back button
     const backBtn = document.createElement('button');
     backBtn.className = 'back-button';
+    backBtn.setAttribute('data-translate', 'back_to_subsets'); // Add translation key
     backBtn.textContent = 'Back to all subsets';
     backBtn.addEventListener('click', hideSubgroups);
     container.parentNode.insertBefore(backBtn, container);
