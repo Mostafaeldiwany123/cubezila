@@ -6,6 +6,22 @@ const PRICING_PAGE = '../../pricing.html'; // Assuming this path
 
 let loadingTimeout;
 let authCheckCompleted = false;
+let messageInterval;
+
+const loadingMessages = [
+    "Checking access...",
+    "Loading images...",
+    "Loading algorithms..."
+];
+
+function updateLoadingText(textElement) {
+    let index = 0;
+    textElement.textContent = loadingMessages[index];
+    messageInterval = setInterval(() => {
+        index = (index + 1) % loadingMessages.length;
+        textElement.textContent = loadingMessages[index];
+    }, 1500); // Change message every 1.5 seconds
+}
 
 function showLoading() {
     let overlay = document.getElementById('loading-overlay');
@@ -15,15 +31,19 @@ function showLoading() {
         overlay.className = 'loading-overlay';
         overlay.innerHTML = `
             <div class="loading-spinner"></div>
-            <div class="loading-text">Checking access...</div>
+            <div class="loading-text"></div>
         `;
         document.body.appendChild(overlay);
     }
     overlay.classList.remove('hidden');
+    
+    const loadingTextElement = overlay.querySelector('.loading-text');
+    updateLoadingText(loadingTextElement);
 }
 
 function hideLoading() {
     clearTimeout(loadingTimeout);
+    clearInterval(messageInterval); // Stop message cycling
     const overlay = document.getElementById('loading-overlay');
     if (overlay) {
         overlay.classList.add('hidden');
