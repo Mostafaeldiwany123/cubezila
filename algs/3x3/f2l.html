@@ -21,7 +21,7 @@
 <body>
     <div id="loading-overlay" class="loading-overlay">
         <div class="loading-spinner"></div>
-        <div class="loading-text">Checking access...</div>
+        <div class="loading-text"></div>
     </div>
     <header class="site-header">
  
@@ -41,117 +41,119 @@
         </div>
     </header>
     
-    <div id="learn" class="tab-content active">
-        <h1 class="fade-in-down" data-translate="advancedf2l">Advanced F2L</h1>
-        
-        <div class="info-container">
-            <div class="description-box">
-                <p class="fade-in-down" data-translate="advancedF2LDescription">
-                    Advanced F2L (First Two Layers) is a method for solving the first two layers of the Rubik's Cube simultaneously. Unlike beginner F2L, which involves solving each pair one by one, Advanced F2L allows you to pair and insert the pieces in a single algorithm, improving your solve efficiency.</p>
-                <div class="tips">
-                    <span class="tip"><i class="fas fa-lightbulb"></i> Select case images to practice specific cases</span>
-                    <span class="tip"><i class="fas fa-palette"></i> Use the dropdown to change case colors</span>
-                </div>
-            </div>
+    <div id="content-wrapper" class="content-hidden">
+        <div id="learn" class="tab-content active">
+            <h1 class="fade-in-down" data-translate="advancedf2l">Advanced F2L</h1>
             
-            <div class="progress-container">
-                <div class="progress-stats">
-                    <span class="progress-count"></span>
-                    <span class="progress-label">algorithms learned</span>
+            <div class="info-container">
+                <div class="description-box">
+                    <p class="fade-in-down" data-translate="advancedF2LDescription">
+                        Advanced F2L (First Two Layers) is a method for solving the first two layers of the Rubik's Cube simultaneously. Unlike beginner F2L, which involves solving each pair one by one, Advanced F2L allows you to pair and insert the pieces in a single algorithm, improving your solve efficiency.</p>
+                    <div class="tips">
+                        <span class="tip"><i class="fas fa-lightbulb"></i> Select case images to practice specific cases</span>
+                        <span class="tip"><i class="fas fa-palette"></i> Use the dropdown to change case colors</span>
+                    </div>
                 </div>
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
+                
+                <div class="progress-container">
+                    <div class="progress-stats">
+                        <span class="progress-count"></span>
+                        <span class="progress-label">algorithms learned</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill"></div>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <table id="pllTable" class="fade-in-down">
-            <thead>
-                <tr>
-                    <th data-translate="name">NAME</th>
-                            <th class="case-header">
-                                <div class="case-title">
-                                    <span data-translate="case">CASE</span>
-                                    <div class="dropdown">
-                                        <i class="fa-solid fa-sort dropdown-icon"></i>
-                                        <div class="dropdown-content" id="colorDropdown">
-                                            <div class="color-option" data-color="yellow">Yellow Top</div>
-                                            <div class="color-option" data-color="white">White Top</div>
-                                            <div class="color-option" data-color="red">Red Top</div>
-                                            <div class="color-option" data-color="orange">Orange Top</div>
-                                            <div class="color-option" data-color="blue">Blue Top</div>
-                                            <div class="color-option" data-color="green">Green Top</div>
+            <table id="pllTable" class="fade-in-down">
+                <thead>
+                    <tr>
+                        <th data-translate="name">NAME</th>
+                                <th class="case-header">
+                                    <div class="case-title">
+                                        <span data-translate="case">CASE</span>
+                                        <div class="dropdown">
+                                            <i class="fa-solid fa-sort dropdown-icon"></i>
+                                            <div class="dropdown-content" id="colorDropdown">
+                                                <div class="color-option" data-color="yellow">Yellow Top</div>
+                                                <div class="color-option" data-color="white">White Top</div>
+                                                <div class="color-option" data-color="red">Red Top</div>
+                                                <div class="color-option" data-color="orange">Orange Top</div>
+                                                <div class="color-option" data-color="blue">Blue Top</div>
+                                                <div class="color-option" data-color="green">Green Top</div>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </th>
-                    <th data-translate="algorithm">ALGORITHM</th>
-                    <th data-translate="scramble">SCRAMBLE</th>
-                    <th data-translate="best">BEST</th>
-                    <th data-translate="avg">AVG</th>
-                    <th data-translate="status" style="text-align: center;">STATUS</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Table rows will be dynamically added here -->
-            </tbody>
-        </table>
-    </div>
-    
-    <div id="practice" class="tab-content">
-        <div class="practice-container">
-            <div class="practice-area">
-                <div class="practice-header">
-                    <div class="practice-controls">
-                        <div class="selected-counter">
-                            Selected: <span id="selectedCounter">0/0</span>
+                                </th>
+                        <th data-translate="algorithm">ALGORITHM</th>
+                        <th data-translate="scramble">SCRAMBLE</th>
+                        <th data-translate="best">BEST</th>
+                        <th data-translate="avg">AVG</th>
+                        <th data-translate="status" style="text-align: center;">STATUS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Table rows will be dynamically added here -->
+                </tbody>
+            </table>
+        </div>
+        
+        <div id="practice" class="tab-content">
+            <div class="practice-container">
+                <div class="practice-area">
+                    <div class="practice-header">
+                        <div class="practice-controls">
+                            <div class="selected-counter">
+                                Selected: <span id="selectedCounter">0/0</span>
+                            </div>
+                            <span class="tab-separator">|</span>
+                            <button id="newCaseButton" class="control-button" title="New Case">
+                                <i class="fas fa-sync-alt"></i>
+                            </button>
+                            <span class="tab-separator">|</span>
+                            <button id="hintButton" class="control-button" title="Show Hint">
+                                <i class="fas fa-lightbulb"></i>
+                            </button>
                         </div>
-                        <span class="tab-separator">|</span>
-                        <button id="newCaseButton" class="control-button" title="New Case">
-                            <i class="fas fa-sync-alt"></i>
-                        </button>
-                        <span class="tab-separator">|</span>
-                        <button id="hintButton" class="control-button" title="Show Hint">
-                            <i class="fas fa-lightbulb"></i>
+                    </div>
+                    <h2 id="currentCase"></h2>
+                    <div class="case-image-container">
+                        <div id="caseImage"></div>
+                    </div>
+                    <div id="scramble"></div>
+                    <div id="timer">0.00</div>
+                    <div id="hint"></div>
+                </div>
+
+                <div class="recent-solves">
+                    <div class="recent-solves-header">
+                        <h2 data-translate="hist">History</h2>
+                    </div>
+                    <div class="solve-cards">
+                        <!-- Cards will be added dynamically -->
+                    </div>
+                    <div class="no-history-message">
+                        <i class="fas fa-clock"></i>
+                        <p>No history</p>
+                        <span>Press space to start timing</span>
+                    </div>
+                    <div id="resetIconContainer">
+                        <button id="resetIcon" title="Reset All Solves">
+                            <i class="fas fa-trash-alt"></i>
                         </button>
                     </div>
                 </div>
-                <h2 id="currentCase"></h2>
-                <div class="case-image-container">
-                    <div id="caseImage"></div>
-                </div>
-                <div id="scramble"></div>
-                <div id="timer">0.00</div>
-                <div id="hint"></div>
-            </div>
-
-            <div class="recent-solves">
-                <div class="recent-solves-header">
-                    <h2 data-translate="hist">History</h2>
-                </div>
-                <div class="solve-cards">
-                    <!-- Cards will be added dynamically -->
-                </div>
-                <div class="no-history-message">
-                    <i class="fas fa-clock"></i>
-                    <p>No history</p>
-                    <span>Press space to start timing</span>
-                </div>
-                <div id="resetIconContainer">
-                    <button id="resetIcon" title="Reset All Solves">
-                        <i class="fas fa-trash-alt"></i>
-                    </button>
-                </div>
             </div>
         </div>
-    </div>
-    
-    
-    <div id="overlay" class="overlay"></div>
-    <div id="details-popup" class="details-popup">
-        <button class="details-popup-close" onclick="closeDetailsPopup()">&times;</button>
-        <h3>Solve Details</h3>
-        <div id="popup-content"></div>
+        
+        
+        <div id="overlay" class="overlay"></div>
+        <div id="details-popup" class="details-popup">
+            <button class="details-popup-close" onclick="closeDetailsPopup()">&times;</button>
+            <h3>Solve Details</h3>
+            <div id="popup-content"></div>
+        </div>
     </div>
 
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
