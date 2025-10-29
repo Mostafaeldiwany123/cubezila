@@ -148,12 +148,6 @@ main {
     align-items: center;
     max-width: 1200px;
     margin: auto;
-    opacity: 0;
-    transition: opacity 0.3s;
-}
-
-.cube-grid-container.loaded {
-    opacity: 1;
 }
 
 .cube-box {

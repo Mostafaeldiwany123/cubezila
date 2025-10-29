@@ -81,12 +81,6 @@ function applyProLocks() {
             }
         }
     });
-    
-    // REVEAL THE GRID AFTER LOCKS ARE APPLIED
-    const gridContainer = document.querySelector('.cube-grid-container');
-    if (gridContainer) {
-        gridContainer.classList.add('loaded');
-    }
 }
 
 function handleProClick(event) {
