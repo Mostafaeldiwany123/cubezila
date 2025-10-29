@@ -6,7 +6,7 @@
     <link rel="icon" type="image/png" href="../../img/demo (2).png">
     <title>COLL - cubezila</title>
     <script src="../../bg/theme.js"></script>
-    <script src="../../language/language.js"></script>
+    <script type="module" src="../../language/language.js"></script>
     <script src="../reco/reco.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Parkinsans:wght@400;700&display=swap&font-display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Zain:wght@400&display=swap" rel="stylesheet">
@@ -21,23 +21,23 @@
 <body>
     <div id="loading-overlay" class="loading-overlay">
         <div class="loading-spinner"></div>
-        <div class="loading-text">Loading algorithms and images...</div>
+        <div class="loading-text" data-translate="loading_algs">Loading algorithms and images...</div>
     </div>
     <header class="site-header">
  
         <div class="breadcrumb">
             <a href="../../index.html"><i class="fas fa-home"></i></a>
             <i class="fas fa-chevron-right"></i>
-            <a href="../dashboards/alg-dash.html">Algorithms</a>
+            <a href="../dashboards/alg-dash.html" data-translate="alg_dash_title">Algorithms</a>
             <i class="fas fa-chevron-right"></i>
-            <a href="../dashboards/3x3.html">3x3</a>
+            <a href="../dashboards/3x3.html" data-translate="cube3x3Title">3x3</a>
             <i class="fas fa-chevron-right"></i>
             <span>COLL</span>
         </div>
         <div class="header-tabs">
-            <button class="tab active" onclick="showTab('learn')">Learn</button>
+            <button class="tab active" onclick="showTab('learn')" data-translate="tab_learn">Learn</button>
             <span class="tab-separator">|</span>
-            <button class="tab" onclick="showTab('practice')">Practice</button>
+            <button class="tab" onclick="showTab('practice')" data-translate="tab_practice">Practice</button>
         </div>
     </header>
     
@@ -48,15 +48,15 @@
             <div class="description-box">
                 <p class="fade-in-down" data-translate="colldescription">COLL (short for Corners of Last Layer) is a 3x3x3 last layer substep in the CxLL group that solves (orients and permutes) the last layer corners while preserving the last layer edge orientation, leaving only edge permutation (EPLL). It is principally used as a last layer for ZZ (as it has a higher skip chance and is nicer for OH than OCLL/PLL when used with EPLL) or an add-on to Fridrich, when the last layer edges are already oriented after F2L. COLL has 42 cases including mirrors (24 without). 2 of these are the adjacent and diagonal corner permutation.</p>
                 <div class="tips">
-                    <span class="tip"><i class="fas fa-lightbulb"></i> Select case images to practice specific cases</span>
-                    <span class="tip"><i class="fas fa-palette"></i> Use the dropdown to change case colors</span>
+                    <span class="tip"><i class="fas fa-lightbulb"></i> <span data-translate="tip_select_case">Select case images to practice specific cases</span></span>
+                    <span class="tip"><i class="fas fa-palette"></i> <span data-translate="tip_change_color">Use the dropdown to change case colors</span></span>
                 </div>
             </div>
             
             <div class="progress-container">
                 <div class="progress-stats">
                     <span class="progress-count"></span>
-                    <span class="progress-label">algorithms learned</span>
+                    <span class="progress-label" data-translate="algs_learned_label">algorithms learned</span>
                 </div>
                 <div class="progress-bar">
                     <div class="progress-fill"></div>
@@ -74,12 +74,12 @@
                                     <div class="dropdown">
                                         <i class="fa-solid fa-sort dropdown-icon"></i>
                                         <div class="dropdown-content" id="colorDropdown">
-                                            <div class="color-option" data-color="yellow">Yellow Top</div>
-                                            <div class="color-option" data-color="white">White Top</div>
-                                            <div class="color-option" data-color="red">Red Top</div>
-                                            <div class="color-option" data-color="orange">Orange Top</div>
-                                            <div class="color-option" data-color="blue">Blue Top</div>
-                                            <div class="color-option" data-color="green">Green Top</div>
+                                            <div class="color-option" data-color="yellow" data-translate="color_yellow">Yellow Top</div>
+                                            <div class="color-option" data-color="white" data-translate="color_white">White Top</div>
+                                            <div class="color-option" data-color="red" data-translate="color_red">Red Top</div>
+                                            <div class="color-option" data-color="orange" data-translate="color_orange">Orange Top</div>
+                                            <div class="color-option" data-color="blue" data-translate="color_blue">Blue Top</div>
+                                            <div class="color-option" data-color="green" data-translate="color_green">Green Top</div>
                                         </div>
                                     </div>
                                 </div>
@@ -103,14 +103,14 @@
                 <div class="practice-header">
                     <div class="practice-controls">
                         <div class="selected-counter">
-                            Selected: <span id="selectedCounter">0/0</span>
+                            <span data-translate="selected_cases">Selected:</span> <span id="selectedCounter">0/0</span>
                         </div>
                         <span class="tab-separator">|</span>
-                        <button id="newCaseButton" class="control-button" title="New Case">
+                        <button id="newCaseButton" class="control-button" title="New Case" data-translate="new_case_title">
                             <i class="fas fa-sync-alt"></i>
                         </button>
                         <span class="tab-separator">|</span>
-                        <button id="hintButton" class="control-button" title="Show Hint">
+                        <button id="hintButton" class="control-button" title="Show Hint" data-translate="show_hint_title">
                             <i class="fas fa-lightbulb"></i>
                         </button>
                     </div>
@@ -133,11 +133,11 @@
                 </div>
                 <div class="no-history-message">
                     <i class="fas fa-clock"></i>
-                    <p>No history</p>
-                    <span>Press space to start timing</span>
+                    <p data-translate="no_history">No history</p>
+                    <span data-translate="press_space_to_start">Press space to start timing</span>
                 </div>
                 <div id="resetIconContainer">
-                    <button id="resetIcon" title="Reset All Solves">
+                    <button id="resetIcon" title="Reset All Solves" data-translate="reset_solves_title">
                         <i class="fas fa-trash-alt"></i>
                     </button>
                 </div>
@@ -149,7 +149,7 @@
     <div id="overlay" class="overlay"></div>
     <div id="details-popup" class="details-popup">
         <button class="details-popup-close" onclick="closeDetailsPopup()">&times;</button>
-        <h3>Solve Details</h3>
+        <h3 data-translate="solve_details_title">Solve Details</h3>
         <div id="popup-content"></div>
     </div>
 
