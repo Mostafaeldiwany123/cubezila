@@ -17,13 +17,11 @@ function setLanguage(lang) {
         langToggleBtn.textContent = translations[lang === 'en' ? 'ar' : 'en'].lang_toggle;
     }
 
-    // Add or remove Arabic class from body and set direction
+    // Add or remove Arabic class from body
     if (lang === 'ar') {
         document.body.classList.add('ar');
-        document.documentElement.setAttribute('dir', 'rtl');
     } else {
         document.body.classList.remove('ar');
-        document.documentElement.setAttribute('dir', 'ltr');
     }
     
     localStorage.setItem("selectedLanguage", lang);

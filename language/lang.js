@@ -44,7 +44,7 @@ export const translations = {
         cta_final_desc: "Join CubeZila today and unlock the tools that will redefine your speedcubing journey.",
         cta_final_button: "Start Your Free Account",
         footer_copyright: "© 2025 CubeZila. All rights reserved.",
-        lang_toggle: "عربي", // Display Arabic text when currently in English
+        lang_toggle: "AR", // Display AR text when currently in English
     },
     ar: {
         nav_features: "الميزات",
@@ -91,6 +91,6 @@ export const translations = {
         cta_final_desc: "انضم إلى CubeZila اليوم وافتح الأدوات التي ستعيد تعريف رحلتك في السرعة.",
         cta_final_button: "ابدأ حسابك المجاني",
         footer_copyright: "© 2025 كيوبزيلا. جميع الحقوق محفوظة.",
-        lang_toggle: "English", // Display English text when currently in Arabic
+        lang_toggle: "EN", // Display EN text when currently in Arabic
     }
 };
