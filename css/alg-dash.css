@@ -9,10 +9,9 @@ body {
     flex-direction: column;
     min-height: 100vh;
     margin: 0;
+    font-family: var(--font-family);
     color: var(--text-color);
     background-color: var(--home-background-color);
-        font-family: var(--font-family-body); /* Explicitly set font for consistency */
-
     overflow-x: hidden; /* Added to prevent horizontal scrollbars from shifting layout */
 }
 
