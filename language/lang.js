@@ -45,14 +45,6 @@ export const translations = {
         cta_final_button: "Start Your Free Account",
         footer_copyright: "© 2025 CubeZila. All rights reserved.",
         lang_toggle: "AR", // Display AR text when currently in English
-        
-        // New Dashboard Translations
-        dashboard_title: "Algorithm Dashboard",
-        back_to_home: "Back to Home",
-        category_3x3: "3x3 Algorithms",
-        category_2x2: "2x2 Algorithms",
-        category_pyraminx: "Pyraminx Algorithms",
-        category_sq1: "Square-1 Algorithms",
     },
     ar: {
         nav_features: "الميزات",
@@ -100,13 +92,5 @@ export const translations = {
         cta_final_button: "ابدأ حسابك المجاني",
         footer_copyright: "© 2025 كيوبزيلا. جميع الحقوق محفوظة.",
         lang_toggle: "EN", // Display EN text when currently in Arabic
-        
-        // New Dashboard Translations
-        dashboard_title: "لوحة خوارزميات",
-        back_to_home: "العودة للرئيسية",
-        category_3x3: "خوارزميات 3x3",
-        category_2x2: "خوارزميات 2x2",
-        category_pyraminx: "خوارزميات بيرامينكس",
-        category_sq1: "خوارزميات سكوير-1",
     }
 };
