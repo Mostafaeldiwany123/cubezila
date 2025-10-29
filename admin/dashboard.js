@@ -7,28 +7,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const navItems = document.querySelectorAll('.nav-item');
     const pages = document.querySelectorAll('.page');
     const pageTitle = document.getElementById('page-title');
+    const sortBySelect = document.getElementById('sortBy');
+    const sortDirButton = document.getElementById('sortDirBtn');
 
     let allUsers = []; // Cache for user data
+    let currentSort = {
+        key: 'createdAt',
+        dir: 'desc' // 'asc' or 'desc'
+    };
 
     // --- Navigation ---
     navItems.forEach(item => {
         item.addEventListener('click', (e) => {
             e.preventDefault();
             const targetId = item.dataset.target;
-
-            // Update nav active state
             navItems.forEach(nav => nav.classList.remove('active'));
             item.classList.add('active');
-
-            // Update page active state
             pages.forEach(page => {
                 page.classList.remove('active');
-                if (page.id === `${targetId}-page`) {
-                    page.classList.add('active');
-                }
+                if (page.id === `${targetId}-page`) page.classList.add('active');
             });
-            
-            // Update page title
             pageTitle.textContent = item.querySelector('span').textContent;
         });
     });
@@ -39,13 +37,40 @@ document.addEventListener('DOMContentLoaded', () => {
         usersTableBody.innerHTML = '';
         try {
             allUsers = await getAllUsers();
-            renderUsers(allUsers);
+            // Convert Firestore Timestamps to JS Date objects once for easier sorting
+            allUsers.forEach(user => {
+                user.createdAtDate = user.createdAt?.toDate ? user.createdAt.toDate() : new Date(0);
+            });
+            applyFiltersAndSort();
         } catch (error) {
             console.error('Error loading users:', error);
             usersTableBody.innerHTML = '<tr><td colspan="5">Error loading users. Check console for details.</td></tr>';
         } finally {
             loadingIndicator.classList.add('hidden');
         }
+    }
+
+    function applyFiltersAndSort() {
+        const searchTerm = userSearchInput.value.toLowerCase();
+
+        // 1. Filter users based on search term
+        const filteredUsers = allUsers.filter(user => {
+            const username = user.username?.toLowerCase() || '';
+            const email = user.email?.toLowerCase() || '';
+            return username.includes(searchTerm) || email.includes(searchTerm);
+        });
+
+        // 2. Sort the filtered list
+        filteredUsers.sort((a, b) => {
+            const valA = (currentSort.key === 'createdAt') ? a.createdAtDate : (a[currentSort.key] || '').toLowerCase();
+            const valB = (currentSort.key === 'createdAt') ? b.createdAtDate : (b[currentSort.key] || '').toLowerCase();
+
+            if (valA < valB) return currentSort.dir === 'asc' ? -1 : 1;
+            if (valA > valB) return currentSort.dir === 'asc' ? 1 : -1;
+            return 0;
+        });
+
+        renderUsers(filteredUsers);
     }
 
     function renderUsers(users) {
@@ -58,9 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
         users.forEach(user => {
             const row = document.createElement('tr');
             row.dataset.uid = user.uid;
-
-            const createdAt = user.createdAt?.toDate ? user.createdAt.toDate().toLocaleDateString() : 'N/A';
-
             row.innerHTML = `
                 <td>${user.username || 'N/A'}</td>
                 <td>${user.email}</td>
@@ -72,7 +94,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <option value="admin" ${user.role === 'admin' ? 'selected' : ''}>Admin</option>
                     </select>
                 </td>
-                <td>${createdAt}</td>
+                <td>${user.createdAtDate.toLocaleDateString()}</td>
                 <td>
                     <button class="action-btn delete" data-uid="${user.uid}" title="Delete User"><i class="fas fa-trash-alt"></i></button>
                 </td>
@@ -81,23 +103,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Event delegation for user actions
+    // --- Event Listeners ---
+    userSearchInput.addEventListener('input', applyFiltersAndSort);
+    sortBySelect.addEventListener('change', (e) => {
+        currentSort.key = e.target.value;
+        applyFiltersAndSort();
+    });
+
+    sortDirButton.addEventListener('click', () => {
+        currentSort.dir = currentSort.dir === 'asc' ? 'desc' : 'asc';
+        const icon = sortDirButton.querySelector('i');
+        icon.className = `fas ${currentSort.dir === 'asc' ? 'fa-arrow-up-long' : 'fa-arrow-down-long'}`;
+        applyFiltersAndSort();
+    });
+
     usersTableBody.addEventListener('change', async (e) => {
         if (e.target.classList.contains('role-select')) {
             const uid = e.target.dataset.uid;
             const newRole = e.target.value;
-            if (confirm(`Are you sure you want to change this user's role to ${newRole}?`)) {
+            if (confirm(`Change this user's role to ${newRole}?`)) {
                 try {
                     await updateUserProfile(uid, { role: newRole });
-                    alert('User role updated successfully.');
+                    alert('User role updated.');
                 } catch (error) {
-                    console.error('Error updating user role:', error);
                     alert('Failed to update user role.');
-                    // Revert dropdown on failure
-                    loadUsers();
+                    loadUsers(); // Revert on failure
                 }
             } else {
-                // Revert dropdown if cancelled
                 const originalUser = allUsers.find(u => u.uid === uid);
                 if (originalUser) e.target.value = originalUser.role;
             }
@@ -108,28 +140,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const deleteButton = e.target.closest('.delete');
         if (deleteButton) {
             const uid = deleteButton.dataset.uid;
-            if (confirm('Are you sure you want to delete this user? This will only remove their data from the database, not their authentication record. This action cannot be undone.')) {
+            if (confirm('Are you sure you want to delete this user profile? This action cannot be undone.')) {
                 try {
                     await deleteUserProfile(uid);
-                    alert('User profile deleted successfully.');
-                    loadUsers(); // Refresh the list
+                    alert('User profile deleted.');
+                    loadUsers();
                 } catch (error) {
-                    console.error('Error deleting user profile:', error);
                     alert('Failed to delete user profile.');
                 }
             }
         }
-    });
-
-    // Search/Filter functionality
-    userSearchInput.addEventListener('input', (e) => {
-        const searchTerm = e.target.value.toLowerCase();
-        const filteredUsers = allUsers.filter(user => {
-            const username = user.username?.toLowerCase() || '';
-            const email = user.email?.toLowerCase() || '';
-            return username.includes(searchTerm) || email.includes(searchTerm);
-        });
-        renderUsers(filteredUsers);
     });
 
     // Initial load

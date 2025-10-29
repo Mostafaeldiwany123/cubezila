@@ -11,6 +11,12 @@
     <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
+    <!-- Loading Overlay for Auth Check -->
+    <div id="auth-loading-overlay">
+        <div class="spinner"></div>
+        <p>Verifying permissions...</p>
+    </div>
+
     <div class="dashboard-layout">
         <aside class="sidebar">
             <div class="sidebar-header">
@@ -41,6 +47,18 @@
                         <div class="search-bar">
                             <i class="fas fa-search"></i>
                             <input type="text" id="userSearch" placeholder="Search by name or email...">
+                        </div>
+                        <div class="sort-controls">
+                            <label for="sortBy">Sort by:</label>
+                            <select id="sortBy">
+                                <option value="createdAt" selected>Date Created</option>
+                                <option value="username">Username</option>
+                                <option value="email">Email</option>
+                                <option value="role">Role</option>
+                            </select>
+                            <button id="sortDirBtn" title="Change sort direction">
+                                <i class="fas fa-arrow-down-long"></i>
+                            </button>
                         </div>
                     </div>
                     <div class="table-container">
