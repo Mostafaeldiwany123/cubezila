@@ -4,6 +4,9 @@ import { showNotification } from '../js/notification.js';
 const PRO_ROLES = ['pro_user', 'admin', 'subadmin'];
 const PRICING_PAGE = '../../pricing.html'; // Assuming this path
 
+let loadingTimeout;
+let authCheckCompleted = false;
+
 function showLoading() {
     let overlay = document.getElementById('loading-overlay');
     if (!overlay) {
@@ -20,6 +23,7 @@ function showLoading() {
 }
 
 function hideLoading() {
+    clearTimeout(loadingTimeout);
     const overlay = document.getElementById('loading-overlay');
     if (overlay) {
         overlay.classList.add('hidden');
@@ -33,24 +37,32 @@ function hideLoading() {
 }
 
 function checkProAccess() {
-    // Show loading immediately to prevent content flash while Firebase initializes
-    showLoading();
+    // 1. Set a timeout to show the loading screen only if the auth check takes longer than 50ms
+    loadingTimeout = setTimeout(() => {
+        if (!authCheckCompleted) {
+            showLoading();
+        }
+    }, 50);
 
     onAuthStateChange((user) => {
+        authCheckCompleted = true;
+        
         if (user && user.profile) {
             const userRole = user.profile.role;
             
             if (PRO_ROLES.includes(userRole)) {
-                // Access granted: hide loading immediately
+                // Access granted: hide loading immediately (clears the timeout if it hasn't fired yet)
                 hideLoading();
             } else {
                 // Free user or unauthorized role: deny access
+                hideLoading(); // Hide loading before redirecting
                 showNotification('Upgrade to Pro to access this algorithm!', 'fas fa-lock', 5000);
-                // Secure redirect (using replace to prevent back button access)
+                // Secure redirect
                 window.location.replace(PRICING_PAGE);
             }
         } else {
             // User is not logged in: deny access
+            hideLoading(); // Hide loading before redirecting
             showNotification('Please log in or upgrade to Pro to access this page.', 'fas fa-user-lock', 5000);
             // Secure redirect
             window.location.replace(PRICING_PAGE);
