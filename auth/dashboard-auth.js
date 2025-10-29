@@ -11,26 +11,6 @@ const PRICING_PAGE = '../../pricing.html';
 
 let currentUserRole = null;
 
-function showLoading() {
-    const overlay = document.getElementById('loading-overlay');
-    if (overlay) {
-        overlay.classList.remove('hidden');
-    }
-}
-
-function hideLoading() {
-    const overlay = document.getElementById('loading-overlay');
-    if (overlay) {
-        overlay.classList.add('hidden');
-        // Remove overlay after transition
-        setTimeout(() => {
-            if (overlay.parentNode) {
-                overlay.parentNode.removeChild(overlay);
-            }
-        }, 500);
-    }
-}
-
 // 1. Listen for auth state changes to determine user role
 onAuthStateChange((user) => {
     if (user && user.profile) {
@@ -47,8 +27,6 @@ function isProUser() {
 }
 
 function applyProLocks() {
-    showLoading(); // Start loading animation
-
     const cubeBoxes = document.querySelectorAll('.cube-box');
 
     cubeBoxes.forEach(box => {
@@ -105,7 +83,10 @@ function applyProLocks() {
     });
     
     // 4. Reveal content after locks are applied
-    hideLoading();
+    const mainElement = document.querySelector('main');
+    if (mainElement) {
+        mainElement.classList.remove('content-hidden');
+    }
 }
 
 function handleProClick(event) {
@@ -156,30 +137,6 @@ style.textContent = `
     .cube-box.pro-locked:hover {
         transform: none;
         cursor: default;
-    }
-    
-    /* Ensure loading overlay covers only the main content area */
-    main .loading-overlay {
-        position: absolute;
-        top: 70px; /* Below the fixed header */
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: calc(100% - 70px);
-        width: 100%;
-        background-color: var(--background-color);
-        z-index: 99; /* Below the fixed header (100) */
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        opacity: 1;
-        transition: opacity 0.5s ease-out;
-    }
-    
-    main .loading-overlay.hidden {
-        opacity: 0;
-        pointer-events: none;
     }
 `;
 document.head.appendChild(style);
