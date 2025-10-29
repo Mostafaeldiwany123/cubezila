@@ -81,6 +81,12 @@ function applyProLocks() {
             }
         }
     });
+    
+    // 4. Reveal content after locks are applied
+    const mainElement = document.querySelector('main');
+    if (mainElement) {
+        mainElement.classList.remove('content-hidden');
+    }
 }
 
 function handleProClick(event) {
