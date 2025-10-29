@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="/img/demo (2).png">
-    <title>Login - Cubezilla</title>
+    <title data-translate="login_title">Login - Cubezilla</title>
     <script src="../../bg/theme.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,30 +35,30 @@
     <div class="auth-layout">
         <div class="auth-form-container">
             <div class="form-wrapper">
-                <a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
-                <h2>Login</h2>
-                <p class="auth-description">Enter your credentials to access your account.</p>
+                <a href="../index.html" class="back-link" data-translate="auth_back_home"><i class="fas fa-arrow-left"></i> Back to Home</a>
+                <h2 data-translate="login_title">Login</h2>
+                <p class="auth-description" data-translate="login_description">Enter your credentials to access your account.</p>
                 <div class="error-message" id="errorMessage"></div>
                 <form id="loginForm" class="form-container">
                     <div class="form-group">
-                        <label for="loginEmail">Email</label>
+                        <label for="loginEmail" data-translate="login_email">Email</label>
                         <input type="email" id="loginEmail" placeholder="Enter your email" required>
                     </div>
                     <div class="form-group">
-                        <label for="loginPassword">Password</label>
+                        <label for="loginPassword" data-translate="login_password">Password</label>
                         <input type="password" id="loginPassword" placeholder="Enter your password" required>
                     </div>
                     <button type="submit" id="loginButton">
-                        <span>Login</span>
+                        <span data-translate="login_button">Login</span>
                     </button>
                 </form>
-                <div class="or-divider"><span>or</span></div>
+                <div class="or-divider"><span data-translate="or_divider">or</span></div>
                 <button id="googleSignInButton" class="google-btn">
                     <i class="fab fa-google"></i>
-                    <span>Sign in with Google</span>
+                    <span data-translate="login_google">Sign in with Google</span>
                 </button>
                 <p class="register-link">
-                    Don't have an account? <a href="register.html">Register here</a>
+                    <span data-translate="register_link_prompt">Don't have an account?</span> <a href="register.html" data-translate="register_link_text">Register here</a>
                 </p>
             </div>
         </div>
@@ -68,8 +68,8 @@
                     <i class="cubing-icon event-333"></i>
                     <span>CubeZila</span>
                 </div>
-                <h2>Welcome Back!</h2>
-                <p>Log in to continue your speedcubing journey. Track your progress, learn new algorithms, and connect with the community.</p>
+                <h2 data-translate="welcome_back_title">Welcome Back!</h2>
+                <p data-translate="welcome_back_desc">Log in to continue your speedcubing journey. Track your progress, learn new algorithms, and connect with the community.</p>
             </div>
         </div>
     </div>
@@ -83,6 +83,6 @@
     <script type="module" src="../js/user-service.js"></script>
     <script type="module" src="../js/auth-service.js"></script>
     <script type="module" src="auth.js"></script>
-    <script src="language.js"></script>
+    <script type="module" src="../language/language.js"></script>
 </body>
 </html>

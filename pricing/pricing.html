@@ -3,6 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="/img/demo (2).png">
+    <title data-translate="nav_pricing">Pricing - Cubezilla</title>
+    <script src="../bg/theme.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/pricing.css">
+    <link rel="stylesheet" href="../css/roots.css">
+    <!-- Cubing Icons -->
+    <link rel="stylesheet" href="https://cdn.cubing.net/v0/css/@cubing/icons/css">
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GD9J5DTDPS"></script>
     <script>
@@ -18,223 +30,77 @@
         });
       }
     </script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <script src="../bg/theme.js"></script>
-    <link rel="stylesheet" href="../css/pricing.css">
-    <link rel="stylesheet" href="../css/roots.css">
-    <link rel="icon" type="image/png" href="../img/demo (2).png">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdn.cubing.net/v0/css/@cubing/icons/css">
-    <title>Cubezilla - Pricing</title>
 </head>
 <body>
     <div class="pricing-layout">
         <div class="pricing-content-container">
             <div class="pricing-wrapper">
-                <a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+                <a href="../index.html" class="back-link" data-translate="pricing_back_home"><i class="fas fa-arrow-left"></i> Back to Home</a>
+                
                 <div class="pricing-header">
-                    <h1>Choose Your Plan</h1>
-                    <p>Unlock advanced features and take your cubing to the next level.</p>
+                    <h1 data-translate="pricing_title">Choose Your Plan</h1>
+                    <p data-translate="pricing_subtitle">Unlock premium features and accelerate your progress.</p>
+                    
                     <div class="tabs">
-                        <button class="tab active" onclick="showPricing('monthly')">Monthly</button>
-                        <button class="tab" onclick="showPricing('yearly')">Yearly</button>
+                        <button class="tab active" data-translate="tab_monthly">Monthly</button>
+                        <button class="tab" data-translate="tab_yearly">Yearly</button>
                     </div>
                 </div>
 
-                <!-- Monthly Pricing -->
-                <div class="pricing-cards" id="monthly">
-                    <div class="pricing-card free">
+                <div class="pricing-cards">
+                    <!-- Free Plan Card -->
+                    <div class="pricing-card">
                         <div class="card-header">
-                            <h3>Free</h3>
-                            <div class="price">0 EGP<span>/month</span></div>
-                            <p class="card-description">For casual cubers getting started.</p>
+                            <h3 data-translate="plan_free_title">Free</h3>
+                            <div class="price">
+                                $<span data-translate="plan_free_price">0</span><span data-translate="plan_free_period">/month</span>
+                            </div>
                         </div>
+                        <p class="card-description" data-translate="plan_free_desc">Perfect for beginners and casual cubers.</p>
+                        
                         <ul class="features">
-                            <li class="feature"><i class="fas fa-check"></i> Basic Timer & Scrambles</li>
-                            <li class="feature"><i class="fas fa-check"></i> Basic Statistics</li>
-                            <li class="feature"><i class="fas fa-check"></i> Limited Algorithm Sets</li>
-                            <li class="feature disabled"><i class="fas fa-times"></i> Advanced Analytics</li>
-                            <li class="feature disabled"><i class="fas fa-times"></i> Premium Themes & Voices</li>
-                            <li class="feature disabled"><i class="fas fa-times"></i> Cross Solver & Trainers</li>
+                            <li class="feature"><i class="fas fa-check"></i> <span data-translate="plan_free_feature1">Basic Timer & Scrambles</span></li>
+                            <li class="feature"><i class="fas fa-check"></i> <span data-translate="plan_free_feature2">Standard Algorithm Library (CFOP)</span></li>
+                            <li class="feature"><i class="fas fa-check"></i> <span data-translate="plan_free_feature3">Basic Analytics (Ao5, Ao12)</span></li>
+                            <li class="feature"><i class="fas fa-check"></i> <span data-translate="plan_free_feature4">Standard Themes</span></li>
+                            <li class="feature disabled"><i class="fas fa-times"></i> <span data-translate="plan_free_feature5">Limited Voice Packs</span></li>
+                            <li class="feature disabled"><i class="fas fa-times"></i> <span data-translate="plan_free_feature6">No Ads</span></li>
                         </ul>
-                        <button class="select-plan free-btn" disabled>Current Plan</button>
+                        
+                        <a href="../auth/register.html" class="select-plan free-btn" data-translate="plan_free_button">Start Free</a>
                     </div>
 
+                    <!-- Pro Plan Card -->
                     <div class="pricing-card pro">
-                        <div class="popular-tag">Most Popular</div>
+                        <div class="popular-tag" data-translate="plan_pro_tag">Most Popular</div>
                         <div class="card-header">
-                            <h3>Pro</h3>
-                            <div class="price">80 EGP<span>/month</span></div>
-                            <p class="card-description">For dedicated cubers aiming for the top.</p>
+                            <h3 data-translate="plan_pro_title">Pro</h3>
+                            <div class="price">
+                                $<span data-translate="plan_pro_price">4.99</span><span data-translate="plan_pro_period">/month</span>
+                            </div>
                         </div>
+                        <p class="card-description" data-translate="plan_pro_desc">Essential tools for serious cubers aiming for competition times.</p>
+                        
                         <ul class="features">
-                            <li class="feature"><i class="fas fa-check"></i> Everything in Free, plus:</li>
-                            <li class="feature"><i class="fas fa-check"></i> Advanced Analytics & Insights</li>
-                            <li class="feature"><i class="fas fa-check"></i> All Premium Themes & Voices</li>
-                            <li class="feature"><i class="fas fa-check"></i> Cross Solver & CFOP Trainers</li>
-                            <li class="feature"><i class="fas fa-check"></i> Multi-phase Timing</li>
-                            <li class="feature"><i class="fas fa-check"></i> 10% Off Competition Entry</li>
+                            <li class="feature"><i class="fas fa-check"></i> <span data-translate="plan_pro_feature1">All Free Features</span></li>
+                            <li class="feature"><i class="fas fa-check"></i> <span data-translate="plan_pro_feature2">Advanced Algorithms (ZBLL, COLL, ZBLS)</span></li>
+                            <li class="feature"><i class="fas fa-check"></i> <span data-translate="plan_pro_feature3">Advanced Analytics & Cross Solver</span></li>
+                            <li class="feature"><i class="fas fa-check"></i> <span data-translate="plan_pro_feature4">Premium Themes & Effects</span></li>
+                            <li class="feature"><i class="fas fa-check"></i> <span data-translate="plan_pro_feature5">All Voice Packs</span></li>
+                            <li class="feature"><i class="fas fa-check"></i> <span data-translate="plan_pro_feature6">Custom Inspection Time</span></li>
                         </ul>
-                        <button class="select-plan pro-btn" onclick="selectPlan('monthly')">Get Pro</button>
-                    </div>
-                </div>
-
-                <!-- Yearly Pricing -->
-                <div class="pricing-cards" id="yearly" style="display: none;">
-                    <div class="pricing-card free">
-                        <div class="card-header">
-                            <h3>Free</h3>
-                            <div class="price">0 EGP<span>/year</span></div>
-                            <p class="card-description">For casual cubers getting started.</p>
-                        </div>
-                        <ul class="features">
-                            <li class="feature"><i class="fas fa-check"></i> Basic Timer & Scrambles</li>
-                            <li class="feature"><i class="fas fa-check"></i> Basic Statistics</li>
-                            <li class="feature"><i class="fas fa-check"></i> Limited Algorithm Sets</li>
-                            <li class="feature disabled"><i class="fas fa-times"></i> Advanced Analytics</li>
-                            <li class="feature disabled"><i class="fas fa-times"></i> Premium Themes & Voices</li>
-                            <li class="feature disabled"><i class="fas fa-times"></i> Cross Solver & Trainers</li>
-                        </ul>
-                        <button class="select-plan free-btn" disabled>Current Plan</button>
-                    </div>
-
-                    <div class="pricing-card pro">
-                        <div class="popular-tag">Save 20%</div>
-                        <div class="card-header">
-                            <h3>Pro</h3>
-                            <div class="price">800 EGP<span>/year</span></div>
-                            <p class="card-description">For dedicated cubers aiming for the top.</p>
-                        </div>
-                        <ul class="features">
-                            <li class="feature"><i class="fas fa-check"></i> Everything in Monthly, plus:</li>
-                            <li class="feature"><i class="fas fa-check"></i> Instant Access to New Features</li>
-                            <li class="feature"><i class="fas fa-check"></i> Get Mentioned in Credits</li>
-                            <li class="feature"><i class="fas fa-check"></i> Priority Support</li>
-                            <li class="feature"><i class="fas fa-check"></i> Exclusive Pro Community Access</li>
-                            <li class="feature"><i class="fas fa-check"></i> 20% Off Competition Entry</li>
-                        </ul>
-                        <button class="select-plan pro-btn" onclick="selectPlan('yearly')">Get Pro</button>
+                        
+                        <a href="#" class="select-plan pro-btn" data-translate="plan_pro_button">Go Pro</a>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Payment Modal -->
-    <div id="payment-modal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div class="modal-header">
-                <h2><i class="fas fa-cube"></i> Get Cubezilla Pro</h2>
-            </div>
-            <div class="payment-details">
-                <div class="notice">
-                    <i class="fas fa-info-circle"></i>
-                    <p>Currently, we're accepting payments through InstaPay only, due to problems with International payments.</p>
-                </div>
-                
-                <div class="steps">
-                    <div class="step">
-                        <span class="step-number">1</span>
-                        <p>Fill out the form with your information.</p>
-                    </div>
-                    <div class="step">
-                        <span class="step-number">2</span>
-                        <p>We'll contact you with InstaPay payment info.</p>
-                    </div>
-                    <div class="step">
-                        <span class="step-number">3</span>
-                        <p>After payment, you'll get Pro access within 24h.</p>
-                    </div>
-                </div>
-                
-                <div class="action-buttons">
-                    <button class="confirm-btn" onclick="window.open('https://docs.google.com/forms/d/e/1FAIpQLSeSjeu-YaEYRCmRIlL4hVBu2eY7EmTOBEnMb2rSyqDrmOShiw/viewform?usp=dialog', '_blank')">
-                        <i class="fas fa-external-link-alt"></i>
-                        Fill Out Form
-                    </button>
-                    <button class="secondary-btn" onclick="document.getElementById('payment-modal').style.display='none'">
-                        Maybe Later
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script>
-        const priceMap = {
-            EG: {
-                currency: 'EGP',
-                monthly: 80,
-                yearly: 800,
-                lifetime: 2200
-            },
-            default: {
-                currency: 'USD',
-                monthly: 3,
-                yearly: 25,
-                lifetime: 65
-            }
-        };
-
-        let userCountry = 'default';
-
-        async function initializePricing() {
-            try {
-                const response = await fetch('https://ipapi.co/json/');
-                const data = await response.json();
-                userCountry = data.country_code;
-                updatePricing();
-            } catch (error) {
-                console.error('Error detecting location:', error);
-                updatePricing(); // Use default pricing
-            }
-        }
-
-        function updatePricing() {
-            const prices = priceMap[userCountry] || priceMap.default;
-            
-            // Update monthly prices
-            document.querySelector('#monthly .pro .price').innerHTML = 
-                `${prices.monthly} ${prices.currency}<span>/month</span>`;
-            
-            // Update yearly prices
-            document.querySelector('#yearly .pro .price').innerHTML = 
-                `${prices.yearly} ${prices.currency}<span>/year</span>`;
-        }
-
-        function showPricing(period) {
-            document.querySelectorAll('.pricing-cards').forEach(card => card.style.display = 'none');
-            document.getElementById(period).style.display = 'flex';
-            
-            document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-        }
-
-        function selectPlan(plan) {
-            if (plan === 'free') return;
-            
-            const modal = document.getElementById('payment-modal');
-            modal.style.display = 'flex';
-        }
-
-        // Initialize pricing when page loads
-        document.addEventListener('DOMContentLoaded', initializePricing);
-
-        // Modal close button
-        document.querySelector('.close').onclick = function() {
-            document.getElementById('payment-modal').style.display = 'none';
-        }
-
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('payment-modal');
-            if (event.target == modal) {
-                modal.style.display = 'none';
-            }
-        }
-    </script>
+    <!-- Modular Firebase Scripts -->
+    <script type="module" src="../js/firebase-config.js"></script>
+    <script type="module" src="../js/user-service.js"></script>
+    <script type="module" src="../js/auth-service.js"></script>
+    <script type="module" src="../auth/auth.js"></script>
+    <script type="module" src="../language/language.js"></script>
 </body>
 </html>
