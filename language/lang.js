@@ -45,53 +45,6 @@ export const translations = {
         cta_final_button: "Start Your Free Account",
         footer_copyright: "© 2025 CubeZila. All rights reserved.",
         lang_toggle: "AR", // Display AR text when currently in English
-
-        // --- Algorithm Dashboard Translations ---
-        alg_dash_title: "Algorithm Dashboards",
-        alg_dash_subtitle: "Select a method or set to start training.",
-        alg_dash_back: "Back to Home",
-        
-        // Categories
-        category_3x3: "3x3 Algorithms",
-        category_2x2: "2x2 Algorithms",
-        category_4x4: "4x4 Algorithms",
-        category_pyra: "Pyraminx Algorithms",
-        
-        // Sets
-        set_oll: "OLL (Orientation of Last Layer)",
-        set_pll: "PLL (Permutation of Last Layer)",
-        set_f2l: "F2L (First Two Layers)",
-        set_zbll: "ZBLL (Zborowski-Bruchem Last Layer)",
-        set_vls: "VLS (Valk Last Slot)",
-        set_cols: "COLL (Corners Orientation and Permutation)",
-        set_wv: "WV (Winter Variation)",
-        set_eg: "EG (Easy Group)",
-        
-        // General Alg Page UI
-        alg_page_title: "Algorithm Trainer",
-        alg_page_case: "Case",
-        alg_page_alg: "Algorithm",
-        alg_page_moves: "Moves",
-        alg_page_scramble: "Scramble",
-        alg_page_timer: "Start Timer",
-        alg_page_reset: "Reset",
-        alg_page_next: "Next Case",
-        alg_page_prev: "Previous Case",
-        alg_page_stats: "Your Stats",
-        alg_page_best: "Best Time",
-        alg_page_avg5: "Ao5",
-        alg_page_avg12: "Ao12",
-        alg_page_total_solves: "Total Solves",
-        alg_page_mark_learned: "Mark as Learned",
-        alg_page_mark_unlearned: "Mark as Unlearned",
-        alg_page_select_alg: "Select Algorithm",
-        alg_page_add_alg: "Add New Algorithm",
-        alg_page_delete_alg: "Delete Algorithm",
-        alg_page_confirm_delete: "Are you sure you want to delete this algorithm?",
-        alg_page_no_algs: "No algorithms found for this case.",
-        alg_page_view_all: "View All Cases",
-        alg_page_filter: "Filter Cases",
-        alg_page_search: "Search...",
     },
     ar: {
         nav_features: "الميزات",
@@ -139,52 +92,5 @@ export const translations = {
         cta_final_button: "ابدأ حسابك المجاني",
         footer_copyright: "© 2025 كيوبزيلا. جميع الحقوق محفوظة.",
         lang_toggle: "EN", // Display EN text when currently in Arabic
-
-        // --- Algorithm Dashboard Translations ---
-        alg_dash_title: "لوحات خوارزميات",
-        alg_dash_subtitle: "اختر طريقة أو مجموعة لبدء التدريب.",
-        alg_dash_back: "العودة إلى الصفحة الرئيسية",
-
-        // Categories
-        category_3x3: "خوارزميات 3x3",
-        category_2x2: "خوارزميات 2x2",
-        category_4x4: "خوارزميات 4x4",
-        category_pyra: "خوارزميات بيرامينكس",
-
-        // Sets
-        set_oll: "OLL (توجيه الطبقة الأخيرة)",
-        set_pll: "PLL (تبديل الطبقة الأخيرة)",
-        set_f2l: "F2L (الطبقتان الأوليان)",
-        set_zbll: "ZBLL (الطبقة الأخيرة زبوروفسكي-بروشيم)",
-        set_vls: "VLS (فتحة فالك الأخيرة)",
-        set_cols: "COLL (توجيه وتبديل الزوايا)",
-        set_wv: "WV (تنوع وينتر)",
-        set_eg: "EG (المجموعة السهلة)",
-
-        // General Alg Page UI
-        alg_page_title: "مدرب الخوارزميات",
-        alg_page_case: "الحالة",
-        alg_page_alg: "الخوارزمية",
-        alg_page_moves: "الحركات",
-        alg_page_scramble: "الخلط",
-        alg_page_timer: "بدء المؤقت",
-        alg_page_reset: "إعادة تعيين",
-        alg_page_next: "الحالة التالية",
-        alg_page_prev: "الحالة السابقة",
-        alg_page_stats: "إحصائياتك",
-        alg_page_best: "أفضل وقت",
-        alg_page_avg5: "متوسط 5",
-        alg_page_avg12: "متوسط 12",
-        alg_page_total_solves: "إجمالي الحلول",
-        alg_page_mark_learned: "وضع علامة كمُتقنة",
-        alg_page_mark_unlearned: "إزالة علامة الإتقان",
-        alg_page_select_alg: "اختر الخوارزمية",
-        alg_page_add_alg: "إضافة خوارزمية جديدة",
-        alg_page_delete_alg: "حذف الخوارزمية",
-        alg_page_confirm_delete: "هل أنت متأكد من حذف هذه الخوارزمية؟",
-        alg_page_no_algs: "لم يتم العثور على خوارزميات لهذه الحالة.",
-        alg_page_view_all: "عرض جميع الحالات",
-        alg_page_filter: "تصفية الحالات",
-        alg_page_search: "بحث...",
     }
 };
