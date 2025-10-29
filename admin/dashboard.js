@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const pageTitle = document.getElementById('page-title');
     const sortBySelect = document.getElementById('sortBy');
     const sortDirButton = document.getElementById('sortDirBtn');
+    const exportExcelBtn = document.getElementById('exportExcelBtn');
 
     // Modal elements
     const createUserModal = document.getElementById('createUserModal');
@@ -19,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const modalErrorMessage = document.getElementById('modalErrorMessage');
 
     let allUsers = []; // Cache for user data
+    let displayedUsers = []; // Cache for currently displayed users
     let currentSort = {
         key: 'createdAt',
         dir: 'desc' // 'asc' or 'desc'
@@ -26,17 +28,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Navigation ---
     navItems.forEach(item => {
-        item.addEventListener('click', (e) => {
-            e.preventDefault();
-            const targetId = item.dataset.target;
-            navItems.forEach(nav => nav.classList.remove('active'));
-            item.classList.add('active');
-            pages.forEach(page => {
-                page.classList.remove('active');
-                if (page.id === `${targetId}-page`) page.classList.add('active');
+        if (item.dataset.target) {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = item.dataset.target;
+                navItems.forEach(nav => nav.classList.remove('active'));
+                item.classList.add('active');
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                    if (page.id === `${targetId}-page`) page.classList.add('active');
+                });
+                pageTitle.textContent = item.querySelector('span').textContent;
             });
-            pageTitle.textContent = item.querySelector('span').textContent;
-        });
+        }
     });
 
     // --- User Management ---
@@ -73,7 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return 0;
         });
 
-        renderUsers(filteredUsers);
+        displayedUsers = filteredUsers; // Update the cache for exporting
+        renderUsers(displayedUsers);
     }
 
     function renderUsers(users) {
@@ -116,6 +121,40 @@ document.addEventListener('DOMContentLoaded', () => {
         modalErrorMessage.style.display = 'none';
     }
 
+    // --- Export Logic ---
+    function exportToExcel() {
+        if (displayedUsers.length === 0) {
+            alert('No data to export.');
+            return;
+        }
+
+        const headers = ['Username', 'Email', 'Role', 'Created At (UTC)'];
+        const csvRows = [headers.join(',')]; // Header row
+
+        displayedUsers.forEach(user => {
+            const row = [
+                `"${user.username || ''}"`,
+                `"${user.email || ''}"`,
+                `"${user.role || ''}"`,
+                `"${user.createdAtDate.toISOString()}"`
+            ];
+            csvRows.push(row.join(','));
+        });
+
+        const csvString = csvRows.join('\n');
+        const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+
+        const link = document.createElement('a');
+        const url = URL.createObjectURL(blob);
+        link.setAttribute('href', url);
+        link.setAttribute('download', 'cubezila-users.csv');
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    // --- Event Listeners ---
     createUserBtn.addEventListener('click', openModal);
     closeModalBtn.addEventListener('click', closeModal);
     window.addEventListener('click', (e) => {
@@ -136,36 +175,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let tempApp;
         try {
-            // Initialize a temporary app to create the user without logging out the admin
             tempApp = firebase.initializeApp(firebaseConfig, 'temp-user-creation-app');
             const tempAuth = tempApp.auth();
-            
             const userCredential = await tempAuth.createUserWithEmailAndPassword(email, password);
             const newUser = userCredential.user;
-
-            // Create the user profile in Firestore using the main app's instance
             await createUserProfile(newUser.uid, username, email, role);
-
-            // Clean up the temporary app
             await tempAuth.signOut();
             await tempApp.delete();
-
             alert('User created successfully!');
             closeModal();
-            loadUsers(); // Refresh the user list
-
+            loadUsers();
         } catch (error) {
             console.error("Error creating user:", error);
             modalErrorMessage.textContent = error.message;
             modalErrorMessage.style.display = 'block';
-            if (tempApp) await tempApp.delete(); // Ensure cleanup on failure
+            if (tempApp) await tempApp.delete();
         } finally {
             submitBtn.disabled = false;
             submitBtn.innerHTML = `<span>Create User</span>`;
         }
     });
 
-    // --- Event Listeners ---
     userSearchInput.addEventListener('input', applyFiltersAndSort);
     sortBySelect.addEventListener('change', (e) => {
         currentSort.key = e.target.value;
@@ -177,6 +207,8 @@ document.addEventListener('DOMContentLoaded', () => {
         icon.className = `fas ${currentSort.dir === 'asc' ? 'fa-arrow-up-long' : 'fa-arrow-down-long'}`;
         applyFiltersAndSort();
     });
+    exportExcelBtn.addEventListener('click', exportToExcel);
+
     usersTableBody.addEventListener('change', async (e) => {
         if (e.target.classList.contains('role-select')) {
             const uid = e.target.dataset.uid;
@@ -195,6 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
     usersTableBody.addEventListener('click', async (e) => {
         const deleteButton = e.target.closest('.delete');
         if (deleteButton) {

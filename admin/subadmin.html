@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Subadmin Panel - CubeZila</title>
+    <link rel="icon" type="image/png" href="../img/demo (2).png">
+    <script src="../bg/theme.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/roots.css">
+    <link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+    <!-- Loading Overlay for Auth Check -->
+    <div id="auth-loading-overlay">
+        <div class="spinner"></div>
+        <p>Verifying permissions...</p>
+    </div>
+
+    <div class="dashboard-layout">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <a href="../index.html" class="logo">
+                    <i class="fas fa-cube"></i>
+                    <span>CubeZila Admin</span>
+                </a>
+            </div>
+            <nav class="sidebar-nav">
+                <a href="dashboard.html" class="nav-item">
+                    <i class="fas fa-users"></i>
+                    <span>User Management</span>
+                </a>
+                <a href="subadmin.html" class="nav-item active">
+                    <i class="fas fa-user-cog"></i>
+                    <span>Subadmin Panel</span>
+                </a>
+            </nav>
+        </aside>
+        <main class="main-content">
+            <header class="main-header">
+                <h1>Subadmin Panel</h1>
+            </header>
+            <div class="content-area">
+                <div class="page active">
+                    <h2>Welcome, Subadmin</h2>
+                    <p>This is the subadmin panel. Features for managing specific parts of the application will be available here.</p>
+                    <!-- Subadmin specific content will go here -->
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <!-- Modular Firebase Scripts -->
+    <script type="module" src="../js/firebase-config.js"></script>
+    <script type="module" src="../js/user-service.js"></script>
+    <script type="module" src="../js/auth-service.js"></script>
+    <!-- Page Specific Scripts -->
+    <script type="module" src="subadmin-auth-guard.js"></script>
+</body>
+</html>
