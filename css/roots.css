@@ -38,7 +38,7 @@
     --background-color: #f8f9fc;
     --text-color: #2d3748;
     --container-bg: rgb(255, 255, 255);
-    --header-bg: linear-gradient(90deg, #d3d3d3, #ffffff);
+    --header-bg: #f8f9fc;
     --shadow-color: rgba(0, 0, 0, 0.05);
     --highlight-bg: rgba(239, 240, 244, 0.95);
     --transition-smooth: all 0.3s ease;
