@@ -34,8 +34,7 @@
 }
 
 :root {
-
-    --background-color: #f8f9fc;
+ --background-color: #f8f9fc;
     --text-color: #2d3748;
     --container-bg: rgb(255, 255, 255);
     --header-bg: linear-gradient(90deg, #d3d3d3, #ffffff);
@@ -45,9 +44,7 @@
     --button-primary: #2962ff;
     --button-hover: rgba(41, 98, 255, 0.6);
     --stats-value: #2962ff;
-    --font-family: 'Poppins', sans-serif; /* Changed from Inconsolata */
-    --font-family-heading: 'Montserrat', sans-serif; /* New heading font */
-    --font-family-body: 'Poppins', sans-serif; /* New body font */
+    --font-family: 'Inconsolata', monospace;
     --box-shadow: 0 8px 24px var(--shadow-color);
     --border-radius: 12px;
     --transition-duration: 0.3s;
@@ -115,7 +112,6 @@
     --img-select: #ffeb3b;
     --alg-border: #d7d7d7;
     --glow-box-shadow: 0 0 25px rgba(76, 81, 191, 0.15);
-    --glow-primary: 0 0 15px rgba(110, 147, 255, 0.5);
     --glow-text-shadow: 0 0 10px rgba(76, 81, 191, 0.2);
 }
 :root[data-theme="dark"] {
