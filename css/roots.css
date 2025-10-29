@@ -14,6 +14,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Parkinsans&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Atkinson Hyperlegible&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Zain&display=swap'); /* Ensure Zain is imported */
 @font-face {
     font-family: 'Digital7';
     src: url('/fonts/digital-7.ttf') format('truetype');
