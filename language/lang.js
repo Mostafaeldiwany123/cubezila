@@ -213,8 +213,8 @@ export const translations = {
 
         // Algorithm Dashboard
         alg_dash_title: "الخوارزميات",
-        cube3x3Title: "3x3",
-        cube2x2Title: "2x2",
+        cube3x3Title: "٣×٣",
+        cube2x2Title: "٢×٢",
         pyraminxTitle: "بيرامينكس",
     }
 };
