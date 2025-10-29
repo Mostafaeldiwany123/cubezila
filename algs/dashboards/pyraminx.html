@@ -50,6 +50,12 @@
             transform: scale(1.05);
             box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
         }
+        
+        /* Initial hide for dashboard content */
+        #dashboard-content.hidden {
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
     </style>
 </head>
 <body>
@@ -124,21 +130,23 @@
     </div>
     <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
-    <main>
-        <div class="cube-grid-container">
-            <div class="cube-box" onclick="window.location.href='../pyraminx/L4E.html'">
-                <img src="../../img/L4E.png" alt="L4E">
-                <h2>L4E</h2>
-                <div class="progress-label">0/12</div>
+    <div id="dashboard-content">
+        <main>
+            <div class="cube-grid-container">
+                <div class="cube-box" onclick="window.location.href='../pyraminx/L4E.html'">
+                    <img src="../../img/L4E.png" alt="L4E">
+                    <h2>L4E</h2>
+                    <div class="progress-label">0/12</div>
+                </div>
+                
+                <div class="cube-box" onclick="window.location.href='../pyraminx/L3E.html'">
+                    <img src="../../img/L3E.png" alt="Last Layer">
+                    <h2>Last Layer</h2>
+                    <div class="progress-label">0/5</div>
+                </div>
             </div>
-            
-            <div class="cube-box" onclick="window.location.href='../pyraminx/L3E.html'">
-                <img src="../../img/L3E.png" alt="Last Layer">
-                <h2>Last Layer</h2>
-                <div class="progress-label">0/5</div>
-            </div>
-        </div>
-    </main>
+        </main>
+    </div>
 
     <script>
         function getLearnedCount(storage) {

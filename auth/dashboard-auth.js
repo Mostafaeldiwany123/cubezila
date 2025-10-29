@@ -11,15 +11,29 @@ const PRICING_PAGE = '../../pricing.html';
 
 let currentUserRole = null;
 
-// 1. Listen for auth state changes to determine user role
+// 1. Initial state: Hide dashboard content immediately
+document.addEventListener('DOMContentLoaded', () => {
+    const dashboardContent = document.getElementById('dashboard-content');
+    if (dashboardContent) {
+        dashboardContent.classList.add('hidden');
+    }
+});
+
+// 2. Listen for auth state changes to determine user role
 onAuthStateChange((user) => {
     if (user && user.profile) {
         currentUserRole = user.profile.role;
     } else {
         currentUserRole = 'guest';
     }
-    // 2. Apply locks once the role is known
+    // 3. Apply locks once the role is known
     applyProLocks();
+    
+    // 4. Show content after locks are applied
+    const dashboardContent = document.getElementById('dashboard-content');
+    if (dashboardContent) {
+        dashboardContent.classList.remove('hidden');
+    }
 });
 
 function isProUser() {
