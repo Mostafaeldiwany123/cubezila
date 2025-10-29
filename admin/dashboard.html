@@ -48,6 +48,11 @@
                             <i class="fas fa-search"></i>
                             <input type="text" id="userSearch" placeholder="Search by name or email...">
                         </div>
+                        <div class="actions">
+                            <button id="createUserBtn" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Create User
+                            </button>
+                        </div>
                         <div class="sort-controls">
                             <label for="sortBy">Sort by:</label>
                             <select id="sortBy">
@@ -89,6 +94,41 @@
                 </div>
             </div>
         </main>
+    </div>
+
+    <!-- Create User Modal -->
+    <div id="createUserModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" id="closeModalBtn">&times;</span>
+            <h2>Create New User</h2>
+            <div class="error-message" id="modalErrorMessage"></div>
+            <form id="createUserForm">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="role">Role</label>
+                    <select id="role">
+                        <option value="free_user" selected>Free User</option>
+                        <option value="pro_user">Pro User</option>
+                        <option value="subadmin">Subadmin</option>
+                        <option value="admin">Admin</option>
+                    </select>
+                </div>
+                <button type="submit" id="submitUserBtn" class="btn btn-primary">
+                    <span>Create User</span>
+                </button>
+            </form>
+        </div>
     </div>
 
     <!-- Firebase SDKs -->

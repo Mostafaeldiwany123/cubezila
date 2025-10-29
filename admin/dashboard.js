@@ -1,4 +1,5 @@
-import { getAllUsers, updateUserProfile, deleteUserProfile } from '../js/user-service.js';
+import { getAllUsers, updateUserProfile, deleteUserProfile, createUserProfile } from '../js/user-service.js';
+import { firebaseConfig } from '../js/firebase-config.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const usersTableBody = document.querySelector('#usersTable tbody');
@@ -9,6 +10,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const pageTitle = document.getElementById('page-title');
     const sortBySelect = document.getElementById('sortBy');
     const sortDirButton = document.getElementById('sortDirBtn');
+
+    // Modal elements
+    const createUserModal = document.getElementById('createUserModal');
+    const createUserBtn = document.getElementById('createUserBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const createUserForm = document.getElementById('createUserForm');
+    const modalErrorMessage = document.getElementById('modalErrorMessage');
 
     let allUsers = []; // Cache for user data
     let currentSort = {
@@ -37,7 +45,6 @@ document.addEventListener('DOMContentLoaded', () => {
         usersTableBody.innerHTML = '';
         try {
             allUsers = await getAllUsers();
-            // Convert Firestore Timestamps to JS Date objects once for easier sorting
             allUsers.forEach(user => {
                 user.createdAtDate = user.createdAt?.toDate ? user.createdAt.toDate() : new Date(0);
             });
@@ -52,19 +59,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function applyFiltersAndSort() {
         const searchTerm = userSearchInput.value.toLowerCase();
-
-        // 1. Filter users based on search term
         const filteredUsers = allUsers.filter(user => {
             const username = user.username?.toLowerCase() || '';
             const email = user.email?.toLowerCase() || '';
             return username.includes(searchTerm) || email.includes(searchTerm);
         });
 
-        // 2. Sort the filtered list
         filteredUsers.sort((a, b) => {
             const valA = (currentSort.key === 'createdAt') ? a.createdAtDate : (a[currentSort.key] || '').toLowerCase();
             const valB = (currentSort.key === 'createdAt') ? b.createdAtDate : (b[currentSort.key] || '').toLowerCase();
-
             if (valA < valB) return currentSort.dir === 'asc' ? -1 : 1;
             if (valA > valB) return currentSort.dir === 'asc' ? 1 : -1;
             return 0;
@@ -79,7 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
             usersTableBody.innerHTML = '<tr><td colspan="5">No users found.</td></tr>';
             return;
         }
-
         users.forEach(user => {
             const row = document.createElement('tr');
             row.dataset.uid = user.uid;
@@ -103,20 +105,78 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // --- Modal Logic ---
+    function openModal() {
+        createUserModal.classList.add('active');
+    }
+
+    function closeModal() {
+        createUserModal.classList.remove('active');
+        createUserForm.reset();
+        modalErrorMessage.style.display = 'none';
+    }
+
+    createUserBtn.addEventListener('click', openModal);
+    closeModalBtn.addEventListener('click', closeModal);
+    window.addEventListener('click', (e) => {
+        if (e.target === createUserModal) closeModal();
+    });
+
+    createUserForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const submitBtn = document.getElementById('submitUserBtn');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = `<i class="fas fa-spinner fa-spin"></i> Creating...`;
+        modalErrorMessage.style.display = 'none';
+
+        const username = document.getElementById('username').value;
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        const role = document.getElementById('role').value;
+
+        let tempApp;
+        try {
+            // Initialize a temporary app to create the user without logging out the admin
+            tempApp = firebase.initializeApp(firebaseConfig, 'temp-user-creation-app');
+            const tempAuth = tempApp.auth();
+            
+            const userCredential = await tempAuth.createUserWithEmailAndPassword(email, password);
+            const newUser = userCredential.user;
+
+            // Create the user profile in Firestore using the main app's instance
+            await createUserProfile(newUser.uid, username, email, role);
+
+            // Clean up the temporary app
+            await tempAuth.signOut();
+            await tempApp.delete();
+
+            alert('User created successfully!');
+            closeModal();
+            loadUsers(); // Refresh the user list
+
+        } catch (error) {
+            console.error("Error creating user:", error);
+            modalErrorMessage.textContent = error.message;
+            modalErrorMessage.style.display = 'block';
+            if (tempApp) await tempApp.delete(); // Ensure cleanup on failure
+        } finally {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = `<span>Create User</span>`;
+        }
+    });
+
     // --- Event Listeners ---
     userSearchInput.addEventListener('input', applyFiltersAndSort);
     sortBySelect.addEventListener('change', (e) => {
         currentSort.key = e.target.value;
         applyFiltersAndSort();
     });
-
     sortDirButton.addEventListener('click', () => {
         currentSort.dir = currentSort.dir === 'asc' ? 'desc' : 'asc';
         const icon = sortDirButton.querySelector('i');
         icon.className = `fas ${currentSort.dir === 'asc' ? 'fa-arrow-up-long' : 'fa-arrow-down-long'}`;
         applyFiltersAndSort();
     });
-
     usersTableBody.addEventListener('change', async (e) => {
         if (e.target.classList.contains('role-select')) {
             const uid = e.target.dataset.uid;
@@ -127,7 +187,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     alert('User role updated.');
                 } catch (error) {
                     alert('Failed to update user role.');
-                    loadUsers(); // Revert on failure
+                    loadUsers();
                 }
             } else {
                 const originalUser = allUsers.find(u => u.uid === uid);
@@ -135,7 +195,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
-
     usersTableBody.addEventListener('click', async (e) => {
         const deleteButton = e.target.closest('.delete');
         if (deleteButton) {

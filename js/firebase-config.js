@@ -1,6 +1,6 @@
 // Firebase configuration (replace with your actual project config)
 
-const firebaseConfig = {
+export const firebaseConfig = {
   apiKey: "AIzaSyA2ZiQatq3ItYAAtqKMs8xfLm7D2P3E2NE",
   authDomain: "cube-house.firebaseapp.com",
   projectId: "cube-house",
@@ -11,7 +11,9 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-firebase.initializeApp(firebaseConfig);
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig);
+}
 
 // Export Firebase services
 export const auth = firebase.auth();
