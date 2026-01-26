@@ -1,36 +1,32 @@
 import fs from "fs-extra";
 import path from "path";
 
-const directory = "dist"; // Fix all HTML files inside "dist/"
+const directory = "dist";
 
-// Function to update script tags
 function fixHTMLFiles(dir) {
-  fs.readdir(dir, (err, files) => {
-    if (err) return console.error(`Error reading ${dir}:`, err);
+  const files = fs.readdirSync(dir);
 
-    files.forEach((file) => {
-      const filePath = path.join(dir, file);
+  files.forEach((file) => {
+    const filePath = path.join(dir, file);
+    const stats = fs.statSync(filePath);
 
-      fs.stat(filePath, (err, stats) => {
-        if (err) return console.error(`Error reading ${filePath}:`, err);
+    if (stats.isDirectory()) {
+      fixHTMLFiles(filePath);
+    } else if (file.endsWith(".html")) {
+      let content = fs.readFileSync(filePath, "utf8");
 
-        if (stats.isDirectory()) {
-          fixHTMLFiles(filePath); // Recursively fix all subfolders
-        } else if (file.endsWith(".html")) {
-          let content = fs.readFileSync(filePath, "utf8");
+      // Only add type="module" to scripts that are known to be modules if they don't have it
+      // For now, let's just make sure we don't duplicate it and only apply to local scripts that might need it
+      // But actually, it's safer to just NOT force it on everything.
+      // Reverting the aggressive "type=module" addition as it breaks non-module scripts.
 
-          // Add type="module" to all <script> tags
-          content = content.replace(/<script\s+src="([^"]+)">/g, `<script src="$1" type="module">`);
+      // content = content.replace(/<script\s+src="([^"]+)">/g, `<script src="$1" type="module">`);
 
-          // Fix CSS links if needed
-          content = content.replace(/<link\s+rel="stylesheet"\s+href="([^"]+)">/g, `<link rel="stylesheet" href="$1">`);
-
-          fs.writeFileSync(filePath, content, "utf8");
-          console.log(`Fixed: ${filePath}`);
-        }
-      });
-    });
+      fs.writeFileSync(filePath, content, "utf8");
+      console.log(`Checked: ${filePath}`);
+    }
   });
 }
 
 fixHTMLFiles(directory);
+

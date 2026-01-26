@@ -4,7 +4,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "build": "node fix-html.js && vite build && node minify.js && node remove-html.js ",
+    "build": "vite build && node fix-html.js && node minify.js",
     "dev": "vite"
   },
   "keywords": [],

@@ -88,12 +88,11 @@ function stripCommentsFromHTMLFiles(dir) {
       let code = fs.readFileSync(filePath, "utf8");
       // Remove HTML comments
       code = code.replace(/<!--([\s\S]*?)-->/g, "");
-      // Remove JS comments inside <script> tags
+      // Remove JS comments inside <script> tags - BE CAREFUL, this is naive
       code = code.replace(/(<script[^>]*>)([\s\S]*?)(<\/script>)/gi, (match, open, js, close) => {
-        // Remove /* ... */ and // ... comments
-        let cleaned = js
-          .replace(/\/\*[\s\S]*?\*\//g, '') // multi-line
-          .replace(/(^|\n|\r)\s*\/\/.*(?=\n|\r|$)/g, ''); // single-line
+        // Only remove multi-line comments which are generally safer
+        // Avoiding single-line comment removal because it often breaks URLs inside strings
+        let cleaned = js.replace(/\/\*[\s\S]*?\*\//g, '');
         return open + cleaned + close;
       });
       fs.writeFileSync(filePath, code, "utf8");
