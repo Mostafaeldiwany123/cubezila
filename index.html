@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-GD9J5DTDPS"></script>
     <script>
-      // Only load GA on cubezila.com
-      if (window.location.hostname === 'cubezila.com') {
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){ dataLayer.push(arguments); }
-        gtag('js', new Date());
+        // Only load GA on cubezila.com
+        if (window.location.hostname === 'cubezila.com') {
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
 
-        // ensure cookies are scoped to your domain
-        gtag('config', 'G-GD9J5DTDPS', {
-          'cookie_domain': 'cubezila.com'
-        });
-      }
+            // ensure cookies are scoped to your domain
+            gtag('config', 'G-GD9J5DTDPS', {
+                'cookie_domain': 'cubezila.com'
+            });
+        }
     </script>
 
     <!-- Firebase SDKs -->
@@ -32,7 +33,8 @@
     <script type="module" src="language/language.js"></script>
 
     <link rel="icon" type="image/png" href="/img/demo (2).png">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -43,7 +45,7 @@
             if (localStorage.getItem('user_profile')) {
                 document.write('<style>#guest-content, #sidebar-guest-content { display: none !important; } #user-content { display: flex !important; } #sidebar-user-content { display: block !important; }</style>');
             }
-        } catch (e) {}
+        } catch (e) { }
         // Instantly update profile info to prevent image/name flash
         document.addEventListener('DOMContentLoaded', () => {
             try {
@@ -54,7 +56,7 @@
                     if (userAvatar) userAvatar.src = profile.avatarUrl || '/img/noprof.png';
                     if (userName) userName.textContent = profile.username || 'User';
                 }
-            } catch (e) {}
+            } catch (e) { }
         });
     </script>
     <!-- Cubing Icons -->
@@ -63,6 +65,7 @@
     <link rel="stylesheet" href="css/roots.css">
     <link rel="stylesheet" href="css/index.css">
 </head>
+
 <body>
     <!-- Header -->
     <header>
@@ -76,6 +79,7 @@
                     <li><a href="#features" data-translate="nav_features">Features</a></li>
                     <li><a href="#how-it-works" data-translate="nav_how_it_works">How it Works</a></li>
                     <li><a href="pricing/pricing.html" data-translate="nav_pricing">Pricing</a></li>
+                    <li><a href="#contact" data-translate="nav_contact">Contact</a></li>
                 </ul>
             </nav>
             <div class="auth-buttons">
@@ -93,10 +97,12 @@
                             <span class="theme-color-swatch" style="background: #f8f9fc;"></span> Light
                         </a>
                         <a href="#" class="dropdown-item theme-item" onclick="setTheme('dark'); return false;">
-                            <span class="theme-color-swatch" style="background: #181a20; border: 1px solid #232A3A;"></span> Dark
+                            <span class="theme-color-swatch"
+                                style="background: #181a20; border: 1px solid #232A3A;"></span> Dark
                         </a>
                         <a href="#" class="dropdown-item theme-item" onclick="setTheme('neon'); return false;">
-                            <span class="theme-color-swatch" style="background: #0f0f0f; border: 1px solid #39ff14;"></span> Neon
+                            <span class="theme-color-swatch"
+                                style="background: #0f0f0f; border: 1px solid #39ff14;"></span> Neon
                         </a>
                         <a href="#" class="dropdown-item theme-item" onclick="setTheme('blue'); return false;">
                             <span class="theme-color-swatch" style="background: #001f3f;"></span> Blue
@@ -120,7 +126,8 @@
                 </div>
                 <!-- Guest buttons -->
                 <div id="guest-content" style="display: flex; gap: 10px;">
-                    <a href="auth/login.html" class="btn btn-secondary" id="loginLink" data-translate="auth_enter">Enter</a>
+                    <a href="auth/login.html" class="btn btn-secondary" id="loginLink"
+                        data-translate="auth_enter">Enter</a>
                     <a href="auth/register.html" class="btn" id="registerLink" data-translate="auth_signup">Sign up</a>
                 </div>
                 <!-- User profile dropdown -->
@@ -158,21 +165,30 @@
             </button>
         </div>
         <ul class="sidebar-nav">
-            <li class="sidebar-nav-item"><a href="#features" class="sidebar-link"><i class="fas fa-star"></i><span data-translate="sidebar_features">Features</span></a></li>
-            <li class="sidebar-nav-item"><a href="#how-it-works" class="sidebar-link"><i class="fas fa-cogs"></i><span data-translate="sidebar_how_it_works">How it Works</span></a></li>
-            <li class="sidebar-nav-item"><a href="pricing/pricing.html" class="sidebar-link"><i class="fas fa-tag"></i><span data-translate="sidebar_pricing">Pricing</span></a></li>
+            <li class="sidebar-nav-item"><a href="#features" class="sidebar-link"><i class="fas fa-star"></i><span
+                        data-translate="sidebar_features">Features</span></a></li>
+            <li class="sidebar-nav-item"><a href="#how-it-works" class="sidebar-link"><i class="fas fa-cogs"></i><span
+                        data-translate="sidebar_how_it_works">How it Works</span></a></li>
+            <li class="sidebar-nav-item"><a href="pricing/pricing.html" class="sidebar-link"><i
+                        class="fas fa-tag"></i><span data-translate="sidebar_pricing">Pricing</span></a></li>
+            <li class="sidebar-nav-item"><a href="#contact" class="sidebar-link"><i class="fas fa-envelope"></i><span
+                        data-translate="sidebar_contact">Contact</span></a></li>
         </ul>
         <div class="sidebar-divider"></div>
         <div id="sidebar-guest-content" style="display: block;">
             <ul class="sidebar-nav">
-                <li class="sidebar-nav-item"><a href="auth/login.html" class="sidebar-link"><i class="fas fa-sign-in-alt"></i><span data-translate="sidebar_login">Login</span></a></li>
-                <li class="sidebar-nav-item"><a href="auth/register.html" class="sidebar-link"><i class="fas fa-user-plus"></i><span data-translate="sidebar_signup">Sign up</span></a></li>
+                <li class="sidebar-nav-item"><a href="auth/login.html" class="sidebar-link"><i
+                            class="fas fa-sign-in-alt"></i><span data-translate="sidebar_login">Login</span></a></li>
+                <li class="sidebar-nav-item"><a href="auth/register.html" class="sidebar-link"><i
+                            class="fas fa-user-plus"></i><span data-translate="sidebar_signup">Sign up</span></a></li>
             </ul>
         </div>
         <div id="sidebar-user-content" style="display: none;">
             <ul class="sidebar-nav">
-                <li class="sidebar-nav-item"><a href="profile/profile.html" class="sidebar-link"><i class="fas fa-user"></i><span data-translate="sidebar_profile">Profile</span></a></li>
-                <li class="sidebar-nav-item"><a href="#" class="sidebar-link" onclick="logout(); return false;"><i class="fas fa-sign-out-alt"></i><span data-translate="sidebar_logout">Logout</span></a></li>
+                <li class="sidebar-nav-item"><a href="profile/profile.html" class="sidebar-link"><i
+                            class="fas fa-user"></i><span data-translate="sidebar_profile">Profile</span></a></li>
+                <li class="sidebar-nav-item"><a href="#" class="sidebar-link" onclick="logout(); return false;"><i
+                            class="fas fa-sign-out-alt"></i><span data-translate="sidebar_logout">Logout</span></a></li>
             </ul>
         </div>
     </div>
@@ -183,11 +199,13 @@
         <!-- Hero Section -->
         <section class="hero container">
             <div class="hero-badge">
-                <i class="fas fa-bolt"></i> <span data-translate="hero_badge">Master the cube faster than ever before!</span>
+                <i class="fas fa-bolt"></i> <span data-translate="hero_badge">Master the cube faster than ever
+                    before!</span>
             </div>
             <h1 class="hero-title" data-translate="hero_title">The Ultimate Training Platform for Speedcubers.</h1>
             <p class="hero-description" data-translate="hero_description">
-                CubeZila provides precision timing, comprehensive algorithm libraries, and advanced analytics to help you break your personal bests.
+                CubeZila provides precision timing, comprehensive algorithm libraries, and advanced analytics to help
+                you break your personal bests.
             </p>
             <div class="hero-cta">
                 <a href="timer/timer.html" class="btn">
@@ -210,22 +228,26 @@
         <!-- Features Section -->
         <section id="features" class="section container">
             <h2 class="section-title" data-translate="features_title">Tools Built for Peak Performance.</h2>
-            <p class="section-subtitle" data-translate="features_subtitle">From beginners learning F2L to experts mastering ZBLL, we have the resources you need.</p>
+            <p class="section-subtitle" data-translate="features_subtitle">From beginners learning F2L to experts
+                mastering ZBLL, we have the resources you need.</p>
             <div class="features-grid">
                 <div class="feature-card">
                     <i class="cubing-icon event-clock feature-icon"></i>
                     <h3 data-translate="feature_timer_title">Competition-Grade Timer</h3>
-                    <p data-translate="feature_timer_desc">Accurate timing, customizable inspection, and detailed session statistics for every solve.</p>
+                    <p data-translate="feature_timer_desc">Accurate timing, customizable inspection, and detailed
+                        session statistics for every solve.</p>
                 </div>
                 <div class="feature-card">
                     <i class="fas fa-book-open feature-icon"></i>
                     <h3 data-translate="feature_algs_title">Massive Algorithm Library</h3>
-                    <p data-translate="feature_algs_desc">Explore thousands of algorithms for 2x2, 3x3, Pyraminx, and more, complete with visual aids.</p>
+                    <p data-translate="feature_algs_desc">Explore thousands of algorithms for 2x2, 3x3, Pyraminx, and
+                        more, complete with visual aids.</p>
                 </div>
                 <div class="feature-card">
                     <i class="fas fa-chart-area feature-icon"></i>
                     <h3 data-translate="feature_analytics_title">Advanced Analytics</h3>
-                    <p data-translate="feature_analytics_desc">Track Ao5, Ao12, and custom averages. Identify weaknesses and monitor your progress over time.</p>
+                    <p data-translate="feature_analytics_desc">Track Ao5, Ao12, and custom averages. Identify weaknesses
+                        and monitor your progress over time.</p>
                 </div>
             </div>
         </section>
@@ -237,19 +259,22 @@
                 <div class="step">
                     <div class="step-number">1</div>
                     <h3 data-translate="step1_title">Time</h3>
-                    <p data-translate="step1_desc">Use our precise timer to record your solves and generate accurate scrambles.</p>
+                    <p data-translate="step1_desc">Use our precise timer to record your solves and generate accurate
+                        scrambles.</p>
                 </div>
                 <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
                 <div class="step">
                     <div class="step-number">2</div>
                     <h3 data-translate="step2_title">Analyze</h3>
-                    <p data-translate="step2_desc">Review your statistics and use advanced tools to pinpoint areas for improvement.</p>
+                    <p data-translate="step2_desc">Review your statistics and use advanced tools to pinpoint areas for
+                        improvement.</p>
                 </div>
                 <div class="step-arrow"><i class="fas fa-arrow-right"></i></div>
                 <div class="step">
                     <div class="step-number">3</div>
                     <h3 data-translate="step3_title">Master</h3>
-                    <p data-translate="step3_desc">Drill specific cases using our algorithm trainer and watch your times drop.</p>
+                    <p data-translate="step3_desc">Drill specific cases using our algorithm trainer and watch your times
+                        drop.</p>
                 </div>
             </div>
         </section>
@@ -259,14 +284,16 @@
             <h2 class="section-title" data-translate="testimonials_title">Trusted by the cubing community.</h2>
             <div class="testimonials-grid">
                 <div class="testimonial-card">
-                    <p data-translate="testimonial1_quote">"The best online timer I've used. The ability to track specific algorithm progress is invaluable."</p>
+                    <p data-translate="testimonial1_quote">"The best online timer I've used. The ability to track
+                        specific algorithm progress is invaluable."</p>
                     <div class="testimonial-author">
                         <img src="/img/noprof.png" alt="User">
                         <span data-translate="testimonial1_author">- Sarah K.</span>
                     </div>
                 </div>
                 <div class="testimonial-card">
-                    <p data-translate="testimonial2_quote">"I went from sub-30 to sub-20 in two months thanks to the structured learning paths here."</p>
+                    <p data-translate="testimonial2_quote">"I went from sub-30 to sub-20 in two months thanks to the
+                        structured learning paths here."</p>
                     <div class="testimonial-author">
                         <img src="/img/noprof.png" alt="User">
                         <span data-translate="testimonial2_author">- David L.</span>
@@ -279,8 +306,39 @@
         <section id="cta" class="section container">
             <div class="cta-content">
                 <h2 data-translate="cta_final_title">Stop timing, start training.</h2>
-                <p data-translate="cta_final_desc">Join CubeZila today and unlock the tools that will redefine your speedcubing journey.</p>
-                <a href="auth/register.html" class="btn btn-large" data-translate="cta_final_button">Start Your Free Account</a>
+                <p data-translate="cta_final_desc">Join CubeZila today and unlock the tools that will redefine your
+                    speedcubing journey.</p>
+                <a href="auth/register.html" class="btn btn-large" data-translate="cta_final_button">Start Your Free
+                    Account</a>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section container">
+            <h2 class="section-title" data-translate="contact_title">Get in Touch</h2>
+            <div class="contact-grid">
+                <div class="contact-info-card">
+                    <i class="fas fa-envelope contact-icon"></i>
+                    <h3 data-translate="contact_email">Email</h3>
+                    <p><a href="mailto:mostafafafa6@gmail.com">mostafafafa6@gmail.com</a></p>
+                </div>
+                <div class="contact-info-card">
+                    <i class="fas fa-phone contact-icon"></i>
+                    <h3 data-translate="contact_phone">Phone</h3>
+                    <p><a href="tel:+201225932280">+201225932280</a></p>
+                </div>
+                <div class="contact-info-card">
+                    <i class="fas fa-share-nodes contact-icon"></i>
+                    <h3 data-translate="contact_socials">Social Media</h3>
+                    <div class="contact-socials">
+                        <a href="https://www.tiktok.com/@dailytifa" target="_blank" aria-label="TikTok"><i
+                                class="fab fa-tiktok"></i></a>
+                        <a href="https://www.youtube.com/@Mostafa_Eldiwany" target="_blank" aria-label="YouTube"><i
+                                class="fab fa-youtube"></i></a>
+                        <a href="https://www.instagram.com/daily_tifa1234/" target="_blank" aria-label="Instagram"><i
+                                class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
             </div>
         </section>
     </main>
@@ -289,25 +347,33 @@
     <footer>
         <div class="container footer-container">
             <p class="copyright" data-translate="footer_copyright">
-                © 2025 CubeZila. All rights reserved.
+                © 2026 CubeZila. All rights reserved.
             </p>
+            <div class="footer-links">
+                <a href="refund-policy.html" data-translate="footer_refund_policy">Refund Policy</a>
+            </div>
             <div class="social-links">
-                <a href="https://www.tiktok.com/@dailytifa" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
-                <a href="https://www.youtube.com/@Mostafa_Eldiwany" target="_blank" rel="noopener noreferrer" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-                <a href="https://www.instagram.com/daily_tifa1234/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.worldcubeassociation.org/persons/2024ELDI01" target="_blank" rel="noopener noreferrer" aria-label="WCA"><i class="fas fa-cube"></i></a>
+                <a href="https://www.tiktok.com/@dailytifa" target="_blank" rel="noopener noreferrer"
+                    aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                <a href="https://www.youtube.com/@Mostafa_Eldiwany" target="_blank" rel="noopener noreferrer"
+                    aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.instagram.com/daily_tifa1234/" target="_blank" rel="noopener noreferrer"
+                    aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.worldcubeassociation.org/persons/2024ELDI01" target="_blank"
+                    rel="noopener noreferrer" aria-label="WCA"><i class="fas fa-cube"></i></a>
             </div>
         </div>
     </footer>
     <script>
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js')
-            .then(registration => console.log('ServiceWorker registration successful'))
-            .catch(err => console.log('ServiceWorker registration failed: ', err));
-        });
-      }
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(registration => console.log('ServiceWorker registration successful'))
+                    .catch(err => console.log('ServiceWorker registration failed: ', err));
+            });
+        }
     </script>
     <script src="js/index.js"></script>
 </body>
+
 </html>

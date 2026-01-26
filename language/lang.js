@@ -43,8 +43,15 @@ export const translations = {
         cta_final_title: "Stop timing, start training.",
         cta_final_desc: "Join CubeZila today and unlock the tools that will redefine your speedcubing journey.",
         cta_final_button: "Start Your Free Account",
-        footer_copyright: "© 2025 CubeZila. All rights reserved.",
+        footer_copyright: "© 2026 CubeZila. All rights reserved.",
         lang_toggle: "AR", // Display AR text when currently in English
+        nav_contact: "Contact",
+        sidebar_contact: "Contact",
+        contact_title: "Get in Touch",
+        contact_email: "Email",
+        contact_phone: "Phone",
+        contact_socials: "Social Media",
+        footer_refund_policy: "Refund Policy",
 
         // Auth Pages
         auth_back_home: "Back to Home",
@@ -107,7 +114,7 @@ export const translations = {
         pricing_modal_step3: "Enjoy instant access to all Pro features!",
         pricing_modal_confirm: "Go to Checkout",
         pricing_modal_cancel: "Maybe Later",
-        
+
         // Algorithm Dashboard
         alg_dash_title: "Algorithms",
         cube3x3Title: "3x3",
@@ -143,7 +150,7 @@ export const translations = {
         press_space_to_start: "Press space to start timing",
         reset_solves_title: "Reset All Solves",
         solve_details_title: "Solve Details",
-        
+
         // 3x3 Specific Descriptions (Keeping existing keys)
         oneLookOLL: "1-LOOK-OLL",
         onelookolldescription: "1-Look OLL (Orientation of Last Layer) is an advanced method that orients all pieces of the last layer in a single step. With 57 algorithms to learn, it's a significant undertaking that can greatly improve solving speed. While more challenging than 2-Look OLL, mastering these algorithms will eliminate the need for multiple steps when orienting the last layer.",
@@ -159,13 +166,13 @@ export const translations = {
         ZBLL: "ZBLL",
         zblldescription: "ZBLL (Zborowski-Bruchem Last Layer) is an advanced method for solving the last layer of the 3x3 cube in a single step, after orienting all edges (EOLL). With 472 algorithms, it's a comprehensive system that eliminates the need for separate OLL and PLL steps, significantly reducing solve times for experienced cubers.",
         zblsdescription: "ZBLS (short for Zborowski-Bruchem Last Slot, earlier called ZBF2L), also known with the more descriptive name EOLS (short for Edge Orientation Last Slot), is a 3x3 speedsolving substep to simultaneously solve the last corner-edge pair in F2L and orient the last layer edges. Originally proposed as part of the ZB method, it can occasionally be useful for methods such as Fridrich or for Fewest Moves.",
-        
+
         // 2x2 Specific Descriptions
         ortegaolldescription: "OLL (Orientation of the Last Layer) is a step in solving the 2x2 cube where the yellow face is oriented using one of seven simple algorithms. Unlike the 3x3 cube, which has numerous OLL cases, the 2x2 cube's simplicity allows you to master these algorithms and solve any OLL case quickly and efficiently.",
         ortegapbldescription: "PBL (Permutation of Both Layers) solves the last step of the Ortega method for the 2x2 cube by simultaneously permuting both the top and bottom layers. It involves recognizing specific patterns and applying one of a few algorithms to complete the solve efficiently.",
         clldescription: "CLL (Corners of the Last Layer) is a step in solving the 2x2 cube where all last-layer corners are simultaneously solved using one of 40 specific algorithms. Mastering CLL allows for faster solutions by eliminating the need for additional steps, making it a key technique for speedcubers aiming for efficient and advanced solves.",
         eg1description: "EG-1 is an advanced method for solving the 2x2 cube when the first face has a solved layer with incorrect permutation. It consists of 42 algorithms divided into 7 different subsets: S, AS, PI, U, L, T, and H. Learning EG-1 can significantly improve your solving speed by allowing you to solve the cube in just two looks.",
-        
+
         // Pyraminx Specific Descriptions
         l3edescription: "Pyraminx Last-Layer is an intermidate method for solving the last layer of the pyraminx after finishing the V shape. It consists of 5 algorithms.",
         l4edescription: "L4E is an efficient method for solving the Pyraminx after creating a V shape on the bottom face. Instead of solving a complete layer like in beginner methods, L4E lets you solve the remaining 4 edges in a single step, making it a faster intermediate solving approach.",
@@ -214,8 +221,15 @@ export const translations = {
         cta_final_title: "توقف عن التوقيت، وابدأ التدريب.",
         cta_final_desc: "انضم إلى CubeZila اليوم وافتح الأدوات التي ستعيد تعريف رحلتك في السرعة.",
         cta_final_button: "ابدأ حسابك المجاني",
-        footer_copyright: " 2025 كيوبزيلا. جميع الحقوق محفوظة.",
+        footer_copyright: " 2026 كيوبزيلا. جميع الحقوق محفوظة.",
         lang_toggle: "EN", // Display EN text when currently in Arabic
+        nav_contact: "اتصل بنا",
+        sidebar_contact: "اتصل بنا",
+        contact_title: "تواصل معنا",
+        contact_email: "البريد الإلكتروني",
+        contact_phone: "الهاتف",
+        contact_socials: "وسائل التواصل الاجتماعي",
+        footer_refund_policy: "سياسة الاسترجاع",
 
         // Auth Pages
         auth_back_home: "العودة إلى الرئيسية",
@@ -330,13 +344,13 @@ export const translations = {
         ZBLL: "ZBLL",
         zblldescription: "ZBLL (Zborowski-Bruchem Last Layer) هي طريقة متقدمة لحل الطبقة الأخيرة من مكعب 3x3 في خطوة واحدة، بعد توجيه جميع الحواف (EOLL). مع 472 خوارزمية، يعد نظامًا شاملاً يلغي الحاجة إلى خطوات OLL و PLL منفصلة، مما يقلل بشكل كبير من أوقات الحل للممارسين ذوي الخبرة.",
         zblsdescription: "ZBLS (اختصار لـ Zborowski-Bruchem Last Slot، والتي كانت تسمى سابقًا ZBF2L)، والمعروفة أيضًا بالاسم الأكثر وصفًا EOLS (اختصار لـ Edge Orientation Last Slot)، هي خطوة فرعية لحل مكعب 3x3 بسرعة لحل الزوج الأخير من الزاوية والحافة في F2L وتوجيه حواف الطبقة الأخيرة في وقت واحد. تم اقتراحها في الأصل كجزء من طريقة ZB، ويمكن أن تكون مفيدة في بعض الأحيان لطرق مثل فريدريش أو لأقل عدد من الحركات.",
-        
+
         // 2x2 Specific Descriptions
         ortegaolldescription: "OLL (توجيه الطبقة الأخيرة) هي خطوة في حل مكعب 2x2 حيث يتم توجيه الوجه الأصفر باستخدام واحدة من سبع خوارزميات بسيطة. على عكس مكعب 3x3، الذي يحتوي على العديد من حالات OLL، فإن بساطة مكعب 2x2 تسمح لك بإتقان هذه الخوارزميات وحل أي حالة OLL بسرعة وكفاءة.",
         ortegapbldescription: "PBL (تبديل كلتا الطبقتين) تحل الخطوة الأخيرة من طريقة أورتيغا لمكعب 2x2 عن طريق تبديل كلتا الطبقتين العلوية والسفلية في وقت واحد. يتضمن ذلك التعرف على أنماط محددة وتطبيق خوارزمية واحدة من بضع خوارزميات لإكمال الحل بكفاءة.",
         clldescription: "CLL (زوايا الطبقة الأخيرة) هي خطوة في حل مكعب 2x2 حيث يتم حل جميع زوايا الطبقة الأخيرة في وقت واحد باستخدام واحدة من 40 خوارزمية محددة. يتيح إتقان CLL حلولًا أسرع عن طريق إلغاء الحاجة إلى خطوات إضافية، مما يجعلها تقنية رئيسية لممارسي السرعة الذين يسعون إلى حلول فعالة ومتقدمة.",
         eg1description: "EG-1 هي طريقة متقدمة لحل مكعب 2x2 عندما يكون الوجه الأول يحتوي على طبقة محلولة بتبديل غير صحيح. تتكون من 42 خوارزمية مقسمة إلى 7 مجموعات فرعية مختلفة: S، AS، PI، U، L، T، و H. يمكن أن يؤدي تعلم EG-1 إلى تحسين سرعة الحل بشكل كبير من خلال السماح لك بحل المكعب في نظرتين فقط.",
-        
+
         // Pyraminx Specific Descriptions
         l3edescription: "الطبقة الأخيرة للبيرامينكس هي طريقة متوسطة لحل الطبقة الأخيرة من البيرامينكس بعد الانتهاء من شكل V. تتكون من 5 خوارزميات.",
         l4edescription: "L4E هي طريقة فعالة لحل البيرامينكس بعد إنشاء شكل V على الوجه السفلي. بدلاً من حل طبقة كاملة كما في طرق المبتدئين، تتيح لك L4E حل الحواف الأربعة المتبقية في خطوة واحدة، مما يجعلها نهج حل متوسط أسرع.",

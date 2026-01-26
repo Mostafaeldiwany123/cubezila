@@ -10,8 +10,10 @@ html {
 }
 
 body {
-    background-color: var(--background-color); /* Use var */
-    color: var(--text-color); /* Use var */
+    background-color: var(--background-color);
+    /* Use var */
+    color: var(--text-color);
+    /* Use var */
     font-family: var(--font-family-body);
     overflow-x: hidden;
     min-height: 100vh;
@@ -28,7 +30,8 @@ body::before {
     right: 0;
     height: 50vh;
     /* Using a subtle color from the dark theme for the radial gradient */
-    background: radial-gradient(ellipse at top, rgba(78, 115, 223, 0.2), transparent 70%); /* Based on --primary-color in dark theme */
+    background: radial-gradient(ellipse at top, rgba(78, 115, 223, 0.2), transparent 70%);
+    /* Based on --primary-color in dark theme */
     z-index: -2;
     opacity: 0.5;
     pointer-events: none;
@@ -52,15 +55,22 @@ header {
     padding: 0 4%;
     display: flex;
     align-items: center;
-    background: var(--header-bg); /* Using a transparent version of --container-bg (dark theme) */
+    background: var(--header-bg);
+    /* Using a transparent version of --container-bg (dark theme) */
     backdrop-filter: blur(10px);
-    border-bottom: 2px solid var(--border-color); /* Use var */
+    border-bottom: 2px solid var(--border-color);
+    /* Use var */
     animation: slideDown 0.5s ease-out;
 }
 
 @keyframes slideDown {
-    from { transform: translateY(-100%); }
-    to { transform: translateY(0); }
+    from {
+        transform: translateY(-100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
 }
 
 .header-container {
@@ -75,13 +85,15 @@ header {
     align-items: center;
     gap: 10px;
     text-decoration: none;
-    color: var(--text-color); /* Use var */
+    color: var(--text-color);
+    /* Use var */
     font-weight: 600;
     font-size: 20px;
 }
 
 .logo i {
-    color: var(--primary-color); /* Use var */
+    color: var(--primary-color);
+    /* Use var */
     font-size: 24px;
 }
 
@@ -98,7 +110,8 @@ header nav {
 }
 
 .nav-links a {
-    color: var(--text-light); /* Use var */
+    color: var(--text-light);
+    /* Use var */
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
@@ -106,7 +119,8 @@ header nav {
 }
 
 .nav-links a:hover {
-    color: var(--text-color); /* Use var */
+    color: var(--text-color);
+    /* Use var */
 }
 
 .auth-buttons {
@@ -132,40 +146,52 @@ header nav {
 }
 
 .btn {
-    background-color: var(--button-color); /* Use var (White/Light in dark theme) */
-    color: var(--background-color); /* Dark text on light button */
+    background-color: var(--button-color);
+    /* Use var (White/Light in dark theme) */
+    color: var(--background-color);
+    /* Dark text on light button */
 }
 
 .btn:hover {
-    background-color: var(--hover-bg); /* Use var */
+    background-color: var(--hover-bg);
+    /* Use var */
 }
 
 .btn-secondary {
-    background-color: var(--highlight-bg); /* Use var */
-    color: var(--text-color); /* Use var */
-    border: 1px solid var(--border-color); /* Use var */
+    background-color: var(--highlight-bg);
+    /* Use var */
+    color: var(--text-color);
+    /* Use var */
+    border: 1px solid var(--border-color);
+    /* Use var */
 }
 
 .btn-secondary:hover {
-    background-color: var(--hover-bg); /* Use var */
-    border-color: var(--primary-color); /* Use var */
+    background-color: var(--hover-bg);
+    /* Use var */
+    border-color: var(--primary-color);
+    /* Use var */
 }
 
 .btn-large {
     padding: 15px 30px;
     font-size: 1.1rem;
-    background: var(--button-color); /* Use var */
-    color: var(--background-color); /* Dark text on light button */
+    background: var(--button-color);
+    /* Use var */
+    color: var(--background-color);
+    /* Dark text on light button */
 }
 
 .btn-large:hover {
-    background: var(--hover-bg); /* Use var */
+    background: var(--hover-bg);
+    /* Use var */
 }
 
 /* Main Content */
 main {
     flex: 1;
-    padding-top: 70px; /* Header height */
+    padding-top: 70px;
+    /* Header height */
 }
 
 /* Hero Section */
@@ -180,8 +206,15 @@ main {
 }
 
 @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .hero-badge {
@@ -190,14 +223,18 @@ main {
     gap: 8px;
     padding: 6px 12px;
     border-radius: 20px;
-    background: var(--highlight-bg); /* Use var */
-    border: 1px solid var(--border-color); /* Use var */
+    background: var(--highlight-bg);
+    /* Use var */
+    border: 1px solid var(--border-color);
+    /* Use var */
     font-size: 13px;
-    color: var(--secondary-text); /* Use var */
+    color: var(--secondary-text);
+    /* Use var */
 }
 
 .hero-badge i {
-    color: #2ECC71; /* Keep green for success/check */
+    color: #2ECC71;
+    /* Keep green for success/check */
 }
 
 .hero-title {
@@ -206,12 +243,14 @@ main {
     line-height: 1.1;
     max-width: 800px;
     letter-spacing: -1.5px;
-    color: var(--text-color); /* Use var */
+    color: var(--text-color);
+    /* Use var */
 }
 
 .hero-description {
     font-size: 1.1rem;
-    color: var(--text-light); /* Use var */
+    color: var(--text-light);
+    /* Use var */
     max-width: 550px;
     line-height: 1.6;
 }
@@ -227,7 +266,8 @@ main {
     align-items: center;
     gap: 10px;
     font-size: 13px;
-    color: var(--secondary-text); /* Use var */
+    color: var(--secondary-text);
+    /* Use var */
     margin-top: 10px;
 }
 
@@ -239,7 +279,8 @@ main {
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    border: 2px solid var(--background-color); /* Use var */
+    border: 2px solid var(--background-color);
+    /* Use var */
     margin-left: -8px;
 }
 
@@ -258,12 +299,14 @@ main {
     font-weight: 600;
     margin-bottom: 15px;
     letter-spacing: -1px;
-    color: var(--text-color); /* Use var */
+    color: var(--text-color);
+    /* Use var */
 }
 
 .section-subtitle {
     text-align: center;
-    color: var(--text-light); /* Use var */
+    color: var(--text-light);
+    /* Use var */
     max-width: 500px;
     margin: 0 auto 50px auto;
 }
@@ -277,32 +320,38 @@ main {
 }
 
 .feature-card {
-    background: var(--container-bg); /* Use var */
+    background: var(--container-bg);
+    /* Use var */
     padding: 30px;
     border-radius: 12px;
-    border: 1px solid var(--border-color); /* Use var */
+    border: 1px solid var(--border-color);
+    /* Use var */
     transition: var(--transition-smooth);
 }
 
 .feature-card:hover {
     transform: translateY(-5px);
-    border-color: var(--primary-color); /* Use var */
+    border-color: var(--primary-color);
+    /* Use var */
 }
 
 .feature-icon {
     font-size: 24px;
-    color: var(--primary-color); /* Use var */
+    color: var(--primary-color);
+    /* Use var */
     margin-bottom: 15px;
 }
 
 .feature-card h3 {
     font-size: 1.2rem;
     margin-bottom: 10px;
-    color: var(--text-color); /* Use var */
+    color: var(--text-color);
+    /* Use var */
 }
 
 .feature-card p {
-    color: var(--text-light); /* Use var */
+    color: var(--text-light);
+    /* Use var */
     line-height: 1.6;
 }
 
@@ -324,8 +373,10 @@ main {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    border: 2px solid var(--primary-color); /* Use var */
-    color: var(--primary-color); /* Use var */
+    border: 2px solid var(--primary-color);
+    /* Use var */
+    color: var(--primary-color);
+    /* Use var */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -336,16 +387,19 @@ main {
 .step h3 {
     font-size: 1.2rem;
     margin-bottom: 10px;
-    color: var(--text-color); /* Use var */
+    color: var(--text-color);
+    /* Use var */
 }
 
 .step p {
-    color: var(--text-light); /* Use var */
+    color: var(--text-light);
+    /* Use var */
 }
 
 .step-arrow {
     font-size: 1.5rem;
-    color: var(--border-color); /* Use var */
+    color: var(--border-color);
+    /* Use var */
     margin-top: 50px;
 }
 
@@ -358,15 +412,18 @@ main {
 }
 
 .testimonial-card {
-    background: var(--container-bg); /* Use var */
+    background: var(--container-bg);
+    /* Use var */
     padding: 30px;
     border-radius: 12px;
-    border: 1px solid var(--border-color); /* Use var */
+    border: 1px solid var(--border-color);
+    /* Use var */
 }
 
 .testimonial-card p {
     font-style: italic;
-    color: var(--secondary-text); /* Use var */
+    color: var(--secondary-text);
+    /* Use var */
     margin-bottom: 20px;
 }
 
@@ -384,7 +441,8 @@ main {
 
 .testimonial-author span {
     font-weight: 500;
-    color: var(--text-light); /* Use var */
+    color: var(--text-light);
+    /* Use var */
 }
 
 /* CTA Section */
@@ -394,7 +452,7 @@ main {
 
 .cta-content {
     /* Use primary gradient for CTA */
-    background: var(--gradient-primary); 
+    background: var(--gradient-primary);
     padding: 50px;
     border-radius: 15px;
     text-align: center;
@@ -403,19 +461,23 @@ main {
 .cta-content h2 {
     font-size: 2.2rem;
     margin-bottom: 15px;
-    color: #fff; /* Ensure text is white on gradient */
+    color: #fff;
+    /* Ensure text is white on gradient */
 }
 
 .cta-content p {
-    color: var(--secondary-text); /* Use a lighter text color for contrast */
+    color: var(--secondary-text);
+    /* Use a lighter text color for contrast */
     margin-bottom: 30px;
 }
 
 /* Footer */
 footer {
     padding: 30px 0;
-    background: var(--background-color); /* Use var */
-    border-top: 1px solid var(--border-color); /* Use var */
+    background: var(--background-color);
+    /* Use var */
+    border-top: 1px solid var(--border-color);
+    /* Use var */
 }
 
 .footer-container {
@@ -425,18 +487,23 @@ footer {
 }
 
 .copyright {
-    color: var(--secondary-text); /* Use var */
+    color: var(--secondary-text);
+    /* Use var */
     font-size: 14px;
 }
 
-.footer-links a, .social-links a {
-    color: var(--secondary-text); /* Use var */
+.footer-links a,
+.social-links a {
+    color: var(--secondary-text);
+    /* Use var */
     text-decoration: none;
     transition: color 0.3s ease;
 }
 
-.footer-links a:hover, .social-links a:hover {
-    color: var(--text-color); /* Use var */
+.footer-links a:hover,
+.social-links a:hover {
+    color: var(--text-color);
+    /* Use var */
 }
 
 .footer-links {
@@ -455,99 +522,169 @@ footer {
     header nav {
         display: none;
     }
+
     .features-grid {
         grid-template-columns: 1fr 1fr;
     }
 }
 
 @media (max-width: 768px) {
-    .mobile-menu-btn { display: block; }
-    .hero-title { font-size: 2.8rem; }
-    .features-grid, .testimonials-grid { grid-template-columns: 1fr; }
-    .steps-container { flex-direction: column; gap: 40px; }
-    .step-arrow { display: none; }
-    .footer-container { flex-direction: column; gap: 20px; }
+    .mobile-menu-btn {
+        display: block;
+    }
+
+    .hero-title {
+        font-size: 2.8rem;
+    }
+
+    .features-grid,
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .steps-container {
+        flex-direction: column;
+        gap: 40px;
+    }
+
+    .step-arrow {
+        display: none;
+    }
+
+    .footer-container {
+        flex-direction: column;
+        gap: 20px;
+    }
 }
 
 @media (max-width: 480px) {
-    .hero-title { font-size: 2.2rem; }
-    .hero-cta { flex-direction: column; width: 100%; }
-    .btn { width: 100%; }
-    .section-title { font-size: 2rem; }
-    .cta-content { padding: 30px; }
-    .cta-content h2 { font-size: 1.8rem; }
+    .hero-title {
+        font-size: 2.2rem;
+    }
+
+    .hero-cta {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .btn {
+        width: 100%;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .cta-content {
+        padding: 30px;
+    }
+
+    .cta-content h2 {
+        font-size: 1.8rem;
+    }
 }
 
 /* Mobile Sidebar and Dropdown styles */
-.mobile-menu-btn { 
-    display: none; 
-    background: none; 
-    border: none; 
-    color: var(--text-color); /* Use var */
-    font-size: 24px; 
-    cursor: pointer; 
+.mobile-menu-btn {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    /* Use var */
+    font-size: 24px;
+    cursor: pointer;
 }
-.mobile-sidebar { 
-    position: fixed; 
-    top: 0; 
-    left: -300px; 
-    width: 300px; 
-    height: 100%; 
-    background: var(--container-bg); /* Use var */
-    z-index: 105; 
-    transition: left 0.3s ease; 
-    padding: 20px; 
+
+.mobile-sidebar {
+    position: fixed;
+    top: 0;
+    left: -300px;
+    width: 300px;
+    height: 100%;
+    background: var(--container-bg);
+    /* Use var */
+    z-index: 105;
+    transition: left 0.3s ease;
+    padding: 20px;
 }
-.mobile-sidebar.active { left: 0; }
-.sidebar-overlay { 
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    width: 100%; 
-    height: 100%; 
-    background: rgba(0,0,0,0.5); 
-    z-index: 104; 
-    opacity: 0; 
-    visibility: hidden; 
-    transition: opacity 0.3s ease; 
+
+.mobile-sidebar.active {
+    left: 0;
 }
-.sidebar-overlay.active { opacity: 1; visibility: visible; }
-.sidebar-header { 
-    display: flex; 
-    justify-content: space-between; 
-    align-items: center; 
-    padding-bottom: 15px; 
-    border-bottom: 1px solid var(--border-color); /* Use var */
+
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 104;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
 }
-.sidebar-logo { 
-    color: var(--text-color); /* Use var */
-    text-decoration: none; 
-    font-size: 18px; 
-    font-weight: 600; 
-    display: flex; 
-    align-items: center; 
-    gap: 8px; 
+
+.sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
 }
-.sidebar-close { 
-    background: none; 
-    border: none; 
-    color: var(--text-color); /* Use var */
-    font-size: 20px; 
-    cursor: pointer; 
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+    /* Use var */
 }
-.sidebar-nav { list-style: none; margin-top: 20px; }
-.sidebar-link { 
-    display: block; 
-    padding: 12px 0; 
-    color: var(--secondary-text); /* Use var */
-    text-decoration: none; 
-    transition: color 0.3s ease; 
-    display: flex; 
-    align-items: center; 
-    gap: 12px; 
+
+.sidebar-logo {
+    color: var(--text-color);
+    /* Use var */
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
-.sidebar-link:hover { color: var(--text-color); }
-.sidebar-divider { height: 1px; background: var(--border-color); margin: 20px 0; }
+
+.sidebar-close {
+    background: none;
+    border: none;
+    color: var(--text-color);
+    /* Use var */
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.sidebar-nav {
+    list-style: none;
+    margin-top: 20px;
+}
+
+.sidebar-link {
+    display: block;
+    padding: 12px 0;
+    color: var(--secondary-text);
+    /* Use var */
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sidebar-link:hover {
+    color: var(--text-color);
+}
+
+.sidebar-divider {
+    height: 1px;
+    background: var(--border-color);
+    margin: 20px 0;
+}
 
 /* Dropdown Styles */
 .dropdown {
@@ -594,35 +731,47 @@ footer {
     transform: rotate(180deg);
 }
 
-.dropdown-menu { 
-    position: absolute; 
-    top: calc(100% + 10px); 
-    right: 0; 
-    background: var(--container-bg); /* Use var */
-    border: 1px solid var(--border-color); /* Use var */
-    border-radius: 8px; 
-    padding: 5px; 
-    min-width: 180px; 
-    opacity: 0; 
-    visibility: hidden; 
-    transform: translateY(10px); 
-    transition: all 0.3s ease; 
+.dropdown-menu {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    background: var(--container-bg);
+    /* Use var */
+    border: 1px solid var(--border-color);
+    /* Use var */
+    border-radius: 8px;
+    padding: 5px;
+    min-width: 180px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: all 0.3s ease;
     box-shadow: var(--box-shadow);
 }
-.dropdown.active .dropdown-menu { opacity: 1; visibility: visible; transform: translateY(0); }
-.dropdown-item { 
-    display: flex; 
-    align-items: center; 
-    gap: 10px; 
-    padding: 8px 12px; 
-    color: var(--secondary-text); /* Use var */
-    text-decoration: none; 
-    border-radius: 5px; 
+
+.dropdown.active .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    color: var(--secondary-text);
+    /* Use var */
+    text-decoration: none;
+    border-radius: 5px;
     font-size: 14px;
 }
-.dropdown-item:hover { 
-    background: var(--highlight-bg); /* Use var */
-    color: var(--text-color); /* Use var */
+
+.dropdown-item:hover {
+    background: var(--highlight-bg);
+    /* Use var */
+    color: var(--text-color);
+    /* Use var */
 }
 
 /* Theme Dropdown Styles */
@@ -659,4 +808,74 @@ footer {
     height: 16px;
     border-radius: 50%;
     border: 1px solid var(--border-color);
+}
+
+/* Contact Section */
+.contact-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    margin-top: 50px;
+}
+
+.contact-info-card {
+    background: var(--container-bg);
+    padding: 40px 30px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    text-align: center;
+    transition: var(--transition-smooth);
+}
+
+.contact-info-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--primary-color);
+}
+
+.contact-icon {
+    font-size: 32px;
+    color: var(--primary-color);
+    margin-bottom: 20px;
+}
+
+.contact-info-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    color: var(--text-color);
+}
+
+.contact-info-card p,
+.contact-info-card a {
+    color: var(--text-light);
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: color 0.3s ease;
+}
+
+.contact-info-card a:hover {
+    color: var(--primary-color);
+}
+
+.contact-socials {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+.contact-socials a {
+    font-size: 24px;
+    color: var(--text-light);
+    transition: all 0.3s ease;
+}
+
+.contact-socials a:hover {
+    color: var(--primary-color);
+    transform: scale(1.1);
+}
+
+@media (max-width: 992px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
 }
