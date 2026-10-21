@@ -7,6 +7,9 @@ function fixHTMLFiles(dir) {
   const files = fs.readdirSync(dir);
 
   files.forEach((file) => {
+    // Skip macOS resource fork files (._*) — they are read-only on Windows
+    if (file.startsWith("._")) return;
+
     const filePath = path.join(dir, file);
     const stats = fs.statSync(filePath);
 
@@ -22,8 +25,12 @@ function fixHTMLFiles(dir) {
 
       // content = content.replace(/<script\s+src="([^"]+)">/g, `<script src="$1" type="module">`);
 
-      fs.writeFileSync(filePath, content, "utf8");
-      console.log(`Checked: ${filePath}`);
+      try {
+        fs.writeFileSync(filePath, content, "utf8");
+        console.log(`Checked: ${filePath}`);
+      } catch (err) {
+        console.warn(`Skipped (permission denied): ${filePath}`);
+      }
     }
   });
 }
