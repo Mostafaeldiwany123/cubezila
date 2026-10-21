@@ -3,45 +3,491 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Profile - CubeZila</title>
-    <link rel="icon" type="image/png" href="../img/demo (2).png">
+    <title>Profile - cubezila</title>
+                <link rel="icon" type="image/png" href="../img/demo (2).png">
+    <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="../css/roots.css">
-    <link rel="stylesheet" href="profile.css">
-    <script src="../bg/theme.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../css/roots.css">
+<link rel="stylesheet" href="profile.css">
+<script src ="../bg/theme.js"></script>
+  
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GD9J5DTDPS"></script>
+    <script>
+      // Only load GA on cubezila.com
+      if (window.location.hostname === 'cubezila.com') {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){ dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        // ensure cookies are scoped to your domain
+        gtag('config', 'G-GD9J5DTDPS', {
+          'cookie_domain': 'cubezila.com'
+        });
+      }
+    </script>
 </head>
 <body>
-    <div class="profile-container">
-        <div class="profile-card">
-            <a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
-            <div class="profile-header">
-                <div class="avatar" id="userAvatar"></div>
-                <h2 id="userName">Loading...</h2>
+    <!-- Header -->
+    <header class="site-header">
+        <nav class="breadcrumb">
+            <a href="../index.html"><i class="fas fa-home"></i></a>
+            <i class="fas fa-chevron-right"></i>
+            <span>Profile</span>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <!-- Profile Header -->
+            <div class="card">
+                <div class="card-content" style="position: relative;">
+                    <div style="position: absolute; top: 1.5rem; right: 1.5rem; display: flex; gap: 0.5rem;"></div>
+                    <div class="profile-header">
+               <div class="avatar" id="userAvatar"></div> <!-- Changed to empty, will be filled by JS -->
+                        <div class="profile-info">
+                            <div class="profile-name">
+                                <span id="userName">Loading...</span>
+                            </div>
+                            <div class="profile-meta">
+                                <span id="userEmail">Loading...</span>
+                                <span id="memberSince" style="margin-left: 0.5rem;"></span>
+                            </div>
+                            <div class="stats-grid">
+                                <div class="stat-item">
+                                    <div class="stat-value text-blue" id="totalSolves">0</div>
+                                    <div class="stat-label">Total Solves</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value text-green" id="totalSessions">0</div>
+                                    <div class="stat-label">Total Sessions</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value text-purple" id="algsLearnt">0</div>
+                                    <div class="stat-label">Algs Learnt</div>
+                                </div>
+                                <div class="stat-item">
+                                    <div class="stat-value text-orange" id="dayStreak">0</div>
+                                    <div class="stat-label">Day Streak</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="profile-details">
-                <div class="detail-item">
-                    <span class="label"><i class="fas fa-envelope"></i> Email</span>
-                    <span class="value" id="userEmail">...</span>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <div class="tab-list">
+                    <button class="tab-trigger active" onclick="showTab('overview')">Overview</button>
+                    <button class="tab-trigger" onclick="showTab('records')">Personal Records</button>
+                    <button class="tab-trigger" onclick="showTab('algs-learnt')">Algs Learnt</button>
+                    <button class="tab-trigger" onclick="showTab('achievements')">Achievements</button>
                 </div>
-                <div class="detail-item">
-                    <span class="label"><i class="fas fa-user-shield"></i> Role</span>
-                    <span class="value" id="userRole">...</span>
+
+                <!-- Overview Tab -->
+                <div id="overview" class="tab-content active">
+                    <div class="grid grid-cols-3">
+                        <!-- Quick Stats -->
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <i class="fas fa-chart-bar"></i>
+                                    Quick Stats
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                                    <span class="text-light" style="font-size: 0.875rem;">Current Streak</span>
+                                    <span style="font-weight: 600;" id="overviewCurrentStreak">...</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                                    <span class="text-light" style="font-size: 0.875rem;">This Week</span>
+                                    <span style="font-weight: 600;" id="overviewThisWeek">...</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                                    <span class="text-light" style="font-size: 0.875rem;">This Month</span>
+                                    <span style="font-weight: 600;" id="overviewThisMonth">...</span>
+                                </div>
+                                <div style="margin-top: 1rem;">
+                                    <div style="display: flex; justify-content: space-between; font-size: 0.875rem; margin-bottom: 0.5rem;">
+                                        <span>Monthly Goal</span>
+                                        <span id="overviewMonthlyGoal">...</span>
+                                    </div>
+                                    <div class="progress">
+                                        <div class="progress-bar" id="overviewMonthlyGoalBar" style="width: 0%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Recent Performance -->
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <i class="fas fa-trending-up"></i>
+                                    Recent Performance
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
+                                    <span class="text-light" style="font-size: 0.875rem;">Last 5 Average</span>
+                                    <span style="font-weight: 600; color: var(--stats-value);" id="overviewLast5Avg">...</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.75rem;">
+                                    <span class="text-light" style="font-size: 0.875rem;">Last 12 Average</span>
+                                    <span style="font-weight: 600;" id="overviewLast12Avg">...</span>
+                                </div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 1rem;">
+                                    <span class="text-light" style="font-size: 0.875rem;">Session Average</span>
+                                    <span style="font-weight: 600;" id="overviewSessionAvg">...</span>
+                                </div>
+                                <div style="padding: 0.75rem; background-color: var(--hover-bg); border-radius: 6px; margin-top: 1rem;">
+                                    <div style="font-weight: 600; color: var(--stats-value); font-size: 0.875rem;">Improvement Trend</div>
+                                    <div style="color: var(--stats-value); font-size: 0.75rem;" id="overviewImprovementTrend">...</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Next Goals -->
+                        <div class="card">
+                            <div class="card-header">
+                                <div class="card-title">
+                                    <i class="fas fa-bullseye"></i>
+                                    Next Goals
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <button id="createGoalBtn" class="btn btn-primary" style="margin-bottom: 1rem;">Create Goal</button>
+                                <div id="userGoalsList"></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="detail-item">
-                    <span class="label"><i class="fas fa-calendar-alt"></i> Member Since</span>
-                    <span class="value" id="memberSince">...</span>
+
+                <!-- Personal Records Tab -->
+                <div id="records" class="tab-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <i class="fas fa-trophy"></i>
+                                Personal Records
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Event</th>
+                                        <th>Single</th>
+                                        <th>Average of 5</th>
+                                        <th>Average of 100</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="font-weight: 600;">3x3x3</td>
+                                        <td style="color: var(--success); font-weight: 600;">8.92</td>
+                                        <td style="color: var(--primary); font-weight: 600;">12.34</td>
+                                        <td style="color: var(--purple); font-weight: 600;">13.21</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 600;">2x2x2</td>
+                                        <td style="color: var(--success); font-weight: 600;">2.45</td>
+                                        <td style="color: var(--primary); font-weight: 600;">3.78</td>
+                                        <td style="color: var(--purple); font-weight: 600;">4.12</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 600;">4x4x4</td>
+                                        <td style="color: var(--success); font-weight: 600;">45.67</td>
+                                        <td style="color: var(--primary); font-weight: 600;">52.34</td>
+                                        <td style="color: var(--purple); font-weight: 600;">54.89</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 600;">5x5x5</td>
+                                        <td style="color: var(--success); font-weight: 600;">1:23.45</td>
+                                        <td style="color: var(--primary); font-weight: 600;">1:34.67</td>
+                                        <td style="color: var(--purple); font-weight: 600;">1:38.92</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 600;">Pyraminx</td>
+                                        <td style="color: var(--success); font-weight: 600;">4.23</td>
+                                        <td style="color: var(--primary); font-weight: 600;">6.78</td>
+                                        <td style="color: var(--purple); font-weight: 600;">7.45</td>
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: 600;">Skewb</td>
+                                        <td style="color: var(--success); font-weight: 600;">5.67</td>
+                                        <td style="color: var(--primary); font-weight: 600;">8.92</td>
+                                        <td style="color: var(--purple); font-weight: 600;">9.34</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Algs Learnt Tab -->
+                <div id="algs-learnt" class="tab-content">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">
+                                <i class="fas fa-brain"></i>
+                                Algorithms Learnt
+                            </div>
+                        </div>
+                        <div class="card-content">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Subset</th>
+                                        <th>Algs Learnt</th>
+                                        <th>Total Algs</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="algsLearntTableBody">
+                                    <!-- Populated by JS -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Achievements Tab -->
+                <div id="achievements" class="tab-content">
+                    <div class="grid grid-cols-2">
+                        <div class="achievement-card">
+                            <div class="achievement-icon text-yellow">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="achievement-content">
+                                <div class="achievement-title">Sub-10 Single</div>
+                                <div class="achievement-description">Achieved first sub-10 second solve</div>
+                                <div class="achievement-meta">
+                                    <i class="fas fa-star" style="color: var(--warning);"></i>
+                                    <span>Earned 2 weeks ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="achievement-card">
+                            <div class="achievement-icon text-blue">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                            <div class="achievement-content">
+                                <div class="achievement-title">1000 Solves</div>
+                                <div class="achievement-description">Completed 1000 total solves</div>
+                                <div class="achievement-meta">
+                                    <i class="fas fa-star" style="color: var(--warning);"></i>
+                                    <span>Earned 2 weeks ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="achievement-card">
+                            <div class="achievement-icon text-purple">
+                                <i class="fas fa-medal"></i>
+                            </div>
+                            <div class="achievement-content">
+                                <div class="achievement-title">Competition Debut</div>
+                                <div class="achievement-description">Participated in first competition</div>
+                                <div class="achievement-meta">
+                                    <i class="fas fa-star" style="color: var(--warning);"></i>
+                                    <span>Earned 2 weeks ago</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="achievement-card">
+                            <div class="achievement-icon text-green">
+                                <i class="fas fa-trending-up"></i>
+                            </div>
+                            <div class="achievement-content">
+                                <div class="achievement-title">Sub-15 Average</div>
+                                <div class="achievement-description">Achieved sub-15 average of 5</div>
+                                <div class="achievement-meta">
+                                    <i class="fas fa-star" style="color: var(--warning);"></i>
+                                    <span>Earned 2 weeks ago</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card" style="margin-top: 1.5rem;">
+                        <div class="card-header">
+                            <div class="card-title">Achievement Progress</div>
+                        </div>
+                        <div class="card-content">
+                            <div style="margin-bottom: 1rem;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span style="font-weight: 500; font-size: 0.875rem;">Consistency Master</span>
+                                    <span class="text-light" style="font-size: 0.875rem;">7/10 sub-15 solves in a row</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 70%;"></div>
+                                </div>
+                            </div>
+                            <div style="margin-bottom: 1rem;">
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span style="font-weight: 500; font-size: 0.875rem;">Speed Demon</span>
+                                    <span class="text-light" style="font-size: 0.875rem;">3/5 sub-10 singles</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 60%;"></div>
+                                </div>
+                            </div>
+                            <div>
+                                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                    <span style="font-weight: 500; font-size: 0.875rem;">Marathon Solver</span>
+                                    <span class="text-light" style="font-size: 0.875rem;">450/500 solves this month</span>
+                                </div>
+                                <div class="progress">
+                                    <div class="progress-bar" style="width: 90%;"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
-    <!-- Firebase SDKs -->
+    <!-- Goal Modal -->
+<div id="goalModal" class="goal-modal">
+    <div class="goal-modal-content">
+        <button id="closeGoalModal">&times;</button>
+        <h3>Create a Goal</h3>
+        <form id="goalForm">
+            <label>Session:
+                <select id="goalSession" required></select>
+            </label>
+            <label>Preset:
+                <select id="goalPreset" required>
+                    <option value="subAvg">Sub-X Average</option>
+                    <option value="subSingle">Sub-X Single</option>
+                    <option value="totalSolves">Total Solves</option>
+                </select>
+            </label>
+            <div id="goalPresetFields"></div>
+            <button type="submit" class="btn btn-primary">Save Goal</button>
+        </form>
+    </div>
+</div>
+
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
-    <!-- Modular Firebase Scripts -->
-    <script type="module" src="../js/firebase-config.js"></script>
-    <script type="module" src="../js/auth-service.js"></script>
-    <script type="module" src="profile.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script> <!-- Added Firestore SDK -->
+<!-- Modular Firebase Scripts -->
+<script type="module" src="../js/firebase-config.js"></script>
+<script type="module" src="../js/user-service.js"></script>
+<script type="module" src="../js/auth-service.js"></script>
+<script type="module" src="../auth/auth.js"></script>
+<script src="profile.js"></script>
+<script type="module" src="profile-auth.js"></script>
+    <script>
+// --- Overview Tab Dynamic Loader ---
+function getSolvesInRange(daysAgo) {
+    const sessions = JSON.parse(localStorage.getItem('cubeSessions_v2')) || {};
+    const now = new Date();
+    let count = 0;
+    for (const session of Object.values(sessions)) {
+        if (!Array.isArray(session.dates)) continue;
+        for (const d of session.dates) {
+            const date = new Date(d);
+            if (!isNaN(date)) {
+                const diff = (now - date) / (1000 * 60 * 60 * 24);
+                if (diff <= daysAgo) count++;
+            }
+        }
+    }
+    return count;
+}
+function getSolvesThisMonth() {
+    const sessions = JSON.parse(localStorage.getItem('cubeSessions_v2')) || {};
+    const now = new Date();
+    let count = 0;
+    for (const session of Object.values(sessions)) {
+        if (!Array.isArray(session.dates)) continue;
+        for (const d of session.dates) {
+            const date = new Date(d);
+            if (!isNaN(date) && date.getMonth() === now.getMonth() && date.getFullYear() === now.getFullYear()) {
+                count++;
+            }
+        }
+    }
+    return count;
+}
+function getRecentSessionTimes() {
+    const sessions = JSON.parse(localStorage.getItem('cubeSessions_v2')) || {};
+    let latest = null, latestKey = null;
+    for (const [k, v] of Object.entries(sessions)) {
+        if (!latest || (v.lastUpdated && v.lastUpdated > latest.lastUpdated)) {
+            latest = v;
+            latestKey = k;
+        }
+    }
+    if (!latest || !Array.isArray(latest.times)) return [];
+    return latest.times.filter(t => t !== 'DNF' && !isNaN(parseFloat(t))).map(parseFloat);
+}
+function average(arr) {
+    if (!arr.length) return null;
+    return arr.reduce((a, b) => a + b, 0) / arr.length;
+}
+function aoN(arr, N) {
+    if (arr.length < N) return null;
+    let best = null;
+    for (let i = 0; i <= arr.length - N; i++) {
+        const slice = arr.slice(i, i + N);
+        const mean = average(slice);
+        if (best === null || mean < best) best = mean;
+    }
+    return best;
+}
+function getImprovementTrend() {
+    // Compare this week's average to last week's
+    const sessions = JSON.parse(localStorage.getItem('cubeSessions_v2')) || {};
+    const now = new Date();
+    let thisWeek = [], lastWeek = [];
+    for (const session of Object.values(sessions)) {
+        if (!Array.isArray(session.dates) || !Array.isArray(session.times)) continue;
+        for (let i = 0; i < session.dates.length; i++) {
+            const d = new Date(session.dates[i]);
+            const t = parseFloat(session.times[i]);
+            if (isNaN(d) || isNaN(t)) continue;
+            const diff = (now - d) / (1000 * 60 * 60 * 24);
+            if (diff <= 7) thisWeek.push(t);
+            else if (diff > 7 && diff <= 14) lastWeek.push(t);
+        }
+    }
+    const avgThis = average(thisWeek);
+    const avgLast = average(lastWeek);
+    if (avgThis && avgLast) {
+        const diff = avgThis - avgLast;
+        return (diff < 0 ? '-' : '+') + Math.abs(diff).toFixed(2) + 's from last week';
+    }
+    return 'No data';
+}
+function updateOverviewTab() {
+    // Quick Stats
+    document.getElementById('overviewCurrentStreak').textContent = localStorage.getItem('cubeStreak') || '0';
+    document.getElementById('overviewThisWeek').textContent = getSolvesInRange(7);
+    const monthSolves = getSolvesThisMonth();
+    document.getElementById('overviewThisMonth').textContent = monthSolves;
+    const monthlyGoal = 300; // Or fetch from user settings
+    document.getElementById('overviewMonthlyGoal').textContent = monthSolves + '/' + monthlyGoal;
+    document.getElementById('overviewMonthlyGoalBar').style.width = Math.min(100, Math.round((monthSolves / monthlyGoal) * 100)) + '%';
+    // Recent Performance
+    const times = getRecentSessionTimes();
+    const ao5 = aoN(times, 5);
+    const ao12 = aoN(times, 12);
+    const avg = average(times);
+    document.getElementById('overviewLast5Avg').textContent = ao5 ? ao5.toFixed(2) + 's' : '—';
+    document.getElementById('overviewLast12Avg').textContent = ao12 ? ao12.toFixed(2) + 's' : '—';
+    document.getElementById('overviewSessionAvg').textContent = avg ? avg.toFixed(2) + 's' : '—';
+    document.getElementById('overviewImprovementTrend').textContent = getImprovementTrend();
+}
+document.addEventListener('DOMContentLoaded', updateOverviewTab);
+</script>
 </body>
 </html>
